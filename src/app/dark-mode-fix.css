@@ -1,0 +1,23 @@
+/* Dark Mode Border Fixes */
+.dark * {
+  --border-color: hsl(215 27.9% 16.5%);
+}
+
+.dark .border,
+.dark [class*="border"] {
+  border-color: var(--border-color) !important;
+}
+
+.dark header.border-b {
+  border-bottom-color: var(--border-color) !important;
+}
+
+.dark .rounded-xl {
+  border-color: var(--border-color) !important;
+}
+
+/* Specific fixes for card borders in dark mode */
+.dark .card,
+.dark [class*="bg-card"] {
+  border-color: var(--border-color) !important;
+}

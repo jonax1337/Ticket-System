@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app:*)",
+      "Bash(ls:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run lint)",
+      "Bash(rm:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(cp:*)",
+      "Bash(npx prisma:*)",
+      "Bash(curl:*)",
+      "Bash(npx:*)",
+      "WebFetch(domain:www.shadcn.io)"
+    ],
+    "deny": []
+  }
+}
