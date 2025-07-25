@@ -51,6 +51,13 @@ interface Ticket {
       name: string
       email: string
     }
+    attachments?: {
+      id: string
+      filename: string
+      filepath: string
+      mimetype: string
+      size: number
+    }[]
   }[]
 }
 

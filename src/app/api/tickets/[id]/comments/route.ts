@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { writeFile, mkdir } from 'fs/promises'
+import { join } from 'path'
+import { v4 as uuidv4 } from 'uuid'
 
 export async function POST(
   request: NextRequest,
@@ -14,16 +17,6 @@ export async function POST(
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
-      )
-    }
-
-    const { content, type = 'internal' } = await request.json()
-    // Wir ignorieren das type-Feld, da es noch nicht in der Datenbank vorhanden ist
-
-    if (!content || !content.trim()) {
-      return NextResponse.json(
-        { error: 'Comment content is required' },
-        { status: 400 }
       )
     }
 
@@ -41,12 +34,26 @@ export async function POST(
       )
     }
 
+    // Parse form data
+    const formData = await request.formData()
+    const content = formData.get('content') as string
+    const type = formData.get('type') as string || 'internal'
+    const fileCount = parseInt(formData.get('fileCount') as string || '0')
+
+    if (!content || !content.trim()) {
+      return NextResponse.json(
+        { error: 'Comment content is required' },
+        { status: 400 }
+      )
+    }
+
+    // Create comment first
     const comment = await prisma.comment.create({
       data: {
         content: content.trim(),
         ticketId: params.id,
         userId: session.user.id,
-        // type-Feld wurde noch nicht hinzugefügt
+        type: type,
       },
       include: {
         user: {
@@ -56,10 +63,70 @@ export async function POST(
             email: true,
           },
         },
+        attachments: true,
       },
     })
 
-    return NextResponse.json(comment)
+    // Handle file uploads
+    const attachments = []
+    for (let i = 0; i < fileCount; i++) {
+      const file = formData.get(`file_${i}`) as File
+      if (file && file.size > 0) {
+        // Validate file size (10MB limit)
+        if (file.size > 10 * 1024 * 1024) {
+          return NextResponse.json(
+            { error: `File ${file.name} is too large. Maximum size is 10MB.` },
+            { status: 400 }
+          )
+        }
+
+        // Generate unique filename
+        const fileExtension = file.name.split('.').pop()
+        const uniqueFilename = `${uuidv4()}.${fileExtension}`
+        
+        // Create upload path
+        const uploadDir = join(process.cwd(), 'public', 'uploads', 'attachments')
+        await mkdir(uploadDir, { recursive: true })
+        
+        const filePath = join(uploadDir, uniqueFilename)
+        const relativePath = `/uploads/attachments/${uniqueFilename}`
+
+        // Save file
+        const bytes = await file.arrayBuffer()
+        const buffer = Buffer.from(bytes)
+        await writeFile(filePath, buffer)
+
+        // Save attachment to database
+        const attachment = await prisma.commentAttachment.create({
+          data: {
+            filename: file.name,
+            filepath: relativePath,
+            mimetype: file.type,
+            size: file.size,
+            commentId: comment.id,
+          },
+        })
+
+        attachments.push(attachment)
+      }
+    }
+
+    // Return comment with attachments
+    const commentWithAttachments = await prisma.comment.findUnique({
+      where: { id: comment.id },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        attachments: true,
+      },
+    })
+
+    return NextResponse.json(commentWithAttachments)
   } catch (error) {
     console.error('Comment creation error:', error)
     return NextResponse.json(

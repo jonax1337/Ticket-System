@@ -37,6 +37,7 @@ export default async function TicketPage({ params }: TicketPageProps) {
               email: true,
             },
           },
+          attachments: true,
         },
         orderBy: {
           createdAt: 'asc',
