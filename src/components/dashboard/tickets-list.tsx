@@ -237,9 +237,6 @@ export default function TicketsList({ tickets }: TicketsListProps) {
                         <div className="font-medium text-sm leading-tight">
                           {ticket.subject}
                         </div>
-                        <div className="text-xs text-muted-foreground line-clamp-2">
-                          {ticket.description}
-                        </div>
                       </div>
                     </td>
                   <td className="p-4">

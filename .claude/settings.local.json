@@ -15,7 +15,8 @@
       "Bash(npx:*)",
       "WebFetch(domain:www.shadcn.io)",
       "Bash(npm run typecheck:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git clean:*)"
     ],
     "deny": []
   }
