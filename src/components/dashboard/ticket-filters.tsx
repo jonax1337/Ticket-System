@@ -15,36 +15,39 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { Button } from '@/components/ui/button'
-import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users } from 'lucide-react'
+import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp } from 'lucide-react'
 
-const statusColors = {
-  OPEN: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800',
-  IN_PROGRESS: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800',
-  CLOSED: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800',
-  ALL: ''
+interface CustomStatus {
+  id: string
+  name: string
+  icon: string
+  color: string
+  order: number
+  isDefault: boolean
 }
 
-const priorityColors = {
-  LOW: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800',
-  MEDIUM: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800',
-  HIGH: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800',
-  URGENT: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
-  ALL: ''
+interface CustomPriority {
+  id: string
+  name: string
+  icon: string
+  color: string
+  order: number
+  isDefault: boolean
 }
 
-const statusIcons = {
-  OPEN: <Circle className="h-4 w-4" />,
-  IN_PROGRESS: <Timer className="h-4 w-4" />,
-  CLOSED: <CheckCircle2 className="h-4 w-4" />,
-  ALL: null
-}
-
-const priorityIcons = {
-  LOW: <Clock className="h-4 w-4" />,
-  MEDIUM: <Timer className="h-4 w-4" />,
-  HIGH: <AlertCircle className="h-4 w-4" />,
-  URGENT: <AlertTriangle className="h-4 w-4" />,
-  ALL: null
+const getIconComponent = (iconName: string) => {
+  const iconMap: { [key: string]: any } = {
+    AlertCircle,
+    ArrowRight,
+    CheckCircle2,
+    Clock,
+    Timer,
+    AlertTriangle,
+    Circle,
+    Zap,
+    TrendingUp
+  }
+  return iconMap[iconName] || AlertCircle
 }
 
 interface User {
@@ -57,25 +60,42 @@ export default function TicketFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [users, setUsers] = useState<User[]>([])
+  const [statuses, setStatuses] = useState<CustomStatus[]>([])
+  const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const [searchValue, setSearchValue] = useState(searchParams.get('search') || '')
   const currentStatus = searchParams.get('status') || 'ALL'
   const currentPriority = searchParams.get('priority') || 'ALL'
   const currentAssigned = searchParams.get('assigned') || 'UNASSIGNED'
 
   useEffect(() => {
-    // Load users for assignment filter
-    const fetchUsers = async () => {
+    // Load users, statuses, and priorities
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/users')
-        if (response.ok) {
-          const userData = await response.json()
+        const [usersResponse, statusesResponse, prioritiesResponse] = await Promise.all([
+          fetch('/api/users'),
+          fetch('/api/statuses'),
+          fetch('/api/priorities')
+        ])
+        
+        if (usersResponse.ok) {
+          const userData = await usersResponse.json()
           setUsers(userData)
         }
+        
+        if (statusesResponse.ok) {
+          const statusData = await statusesResponse.json()
+          setStatuses(statusData)
+        }
+        
+        if (prioritiesResponse.ok) {
+          const priorityData = await prioritiesResponse.json()
+          setPriorities(priorityData)
+        }
       } catch (error) {
-        console.error('Failed to fetch users:', error)
+        console.error('Failed to fetch data:', error)
       }
     }
-    fetchUsers()
+    fetchData()
   }, [])
 
   const handleFilterChange = (key: string, value: string) => {
@@ -141,7 +161,7 @@ export default function TicketFilters() {
           defaultValue={currentStatus}
           onValueChange={(value) => handleFilterChange('status', value)}
         >
-          <SelectTrigger className={`w-[140px] ${statusColors[currentStatus as keyof typeof statusColors]}`}>
+          <SelectTrigger className={`w-[140px] ${currentStatus !== 'ALL' ? statuses.find(s => s.name === currentStatus)?.color || '' : ''}`}>
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
@@ -150,31 +170,24 @@ export default function TicketFilters() {
                 <span>All Status</span>
               </span>
             </SelectItem>
-            <SelectItem value="OPEN">
-              <span className="flex items-center gap-2">
-                {statusIcons.OPEN}
-                <span>Open</span>
-              </span>
-            </SelectItem>
-            <SelectItem value="IN_PROGRESS">
-              <span className="flex items-center gap-2">
-                {statusIcons.IN_PROGRESS}
-                <span>In Progress</span>
-              </span>
-            </SelectItem>
-            <SelectItem value="CLOSED">
-              <span className="flex items-center gap-2">
-                {statusIcons.CLOSED}
-                <span>Closed</span>
-              </span>
-            </SelectItem>
+            {statuses.map((status) => {
+              const IconComponent = getIconComponent(status.icon)
+              return (
+                <SelectItem key={status.id} value={status.name}>
+                  <span className="flex items-center gap-2">
+                    <IconComponent className="h-4 w-4" />
+                    <span>{status.name}</span>
+                  </span>
+                </SelectItem>
+              )
+            })}
           </SelectContent>
         </Select>
         <Select
           defaultValue={currentPriority}
           onValueChange={(value) => handleFilterChange('priority', value)}
         >
-          <SelectTrigger className={`w-[140px] ${priorityColors[currentPriority as keyof typeof priorityColors]}`}>
+          <SelectTrigger className={`w-[140px] ${currentPriority !== 'ALL' ? priorities.find(p => p.name === currentPriority)?.color || '' : ''}`}>
             <SelectValue placeholder="All Priority" />
           </SelectTrigger>
           <SelectContent>
@@ -183,30 +196,17 @@ export default function TicketFilters() {
                 <span>All Priority</span>
               </span>
             </SelectItem>
-            <SelectItem value="LOW">
-              <span className="flex items-center gap-2">
-                {priorityIcons.LOW}
-                <span>Low</span>
-              </span>
-            </SelectItem>
-            <SelectItem value="MEDIUM">
-              <span className="flex items-center gap-2">
-                {priorityIcons.MEDIUM}
-                <span>Medium</span>
-              </span>
-            </SelectItem>
-            <SelectItem value="HIGH">
-              <span className="flex items-center gap-2">
-                {priorityIcons.HIGH}
-                <span>High</span>
-              </span>
-            </SelectItem>
-            <SelectItem value="URGENT">
-              <span className="flex items-center gap-2">
-                {priorityIcons.URGENT}
-                <span>Urgent</span>
-              </span>
-            </SelectItem>
+            {priorities.map((priority) => {
+              const IconComponent = getIconComponent(priority.icon)
+              return (
+                <SelectItem key={priority.id} value={priority.name}>
+                  <span className="flex items-center gap-2">
+                    <IconComponent className="h-4 w-4" />
+                    <span>{priority.name}</span>
+                  </span>
+                </SelectItem>
+              )
+            })}
           </SelectContent>
         </Select>
         <Combobox

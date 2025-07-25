@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma'
 import TicketsList from '@/components/dashboard/tickets-list'
 import TicketFilters from '@/components/dashboard/ticket-filters'
 import { CreateTicketDialog } from '@/components/dashboard/create-ticket-dialog'
-import { TicketStatus, Priority } from '@prisma/client'
+// Removed enum imports - now using dynamic string values
 import {
   Card,
   CardContent,
@@ -15,8 +15,8 @@ import { Badge } from '@/components/ui/badge'
 
 interface DashboardPageProps {
   searchParams: Promise<{
-    status?: TicketStatus
-    priority?: Priority
+    status?: string
+    priority?: string
     search?: string
     assigned?: string
   }>

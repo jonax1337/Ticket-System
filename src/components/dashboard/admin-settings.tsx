@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Palette, Save, Type, Image, Pipette } from 'lucide-react'
+import { Palette, Save, Type, Image, Pipette, Settings } from 'lucide-react'
 
 // Helper function to convert hex to HSL
 function hexToHsl(hex: string): string {
@@ -45,8 +45,8 @@ function hexToHsl(hex: string): string {
 interface SystemSettings {
   id: string
   appName: string
-  slogan?: string
-  logoUrl?: string
+  slogan?: string | null
+  logoUrl?: string | null
   hideAppName?: boolean
   themeColor: string
   createdAt: Date
@@ -200,7 +200,10 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
                     className="h-12 w-auto object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none'
-                      e.currentTarget.nextElementSibling!.style.display = 'block'
+                      const nextElement = e.currentTarget.nextElementSibling as HTMLElement
+                      if (nextElement) {
+                        nextElement.style.display = 'block'
+                      }
                     }}
                   />
                   <div className="text-sm text-muted-foreground hidden">
@@ -213,7 +216,7 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
                 <Checkbox
                   id="hideAppName"
                   checked={hideAppName}
-                  onCheckedChange={setHideAppName}
+                  onCheckedChange={(checked) => setHideAppName(checked === true)}
                 />
                 <Label htmlFor="hideAppName" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   Hide Application Name
@@ -337,6 +340,39 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
           <p className="text-sm text-muted-foreground">
             Click on a preset color or create a custom one. Changes will be applied immediately.
           </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Settings className="h-5 w-5" />
+            Workflow Management
+          </CardTitle>
+          <CardDescription>
+            Manage custom statuses and priorities for your tickets.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Configure custom ticket statuses and priorities to match your team's workflow. These will be available in all ticket dropdowns.
+          </p>
+          <div className="flex gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => router.push('/dashboard/admin/workflow/statuses')}
+              className="flex-1"
+            >
+              Manage Statuses
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => router.push('/dashboard/admin/workflow/priorities')}
+              className="flex-1"
+            >
+              Manage Priorities
+            </Button>
+          </div>
         </CardContent>
       </Card>
 

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { TicketStatus, Priority } from '@prisma/client'
+// Removed enum imports - now using dynamic string values
 
 interface User {
   id: string
@@ -14,8 +14,8 @@ interface User {
 
 interface Ticket {
   id: string
-  status: TicketStatus
-  priority: Priority
+  status: string
+  priority: string
   assignedTo: {
     id: string
     name: string
@@ -36,7 +36,7 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  const handleStatusChange = async (status: TicketStatus) => {
+  const handleStatusChange = async (status: string) => {
     setIsLoading(true)
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
@@ -57,7 +57,7 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
     }
   }
 
-  const handlePriorityChange = async (priority: Priority) => {
+  const handlePriorityChange = async (priority: string) => {
     setIsLoading(true)
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {

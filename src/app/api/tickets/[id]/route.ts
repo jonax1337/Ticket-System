@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { TicketStatus, Priority } from '@prisma/client'
 
 export async function PATCH(
   request: NextRequest,
@@ -18,20 +17,28 @@ export async function PATCH(
       )
     }
 
-    const { status, priority, assignedToId } = await request.json()
+    const { status, priority, assignedToId, fromName, fromEmail } = await request.json()
 
     const updateData: Record<string, unknown> = {}
     
-    if (status && Object.values(TicketStatus).includes(status)) {
+    if (status) {
       updateData.status = status
     }
     
-    if (priority && Object.values(Priority).includes(priority)) {
+    if (priority) {
       updateData.priority = priority
     }
     
     if (assignedToId !== undefined) {
       updateData.assignedToId = assignedToId
+    }
+    
+    if (fromName !== undefined) {
+      updateData.fromName = fromName
+    }
+    
+    if (fromEmail !== undefined) {
+      updateData.fromEmail = fromEmail
     }
 
     if (Object.keys(updateData).length === 0) {

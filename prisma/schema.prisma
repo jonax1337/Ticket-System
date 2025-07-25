@@ -15,18 +15,7 @@ enum UserRole {
   SUPPORTER
 }
 
-enum TicketStatus {
-  OPEN
-  IN_PROGRESS
-  CLOSED
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
-}
+// Removed enums - now using dynamic custom values
 
 model User {
   id        String   @id @default(cuid())
@@ -85,16 +74,16 @@ model VerificationToken {
 }
 
 model Ticket {
-  id          String       @id @default(cuid())
+  id          String   @id @default(cuid())
   subject     String
-  description String       @db.Text
-  status      TicketStatus @default(OPEN)
-  priority    Priority     @default(MEDIUM)
+  description String   @db.Text
+  status      String   @default("Open")
+  priority    String   @default("Medium")
   fromEmail   String
   fromName    String?
   assignedToId String?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   assignedTo User?     @relation("AssignedTo", fields: [assignedToId], references: [id])
   comments   Comment[]
@@ -132,8 +121,38 @@ model SystemSettings {
   logoUrl     String? // Optional logo URL
   hideAppName Boolean @default(false) // Hide app name when logo is present
   themeColor  String @default("default") // default, blue, amber, green, red, etc.
+  ticketPrefix String @default("T") // Prefix for ticket numbers
+  ticketNumberType String @default("sequential") // "sequential" or "random"
+  ticketNumberLength Int @default(6) // Length of the number part
+  lastTicketNumber Int @default(0) // For sequential numbering
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("system_settings")
+}
+
+model CustomStatus {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  icon      String   // Lucide icon name
+  color     String   // CSS color class
+  order     Int      // Display order
+  isDefault Boolean  @default(false) // Mark default system statuses
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("custom_statuses")
+}
+
+model CustomPriority {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  icon      String   // Lucide icon name
+  color     String   // CSS color class
+  order     Int      // Display order
+  isDefault Boolean  @default(false) // Mark default system priorities
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("custom_priorities")
 }

@@ -32,8 +32,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
-import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image } from 'lucide-react'
-import { Priority, TicketStatus } from '@prisma/client'
+import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp } from 'lucide-react'
 
 interface User {
   id: string
@@ -41,18 +40,27 @@ interface User {
   email: string
 }
 
-const priorityColors = {
-  LOW: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800',
-  MEDIUM: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800',
-  HIGH: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800',
-  URGENT: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
+interface CustomPriority {
+  id: string
+  name: string
+  icon: string
+  color: string
+  order: number
+  isDefault: boolean
 }
 
-const priorityIcons = {
-  LOW: <Clock className="h-4 w-4" />,
-  MEDIUM: <Timer className="h-4 w-4" />,
-  HIGH: <AlertCircle className="h-4 w-4" />,
-  URGENT: <AlertTriangle className="h-4 w-4" />,
+const getIconComponent = (iconName: string) => {
+  const iconMap: { [key: string]: any } = {
+    AlertCircle,
+    ArrowRight,
+    CheckCircle2,
+    Clock,
+    Timer,
+    AlertTriangle,
+    Zap,
+    TrendingUp
+  }
+  return iconMap[iconName] || AlertCircle
 }
 
 export function CreateTicketDialog() {
@@ -60,7 +68,8 @@ export function CreateTicketDialog() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [open, setOpen] = useState(false)
   const [users, setUsers] = useState<User[]>([])
-  const [priority, setPriority] = useState<Priority>('MEDIUM')
+  const [priorities, setPriorities] = useState<CustomPriority[]>([])
+  const [priority, setPriority] = useState<string>('Medium')
   const [assignedTo, setAssignedTo] = useState<string>('')
   const [attachments, setAttachments] = useState<File[]>([])
 
@@ -86,21 +95,35 @@ export function CreateTicketDialog() {
   }
 
   useEffect(() => {
-    // Lade verfügbare Benutzer für die Zuweisung
-    const fetchUsers = async () => {
+    // Load users and priorities
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/users')
-        if (response.ok) {
-          const userData = await response.json()
+        const [usersResponse, prioritiesResponse] = await Promise.all([
+          fetch('/api/users'),
+          fetch('/api/priorities')
+        ])
+        
+        if (usersResponse.ok) {
+          const userData = await usersResponse.json()
           setUsers(userData)
         }
+        
+        if (prioritiesResponse.ok) {
+          const priorityData = await prioritiesResponse.json()
+          setPriorities(priorityData)
+          // Set default priority to first priority or 'Medium'
+          if (priorityData.length > 0) {
+            const defaultPriority = priorityData.find((p: CustomPriority) => p.name === 'Medium') || priorityData[0]
+            setPriority(defaultPriority.name)
+          }
+        }
       } catch (error) {
-        console.error('Failed to fetch users:', error)
+        console.error('Failed to fetch data:', error)
       }
     }
     
     if (open) {
-      fetchUsers()
+      fetchData()
     }
   }, [open])
 
@@ -131,7 +154,8 @@ export function CreateTicketDialog() {
       }
 
       // Reset form and close dialog on success
-      setPriority('MEDIUM')
+      const defaultPriority = priorities.find(p => p.name === 'Medium') || priorities[0]
+      setPriority(defaultPriority?.name || 'Medium')
       setAssignedTo('')
       setAttachments([])
       setOpen(false)
@@ -201,35 +225,22 @@ export function CreateTicketDialog() {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">Priority</Label>
-                    <Select value={priority} onValueChange={(value: Priority) => setPriority(value)}>
-                      <SelectTrigger className={priorityColors[priority]}>
+                    <Select value={priority} onValueChange={(value: string) => setPriority(value)}>
+                      <SelectTrigger className={priorities.find(p => p.name === priority)?.color || ''}>
                         <SelectValue placeholder="Select priority" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="LOW">
-                          <span className="flex items-center gap-2">
-                            {priorityIcons.LOW}
-                            <span>Low</span>
-                          </span>
-                        </SelectItem>
-                        <SelectItem value="MEDIUM">
-                          <span className="flex items-center gap-2">
-                            {priorityIcons.MEDIUM}
-                            <span>Medium</span>
-                          </span>
-                        </SelectItem>
-                        <SelectItem value="HIGH">
-                          <span className="flex items-center gap-2">
-                            {priorityIcons.HIGH}
-                            <span>High</span>
-                          </span>
-                        </SelectItem>
-                        <SelectItem value="URGENT">
-                          <span className="flex items-center gap-2">
-                            {priorityIcons.URGENT}
-                            <span>Urgent</span>
-                          </span>
-                        </SelectItem>
+                        {priorities.map((priorityOption) => {
+                          const IconComponent = getIconComponent(priorityOption.icon)
+                          return (
+                            <SelectItem key={priorityOption.id} value={priorityOption.name}>
+                              <span className="flex items-center gap-2">
+                                <IconComponent className="h-4 w-4" />
+                                <span>{priorityOption.name}</span>
+                              </span>
+                            </SelectItem>
+                          )
+                        })}
                       </SelectContent>
                     </Select>
                   </div>

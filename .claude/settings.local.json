@@ -13,7 +13,9 @@
       "Bash(npx prisma:*)",
       "Bash(curl:*)",
       "Bash(npx:*)",
-      "WebFetch(domain:www.shadcn.io)"
+      "WebFetch(domain:www.shadcn.io)",
+      "Bash(npm run typecheck:*)",
+      "Bash(node:*)"
     ],
     "deny": []
   }

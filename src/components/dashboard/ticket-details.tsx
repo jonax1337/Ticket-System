@@ -1,13 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText } from 'lucide-react'
-import { TicketStatus, Priority } from '@prisma/client'
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import {
@@ -31,8 +30,8 @@ interface Ticket {
   id: string
   subject: string
   description: string
-  status: TicketStatus
-  priority: Priority
+  status: string
+  priority: string
   fromEmail: string
   fromName: string | null
   createdAt: Date
@@ -67,39 +66,73 @@ interface TicketDetailsProps {
   }
 }
 
-const statusColors = {
-  OPEN: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800',
-  IN_PROGRESS: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800',
-  CLOSED: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800',
+interface CustomStatus {
+  id: string
+  name: string
+  icon: string
+  color: string
+  order: number
+  isDefault: boolean
 }
 
-const priorityColors = {
-  LOW: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800',
-  MEDIUM: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800',
-  HIGH: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800',
-  URGENT: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
+interface CustomPriority {
+  id: string
+  name: string
+  icon: string
+  color: string
+  order: number
+  isDefault: boolean
 }
 
-const priorityIcons = {
-  LOW: <Clock className="h-4 w-4" />,
-  MEDIUM: <Timer className="h-4 w-4" />,
-  HIGH: <AlertCircle className="h-4 w-4" />,
-  URGENT: <AlertTriangle className="h-4 w-4" />,
-}
-
-const statusIcons = {
-  OPEN: <AlertCircle className="h-4 w-4" />,
-  IN_PROGRESS: <ArrowRight className="h-4 w-4" />,
-  CLOSED: <CheckCircle2 className="h-4 w-4" />,
+const getIconComponent = (iconName: string) => {
+  const iconMap: { [key: string]: any } = {
+    AlertCircle,
+    ArrowRight,
+    CheckCircle2,
+    Clock,
+    Timer,
+    AlertTriangle,
+    Zap,
+    TrendingUp
+  }
+  return iconMap[iconName] || AlertCircle
 }
 
 export default function TicketDetails({ ticket, users, currentUser }: TicketDetailsProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [requesterName, setRequesterName] = useState(ticket.fromName || '')
   const [requesterEmail, setRequesterEmail] = useState(ticket.fromEmail)
+  const [statuses, setStatuses] = useState<CustomStatus[]>([])
+  const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const router = useRouter()
+
+  useEffect(() => {
+    // Load custom statuses and priorities
+    const fetchData = async () => {
+      try {
+        const [statusesResponse, prioritiesResponse] = await Promise.all([
+          fetch('/api/statuses'),
+          fetch('/api/priorities')
+        ])
+        
+        if (statusesResponse.ok) {
+          const statusData = await statusesResponse.json()
+          setStatuses(statusData)
+        }
+        
+        if (prioritiesResponse.ok) {
+          const priorityData = await prioritiesResponse.json()
+          setPriorities(priorityData)
+        }
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+      }
+    }
+    
+    fetchData()
+  }, [])
   
-  const handleStatusChange = async (status: TicketStatus) => {
+  const handleStatusChange = async (status: string) => {
     setIsLoading(true)
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
@@ -120,7 +153,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
     }
   }
 
-  const handlePriorityChange = async (priority: Priority) => {
+  const handlePriorityChange = async (priority: string) => {
     setIsLoading(true)
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
@@ -232,32 +265,25 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Status</h4>
               <Select 
-                defaultValue={ticket.status}
+                defaultValue={statuses.find(s => s.name === ticket.status)?.name || ticket.status}
                 onValueChange={handleStatusChange}
                 disabled={isLoading}
               >
-                <SelectTrigger className={`w-full ${statusColors[ticket.status]}`}>
+                <SelectTrigger className={`w-full ${statuses.find(s => s.name === ticket.status)?.color || ''}`}>
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="OPEN">
-                    <span className="flex items-center gap-2">
-                      {statusIcons.OPEN}
-                      <span>Open</span>
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="IN_PROGRESS">
-                    <span className="flex items-center gap-2">
-                      {statusIcons.IN_PROGRESS}
-                      <span>In Progress</span>
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="CLOSED">
-                    <span className="flex items-center gap-2">
-                      {statusIcons.CLOSED}
-                      <span>Closed</span>
-                    </span>
-                  </SelectItem>
+                  {statuses.map((status) => {
+                    const IconComponent = getIconComponent(status.icon)
+                    return (
+                      <SelectItem key={status.id} value={status.name}>
+                        <span className="flex items-center gap-2">
+                          <IconComponent className="h-4 w-4" />
+                          <span>{status.name}</span>
+                        </span>
+                      </SelectItem>
+                    )
+                  })}
                 </SelectContent>
               </Select>
             </div>
@@ -266,38 +292,25 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Priority</h4>
               <Select 
-                defaultValue={ticket.priority}
+                defaultValue={priorities.find(p => p.name === ticket.priority)?.name || ticket.priority}
                 onValueChange={handlePriorityChange}
                 disabled={isLoading}
               >
-                <SelectTrigger className={`w-full ${priorityColors[ticket.priority]}`}>
+                <SelectTrigger className={`w-full ${priorities.find(p => p.name === ticket.priority)?.color || ''}`}>
                   <SelectValue placeholder="Priority" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="LOW">
-                    <span className="flex items-center gap-2">
-                      {priorityIcons.LOW}
-                      <span>Low</span>
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="MEDIUM">
-                    <span className="flex items-center gap-2">
-                      {priorityIcons.MEDIUM}
-                      <span>Medium</span>
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="HIGH">
-                    <span className="flex items-center gap-2">
-                      {priorityIcons.HIGH}
-                      <span>High</span>
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="URGENT">
-                    <span className="flex items-center gap-2">
-                      {priorityIcons.URGENT}
-                      <span>Urgent</span>
-                    </span>
-                  </SelectItem>
+                  {priorities.map((priority) => {
+                    const IconComponent = getIconComponent(priority.icon)
+                    return (
+                      <SelectItem key={priority.id} value={priority.name}>
+                        <span className="flex items-center gap-2">
+                          <IconComponent className="h-4 w-4" />
+                          <span>{priority.name}</span>
+                        </span>
+                      </SelectItem>
+                    )
+                  })}
                 </SelectContent>
               </Select>
             </div>

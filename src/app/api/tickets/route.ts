@@ -30,8 +30,8 @@ export async function POST(req: NextRequest) {
         description,
         fromEmail: fromEmail || 'internal@support.com',
         fromName: fromName || 'Internal Support',
-        priority: priority || 'MEDIUM',
-        status: 'OPEN',
+        priority: priority || 'Medium',
+        status: 'Open',
       },
     })
 

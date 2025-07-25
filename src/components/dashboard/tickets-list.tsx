@@ -4,16 +4,15 @@ import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-import { useState } from 'react'
-import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown } from 'lucide-react'
-import { TicketStatus, Priority } from '@prisma/client'
+import { useState, useEffect } from 'react'
+import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp } from 'lucide-react'
 
 interface Ticket {
   id: string
   subject: string
   description: string
-  status: TicketStatus
-  priority: Priority
+  status: string
+  priority: string
   fromEmail: string
   fromName: string | null
   createdAt: Date
@@ -35,36 +34,70 @@ interface TicketsListProps {
 type SortField = 'id' | 'subject' | 'status' | 'priority' | 'fromName' | 'assignedTo' | 'createdAt' | 'comments'
 type SortDirection = 'asc' | 'desc'
 
-const statusColors = {
-  OPEN: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800',
-  IN_PROGRESS: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800',
-  CLOSED: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800',
+interface CustomStatus {
+  id: string
+  name: string
+  icon: string
+  color: string
+  order: number
+  isDefault: boolean
 }
 
-const priorityColors = {
-  LOW: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800',
-  MEDIUM: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800',
-  HIGH: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800',
-  URGENT: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
+interface CustomPriority {
+  id: string
+  name: string
+  icon: string
+  color: string
+  order: number
+  isDefault: boolean
 }
 
-const priorityIcons = {
-  LOW: <Clock className="h-4 w-4" />,
-  MEDIUM: <Timer className="h-4 w-4" />,
-  HIGH: <AlertCircle className="h-4 w-4" />,
-  URGENT: <AlertTriangle className="h-4 w-4" />,
-}
-
-const statusIcons = {
-  OPEN: <AlertCircle className="h-4 w-4" />,
-  IN_PROGRESS: <ArrowRight className="h-4 w-4" />,
-  CLOSED: <CheckCircle2 className="h-4 w-4" />,
+const getIconComponent = (iconName: string) => {
+  const iconMap: { [key: string]: any } = {
+    AlertCircle,
+    ArrowRight,
+    CheckCircle2,
+    Clock,
+    Timer,
+    AlertTriangle,
+    Zap,
+    TrendingUp
+  }
+  return iconMap[iconName] || AlertCircle
 }
 
 export default function TicketsList({ tickets }: TicketsListProps) {
   const router = useRouter()
   const [sortField, setSortField] = useState<SortField>('createdAt')
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
+  const [statuses, setStatuses] = useState<CustomStatus[]>([])
+  const [priorities, setPriorities] = useState<CustomPriority[]>([])
+
+  useEffect(() => {
+    // Load custom statuses and priorities for display
+    const fetchData = async () => {
+      try {
+        const [statusesResponse, prioritiesResponse] = await Promise.all([
+          fetch('/api/statuses'),
+          fetch('/api/priorities')
+        ])
+        
+        if (statusesResponse.ok) {
+          const statusData = await statusesResponse.json()
+          setStatuses(statusData)
+        }
+        
+        if (prioritiesResponse.ok) {
+          const priorityData = await prioritiesResponse.json()
+          setPriorities(priorityData)
+        }
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+      }
+    }
+    
+    fetchData()
+  }, [])
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -93,9 +126,11 @@ export default function TicketsList({ tickets }: TicketsListProps) {
         bValue = b.status
         break
       case 'priority':
-        const priorityOrder = { LOW: 1, MEDIUM: 2, HIGH: 3, URGENT: 4 }
-        aValue = priorityOrder[a.priority]
-        bValue = priorityOrder[b.priority]
+        // Find priority order from custom priorities
+        const aPriority = priorities.find(p => p.name === a.priority)
+        const bPriority = priorities.find(p => p.name === b.priority)
+        aValue = aPriority?.order || 0
+        bValue = bPriority?.order || 0
         break
       case 'fromName':
         aValue = (a.fromName || a.fromEmail).toLowerCase()
@@ -207,14 +242,42 @@ export default function TicketsList({ tickets }: TicketsListProps) {
                       </div>
                     </td>
                   <td className="p-4">
-                    <Badge variant="outline" className={statusColors[ticket.status]}>
-                      {ticket.status.replace('_', ' ')}
-                    </Badge>
+                    {(() => {
+                      const status = statuses.find(s => s.name === ticket.status)
+                      if (status) {
+                        const IconComponent = getIconComponent(status.icon)
+                        return (
+                          <Badge variant="outline" className={status.color}>
+                            <IconComponent className="h-3 w-3 mr-1" />
+                            {status.name}
+                          </Badge>
+                        )
+                      }
+                      return (
+                        <Badge variant="outline">
+                          {ticket.status.replace('_', ' ')}
+                        </Badge>
+                      )
+                    })()}
                   </td>
                   <td className="p-4">
-                    <Badge variant="outline" className={priorityColors[ticket.priority]}>
-                      {ticket.priority}
-                    </Badge>
+                    {(() => {
+                      const priority = priorities.find(p => p.name === ticket.priority)
+                      if (priority) {
+                        const IconComponent = getIconComponent(priority.icon)
+                        return (
+                          <Badge variant="outline" className={priority.color}>
+                            <IconComponent className="h-3 w-3 mr-1" />
+                            {priority.name}
+                          </Badge>
+                        )
+                      }
+                      return (
+                        <Badge variant="outline">
+                          {ticket.priority}
+                        </Badge>
+                      )
+                    })()}
                   </td>
                   <td className="p-4">
                     <div className="text-sm">
