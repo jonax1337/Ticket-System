@@ -1,4 +1,4 @@
-# Support Dashboard
+# Ticket System
 
 A modern, full-featured support ticket management system built for professional IT teams. This self-hosted web application provides a complete solution for managing support tickets with advanced filtering, user management, and customizable workflows.
 
