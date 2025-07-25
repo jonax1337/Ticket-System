@@ -9,7 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Palette, Save, Type, Image, Pipette, Settings, Hash } from 'lucide-react'
+import { Palette, Save, Type, Image, Pipette, Settings, Hash, Mail } from 'lucide-react'
+import InboxSettings from './inbox-settings'
 
 // Helper function to convert hex to HSL
 function hexToHsl(hex: string): string {

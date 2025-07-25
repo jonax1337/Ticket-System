@@ -172,3 +172,31 @@ model CustomPriority {
 
   @@map("custom_priorities")
 }
+
+model InboxConfiguration {
+  id          String   @id @default(cuid())
+  name        String   // Display name for the inbox
+  host        String   // IMAP server host
+  port        Int      @default(993) // IMAP port (993 for SSL, 143 for non-SSL)
+  username    String   // IMAP username/email
+  password    String   // Encrypted IMAP password
+  useSSL      Boolean  @default(true) // Use SSL/TLS
+  folder      String   @default("INBOX") // IMAP folder to monitor
+  isActive    Boolean  @default(true) // Enable/disable this inbox
+  lastSync    DateTime? // Last successful sync timestamp
+  syncInterval Int     @default(300) // Sync interval in seconds (5 minutes default)
+  
+  // Email processing settings
+  markAsRead  Boolean  @default(true) // Mark emails as read after processing
+  deleteAfterImport Boolean @default(false) // Delete emails after importing as tickets
+  
+  // Default ticket settings for this inbox
+  defaultPriority String? // Default priority for tickets from this inbox
+  defaultStatus   String? // Default status for tickets from this inbox
+  defaultAssigneeId String? // Default assignee for tickets from this inbox
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("inbox_configurations")
+}
