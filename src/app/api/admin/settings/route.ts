@@ -14,9 +14,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { appName, slogan, logoUrl, hideAppName, themeColor } = await request.json()
+    const { 
+      appName, 
+      slogan, 
+      logoUrl, 
+      hideAppName, 
+      themeColor, 
+      ticketPrefix, 
+      ticketNumberType, 
+      ticketNumberLength 
+    } = await request.json()
 
-    if (!appName || !themeColor) {
+    if (!appName || !themeColor || !ticketPrefix || !ticketNumberType || !ticketNumberLength) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -31,6 +40,9 @@ export async function POST(request: NextRequest) {
         logoUrl,
         hideAppName,
         themeColor,
+        ticketPrefix,
+        ticketNumberType,
+        ticketNumberLength,
       },
       create: {
         id: 'system',
@@ -39,6 +51,9 @@ export async function POST(request: NextRequest) {
         logoUrl,
         hideAppName,
         themeColor,
+        ticketPrefix,
+        ticketNumberType,
+        ticketNumberLength,
       },
     })
 
@@ -60,7 +75,15 @@ export async function GET() {
 
     if (!settings) {
       settings = await prisma.systemSettings.create({
-        data: { id: 'system' }
+        data: { 
+          id: 'system',
+          appName: 'Support Dashboard',
+          themeColor: 'default',
+          ticketPrefix: 'T',
+          ticketNumberType: 'sequential',
+          ticketNumberLength: 6,
+          lastTicketNumber: 0
+        }
       })
     }
 

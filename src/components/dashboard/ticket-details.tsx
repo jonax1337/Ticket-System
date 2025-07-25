@@ -28,6 +28,7 @@ interface User {
 
 interface Ticket {
   id: string
+  ticketNumber?: string | null
   subject: string
   description: string
   status: string
@@ -105,6 +106,10 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const router = useRouter()
+
+  const getDisplayTicketNumber = () => {
+    return ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
+  }
 
   useEffect(() => {
     // Load custom statuses and priorities
@@ -227,6 +232,11 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         <CardHeader>
           <div className="flex flex-col gap-4">
             <div>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="font-mono text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                  {getDisplayTicketNumber()}
+                </div>
+              </div>
               <CardTitle className="text-2xl">{ticket.subject}</CardTitle>
             </div>
           </div>

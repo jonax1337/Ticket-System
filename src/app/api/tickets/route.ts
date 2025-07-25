@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { generateTicketNumber, ensureUniqueTicketNumber } from '@/lib/ticket-number-generator'
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,9 +24,14 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Generate unique ticket number
+    const generatedTicketNumber = await generateTicketNumber()
+    const uniqueTicketNumber = await ensureUniqueTicketNumber(generatedTicketNumber)
+
     // Create ticket in database
     const ticket = await prisma.ticket.create({
       data: {
+        ticketNumber: uniqueTicketNumber,
         subject,
         description,
         fromEmail: fromEmail || 'internal@support.com',

@@ -75,6 +75,7 @@ model VerificationToken {
 
 model Ticket {
   id          String   @id @default(cuid())
+  ticketNumber String? @unique // Generated ticket number (e.g., T-001234)
   subject     String
   description String   @db.Text
   status      String   @default("Open")

@@ -9,6 +9,7 @@ import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, T
 
 interface Ticket {
   id: string
+  ticketNumber?: string | null
   subject: string
   description: string
   status: string
@@ -171,9 +172,9 @@ export default function TicketsList({ tickets }: TicketsListProps) {
       )}
     </button>
   )
-  const generateTicketNumber = (ticketId: string) => {
-    // Generate a short ticket number from the ID (last 6 characters)
-    return `#${ticketId.slice(-6).toUpperCase()}`
+  const getDisplayTicketNumber = (ticket: Ticket) => {
+    // Use the generated ticket number if available, otherwise fallback to ID-based number
+    return ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
   }
 
   if (tickets.length === 0) {
@@ -228,7 +229,7 @@ export default function TicketsList({ tickets }: TicketsListProps) {
                 >
                     <td className="p-4">
                       <div className="font-mono text-sm font-medium text-primary">
-                        {generateTicketNumber(ticket.id)}
+                        {getDisplayTicketNumber(ticket)}
                       </div>
                     </td>
                     <td className="p-4">
