@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
+import CommentContent from './comment-content'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -83,34 +84,49 @@ interface TicketCommentsProps {
     id: string
     name?: string | null
   }
+  onTicketUpdate?: (updatedTicket: any) => void
 }
 
-export default function TicketComments({ ticket, currentUser }: TicketCommentsProps) {
-  const [newComment, setNewComment] = useState('')
-  const [commentType, setCommentType] = useState('internal') // 'internal' or 'external'
-  const [nextStatus, setNextStatus] = useState<string>('')
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [statuses, setStatuses] = useState<CustomStatus[]>([])
+export default function TicketComments({ ticket, currentUser, onTicketUpdate }: TicketCommentsProps) {
   const router = useRouter()
-
-  const [commentToDelete, setCommentToDelete] = useState<string | null>(null)
+  const [comments, setComments] = useState<Comment[]>(ticket.comments || [])
+  const [newComment, setNewComment] = useState('')
+  const [commentType, setCommentType] = useState<'internal' | 'external'>('internal')
+  const [isLoading, setIsLoading] = useState(false)
+  const [nextStatus, setNextStatus] = useState<string>('__keep_current__')
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [previewContent, setPreviewContent] = useState<{url: string, type: string, name: string} | null>(null)
+  const [statuses, setStatuses] = useState<CustomStatus[]>([])
+  const [users, setUsers] = useState<{ id: string; name: string; email: string }[]>([])
+  const [showMentionDropdown, setShowMentionDropdown] = useState(false)
+  const [mentionQuery, setMentionQuery] = useState('')
+  const [mentionPosition, setMentionPosition] = useState(0)
 
   useEffect(() => {
-    // Load custom statuses
-    const fetchStatuses = async () => {
+    // Load custom statuses and users
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/statuses')
-        if (response.ok) {
-          const statusData = await response.json()
+        const [statusResponse, usersResponse] = await Promise.all([
+          fetch('/api/statuses'),
+          fetch('/api/users')
+        ])
+        
+        if (statusResponse.ok) {
+          const statusData = await statusResponse.json()
           setStatuses(statusData)
         }
+        
+        if (usersResponse.ok) {
+          const userData = await usersResponse.json()
+          setUsers(userData)
+        }
       } catch (error) {
-        console.error('Failed to fetch statuses:', error)
+        console.error('Failed to fetch data:', error)
       }
     }
     
-    fetchStatuses()
+    fetchData()
   }, [])
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,6 +137,43 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
   const removeFile = (index: number) => {
     setSelectedFiles(prev => prev.filter((_, i) => i !== index))
   }
+
+  // Handle @ mentions
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value
+    const cursorPosition = e.target.selectionStart || 0
+    
+    setNewComment(value)
+    
+    // Check for @ mention
+    const textBeforeCursor = value.substring(0, cursorPosition)
+    const mentionMatch = textBeforeCursor.match(/@(\w*)$/)
+    
+    if (mentionMatch) {
+      setMentionQuery(mentionMatch[1])
+      setMentionPosition(cursorPosition)
+      setShowMentionDropdown(true)
+    } else {
+      setShowMentionDropdown(false)
+      setMentionQuery('')
+    }
+  }
+
+  const insertMention = (userName: string, userId: string) => {
+    const beforeMention = newComment.substring(0, mentionPosition - mentionQuery.length - 1)
+    const afterMention = newComment.substring(mentionPosition)
+    // Use a special format with user ID for better parsing: @[UserName](userId)
+    const newValue = `${beforeMention}@[${userName}](${userId}) ${afterMention}`
+    
+    setNewComment(newValue)
+    setShowMentionDropdown(false)
+    setMentionQuery('')
+  }
+
+  const filteredUsers = users.filter(user => 
+    user.name.toLowerCase().includes(mentionQuery.toLowerCase()) &&
+    user.id !== currentUser.id
+  )
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes'
@@ -292,13 +345,14 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
                     </AlertDialog>
                   )}
                 </div>
-                <p className="text-sm whitespace-pre-wrap">
-                  {/* Entferne das [EMAIL]-Präfix, wenn vorhanden */}
-                  {comment.content.startsWith('[EMAIL]') 
-                    ? comment.content.substring(7) // Entferne '[EMAIL] '
-                    : comment.content
-                  }
-                </p>
+                <div className="text-sm">
+                  <CommentContent 
+                    content={comment.content.startsWith('[EMAIL]') 
+                      ? comment.content.substring(7) // Entferne '[EMAIL] '
+                      : comment.content
+                    }
+                  />
+                </div>
                 
                 {/* File attachments display */}
                 {comment.attachments && comment.attachments.length > 0 && (
@@ -399,7 +453,7 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
             <label className="text-sm font-medium">Comment Type</label>
             <Select
               value={commentType}
-              onValueChange={setCommentType}
+              onValueChange={(value) => setCommentType(value as 'internal' | 'external')}
               disabled={isLoading}
             >
               <SelectTrigger>
@@ -460,14 +514,38 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
           </div>
         </div>
         <div className="space-y-3">
-          <Textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Add a comment..."
-            disabled={isLoading}
-            className="min-h-[100px] resize-none"
-            rows={4}
-          />
+          <div className="relative">
+            <Textarea
+              value={newComment}
+              onChange={handleCommentChange}
+              placeholder="Add a comment... (use @username to mention someone)"
+              disabled={isLoading}
+              className="min-h-[100px] resize-none"
+              rows={4}
+            />
+            
+            {/* Mention Dropdown */}
+            {showMentionDropdown && filteredUsers.length > 0 && (
+              <div className="absolute z-50 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg mt-1 max-h-40 overflow-y-auto">
+                <div className="p-2 text-xs text-muted-foreground border-b">
+                  Mention a user:
+                </div>
+                {filteredUsers.slice(0, 5).map((user) => (
+                  <button
+                    key={user.id}
+                    onClick={() => insertMention(user.name, user.id)}
+                    className="w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors"
+                  >
+                    <User className="h-4 w-4 text-muted-foreground" />
+                    <div>
+                      <div className="font-medium">{user.name}</div>
+                      <div className="text-xs text-muted-foreground">{user.email}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           
           {/* File Upload Section */}
           <div className="space-y-3">

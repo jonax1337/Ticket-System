@@ -1,6 +1,6 @@
 import { prisma } from './prisma'
 
-export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added'
+export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment'
 
 interface CreateNotificationParams {
   type: NotificationType
@@ -138,6 +138,86 @@ export async function createCommentNotification(
     ticketId,
     commentId,
   })
+}
+
+/**
+ * Create notification when a user is mentioned in a comment
+ */
+export async function createMentionNotification(
+  commentId: string,
+  ticketId: string,
+  mentionedUserId: string,
+  actorId: string,
+  ticketNumber?: string,
+  ticketSubject?: string
+) {
+  const displayTicketNumber = ticketNumber || `#${ticketId.slice(-6).toUpperCase()}`
+  
+  return createNotification({
+    type: 'mentioned_in_comment',
+    title: 'You were mentioned',
+    message: `You were mentioned in a comment on ticket ${displayTicketNumber}: ${ticketSubject || 'Untitled'}`,
+    userId: mentionedUserId,
+    actorId,
+    ticketId,
+    commentId,
+  })
+}
+
+/**
+ * Parse @ mentions from comment content and return user IDs
+ */
+export async function parseMentionsFromComment(content: string): Promise<string[]> {
+  // Find all @mentions in the format @[Username](userId) 
+  const mentionRegex = /@\[([^\]]+)\]\(([^)]+)\)/g
+  const userIds: string[] = []
+  let match
+
+  while ((match = mentionRegex.exec(content)) !== null) {
+    const userId = match[2] // Extract user ID from @[Username](userId)
+    if (userId && !userIds.includes(userId)) {
+      userIds.push(userId)
+    }
+  }
+
+  // Also support legacy @username format for backwards compatibility
+  const legacyMentionRegex = /@(?!"?\[)(\w+)/g
+  const legacyMentions: string[] = []
+  
+  while ((match = legacyMentionRegex.exec(content)) !== null) {
+    const mentionedName = match[1]
+    legacyMentions.push(mentionedName)
+  }
+
+  // Find users by name for legacy mentions
+  if (legacyMentions.length > 0) {
+    try {
+      const users = await prisma.user.findMany({
+        where: {
+          OR: legacyMentions.map(name => ({
+            name: {
+              equals: name,
+              mode: 'insensitive' as any,
+            },
+          })),
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      })
+
+      for (const user of users) {
+        if (!userIds.includes(user.id)) {
+          userIds.push(user.id)
+        }
+      }
+    } catch (error) {
+      console.error('Error finding mentioned users:', error)
+    }
+  }
+
+  return userIds
 }
 
 /**

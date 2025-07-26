@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { v4 as uuidv4 } from 'uuid'
+import { parseMentionsFromComment, createMentionNotification } from '@/lib/notification-service'
 
 export async function POST(
   request: NextRequest,
@@ -119,10 +120,33 @@ export async function POST(
       }
     }
 
-    // Create notification for assigned user (if different from comment author)
-    if (ticket.assignedTo && ticket.assignedTo.id !== session.user.id) {
-      try {
-        const displayTicketNumber = ticket.ticketNumber || `#${params.id.slice(-6).toUpperCase()}`
+    // Handle notifications
+    try {
+      const displayTicketNumber = ticket.ticketNumber || `#${params.id.slice(-6).toUpperCase()}`
+      
+      // Parse mentions from comment content
+      const mentionedUserIds = await parseMentionsFromComment(content)
+      
+      // Create mention notifications (these have priority over comment notifications)
+      const mentionNotifications = await Promise.allSettled(
+        mentionedUserIds
+          .filter(userId => userId !== session.user.id) // Don't notify the comment author
+          .map(userId =>
+            createMentionNotification(
+              comment.id,
+              params.id,
+              userId,
+              session.user.id,
+              displayTicketNumber,
+              ticket.subject
+            )
+          )
+      )
+
+      // Create regular comment notification for assigned user ONLY if they weren't mentioned
+      if (ticket.assignedTo && 
+          ticket.assignedTo.id !== session.user.id && 
+          !mentionedUserIds.includes(ticket.assignedTo.id)) {
         
         await prisma.notification.create({
           data: {
@@ -135,10 +159,10 @@ export async function POST(
             commentId: comment.id,
           }
         })
-      } catch (notificationError) {
-        console.error('Error creating comment notification:', notificationError)
-        // Don't fail the main request if notifications fail
       }
+    } catch (notificationError) {
+      console.error('Error creating notifications:', notificationError)
+      // Don't fail the main request if notifications fail
     }
 
     // Return comment with attachments
