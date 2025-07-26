@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { CommentEditor, CommentEditorRef } from '@/components/editor/comment-editor'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon } from 'lucide-react'
 import { toast } from 'sonner'
@@ -99,9 +99,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   const [previewContent, setPreviewContent] = useState<{url: string, type: string, name: string} | null>(null)
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [users, setUsers] = useState<{ id: string; name: string; email: string }[]>([])
-  const [showMentionDropdown, setShowMentionDropdown] = useState(false)
-  const [mentionQuery, setMentionQuery] = useState('')
-  const [mentionPosition, setMentionPosition] = useState(0)
+  const editorRef = useRef<CommentEditorRef>(null)
 
   useEffect(() => {
     // Load custom statuses and users
@@ -138,42 +136,36 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
     setSelectedFiles(prev => prev.filter((_, i) => i !== index))
   }
 
-  // Handle @ mentions
-  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value
-    const cursorPosition = e.target.selectionStart || 0
-    
-    setNewComment(value)
-    
-    // Check for @ mention
-    const textBeforeCursor = value.substring(0, cursorPosition)
-    const mentionMatch = textBeforeCursor.match(/@(\w*)$/)
-    
-    if (mentionMatch) {
-      setMentionQuery(mentionMatch[1])
-      setMentionPosition(cursorPosition)
-      setShowMentionDropdown(true)
-    } else {
-      setShowMentionDropdown(false)
-      setMentionQuery('')
+  // Handle editor content changes  
+  const [editorSerializedState, setEditorSerializedState] = useState<any>(null)
+  
+  const handleEditorChange = (content: string, serializedState?: any) => {
+    setNewComment(content)
+    setEditorSerializedState(serializedState)
+  }
+
+  // Extract mentions from serialized editor state
+  const extractMentionsFromState = (serializedState: any): string => {
+    if (!serializedState || !serializedState.root || !serializedState.root.children) {
+      return newComment
     }
-  }
 
-  const insertMention = (userName: string, userId: string) => {
-    const beforeMention = newComment.substring(0, mentionPosition - mentionQuery.length - 1)
-    const afterMention = newComment.substring(mentionPosition)
-    // Use a special format with user ID for better parsing: @[UserName](userId)
-    const newValue = `${beforeMention}@[${userName}](${userId}) ${afterMention}`
+    let result = ''
     
-    setNewComment(newValue)
-    setShowMentionDropdown(false)
-    setMentionQuery('')
-  }
+    const processNode = (node: any) => {
+      if (node.type === 'mention') {
+        // Convert mention node to our storage format
+        result += `@[${node.mentionName}](${node.mentionId || node.mentionName})`
+      } else if (node.type === 'text') {
+        result += node.text
+      } else if (node.children) {
+        node.children.forEach(processNode)
+      }
+    }
 
-  const filteredUsers = users.filter(user => 
-    user.name.toLowerCase().includes(mentionQuery.toLowerCase()) &&
-    user.id !== currentUser.id
-  )
+    serializedState.root.children.forEach(processNode)
+    return result || newComment
+  }
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes'
@@ -219,10 +211,13 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
 
     setIsLoading(true)
     try {
+      // Extract proper mention format from editor state
+      const processedComment = extractMentionsFromState(editorSerializedState)
+      
       // Wenn wir einen externen Kommentar schicken, fügen wir einen Präfix für die Anzeige hinzu
       const commentContent = commentType === 'external' 
-        ? `[EMAIL] ${newComment.trim()}`
-        : newComment.trim()
+        ? `[EMAIL] ${processedComment.trim()}`
+        : processedComment.trim()
 
       // Prepare form data for file uploads
       const formData = new FormData()
@@ -254,8 +249,11 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
 
       if (commentResponse.ok) {
         setNewComment('')
+        setEditorSerializedState(null)
         setNextStatus('')
         setSelectedFiles([])
+        // Clear the editor using the ref
+        editorRef.current?.clear()
         toast.success('Comment added successfully')
         router.refresh()
       } else {
@@ -514,38 +512,15 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
           </div>
         </div>
         <div className="space-y-3">
-          <div className="relative">
-            <Textarea
-              value={newComment}
-              onChange={handleCommentChange}
-              placeholder="Add a comment... (use @username to mention someone)"
-              disabled={isLoading}
-              className="min-h-[100px] resize-none"
-              rows={4}
-            />
-            
-            {/* Mention Dropdown */}
-            {showMentionDropdown && filteredUsers.length > 0 && (
-              <div className="absolute z-50 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg mt-1 max-h-40 overflow-y-auto">
-                <div className="p-2 text-xs text-muted-foreground border-b">
-                  Mention a user:
-                </div>
-                {filteredUsers.slice(0, 5).map((user) => (
-                  <button
-                    key={user.id}
-                    onClick={() => insertMention(user.name, user.id)}
-                    className="w-full px-3 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors"
-                  >
-                    <User className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <div className="font-medium">{user.name}</div>
-                      <div className="text-xs text-muted-foreground">{user.email}</div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          <CommentEditor
+            ref={editorRef}
+            value={newComment}
+            onChange={handleEditorChange}
+            placeholder="Add a comment... (use @username to mention someone)"
+            disabled={isLoading}
+            users={users.filter(user => user.id !== currentUser.id)}
+            className="min-h-[100px]"
+          />
           
           {/* File Upload Section */}
           <div className="space-y-3">

@@ -1,7 +1,5 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { User } from 'lucide-react'
 
 interface CommentContentProps {
   content: string
@@ -10,9 +8,9 @@ interface CommentContentProps {
 export default function CommentContent({ content }: CommentContentProps) {
   // Parse mentions and convert them to React elements
   const renderContentWithMentions = (text: string) => {
-    // Regex to find @[Username](userId) patterns
-    const mentionRegex = /@\[([^\]]+)\]\(([^)]+)\)/g
-    const parts = []
+    // First try to parse @[Username](userId) patterns (old format)
+    let mentionRegex = /@\[([^\]]+)\]\(([^)]+)\)/g
+    let parts = []
     let lastIndex = 0
     let match
 
@@ -22,23 +20,24 @@ export default function CommentContent({ content }: CommentContentProps) {
         parts.push(text.substring(lastIndex, match.index))
       }
 
-      // Add the mention as a badge
+      // Add the mention as styled text
       const username = match[1]
       const userId = match[2]
       
       parts.push(
-        <Badge 
+        <span 
           key={`mention-${userId}-${match.index}`}
-          variant="secondary" 
-          className="inline-flex items-center gap-1 mx-0.5 bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800 text-sm font-normal"
+          className="font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-1 py-0.5 rounded"
         >
-          <User className="h-3 w-3" />
-          {username}
-        </Badge>
+          @{username}
+        </span>
       )
 
       lastIndex = match.index + match[0].length
     }
+
+    // Only show mentions if they are in the old format [@username](userId)
+    // Don't automatically style @word patterns unless they're confirmed mentions
 
     // Add remaining text after the last mention
     if (lastIndex < text.length) {
