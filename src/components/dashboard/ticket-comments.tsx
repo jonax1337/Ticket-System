@@ -11,6 +11,7 @@ import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, Check
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import CommentContent from './comment-content'
+import { CommentToolbar } from './comment-toolbar'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -93,7 +94,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   const [newComment, setNewComment] = useState('')
   const [commentType, setCommentType] = useState<'internal' | 'external'>('internal')
   const [isLoading, setIsLoading] = useState(false)
-  const [nextStatus, setNextStatus] = useState<string>('__keep_current__')
+  const [nextStatus, setNextStatus] = useState<string>(ticket.status)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const [previewContent, setPreviewContent] = useState<{url: string, type: string, name: string} | null>(null)
@@ -236,8 +237,8 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
         body: formData,
       })
 
-      // Then update status if selected
-      if (nextStatus && nextStatus !== '__keep_current__' && nextStatus !== ticket.status) {
+      // Then update status if selected and different from current
+      if (nextStatus && nextStatus !== ticket.status) {
         await fetch(`/api/tickets/${ticket.id}`, {
           method: 'PATCH',
           headers: {
@@ -250,7 +251,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       if (commentResponse.ok) {
         setNewComment('')
         setEditorSerializedState(null)
-        setNextStatus('')
+        setNextStatus(ticket.status)
         setSelectedFiles([])
         // Clear the editor using the ref
         editorRef.current?.clear()
@@ -268,7 +269,82 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Comment Input Form - Always at the top */}
+      <form onSubmit={handleSubmitComment} className="bg-card border rounded-md shadow-sm overflow-hidden">
+        <CommentToolbar
+          commentType={commentType}
+          onCommentTypeChange={setCommentType}
+          nextStatus={nextStatus}
+          onNextStatusChange={setNextStatus}
+          statuses={statuses}
+          currentTicketStatus={ticket.status}
+          selectedFiles={selectedFiles}
+          onFileSelect={handleFileSelect}
+          disabled={isLoading}
+        />
+        
+        <div className="p-4 space-y-3">
+          <CommentEditor
+            ref={editorRef}
+            value={newComment}
+            onChange={handleEditorChange}
+            placeholder="Add a comment... (use @username to mention someone)"
+            disabled={isLoading}
+            users={users.filter(user => user.id !== currentUser.id)}
+            className="min-h-[100px]"
+          />
+          
+          {/* Selected Files Preview */}
+          {selectedFiles.length > 0 && (
+            <div className="space-y-2">
+              <div className="text-sm font-medium">Selected Files:</div>
+              <div className="space-y-2">
+                {selectedFiles.map((file, index) => (
+                  <div key={index} className="flex items-center gap-2 bg-muted/50 rounded p-2">
+                    <Paperclip className="h-4 w-4 text-muted-foreground" />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium truncate">{file.name}</div>
+                      <div className="text-xs text-muted-foreground">{formatFileSize(file.size)}</div>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0"
+                      onClick={() => removeFile(index)}
+                      disabled={isLoading}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex justify-between items-center pt-2">
+            <div className="text-xs text-muted-foreground">
+              {commentType === 'external' ? "Will send email to requester" : "Only visible internally"}
+              {nextStatus && nextStatus !== ticket.status && (
+                <span className="ml-2">• Status will change to "{nextStatus}"</span>
+              )}
+            </div>
+            
+            <Button 
+              type="submit" 
+              disabled={isLoading || !newComment.trim()}
+              className="gap-2"
+            >
+              <Send className="h-4 w-4" />
+              {commentType === 'external' && <Mail className="h-4 w-4" />}
+              <span>{commentType === 'external' ? 'Send' : 'Comment'}</span>
+            </Button>
+          </div>
+        </div>
+      </form>
+
+      {/* Comments List - Newest first, no container scrolling */}
       <div>
         {ticket.comments.length === 0 ? (
           <div className="bg-muted/30 rounded-md flex items-center justify-center p-8 text-center">
@@ -277,8 +353,9 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
             </p>
           </div>
         ) : (
-          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-            {ticket.comments.map((comment) => (
+          <div className="space-y-4">
+            {/* Reverse the comments array to show newest first */}
+            {[...ticket.comments].reverse().map((comment) => (
               <div key={comment.id} className="bg-muted/30 rounded-md p-4">
                 <div className="flex items-center gap-2 mb-2 pb-2 border-b border-border/50">
                   <div className="bg-primary/10 text-primary rounded-full p-1">
@@ -444,150 +521,6 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
           </div>
         )}
       </div>
-
-      <form onSubmit={handleSubmitComment} className="mt-6 space-y-3 bg-card border rounded-md p-4 shadow-sm">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Comment Type</label>
-            <Select
-              value={commentType}
-              onValueChange={(value) => setCommentType(value as 'internal' | 'external')}
-              disabled={isLoading}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Comment Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="internal">
-                  <div className="flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4" />
-                    <span>Internal Comment</span>
-                  </div>
-                </SelectItem>
-                <SelectItem value="external">
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4" />
-                    <span>Email to Requester</span>
-                  </div>
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            <div className="text-xs text-muted-foreground">
-              {commentType === 'external' ? "Will send email to requester" : "Only visible internally"}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Next Status (Optional)</label>
-            <Select
-              value={nextStatus}
-              onValueChange={setNextStatus}
-              disabled={isLoading}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Keep current status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="__keep_current__">
-                  <span>Keep current status</span>
-                </SelectItem>
-                {statuses
-                  .filter(status => status.name !== ticket.status)
-                  .map((status) => {
-                    const IconComponent = getIconComponent(status.icon)
-                    return (
-                      <SelectItem key={status.id} value={status.name}>
-                        <div className="flex items-center gap-2">
-                          <IconComponent className="h-4 w-4" />
-                          <span>{status.name}</span>
-                        </div>
-                      </SelectItem>
-                    )
-                  })}
-              </SelectContent>
-            </Select>
-            <div className="text-xs text-muted-foreground">
-              {nextStatus && nextStatus !== '__keep_current__' ? `Change status to "${nextStatus}"` : "Status will remain unchanged"}
-            </div>
-          </div>
-        </div>
-        <div className="space-y-3">
-          <CommentEditor
-            ref={editorRef}
-            value={newComment}
-            onChange={handleEditorChange}
-            placeholder="Add a comment... (use @username to mention someone)"
-            disabled={isLoading}
-            users={users.filter(user => user.id !== currentUser.id)}
-            className="min-h-[100px]"
-          />
-          
-          {/* File Upload Section */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <input
-                type="file"
-                multiple
-                onChange={handleFileSelect}
-                className="hidden"
-                id="file-upload"
-                disabled={isLoading}
-                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.zip,.rar"
-              />
-              <label
-                htmlFor="file-upload"
-                className="inline-flex items-center gap-2 px-3 py-2 text-sm border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <Paperclip className="h-4 w-4" />
-                <span>Attach Files</span>
-              </label>
-              <span className="text-xs text-muted-foreground">
-                Max 10MB per file. PDF, DOC, XLS, images, archives allowed.
-              </span>
-            </div>
-            
-            {/* Selected Files Preview */}
-            {selectedFiles.length > 0 && (
-              <div className="space-y-2">
-                <div className="text-sm font-medium">Selected Files:</div>
-                <div className="space-y-2">
-                  {selectedFiles.map((file, index) => (
-                    <div key={index} className="flex items-center gap-2 bg-muted/50 rounded p-2">
-                      <Paperclip className="h-4 w-4 text-muted-foreground" />
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium truncate">{file.name}</div>
-                        <div className="text-xs text-muted-foreground">{formatFileSize(file.size)}</div>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 w-8 p-0"
-                        onClick={() => removeFile(index)}
-                        disabled={isLoading}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="flex justify-end">
-            <Button 
-              type="submit" 
-              disabled={isLoading || !newComment.trim()}
-              className="gap-2"
-            >
-              <Send className="h-4 w-4" />
-              {commentType === 'external' && <Mail className="h-4 w-4" />}
-              <span>{commentType === 'external' ? 'Send' : 'Comment'}</span>
-            </Button>
-          </div>
-        </div>
-      </form>
     </div>
   )
 }
