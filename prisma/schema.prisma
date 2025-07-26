@@ -83,8 +83,8 @@ model Ticket {
   htmlContent String?  @db.Text // Store original HTML content from emails
   status      String   @default("Open")
   priority    String   @default("Medium")
-  fromEmail   String
-  fromName    String?
+  fromEmail   String   // Keep for backward compatibility, but use participants for new logic
+  fromName    String?  // Keep for backward compatibility
   assignedToId String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -93,8 +93,25 @@ model Ticket {
   comments   Comment[]
   attachments TicketAttachment[]
   notifications Notification[]
+  participants TicketParticipant[] // New modular participant system
 
   @@map("tickets")
+}
+
+model TicketParticipant {
+  id        String   @id @default(cuid())
+  ticketId  String
+  email     String   // Email address of participant
+  name      String?  // Display name (extracted from email or manually set)
+  type      String   // "creator", "cc", "added_manually"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  // Ensure unique email per ticket
+  @@unique([ticketId, email])
+  @@map("ticket_participants")
 }
 
 model Comment {

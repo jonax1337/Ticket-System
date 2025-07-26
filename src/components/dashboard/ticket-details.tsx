@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
+import TicketParticipants from '@/components/dashboard/ticket-participants'
 import {
   Combobox,
   ComboboxContent,
@@ -43,6 +44,13 @@ interface Ticket {
     name: string
     email: string
   } | null
+  participants?: {
+    id: string
+    email: string
+    name?: string | null
+    type: string
+    createdAt: Date
+  }[]
   attachments?: {
     id: string
     filename: string
@@ -116,8 +124,6 @@ const getIconComponent = (iconName: string) => {
 
 export default function TicketDetails({ ticket, users, currentUser }: TicketDetailsProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const [requesterName, setRequesterName] = useState(ticket.fromName || '')
-  const [requesterEmail, setRequesterEmail] = useState(ticket.fromEmail)
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const router = useRouter()
@@ -217,27 +223,22 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
     }
   }
   
-  const handleRequesterUpdate = async () => {
-    setIsLoading(true)
-    try {
-      const response = await fetch(`/api/tickets/${ticket.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          fromName: requesterName,
-          fromEmail: requesterEmail
-        }),
-      })
+  const handleRequesterUpdate = async (name: string, email: string) => {
+    const response = await fetch(`/api/tickets/${ticket.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        fromName: name,
+        fromEmail: email
+      }),
+    })
 
-      if (response.ok) {
-        router.refresh()
-      }
-    } catch (error) {
-      console.error('Failed to update requester info:', error)
-    } finally {
-      setIsLoading(false)
+    if (response.ok) {
+      router.refresh()
+    } else {
+      throw new Error('Failed to update requester')
     }
   }
   return (
@@ -433,43 +434,6 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
               </Combobox>
             </div>
 
-            {/* Requester */}
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Requester</h4>
-              <div className="space-y-2">
-                <div className="grid grid-cols-[1fr_auto] gap-2 items-end">
-                  <div className="space-y-1">
-                    <label className="text-xs text-muted-foreground">Name</label>
-                    <input
-                      type="text"
-                      value={requesterName}
-                      onChange={(e) => setRequesterName(e.target.value)}
-                      className="w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
-                      placeholder="Requester name"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-[1fr_auto] gap-2 items-end">
-                  <div className="space-y-1">
-                    <label className="text-xs text-muted-foreground">Email</label>
-                    <input
-                      type="email"
-                      value={requesterEmail}
-                      onChange={(e) => setRequesterEmail(e.target.value)}
-                      className="w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
-                      placeholder="email@example.com"
-                    />
-                  </div>
-                  <Button 
-                    size="sm" 
-                    onClick={handleRequesterUpdate}
-                    disabled={isLoading}
-                  >
-                    Update
-                  </Button>
-                </div>
-              </div>
-            </div>
 
             {/* Dates */}
             <div className="space-y-3 pt-2">
@@ -484,6 +448,19 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             </div>
           </CardContent>
         </Card>
+
+        {/* Participants */}
+        {ticket.participants && (
+          <TicketParticipants 
+            ticketId={ticket.id}
+            participants={ticket.participants}
+            requester={{
+              name: ticket.fromName,
+              email: ticket.fromEmail
+            }}
+            onRequesterUpdate={handleRequesterUpdate}
+          />
+        )}
       </div>
     </div>
   )

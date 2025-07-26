@@ -29,6 +29,12 @@ export default async function TicketPage({ params }: TicketPageProps) {
         },
       },
       attachments: true,
+      participants: {
+        orderBy: [
+          { type: 'asc' }, // creator first, then cc, then added_manually
+          { createdAt: 'asc' }
+        ]
+      },
       comments: {
         include: {
           user: {

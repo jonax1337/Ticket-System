@@ -346,6 +346,65 @@ ${textBody}
     })
   }
 
+  // Create ticket participants (creator + CC recipients)
+  const participantsData = []
+  
+  // Add creator (from email)
+  participantsData.push({
+    ticketId: ticket.id,
+    email: fromAddress,
+    name: fromName,
+    type: 'creator'
+  })
+
+  // Add CC recipients if any
+  if (email.cc && email.cc.length > 0) {
+    for (const ccRecipient of email.cc) {
+      if (ccRecipient.value && ccRecipient.value.length > 0) {
+        for (const ccAddress of ccRecipient.value) {
+          // Don't add duplicates or the main sender
+          if (ccAddress.address && ccAddress.address !== fromAddress) {
+            participantsData.push({
+              ticketId: ticket.id,
+              email: ccAddress.address,
+              name: ccAddress.name || ccAddress.address,
+              type: 'cc'
+            })
+          }
+        }
+      }
+    }
+  }
+
+  // Add BCC recipients if any (some email servers include them)
+  if (email.bcc && email.bcc.length > 0) {
+    for (const bccRecipient of email.bcc) {
+      if (bccRecipient.value && bccRecipient.value.length > 0) {
+        for (const bccAddress of bccRecipient.value) {
+          // Don't add duplicates or the main sender
+          if (bccAddress.address && bccAddress.address !== fromAddress) {
+            participantsData.push({
+              ticketId: ticket.id,
+              email: bccAddress.address,
+              name: bccAddress.name || bccAddress.address,
+              type: 'cc' // Treat BCC same as CC for participants
+            })
+          }
+        }
+      }
+    }
+  }
+
+  // Create all participants
+  if (participantsData.length > 0) {
+    await prisma.ticketParticipant.createMany({
+      data: participantsData,
+      skipDuplicates: true // In case same email appears multiple times
+    })
+  }
+
+  console.log(`Ticket created with ${participantsData.length} participants: ${participantsData.map(p => p.email).join(', ')}`)
+
   return true
 }
 
@@ -382,6 +441,7 @@ interface SendEmailOptions {
   subject: string
   content: string
   ticketNumber: string
+  ticketId?: string // Add ticketId to send to all participants
   attachments?: Array<{
     filename: string
     path: string
@@ -442,6 +502,49 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
 
     const result = await transporter.sendMail(mailOptions)
     console.log('Email sent successfully:', result.messageId)
+
+    // Send to all other participants if ticketId is provided
+    if (options.ticketId) {
+      try {
+        const participants = await prisma.ticketParticipant.findMany({
+          where: {
+            ticketId: options.ticketId,
+            email: {
+              not: options.to // Don't send duplicate to the original recipient
+            }
+          }
+        })
+
+        for (const participant of participants) {
+          try {
+            const participantMailOptions = {
+              from: {
+                name: emailConfig.name || 'Support',
+                address: emailConfig.username
+              },
+              to: {
+                name: participant.name || participant.email,
+                address: participant.email
+              },
+              subject: emailSubject,
+              text: cleanContent,
+              html: cleanContent.replace(/\n/g, '<br>'),
+              attachments: options.attachments
+            }
+
+            await transporter.sendMail(participantMailOptions)
+            console.log(`Email sent to participant: ${participant.email}`)
+          } catch (participantError) {
+            console.error(`Failed to send email to participant ${participant.email}:`, participantError)
+            // Continue with other participants even if one fails
+          }
+        }
+      } catch (participantsError) {
+        console.error('Error fetching participants for email notification:', participantsError)
+        // Don't fail the main email if participant lookup fails
+      }
+    }
+
     return true
 
   } catch (error) {
@@ -603,6 +706,105 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         type: 'external'
       }
     })
+
+    // Process ALL recipients from email reply and add them as participants
+    try {
+      const participantsToAdd = []
+      
+      // Get all configured email addresses to exclude them from participants
+      const emailConfigurations = await prisma.emailConfiguration.findMany({
+        select: { username: true }
+      })
+      const supportEmails = emailConfigurations.map(config => config.username.toLowerCase())
+      
+      // Add the sender (FROM) as participant if not already the original requester and not a support email
+      if (fromAddress && fromAddress !== ticket.fromEmail) {
+        const isSupportEmail = supportEmails.includes(fromAddress.toLowerCase())
+        
+        if (!isSupportEmail) {
+          participantsToAdd.push({
+            ticketId: ticket.id,
+            email: fromAddress,
+            name: fromName,
+            type: 'added_via_reply'
+          })
+        }
+      }
+      
+      // Add CC recipients if any
+      if (email.cc && email.cc.length > 0) {
+        for (const ccRecipient of email.cc) {
+          if (ccRecipient.value && ccRecipient.value.length > 0) {
+            for (const ccAddress of ccRecipient.value) {
+              if (ccAddress.address) {
+                participantsToAdd.push({
+                  ticketId: ticket.id,
+                  email: ccAddress.address,
+                  name: ccAddress.name || ccAddress.address,
+                  type: 'cc'
+                })
+              }
+            }
+          }
+        }
+      }
+
+      // Add BCC recipients if any (some email servers include them)
+      if (email.bcc && email.bcc.length > 0) {
+        for (const bccRecipient of email.bcc) {
+          if (bccRecipient.value && bccRecipient.value.length > 0) {
+            for (const bccAddress of bccRecipient.value) {
+              if (bccAddress.address) {
+                participantsToAdd.push({
+                  ticketId: ticket.id,
+                  email: bccAddress.address,
+                  name: bccAddress.name || bccAddress.address,
+                  type: 'cc'
+                })
+              }
+            }
+          }
+        }
+      }
+
+      // Add TO recipients if any (in case someone replies with additional TO addresses)
+      if (email.to && email.to.length > 0) {
+        for (const toRecipient of email.to) {
+          if (toRecipient.value && toRecipient.value.length > 0) {
+            for (const toAddress of toRecipient.value) {
+              // Skip our own support email addresses, but add any external TO addresses
+              if (toAddress.address) {
+                const isSupport = supportEmails.includes(toAddress.address.toLowerCase())
+                
+                if (!isSupport) {
+                  participantsToAdd.push({
+                    ticketId: ticket.id,
+                    email: toAddress.address,
+                    name: toAddress.name || toAddress.address,
+                    type: 'added_via_reply'
+                  })
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Create new participants (skipDuplicates will handle existing ones)
+      if (participantsToAdd.length > 0) {
+        await prisma.ticketParticipant.createMany({
+          data: participantsToAdd,
+          skipDuplicates: true // Skip if participant already exists
+        })
+        
+        console.log(`Added ${participantsToAdd.length} new participants from email reply: ${participantsToAdd.map(p => `${p.email} (${p.type})`).join(', ')}`)
+      } else {
+        console.log('No new participants to add from email reply')
+      }
+    } catch (participantError) {
+      console.error('Error processing participants from email reply:', participantError)
+      // Don't fail the main process if participant processing fails
+    }
 
     // Process attachments from email reply
     if (email.attachments && email.attachments.length > 0) {

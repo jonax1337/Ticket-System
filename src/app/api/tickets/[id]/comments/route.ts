@@ -134,6 +134,7 @@ export async function POST(
             subject: ticket.subject,
             content: content.trim(),
             ticketNumber: displayTicketNumber,
+            ticketId: params.id,
             attachments: attachments.length > 0 ? attachments.map(att => ({
               filename: att.filename,
               path: join(process.cwd(), 'public', att.filepath),
