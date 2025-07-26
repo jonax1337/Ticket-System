@@ -23,9 +23,9 @@ export default async function AdminPage() {
   }
 
   // Get email configurations and related data
-  let emailConfigs: any[] = []
-  let priorities: any[] = []
-  let statuses: any[] = []
+  let emailConfigs: Awaited<ReturnType<typeof prisma.emailConfiguration.findMany>> = []
+  let priorities: Awaited<ReturnType<typeof prisma.customPriority.findMany>> = []
+  let statuses: Awaited<ReturnType<typeof prisma.customStatus.findMany>> = []
 
   try {
     emailConfigs = await prisma.emailConfiguration.findMany({

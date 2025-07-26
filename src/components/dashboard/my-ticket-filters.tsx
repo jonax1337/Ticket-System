@@ -103,12 +103,12 @@ export default function MyTicketFilters() {
   }
 
   // Simple debounce function
-  function debounce<T extends (...args: any[]) => void>(
-    func: T,
+  function debounce<T extends unknown[]>(
+    func: (...args: T) => void,
     wait: number
-  ): (...args: Parameters<T>) => void {
+  ): (...args: T) => void {
     let timeout: NodeJS.Timeout
-    return (...args: Parameters<T>) => {
+    return (...args: T) => {
       clearTimeout(timeout)
       timeout = setTimeout(() => func(...args), wait)
     }
