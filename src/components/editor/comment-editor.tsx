@@ -5,7 +5,8 @@ import {
   $getRoot, 
   $createParagraphNode, 
   $createTextNode,
-  EditorState
+  EditorState,
+  $createLineBreakNode
 } from 'lexical'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
@@ -17,6 +18,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 
 import { MentionNode } from './mention-node'
 import { MentionPlugin } from './mention-plugin'
+import { LineBreakPlugin } from './line-break-plugin'
 
 interface User {
   id: string
@@ -106,6 +108,7 @@ function EditorContent({
         ignoreSelectionChange={true}
       />
       
+      {!disabled && <LineBreakPlugin />}
       {!disabled && <MentionPlugin users={users} />}
     </>
   )

@@ -2,6 +2,7 @@ import { ImapFlow, FetchMessageObject } from 'imapflow'
 import { simpleParser, ParsedMail } from 'mailparser'
 import { prisma } from '@/lib/prisma'
 import { generateTicketNumber } from '@/lib/ticket-number-generator'
+import nodemailer from 'nodemailer'
 
 interface EmailConfig {
   host: string
@@ -366,4 +367,130 @@ export async function syncAllActiveEmailAccounts(): Promise<void> {
   } catch (error) {
     console.error('Error syncing email accounts:', error)
   }
+}
+
+interface SendEmailOptions {
+  to: string
+  toName?: string
+  subject: string
+  content: string
+  ticketNumber: string
+  attachments?: Array<{
+    filename: string
+    path: string
+    contentType?: string
+  }>
+}
+
+export async function sendExternalEmail(options: SendEmailOptions): Promise<boolean> {
+  try {
+    // Get first active email configuration for sending
+    const emailConfig = await prisma.emailConfiguration.findFirst({
+      where: {
+        isActive: true
+      }
+    })
+
+    if (!emailConfig) {
+      throw new Error('No active email configuration found for sending emails')
+    }
+
+    // Create SMTP transporter using the same credentials as IMAP
+    const transporter = nodemailer.createTransporter({
+      host: emailConfig.host,
+      port: emailConfig.port === 993 ? 587 : emailConfig.port, // Use SMTP port instead of IMAP
+      secure: emailConfig.port === 465, // true for 465, false for other ports
+      auth: {
+        user: emailConfig.username,
+        pass: emailConfig.password
+      }
+    })
+
+    // Build email subject with ticket number
+    const emailSubject = `[Ticket ${options.ticketNumber}] ${options.subject}`
+
+    // Clean up content - remove [EMAIL] prefix if present
+    const cleanContent = options.content.replace(/^\[EMAIL\]\s*/, '')
+
+    // Send email
+    const mailOptions = {
+      from: {
+        name: emailConfig.name || 'Support',
+        address: emailConfig.username
+      },
+      to: {
+        name: options.toName || options.to,
+        address: options.to
+      },
+      subject: emailSubject,
+      text: cleanContent,
+      html: cleanContent.replace(/\n/g, '<br>'),
+      attachments: options.attachments
+    }
+
+    const result = await transporter.sendMail(mailOptions)
+    console.log('Email sent successfully:', result.messageId)
+    return true
+
+  } catch (error) {
+    console.error('Failed to send email:', error)
+    return false
+  }
+}
+
+// Function to check if incoming email is a reply to existing ticket
+export async function processIncomingEmailReply(email: ParsedMail): Promise<boolean> {
+  const subject = email.subject || ''
+  const fromAddress = email.from?.value?.[0]?.address || ''
+  
+  // Extract ticket number from subject
+  const ticketMatch = subject.match(/\[Ticket\s+([^\]]+)\]/)
+  if (!ticketMatch) {
+    return false // Not a reply to existing ticket
+  }
+
+  const ticketNumber = ticketMatch[1]
+  
+  // Find existing ticket
+  const ticket = await prisma.ticket.findFirst({
+    where: {
+      ticketNumber: ticketNumber
+    }
+  })
+
+  if (!ticket) {
+    return false // Ticket not found
+  }
+
+  // Create comment from email reply
+  const textBody = email.text || 'No text content'
+  
+  // Find or create a user for the email sender (simplified)
+  let userId = null
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      email: fromAddress
+    }
+  })
+
+  if (existingUser) {
+    userId = existingUser.id
+  } else {
+    // For now, we'll create comments without a user ID
+    // In a full implementation, you might want to create a guest user or handle this differently
+    console.log(`Reply from unregistered user: ${fromAddress}`)
+  }
+
+  // Create comment
+  await prisma.comment.create({
+    data: {
+      content: `[EMAIL REPLY] ${textBody.trim()}`,
+      ticketId: ticket.id,
+      userId: userId, // This might be null for external users
+      type: 'external'
+    }
+  })
+
+  console.log(`Added email reply as comment to ticket ${ticketNumber}`)
+  return true
 }

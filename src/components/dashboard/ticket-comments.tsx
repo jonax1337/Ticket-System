@@ -152,6 +152,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
     }
 
     let result = ''
+    let isFirstParagraph = true
     
     const processNode = (node: any) => {
       if (node.type === 'mention') {
@@ -159,6 +160,19 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
         result += `@[${node.mentionName}](${node.mentionId || node.mentionName})`
       } else if (node.type === 'text') {
         result += node.text
+      } else if (node.type === 'linebreak') {
+        // Add line break for Shift+Enter
+        result += '\n'
+      } else if (node.type === 'paragraph') {
+        // Add newline before each paragraph except the first one
+        if (!isFirstParagraph) {
+          result += '\n'
+        }
+        isFirstParagraph = false
+        // Process children of paragraph
+        if (node.children) {
+          node.children.forEach(processNode)
+        }
       } else if (node.children) {
         node.children.forEach(processNode)
       }
