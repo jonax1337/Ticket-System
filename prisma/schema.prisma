@@ -102,12 +102,14 @@ model Comment {
   content  String   @db.Text
   type     String   @default("internal") // 'internal' oder 'external'
   ticketId String
-  userId   String
+  userId   String?  // Optional for external users who reply via email
+  fromName String?  // Name of external user for email replies
+  fromEmail String? // Email of external user for email replies
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id])
   attachments CommentAttachment[]
   notifications Notification[]
 

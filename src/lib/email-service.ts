@@ -155,6 +155,7 @@ export async function syncEmails(emailConfig: EmailConfiguration): Promise<SyncR
         await applyEmailActionImapFlow(client, message.uid, emailConfig)
 
       } catch (error) {
+        console.error('Error processing email:', error)
         errorCount++
       }
     }
@@ -230,6 +231,12 @@ async function shouldProcessEmail(email: ParsedMail, config: EmailConfiguration)
 }
 
 async function createTicketFromEmail(email: ParsedMail, config: EmailConfiguration): Promise<boolean> {
+  // First check if this is a reply to existing ticket
+  const isReply = await processIncomingEmailReply(email)
+  if (isReply) {
+    return true // Email was processed as a reply
+  }
+
   const subject = email.subject || 'No Subject'
   const fromAddress = email.from?.value?.[0]?.address || 'unknown@example.com'
   const fromName = email.from?.value?.[0]?.name || fromAddress
@@ -396,7 +403,7 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
     }
 
     // Create SMTP transporter using the same credentials as IMAP
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       host: emailConfig.host,
       port: emailConfig.port === 993 ? 587 : emailConfig.port, // Use SMTP port instead of IMAP
       secure: emailConfig.port === 465, // true for 465, false for other ports
@@ -411,6 +418,11 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
 
     // Clean up content - remove [EMAIL] prefix if present
     const cleanContent = options.content.replace(/^\[EMAIL\]\s*/, '')
+
+    console.log(`Sending email with ${options.attachments?.length || 0} attachments`)
+    if (options.attachments && options.attachments.length > 0) {
+      console.log('Attachments:', options.attachments.map(att => `${att.filename} (${att.contentType})`))
+    }
 
     // Send email
     const mailOptions = {
@@ -438,59 +450,220 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
   }
 }
 
+// Function to extract only the new reply content from email, removing quoted history
+function extractNewReplyContent(emailText: string): string {
+  // Common patterns for email separators (German and English)
+  const separators = [
+    /^_{10,}$/gm,                           // Underscores ________________
+    /^-{10,}$/gm,                           // Dashes --------------------
+    /^Von:.*$/gmi,                          // German Outlook "Von:"
+    /^From:.*$/gmi,                         // English "From:"
+    /^Gesendet:.*$/gmi,                     // German Outlook "Gesendet:"
+    /^Sent:.*$/gmi,                         // English "Sent:"
+    /^On.*wrote:$/gmi,                      // Gmail style "On ... wrote:"
+    /^Am.*schrieb:$/gmi,                    // German Gmail "Am ... schrieb:"
+    /^>\s/gm,                               // Quoted lines starting with >
+    /^\s*>.*$/gm,                           // Lines with > quotes
+  ]
+
+  let cleanedText = emailText
+
+  // Find the first occurrence of any separator
+  let earliestIndex = cleanedText.length
+  
+  for (const separator of separators) {
+    const match = separator.exec(cleanedText)
+    if (match && match.index < earliestIndex) {
+      earliestIndex = match.index
+    }
+  }
+
+  // If we found a separator, cut off everything after it
+  if (earliestIndex < cleanedText.length) {
+    cleanedText = cleanedText.substring(0, earliestIndex)
+  }
+
+  // Clean up the result
+  return cleanedText
+    .trim()                               // Remove leading/trailing whitespace
+    .replace(/\n{3,}/g, '\n\n')          // Remove excessive line breaks
+    .replace(/^\s*[\r\n]+/g, '')         // Remove leading empty lines
+    .replace(/[\r\n]+\s*$/g, '')         // Remove trailing empty lines
+}
+
 // Function to check if incoming email is a reply to existing ticket
 export async function processIncomingEmailReply(email: ParsedMail): Promise<boolean> {
-  const subject = email.subject || ''
-  const fromAddress = email.from?.value?.[0]?.address || ''
-  
-  // Extract ticket number from subject
-  const ticketMatch = subject.match(/\[Ticket\s+([^\]]+)\]/)
-  if (!ticketMatch) {
-    return false // Not a reply to existing ticket
-  }
-
-  const ticketNumber = ticketMatch[1]
-  
-  // Find existing ticket
-  const ticket = await prisma.ticket.findFirst({
-    where: {
-      ticketNumber: ticketNumber
+  try {
+    const subject = email.subject || ''
+    const fromAddress = email.from?.value?.[0]?.address || ''
+    
+    console.log('[EMAIL REPLY DEBUG] Processing email:', subject)
+    console.log('[EMAIL REPLY DEBUG] From address:', fromAddress)
+    
+    // Extract ticket number from subject - handle various formats like:
+    // [Ticket IT-B8LOD55I] 
+    // Re: [Ticket IT-B8LOD55I]
+    // Fwd: [Ticket IT-B8LOD55I]
+    const ticketMatch = subject.match(/\[Ticket\s+([^\]]+)\]/i)
+    if (!ticketMatch) {
+      console.log('[EMAIL REPLY DEBUG] No ticket number found in subject')
+      return false // Not a reply to existing ticket
     }
-  })
 
-  if (!ticket) {
-    return false // Ticket not found
-  }
-
-  // Create comment from email reply
-  const textBody = email.text || 'No text content'
+    const ticketNumber = ticketMatch[1]
+    console.log('[EMAIL REPLY DEBUG] Found ticket number:', ticketNumber)
   
-  // Find or create a user for the email sender (simplified)
-  let userId = null
-  const existingUser = await prisma.user.findFirst({
-    where: {
-      email: fromAddress
+    // Find existing ticket
+    let ticket
+    try {
+      ticket = await prisma.ticket.findFirst({
+        where: {
+          ticketNumber: ticketNumber
+        }
+      })
+      console.log('[EMAIL REPLY DEBUG] Database query completed for ticket lookup')
+    } catch (dbError) {
+      console.error('[EMAIL REPLY DEBUG] Database error finding ticket:', dbError)
+      throw dbError
     }
-  })
 
-  if (existingUser) {
-    userId = existingUser.id
-  } else {
-    // For now, we'll create comments without a user ID
-    // In a full implementation, you might want to create a guest user or handle this differently
-    console.log(`Reply from unregistered user: ${fromAddress}`)
-  }
-
-  // Create comment
-  await prisma.comment.create({
-    data: {
-      content: `[EMAIL REPLY] ${textBody.trim()}`,
-      ticketId: ticket.id,
-      userId: userId, // This might be null for external users
-      type: 'external'
+    if (!ticket) {
+      console.log('[EMAIL REPLY DEBUG] Ticket not found for number:', ticketNumber)
+      return false // Ticket not found
     }
-  })
 
-  console.log(`Added email reply as comment to ticket ${ticketNumber}`)
-  return true
+    console.log('[EMAIL REPLY DEBUG] Found ticket:', ticket.id)
+
+    // Check for duplicate reply (based on email content and sender within last hour)
+    let recentSimilarComment
+    try {
+      recentSimilarComment = await prisma.comment.findFirst({
+        where: {
+          ticketId: ticket.id,
+          content: {
+            startsWith: '[EMAIL REPLY]'
+          },
+          createdAt: {
+            gte: new Date(Date.now() - 60 * 60 * 1000) // Last hour
+          }
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      })
+      console.log('[EMAIL REPLY DEBUG] Duplicate check query completed')
+    } catch (dbError) {
+      console.error('[EMAIL REPLY DEBUG] Database error checking duplicates:', dbError)
+      throw dbError
+    }
+
+    // Basic duplicate detection - if very similar content exists recently, skip
+    const newContent = extractNewReplyContent(email.text || '')
+    console.log('[EMAIL REPLY DEBUG] Extracted new content length:', newContent?.length || 0)
+    
+    if (recentSimilarComment && newContent) {
+      const existingContent = recentSimilarComment.content.replace('[EMAIL REPLY] ', '')
+      if (existingContent.trim() === newContent.trim()) {
+        console.log('[EMAIL REPLY DEBUG] Duplicate email detected, skipping')
+        return true // Skip duplicate, but return true to prevent new ticket creation
+      }
+    }
+
+    console.log('[EMAIL REPLY DEBUG] Creating comment with content:', newContent?.substring(0, 100) + '...')
+
+    // Create comment from email reply - extract only new content
+    const fullTextBody = email.text || 'No text content'
+    const newReplyContent = extractNewReplyContent(fullTextBody)
+    const textBody = newReplyContent || fullTextBody // Fallback to full text if extraction fails
+    
+    console.log('[EMAIL REPLY DEBUG] Final text body length:', textBody.length)
+    
+    // Find or create a user for the email sender (simplified)
+    let userId = null
+    try {
+      const existingUser = await prisma.user.findFirst({
+        where: {
+          email: fromAddress
+        }
+      })
+      console.log('[EMAIL REPLY DEBUG] User lookup completed, found:', !!existingUser)
+
+      if (existingUser) {
+        userId = existingUser.id
+      } else {
+        // External users can reply without being registered - this is normal for support systems
+        userId = null
+      }
+    } catch (dbError) {
+      console.error('[EMAIL REPLY DEBUG] Database error finding user:', dbError)
+      // Continue with null userId since external users are allowed
+      userId = null
+    }
+
+    // Extract sender information
+    const fromName = email.from?.value?.[0]?.name || fromAddress
+
+    // Create comment
+    const comment = await prisma.comment.create({
+      data: {
+        content: `[EMAIL REPLY] ${textBody.trim()}`,
+        ticketId: ticket.id,
+        userId: userId, // This can be null for external users
+        fromName: fromName, // Store sender name for external users
+        fromEmail: fromAddress, // Store sender email for external users
+        type: 'external'
+      }
+    })
+
+    // Process attachments from email reply
+    if (email.attachments && email.attachments.length > 0) {
+      try {
+        const { writeFile, mkdir } = await import('fs/promises')
+        const { join } = await import('path')
+        const { v4: uuidv4 } = await import('uuid')
+
+        const uploadDir = join(process.cwd(), 'public', 'uploads', 'attachments')
+        await mkdir(uploadDir, { recursive: true })
+
+        for (const attachment of email.attachments) {
+          if (attachment.content) {
+            try {
+              // Generate unique filename
+              const fileExtension = attachment.filename?.split('.').pop() || 'bin'
+              const uniqueFilename = `${uuidv4()}.${fileExtension}`
+              const filePath = join(uploadDir, uniqueFilename)
+              const relativePath = `/uploads/attachments/${uniqueFilename}`
+
+              // Save file
+              await writeFile(filePath, attachment.content)
+
+              // Save attachment to database
+              await prisma.commentAttachment.create({
+                data: {
+                  filename: attachment.filename || 'unknown',
+                  filepath: relativePath,
+                  mimetype: attachment.contentType || 'application/octet-stream',
+                  size: attachment.size || attachment.content.length,
+                  commentId: comment.id,
+                },
+              })
+
+            } catch (attachmentError) {
+              console.error(`Error saving email attachment ${attachment.filename}:`, attachmentError)
+            }
+          }
+        }
+      } catch (attachmentProcessError) {
+        console.error('Error processing attachments:', attachmentProcessError)
+        // Don't throw here, comment was created successfully
+      }
+    }
+
+    console.log(`Email reply processed successfully: ${subject} -> Comment ${comment.id}`)
+    return true
+
+  } catch (error) {
+    console.error('Error processing email reply:', error)
+    // Return false to allow the email to be processed as a new ticket instead
+    return false
 }

@@ -54,7 +54,9 @@ interface Comment {
     id: string
     name: string
     email: string
-  }
+  } | null // Can be null for external email replies
+  fromName?: string | null // Name of external user for email replies
+  fromEmail?: string | null // Email of external user for email replies
   attachments?: {
     id: string
     filename: string
@@ -375,35 +377,59 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                   <div className="bg-primary/10 text-primary rounded-full p-1">
                     <User className="h-4 w-4" />
                   </div>
-                  <span className="font-medium text-sm">{comment.user.name}</span>
+                  <span className="font-medium text-sm">
+                    {comment.user ? comment.user.name : (comment.fromName || 'External User')}
+                  </span>
                   
-                  {/* Da wir kein type-Feld in der Datenbank haben, prüfen wir auf [EMAIL] am Anfang des Kommentars */}
-                  <Badge 
-                    variant="outline" 
-                    className={comment.content.startsWith('[EMAIL]') 
-                      ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800' 
-                      : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/30 dark:text-slate-400 dark:border-slate-800'}
-                  >
-                    <span className="flex items-center gap-1 text-xs">
-                      {comment.content.startsWith('[EMAIL]') ? (
-                        <>
-                          <Mail className="h-3 w-3" />
-                          <span>Extern</span>
-                        </>
-                      ) : (
-                        <>
-                          <MessageSquare className="h-3 w-3" />
-                          <span>Intern</span>
-                        </>
-                      )}
-                    </span>
-                  </Badge>
+                  {/* Check for email types and display appropriate badges */}
+                  {(() => {
+                    const isEmailReply = comment.content.startsWith('[EMAIL REPLY]')
+                    const isEmail = comment.content.startsWith('[EMAIL]')
+                    const isEmailType = isEmailReply || isEmail
+                    
+                    return (
+                      <div className="flex items-center gap-2">
+                        <Badge 
+                          variant="outline" 
+                          className={isEmailType
+                            ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800' 
+                            : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/30 dark:text-slate-400 dark:border-slate-800'}
+                        >
+                          <span className="flex items-center gap-1 text-xs">
+                            {isEmailType ? (
+                              <>
+                                <Mail className="h-3 w-3" />
+                                <span>Extern</span>
+                              </>
+                            ) : (
+                              <>
+                                <MessageSquare className="h-3 w-3" />
+                                <span>Intern</span>
+                              </>
+                            )}
+                          </span>
+                        </Badge>
+                        
+                        {isEmailReply && (
+                          <Badge 
+                            variant="secondary"
+                            className="bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800"
+                          >
+                            <span className="flex items-center gap-1 text-xs">
+                              <Mail className="h-3 w-3" />
+                              <span>via Mail</span>
+                            </span>
+                          </Badge>
+                        )}
+                      </div>
+                    )
+                  })()}
                   
                   <span className="text-xs text-muted-foreground ml-auto">
                     {format(new Date(comment.createdAt), 'MMM d, yyyy HH:mm')}
                   </span>
                   
-                  {currentUser.id === comment.user.id && (
+                  {comment.user && currentUser.id === comment.user.id && (
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
@@ -436,10 +462,14 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                 </div>
                 <div className="text-sm">
                   <CommentContent 
-                    content={comment.content.startsWith('[EMAIL]') 
-                      ? comment.content.substring(7) // Entferne '[EMAIL] '
-                      : comment.content
-                    }
+                    content={(() => {
+                      if (comment.content.startsWith('[EMAIL REPLY]')) {
+                        return comment.content.substring(13) // Entferne '[EMAIL REPLY] '
+                      } else if (comment.content.startsWith('[EMAIL]')) {
+                        return comment.content.substring(7) // Entferne '[EMAIL] '
+                      }
+                      return comment.content
+                    })()}
                   />
                 </div>
                 

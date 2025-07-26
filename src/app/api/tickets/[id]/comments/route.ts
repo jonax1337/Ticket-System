@@ -6,6 +6,7 @@ import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import { parseMentionsFromComment, createMentionNotification } from '@/lib/notification-service'
+import { sendExternalEmail } from '@/lib/email-service'
 
 export async function POST(
   request: NextRequest,
@@ -120,9 +121,36 @@ export async function POST(
       }
     }
 
-    // Handle notifications
+    // Handle notifications and email sending
     try {
       const displayTicketNumber = ticket.ticketNumber || `#${params.id.slice(-6).toUpperCase()}`
+      
+      // Send external email if comment type is external
+      if (type === 'external') {
+        try {
+          const emailSent = await sendExternalEmail({
+            to: ticket.fromEmail,
+            toName: ticket.fromName || undefined,
+            subject: ticket.subject,
+            content: content.trim(),
+            ticketNumber: displayTicketNumber,
+            attachments: attachments.length > 0 ? attachments.map(att => ({
+              filename: att.filename,
+              path: join(process.cwd(), 'public', att.filepath),
+              contentType: att.mimetype
+            })) : undefined
+          })
+          
+          if (emailSent) {
+            console.log(`External email sent successfully for ticket ${displayTicketNumber}`)
+          } else {
+            console.error(`Failed to send external email for ticket ${displayTicketNumber}`)
+          }
+        } catch (emailError) {
+          console.error('Error sending external email:', emailError)
+          // Don't fail the main request if email sending fails
+        }
+      }
       
       // Parse mentions from comment content
       const mentionedUserIds = await parseMentionsFromComment(content)
