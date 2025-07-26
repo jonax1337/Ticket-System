@@ -358,8 +358,9 @@ ${textBody}
   })
 
   // Add CC recipients if any
-  if (email.cc && email.cc.length > 0) {
-    for (const ccRecipient of email.cc) {
+  if (email.cc) {
+    const ccArray = Array.isArray(email.cc) ? email.cc : [email.cc]
+    for (const ccRecipient of ccArray) {
       if (ccRecipient.value && ccRecipient.value.length > 0) {
         for (const ccAddress of ccRecipient.value) {
           // Don't add duplicates or the main sender
@@ -377,8 +378,9 @@ ${textBody}
   }
 
   // Add BCC recipients if any (some email servers include them)
-  if (email.bcc && email.bcc.length > 0) {
-    for (const bccRecipient of email.bcc) {
+  if (email.bcc) {
+    const bccArray = Array.isArray(email.bcc) ? email.bcc : [email.bcc]
+    for (const bccRecipient of bccArray) {
       if (bccRecipient.value && bccRecipient.value.length > 0) {
         for (const bccAddress of bccRecipient.value) {
           // Don't add duplicates or the main sender
@@ -771,8 +773,9 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       }
       
       // Add CC recipients if any
-      if (email.cc && email.cc.length > 0) {
-        for (const ccRecipient of email.cc) {
+      if (email.cc) {
+        const ccArray = Array.isArray(email.cc) ? email.cc : [email.cc]
+        for (const ccRecipient of ccArray) {
           if (ccRecipient.value && ccRecipient.value.length > 0) {
             for (const ccAddress of ccRecipient.value) {
               if (ccAddress.address) {
@@ -789,8 +792,9 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       }
 
       // Add BCC recipients if any (some email servers include them)
-      if (email.bcc && email.bcc.length > 0) {
-        for (const bccRecipient of email.bcc) {
+      if (email.bcc) {
+        const bccArray = Array.isArray(email.bcc) ? email.bcc : [email.bcc]
+        for (const bccRecipient of bccArray) {
           if (bccRecipient.value && bccRecipient.value.length > 0) {
             for (const bccAddress of bccRecipient.value) {
               if (bccAddress.address) {
@@ -807,8 +811,9 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       }
 
       // Add TO recipients if any (in case someone replies with additional TO addresses)
-      if (email.to && email.to.length > 0) {
-        for (const toRecipient of email.to) {
+      if (email.to) {
+        const toArray = Array.isArray(email.to) ? email.to : [email.to]
+        for (const toRecipient of toArray) {
           if (toRecipient.value && toRecipient.value.length > 0) {
             for (const toAddress of toRecipient.value) {
               // Skip our own support email addresses, but add any external TO addresses
@@ -946,4 +951,5 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     console.error('Error processing email reply:', error)
     // Return false to allow the email to be processed as a new ticket instead
     return false
+  }
 }

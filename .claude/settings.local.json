@@ -18,7 +18,9 @@
       "Bash(node:*)",
       "Bash(git clean:*)",
       "Bash(npm uninstall:*)",
-      "WebFetch(domain:ui.shadcn.com)"
+      "WebFetch(domain:ui.shadcn.com)",
+      "Bash(grep:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }
