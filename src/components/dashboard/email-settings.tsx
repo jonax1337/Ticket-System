@@ -243,7 +243,9 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
       const result = await response.json()
       
       if (result.success) {
-        toast.success(`Sync completed! Imported: ${result.importedCount}, Skipped: ${result.skippedCount}, Errors: ${result.errorCount}`)
+        toast.success(`Sync completed!`, {
+          description: `Imported: ${result.importedCount}, Skipped: ${result.skippedCount}, Errors: ${result.errorCount}`
+        })
         router.refresh()
       } else {
         toast.error(`Sync failed: ${result.error}`)

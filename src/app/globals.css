@@ -169,3 +169,12 @@
   }
 }
 
+/* Sonner Toast Font Fix */
+[data-sonner-toaster] {
+  font-family: var(--font-sans), sans-serif !important;
+}
+
+[data-sonner-toast] {
+  font-family: var(--font-sans), sans-serif !important;
+}
+
