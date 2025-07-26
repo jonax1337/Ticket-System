@@ -607,6 +607,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     const comment = await prisma.comment.create({
       data: {
         content: `[EMAIL REPLY] ${textBody.trim()}`,
+        fullEmailContent: fullTextBody, // Store the complete email content including history
         ticketId: ticket.id,
         userId: userId, // This can be null for external users
         fromName: fromName, // Store sender name for external users
@@ -657,6 +658,42 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         console.error('Error processing attachments:', attachmentProcessError)
         // Don't throw here, comment was created successfully
       }
+    }
+
+    // Create notification for email reply - only for assigned user
+    try {
+      // Get the ticket with assignment information
+      const ticketWithAssignment = await prisma.ticket.findUnique({
+        where: { id: ticket.id },
+        include: {
+          assignedTo: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      })
+
+      // Only create notification if ticket is assigned to someone
+      if (ticketWithAssignment?.assignedTo) {
+        const displayTicketNumber = ticketWithAssignment.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
+        
+        await prisma.notification.create({
+          data: {
+            type: 'comment_added',
+            title: 'New Email Reply',
+            message: `${fromName} replied via email to ticket ${displayTicketNumber}: ${ticketWithAssignment.subject}`,
+            userId: ticketWithAssignment.assignedTo.id,
+            actorId: userId, // This can be null for external users
+            ticketId: ticket.id,
+            commentId: comment.id,
+          }
+        })
+      }
+    } catch (notificationError) {
+      console.error('Error creating notifications for email reply:', notificationError)
+      // Don't fail the main process if notifications fail
     }
 
     console.log(`Email reply processed successfully: ${subject} -> Comment ${comment.id}`)

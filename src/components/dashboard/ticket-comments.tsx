@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CommentEditor, CommentEditorRef } from '@/components/editor/comment-editor'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon } from 'lucide-react'
+import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon, ChevronDown, ChevronRight } from 'lucide-react'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import CommentContent from './comment-content'
@@ -48,6 +48,7 @@ const getIconComponent = (iconName: string) => {
 interface Comment {
   id: string
   content: string
+  fullEmailContent?: string | null // Full email content including history for email replies
   createdAt: Date
   // type ist nicht in der Datenbank, wir leiten es aus dem Content ab
   user: {
@@ -102,6 +103,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   const [previewContent, setPreviewContent] = useState<{url: string, type: string, name: string} | null>(null)
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [users, setUsers] = useState<{ id: string; name: string; email: string }[]>([])
+  const [expandedEmailHistory, setExpandedEmailHistory] = useState<{[key: string]: boolean}>({})
   const editorRef = useRef<CommentEditorRef>(null)
 
   useEffect(() => {
@@ -199,6 +201,36 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   const getFileIcon = (mimetype: string) => {
     if (mimetype.startsWith('image/')) return ImageIcon
     return Paperclip
+  }
+
+  // Function to extract email history from full email content
+  const extractEmailHistory = (fullEmailContent: string, newContent: string) => {
+    if (!fullEmailContent || !newContent) return null
+    
+    // Find where the new content ends and the email history begins
+    const newContentTrimmed = newContent.replace('[EMAIL REPLY] ', '').trim()
+    const fullContentTrimmed = fullEmailContent.trim()
+    
+    // If the new content is at the beginning, everything after it is history
+    if (fullContentTrimmed.startsWith(newContentTrimmed)) {
+      const historyStart = newContentTrimmed.length
+      const emailHistory = fullContentTrimmed.substring(historyStart).trim()
+      return emailHistory.length > 0 ? emailHistory : null
+    }
+    
+    // If we can't find a clear separation, return the difference
+    if (fullContentTrimmed.length > newContentTrimmed.length) {
+      return fullContentTrimmed.substring(newContentTrimmed.length).trim()
+    }
+    
+    return null
+  }
+
+  const toggleEmailHistory = (commentId: string) => {
+    setExpandedEmailHistory(prev => ({
+      ...prev,
+      [commentId]: !prev[commentId]
+    }))
   }
 
   const handleDeleteComment = async (commentId: string) => {
@@ -471,6 +503,45 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                       return comment.content
                     })()}
                   />
+                  
+                  {/* Email History Section for Email Replies */}
+                  {comment.content.startsWith('[EMAIL REPLY]') && comment.fullEmailContent && (() => {
+                    const cleanedContent = comment.content.substring(13) // Remove '[EMAIL REPLY] '
+                    const emailHistory = extractEmailHistory(comment.fullEmailContent, cleanedContent)
+                    
+                    if (!emailHistory) return null
+                    
+                    const isExpanded = expandedEmailHistory[comment.id] || false
+                    
+                    return (
+                      <div className="mt-3 pt-3 border-t border-border/30">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-auto p-1 text-xs text-muted-foreground hover:text-foreground"
+                          onClick={() => toggleEmailHistory(comment.id)}
+                        >
+                          {isExpanded ? (
+                            <ChevronDown className="h-3 w-3 mr-1" />
+                          ) : (
+                            <ChevronRight className="h-3 w-3 mr-1" />
+                          )}
+                          {isExpanded ? 'Hide' : 'Show'} Mail History
+                        </Button>
+                        
+                        {isExpanded && (
+                          <div className="mt-2 p-3 bg-muted/30 rounded border-l-2 border-blue-200 dark:border-blue-700">
+                            <div className="text-xs text-muted-foreground mb-2 font-medium">
+                              Original Message:
+                            </div>
+                            <div className="text-xs text-muted-foreground whitespace-pre-wrap font-mono">
+                              {emailHistory}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })()}
                 </div>
                 
                 {/* File attachments display */}
