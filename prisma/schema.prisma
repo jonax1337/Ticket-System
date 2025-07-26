@@ -118,6 +118,7 @@ model Comment {
   id       String   @id @default(cuid())
   content  String   @db.Text
   fullEmailContent String? @db.Text // Full email content including history for email replies
+  sentToEmails String? @db.Text // Comma-separated list of emails this external comment was sent to
   type     String   @default("internal") // 'internal' oder 'external'
   ticketId String
   userId   String?  // Optional for external users who reply via email

@@ -18,7 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Plus, Mail, UserPlus, Users, Trash2, Crown, UserX } from 'lucide-react'
+import { Plus, Mail, UserPlus, Users, Trash2, Crown, UserX, User, Edit } from 'lucide-react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
@@ -43,30 +43,18 @@ interface TicketParticipantsProps {
 const getParticipantIcon = (type: string) => {
   switch (type) {
     case 'creator':
-      return <Crown className="h-4 w-4 text-yellow-600" />
-    case 'cc':
-      return <Mail className="h-4 w-4 text-blue-600" />
-    case 'added_manually':
-      return <UserPlus className="h-4 w-4 text-green-600" />
-    case 'added_via_reply':
-      return <Mail className="h-4 w-4 text-purple-600" />
+      return <User className="h-4 w-4 text-slate-600" />
     default:
-      return <Users className="h-4 w-4 text-gray-600" />
+      return <Users className="h-4 w-4 text-slate-600" />
   }
 }
 
 const getParticipantBadgeColor = (type: string) => {
   switch (type) {
     case 'creator':
-      return 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800'
-    case 'cc':
-      return 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800'
-    case 'added_manually':
-      return 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800'
-    case 'added_via_reply':
-      return 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-800'
+      return 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/30 dark:text-slate-400 dark:border-slate-800'
     default:
-      return 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800'
+      return 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800'
   }
 }
 
@@ -74,14 +62,8 @@ const getParticipantLabel = (type: string) => {
   switch (type) {
     case 'creator':
       return 'Creator'
-    case 'cc':
-      return 'CC'
-    case 'added_manually':
-      return 'Added'
-    case 'added_via_reply':
-      return 'Via Reply'
     default:
-      return 'Unknown'
+      return 'Participant'
   }
 }
 
@@ -196,13 +178,13 @@ export default function TicketParticipants({ ticketId, participants, requester, 
         <div className="mb-6">
           <div className="mb-3">
             <h4 className="text-sm font-medium flex items-center gap-2">
-              <Crown className="h-4 w-4 text-yellow-600" />
+              <User className="h-4 w-4 text-slate-600" />
               Requester
             </h4>
           </div>
-          <div className="flex items-center justify-between p-4 border rounded-lg bg-yellow-50/50 dark:bg-yellow-900/10">
+          <div className="flex items-center justify-between p-4 border rounded-lg bg-slate-50/50 dark:bg-slate-900/10">
             <div className="flex items-center gap-3">
-              <Crown className="h-5 w-5 text-yellow-600" />
+              <User className="h-5 w-5 text-slate-600" />
               <div>
                 <div className="font-medium text-base">
                   {requester.name || requester.email}
@@ -217,7 +199,7 @@ export default function TicketParticipants({ ticketId, participants, requester, 
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" size="sm">
-                  Edit
+                  <Edit className="h-4 w-4" />
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
@@ -269,7 +251,7 @@ export default function TicketParticipants({ ticketId, participants, requester, 
           <div className="mb-3 flex items-center justify-between">
             <h4 className="text-sm font-medium flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Additional Participants ({participants.length})
+              Additional Participants
             </h4>
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -278,8 +260,7 @@ export default function TicketParticipants({ ticketId, participants, requester, 
                   size="sm"
                   disabled={isLoading}
                 >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add
+                  <Plus className="h-4 w-4" />
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
@@ -349,12 +330,6 @@ export default function TicketParticipants({ ticketId, participants, requester, 
                       </div>
                     )}
                   </div>
-                  <Badge
-                    variant="outline"
-                    className={`text-xs ${getParticipantBadgeColor(participant.type)}`}
-                  >
-                    {getParticipantLabel(participant.type)}
-                  </Badge>
                 </div>
 
                 {/* Only allow removal of manually added participants and those added via reply */}

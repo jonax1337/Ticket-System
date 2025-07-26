@@ -7,7 +7,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CommentEditor, CommentEditorRef } from '@/components/editor/comment-editor'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon, ChevronDown, ChevronRight } from 'lucide-react'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon, ChevronDown, ChevronRight, Users, Crown, UserPlus, Check } from 'lucide-react'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import CommentContent from './comment-content'
@@ -49,6 +51,7 @@ interface Comment {
   id: string
   content: string
   fullEmailContent?: string | null // Full email content including history for email replies
+  sentToEmails?: string | null // Comma-separated emails this external comment was sent to
   createdAt: Date
   // type ist nicht in der Datenbank, wir leiten es aus dem Content ab
   user: {
@@ -71,6 +74,14 @@ interface Ticket {
   id: string
   status: string
   comments: Comment[]
+  participants?: {
+    id: string
+    email: string
+    name?: string | null
+    type: string
+  }[]
+  fromEmail: string
+  fromName: string | null
 }
 
 interface CustomStatus {
@@ -104,15 +115,18 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [users, setUsers] = useState<{ id: string; name: string; email: string }[]>([])
   const [expandedEmailHistory, setExpandedEmailHistory] = useState<{[key: string]: boolean}>({})
+  const [selectedParticipants, setSelectedParticipants] = useState<string[]>([]) // Email addresses
+  const [participants, setParticipants] = useState<{id: string, email: string, name: string | null, type: string}[]>([])
   const editorRef = useRef<CommentEditorRef>(null)
 
   useEffect(() => {
-    // Load custom statuses and users
+    // Load custom statuses, users, and participants
     const fetchData = async () => {
       try {
-        const [statusResponse, usersResponse] = await Promise.all([
+        const [statusResponse, usersResponse, participantsResponse] = await Promise.all([
           fetch('/api/statuses'),
-          fetch('/api/users')
+          fetch('/api/users'),
+          fetch(`/api/tickets/${ticket.id}/participants`)
         ])
         
         if (statusResponse.ok) {
@@ -124,13 +138,22 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
           const userData = await usersResponse.json()
           setUsers(userData)
         }
+        
+        if (participantsResponse.ok) {
+          const participantData = await participantsResponse.json()
+          setParticipants(participantData)
+          // Default select requester for external comments
+          if (ticket.fromEmail) {
+            setSelectedParticipants([ticket.fromEmail])
+          }
+        }
       } catch (error) {
         console.error('Failed to fetch data:', error)
       }
     }
     
     fetchData()
-  }, [])
+  }, [ticket.id, ticket.fromEmail])
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
@@ -273,6 +296,11 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       formData.append('content', commentContent)
       formData.append('type', commentType)
       
+      // Add selected participants for external comments
+      if (commentType === 'external' && selectedParticipants.length > 0) {
+        formData.append('selectedParticipants', JSON.stringify(selectedParticipants))
+      }
+      
       // Add files to form data
       selectedFiles.forEach((file, index) => {
         formData.append(`file_${index}`, file)
@@ -371,9 +399,134 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
             </div>
           )}
 
+          {/* Participant Selection for External Comments */}
+          {commentType === 'external' && (
+            <div className="pt-3 border-t border-border/50">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <Users className="h-4 w-4" />
+                  Send email to:
+                </div>
+                
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className="w-full justify-between text-left font-normal"
+                    >
+                      {selectedParticipants.length === 0
+                        ? "Select recipients..."
+                        : `${selectedParticipants.length} recipient${selectedParticipants.length !== 1 ? 's' : ''} selected`
+                      }
+                      <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search participants..." />
+                      <CommandEmpty>No participants found.</CommandEmpty>
+                      <CommandList>
+                        <CommandGroup>
+                          {/* Requester */}
+                          <CommandItem
+                            onSelect={() => {
+                              if (selectedParticipants.includes(ticket.fromEmail)) {
+                                setSelectedParticipants(prev => prev.filter(email => email !== ticket.fromEmail))
+                              } else {
+                                setSelectedParticipants(prev => [...prev, ticket.fromEmail])
+                              }
+                            }}
+                          >
+                            <div className="flex items-center gap-2 flex-1">
+                              {selectedParticipants.includes(ticket.fromEmail) && (
+                                <Check className="h-4 w-4 text-primary" />
+                              )}
+                              <div className="flex-1">
+                                <div className="font-medium">{ticket.fromName || ticket.fromEmail}</div>
+                                {ticket.fromName && ticket.fromName !== ticket.fromEmail && (
+                                  <div className="text-xs text-muted-foreground">{ticket.fromEmail}</div>
+                                )}
+                              </div>
+                              <Badge variant="outline" className="text-xs bg-slate-100 text-slate-700 border-slate-200">
+                                Requester
+                              </Badge>
+                            </div>
+                          </CommandItem>
+                          
+                          {/* Other Participants */}
+                          {participants.filter(p => p.email !== ticket.fromEmail).map((participant) => {
+                            return (
+                              <CommandItem
+                                key={participant.id}
+                                onSelect={() => {
+                                  if (selectedParticipants.includes(participant.email)) {
+                                    setSelectedParticipants(prev => prev.filter(email => email !== participant.email))
+                                  } else {
+                                    setSelectedParticipants(prev => [...prev, participant.email])
+                                  }
+                                }}
+                              >
+                                <div className="flex items-center gap-2 flex-1">
+                                  {selectedParticipants.includes(participant.email) && (
+                                    <Check className="h-4 w-4 text-primary" />
+                                  )}
+                                  <div className="flex-1">
+                                    <div>{participant.name || participant.email}</div>
+                                    {participant.name && participant.name !== participant.email && (
+                                      <div className="text-xs text-muted-foreground">{participant.email}</div>
+                                    )}
+                                  </div>
+                                  <Badge variant="outline" className="text-xs">
+                                    Participant
+                                  </Badge>
+                                </div>
+                              </CommandItem>
+                            )
+                          })}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                
+                {/* Selected participants preview */}
+                {selectedParticipants.length > 0 && (
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {selectedParticipants.map((email) => {
+                      const isRequester = email === ticket.fromEmail
+                      const participant = participants.find(p => p.email === email)
+                      const displayName = isRequester 
+                        ? (ticket.fromName || ticket.fromEmail)
+                        : (participant?.name || email)
+                      
+                      return (
+                        <Badge 
+                          key={email} 
+                          variant="secondary" 
+                          className="text-xs flex items-center gap-1"
+                        >
+                          {displayName}
+                          <button
+                            onClick={() => setSelectedParticipants(prev => prev.filter(e => e !== email))}
+                            className="ml-1 hover:bg-muted rounded-full"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="flex justify-between items-center pt-2">
             <div className="text-xs text-muted-foreground">
-              {commentType === 'external' ? "Will send email to requester" : "Only visible internally"}
+              {commentType === 'external' 
+                ? `Will send email to ${selectedParticipants.length} recipient${selectedParticipants.length !== 1 ? 's' : ''}` 
+                : "Only visible internally"}
               {nextStatus && nextStatus !== ticket.status && (
                 <span className="ml-2">• Status will change to "{nextStatus}"</span>
               )}
@@ -457,9 +610,17 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                     )
                   })()}
                   
-                  <span className="text-xs text-muted-foreground ml-auto">
-                    {format(new Date(comment.createdAt), 'MMM d, yyyy HH:mm')}
-                  </span>
+                  <div className="text-xs text-muted-foreground ml-auto text-right">
+                    <div>{format(new Date(comment.createdAt), 'MMM d, yyyy HH:mm')}</div>
+                    {comment.sentToEmails && (
+                      <div className="text-xs text-muted-foreground opacity-70">
+                        Sent to: {comment.sentToEmails.split(', ').length > 2 
+                          ? `${comment.sentToEmails.split(', ').slice(0, 2).join(', ')} +${comment.sentToEmails.split(', ').length - 2} more`
+                          : comment.sentToEmails
+                        }
+                      </div>
+                    )}
+                  </div>
                   
                   {comment.user && currentUser.id === comment.user.id && (
                     <AlertDialog>

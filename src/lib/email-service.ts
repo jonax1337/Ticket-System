@@ -442,6 +442,7 @@ interface SendEmailOptions {
   content: string
   ticketNumber: string
   ticketId?: string // Add ticketId to send to all participants
+  selectedParticipants?: string[] // Specific participants to send to
   attachments?: Array<{
     filename: string
     path: string
@@ -503,8 +504,46 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
     const result = await transporter.sendMail(mailOptions)
     console.log('Email sent successfully:', result.messageId)
 
-    // Send to all other participants if ticketId is provided
-    if (options.ticketId) {
+    // Send to selected participants if provided, otherwise send to all participants
+    if (options.selectedParticipants && options.selectedParticipants.length > 0) {
+      // Send to specifically selected participants
+      for (const participantEmail of options.selectedParticipants) {
+        // Skip the original "to" recipient if it's already in the list
+        if (participantEmail === options.to) continue
+        
+        try {
+          // Get participant info from database for name
+          const participant = await prisma.ticketParticipant.findFirst({
+            where: {
+              ticketId: options.ticketId,
+              email: participantEmail
+            }
+          })
+          
+          const participantMailOptions = {
+            from: {
+              name: emailConfig.name || 'Support',
+              address: emailConfig.username
+            },
+            to: {
+              name: participant?.name || participantEmail,
+              address: participantEmail
+            },
+            subject: emailSubject,
+            text: cleanContent,
+            html: cleanContent.replace(/\n/g, '<br>'),
+            attachments: options.attachments
+          }
+
+          await transporter.sendMail(participantMailOptions)
+          console.log(`Email sent to selected participant: ${participantEmail}`)
+        } catch (participantError) {
+          console.error(`Failed to send email to selected participant ${participantEmail}:`, participantError)
+          // Continue with other participants even if one fails
+        }
+      }
+    } else if (options.ticketId) {
+      // Fallback: send to all participants if no specific selection
       try {
         const participants = await prisma.ticketParticipant.findMany({
           where: {

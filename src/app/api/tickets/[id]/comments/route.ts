@@ -49,6 +49,9 @@ export async function POST(
     const content = formData.get('content') as string
     const type = formData.get('type') as string || 'internal'
     const fileCount = parseInt(formData.get('fileCount') as string || '0')
+    const selectedParticipants = formData.get('selectedParticipants') 
+      ? JSON.parse(formData.get('selectedParticipants') as string) as string[]
+      : []
 
     if (!content || !content.trim()) {
       return NextResponse.json(
@@ -57,10 +60,18 @@ export async function POST(
       )
     }
 
+    // Add selected participants info to content if external (less intrusive)
+    let finalContent = content.trim()
+    let sentToInfo = null
+    if (type === 'external' && selectedParticipants.length > 0) {
+      sentToInfo = selectedParticipants.join(', ')
+    }
+
     // Create comment first
     const comment = await prisma.comment.create({
       data: {
-        content: content.trim(),
+        content: finalContent,
+        sentToEmails: sentToInfo,
         ticketId: params.id,
         userId: session.user.id,
         type: type,
@@ -128,13 +139,17 @@ export async function POST(
       // Send external email if comment type is external
       if (type === 'external') {
         try {
+          // Use selected participants or fall back to requester
+          const emailRecipients = selectedParticipants.length > 0 ? selectedParticipants : [ticket.fromEmail]
+          
           const emailSent = await sendExternalEmail({
-            to: ticket.fromEmail,
+            to: ticket.fromEmail, // Keep for backward compatibility
             toName: ticket.fromName || undefined,
             subject: ticket.subject,
             content: content.trim(),
             ticketNumber: displayTicketNumber,
             ticketId: params.id,
+            selectedParticipants: emailRecipients, // Pass selected participants
             attachments: attachments.length > 0 ? attachments.map(att => ({
               filename: att.filename,
               path: join(process.cwd(), 'public', att.filepath),
