@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     // Create attachments if provided
     if (attachments && attachments.length > 0) {
       await prisma.ticketAttachment.createMany({
-        data: attachments.map((attachment: any) => ({
+        data: attachments.map((attachment: { filename: string; filepath: string; mimetype: string; size: number }) => ({
           filename: attachment.filename,
           filepath: attachment.filepath,
           mimetype: attachment.mimetype,

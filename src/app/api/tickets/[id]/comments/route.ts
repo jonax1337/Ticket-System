@@ -61,7 +61,7 @@ export async function POST(
     }
 
     // Add selected participants info to content if external (less intrusive)
-    let finalContent = content.trim()
+    const finalContent = content.trim()
     let sentToInfo = null
     if (type === 'external' && selectedParticipants.length > 0) {
       sentToInfo = selectedParticipants.join(', ')

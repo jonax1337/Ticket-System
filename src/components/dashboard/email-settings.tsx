@@ -672,7 +672,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                           <AlertDialogHeader>
                             <AlertDialogTitle>Delete Email Configuration</AlertDialogTitle>
                             <AlertDialogDescription>
-                              Are you sure you want to delete the email configuration "{config.name}"? 
+                              Are you sure you want to delete the email configuration &quot;{config.name}&quot;? 
                               This action cannot be undone and will stop automatic ticket creation from this email account.
                             </AlertDialogDescription>
                           </AlertDialogHeader>

@@ -197,7 +197,7 @@ export async function parseMentionsFromComment(content: string): Promise<string[
           OR: legacyMentions.map(name => ({
             name: {
               equals: name,
-              mode: 'insensitive' as any,
+              mode: 'insensitive' as const,
             },
           })),
         },

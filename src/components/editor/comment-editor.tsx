@@ -29,7 +29,7 @@ interface User {
 interface CommentEditorProps {
   placeholder?: string
   value?: string
-  onChange?: (content: string, serializedState?: any) => void
+  onChange?: (content: string, serializedState?: unknown) => void
   users?: User[]
   disabled?: boolean
   className?: string
@@ -49,7 +49,7 @@ function EditorContent({
 }: {
   placeholder: string
   disabled: boolean
-  onChange?: (content: string, serializedState?: any) => void
+  onChange?: (content: string, serializedState?: unknown) => void
   users: User[]
   onClearRef: (clearFn: () => void) => void
 }) {

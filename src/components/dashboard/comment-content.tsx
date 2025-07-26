@@ -19,8 +19,8 @@ export default function CommentContent({ content }: CommentContentProps) {
       }
       
       // Process mentions in this line
-      let mentionRegex = /@\[([^\]]+)\]\(([^)]+)\)/g
-      let parts = []
+      const mentionRegex = /@\[([^\]]+)\]\(([^)]+)\)/g
+      const parts = []
       let lastIndex = 0
       let match
 

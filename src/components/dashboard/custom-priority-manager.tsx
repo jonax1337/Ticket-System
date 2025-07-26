@@ -299,7 +299,7 @@ export default function CustomPriorityManager() {
                   <AlertDialogHeader>
                     <AlertDialogTitle>Delete Priority</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Are you sure you want to delete the "{priority.name}" priority? 
+                      Are you sure you want to delete the &quot;{priority.name}&quot; priority? 
                       This action cannot be undone and may affect existing tickets using this priority.
                     </AlertDialogDescription>
                   </AlertDialogHeader>

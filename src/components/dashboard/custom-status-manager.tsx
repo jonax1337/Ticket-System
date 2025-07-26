@@ -299,7 +299,7 @@ export default function CustomStatusManager() {
                   <AlertDialogHeader>
                     <AlertDialogTitle>Delete Status</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Are you sure you want to delete the "{status.name}" status? 
+                      Are you sure you want to delete the &quot;{status.name}&quot; status? 
                       This action cannot be undone and may affect existing tickets using this status.
                     </AlertDialogDescription>
                   </AlertDialogHeader>

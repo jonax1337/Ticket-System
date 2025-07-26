@@ -206,7 +206,7 @@ export default function TicketParticipants({ ticketId, participants, requester, 
                 <AlertDialogHeader>
                   <AlertDialogTitle>Edit Requester Information</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Update the requester's name and email address for this ticket.
+                    Update the requester&apos;s name and email address for this ticket.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div className="space-y-3 py-4">

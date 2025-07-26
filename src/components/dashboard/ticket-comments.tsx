@@ -99,7 +99,7 @@ interface TicketCommentsProps {
     id: string
     name?: string | null
   }
-  onTicketUpdate?: (updatedTicket: any) => void
+  onTicketUpdate?: (updatedTicket: unknown) => void
 }
 
 export default function TicketComments({ ticket, currentUser, onTicketUpdate }: TicketCommentsProps) {
@@ -165,23 +165,24 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   }
 
   // Handle editor content changes  
-  const [editorSerializedState, setEditorSerializedState] = useState<any>(null)
+  const [editorSerializedState, setEditorSerializedState] = useState<unknown>(null)
   
-  const handleEditorChange = (content: string, serializedState?: any) => {
+  const handleEditorChange = (content: string, serializedState?: unknown) => {
     setNewComment(content)
     setEditorSerializedState(serializedState)
   }
 
   // Extract mentions from serialized editor state
-  const extractMentionsFromState = (serializedState: any): string => {
-    if (!serializedState || !serializedState.root || !serializedState.root.children) {
+  const extractMentionsFromState = (serializedState: unknown): string => {
+    const state = serializedState as { root?: { children?: unknown[] } }
+    if (!serializedState || !state.root || !state.root.children) {
       return newComment
     }
 
     let result = ''
     let isFirstParagraph = true
     
-    const processNode = (node: any) => {
+    const processNode = (node: Record<string, unknown>) => {
       if (node.type === 'mention') {
         // Convert mention node to our storage format
         result += `@[${node.mentionName}](${node.mentionId || node.mentionName})`
@@ -197,15 +198,15 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
         }
         isFirstParagraph = false
         // Process children of paragraph
-        if (node.children) {
-          node.children.forEach(processNode)
+        if (node.children && Array.isArray(node.children)) {
+          node.children.forEach((child) => processNode(child as Record<string, unknown>))
         }
-      } else if (node.children) {
-        node.children.forEach(processNode)
+      } else if (node.children && Array.isArray(node.children)) {
+        node.children.forEach((child) => processNode(child as Record<string, unknown>))
       }
     }
 
-    serializedState.root.children.forEach(processNode)
+    state.root.children.forEach((child) => processNode(child as Record<string, unknown>))
     return result || newComment
   }
 
@@ -528,7 +529,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                 ? `Will send email to ${selectedParticipants.length} recipient${selectedParticipants.length !== 1 ? 's' : ''}` 
                 : "Only visible internally"}
               {nextStatus && nextStatus !== ticket.status && (
-                <span className="ml-2">• Status will change to "{nextStatus}"</span>
+                <span className="ml-2">• Status will change to &quot;{nextStatus}&quot;</span>
               )}
             </div>
             

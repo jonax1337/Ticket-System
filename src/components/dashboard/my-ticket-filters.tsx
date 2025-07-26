@@ -103,7 +103,7 @@ export default function MyTicketFilters() {
   }
 
   // Simple debounce function
-  function debounce<T extends (...args: any[]) => void>(
+  function debounce<T extends (...args: unknown[]) => void>(
     func: T,
     wait: number
   ): (...args: Parameters<T>) => void {
