@@ -2,8 +2,7 @@ import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import AdminSettings from '@/components/dashboard/admin-settings'
-import InboxSettings from '@/components/dashboard/inbox-settings'
+import AdminTabs from '@/components/dashboard/admin-tabs'
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions)
@@ -23,22 +22,16 @@ export default async function AdminPage() {
     })
   }
 
-  // Get inbox configurations (with fallback for new installations)
-  let inboxes: any[] = []
-  let priorities: any[] = []
-  let statuses: any[] = []
-  let users: any[] = []
+  // Get email configurations and related data
+  let emailConfigs: Array<Record<string, unknown>> = []
+  let priorities: Array<Record<string, unknown>> = []
+  let statuses: Array<Record<string, unknown>> = []
 
   try {
-    inboxes = await (prisma as any).inboxConfiguration.findMany({
+    emailConfigs = await prisma.emailConfiguration.findMany({
       orderBy: { createdAt: 'desc' }
     })
-  } catch (error) {
-    console.log('InboxConfiguration table not yet available')
-  }
 
-  try {
-    // Get priorities and statuses for inbox default settings
     priorities = await prisma.customPriority.findMany({
       orderBy: { order: 'asc' }
     })
@@ -46,18 +39,8 @@ export default async function AdminPage() {
     statuses = await prisma.customStatus.findMany({
       orderBy: { order: 'asc' }
     })
-
-    // Get users for default assignee
-    users = await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true
-      },
-      orderBy: { name: 'asc' }
-    })
   } catch (error) {
-    console.log('Error loading additional data:', error)
+    console.log('Error loading email configuration data:', error)
   }
 
   return (
@@ -65,15 +48,14 @@ export default async function AdminPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Admin Settings</h1>
         <p className="text-muted-foreground">
-          Manage system-wide settings and appearance.
+          Manage system-wide settings and configuration.
         </p>
       </div>
-      <AdminSettings settings={settings} />
-      <InboxSettings 
-        inboxes={inboxes} 
+      <AdminTabs 
+        settings={settings}
+        emailConfigs={emailConfigs} 
         priorities={priorities} 
         statuses={statuses} 
-        users={users} 
       />
     </div>
   )

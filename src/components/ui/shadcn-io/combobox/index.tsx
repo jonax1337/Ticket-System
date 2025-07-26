@@ -302,7 +302,7 @@ export const ComboboxCreateNew = ({
         <>
           <PlusIcon className="h-4 w-4 text-muted-foreground" />
           <span>
-            Create new {type}: "{inputValue}"
+            Create new {type}: &quot;{inputValue}&quot;
           </span>
         </>
       )}

@@ -13,6 +13,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npx prisma migrate dev` - Create and apply migration
 - `npx prisma studio` - Open database browser
 
+**Note**: User prefers to run `npm run build` and `npm run dev` via PowerShell on their system. Claude should fix build errors but not execute builds.
+
+## Email Sync Configuration
+
+The system includes automatic email-to-ticket conversion with individual sync intervals per email account:
+
+- **Automatic**: Starts automatically when the application loads (server-side)
+- **Individual Intervals**: Each email account uses its configured `syncInterval` (default: 300 seconds)
+- **External Cron**: Optional `GET/POST /api/cron/email-sync` endpoint with `Authorization: Bearer YOUR_CRON_SECRET`
+- **Self-Managing**: Automatically adapts when email configurations are added/removed/modified
+
 ## Architecture Overview
 
 This is a Next.js 15 ticket management system with the following key architectural components:

@@ -2,27 +2,31 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { emailCronManager } from '@/lib/email-cron'
 import { z } from 'zod'
 
-// Schema for inbox configuration validation
-const inboxConfigSchema = z.object({
-  name: z.string().min(1, 'Name ist erforderlich'),
-  host: z.string().min(1, 'IMAP Server ist erforderlich'),
-  port: z.number().int().min(1).max(65535),
-  username: z.string().min(1, 'Benutzername ist erforderlich'),
-  password: z.string().min(1, 'Passwort ist erforderlich'),
+const emailConfigSchema = z.object({
+  name: z.string().min(1),
+  host: z.string().min(1),
+  port: z.number().min(1).max(65535),
+  username: z.string().min(1),
+  password: z.string().min(1),
   useSSL: z.boolean(),
-  folder: z.string().min(1, 'Ordner ist erforderlich'),
+  folder: z.string().min(1),
   isActive: z.boolean(),
-  syncInterval: z.number().int().min(60), // Minimum 1 minute
-  markAsRead: z.boolean(),
-  deleteAfterImport: z.boolean(),
+  syncInterval: z.number().min(60),
+  emailAction: z.enum(['mark_read', 'delete', 'move_to_folder']),
+  moveToFolder: z.string().nullable(),
+  processOnlyUnread: z.boolean(),
+  subjectFilter: z.string().nullable(),
+  fromFilter: z.string().nullable(),
   defaultPriority: z.string().nullable(),
   defaultStatus: z.string().nullable(),
   defaultAssigneeId: z.string().nullable(),
+  enableAutoSync: z.boolean(),
 })
 
-// GET - List all inbox configurations
+// GET - List all email configurations
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
@@ -31,21 +35,21 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const inboxes = await prisma.inboxConfiguration.findMany({
+    const configs = await prisma.emailConfiguration.findMany({
       orderBy: { createdAt: 'desc' }
     })
 
-    return NextResponse.json(inboxes)
+    return NextResponse.json(configs)
   } catch (error) {
-    console.error('Error fetching inbox configurations:', error)
+    console.error('Error fetching email configurations:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch inbox configurations' },
+      { error: 'Failed to fetch email configurations' },
       { status: 500 }
     )
   }
 }
 
-// POST - Create new inbox configuration
+// POST - Create new email configuration
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -57,31 +61,33 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     
     // Validate input
-    const validatedData = inboxConfigSchema.parse(body)
+    const validatedData = emailConfigSchema.parse(body)
 
-    // Encrypt password (in a real application, use proper encryption)
-    // For now, we'll store it as-is but in production you should encrypt it
+    // In a real application, encrypt the password
     const encryptedPassword = validatedData.password // TODO: Implement proper encryption
 
-    const inbox = await prisma.inboxConfiguration.create({
+    const config = await prisma.emailConfiguration.create({
       data: {
         ...validatedData,
         password: encryptedPassword,
       }
     })
 
-    return NextResponse.json(inbox, { status: 201 })
+    // Restart email cron manager to pick up changes
+    await emailCronManager.onConfigChanged()
+
+    return NextResponse.json(config)
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Validation failed', details: error.errors },
+        { error: 'Validation failed', details: error.issues },
         { status: 400 }
       )
     }
     
-    console.error('Error creating inbox configuration:', error)
+    console.error('Error creating email configuration:', error)
     return NextResponse.json(
-      { error: 'Failed to create inbox configuration' },
+      { error: 'Failed to create email configuration' },
       { status: 500 }
     )
   }

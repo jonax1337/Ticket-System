@@ -25,7 +25,7 @@ interface CustomPriority {
 }
 
 const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: any } = {
+  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
     ArrowRight,
     CheckCircle2,
@@ -103,7 +103,7 @@ export default function MyTicketFilters() {
   }
 
   // Simple debounce function
-  function debounce<T extends (...args: any[]) => void>(
+  function debounce<T extends (...args: unknown[]) => void>(
     func: T,
     wait: number
   ): (...args: Parameters<T>) => void {

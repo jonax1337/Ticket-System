@@ -27,7 +27,7 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
   const offset = (page - 1) * limit
 
   // Build where clause
-  const where: any = {
+  const where: Record<string, unknown> = {
     assignedToId: userId // Only tickets assigned to current user
   }
 

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp } from 'lucide-react'
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import {
@@ -31,6 +31,7 @@ interface Ticket {
   ticketNumber?: string | null
   subject: string
   description: string
+  htmlContent?: string | null
   status: string
   priority: string
   fromEmail: string
@@ -42,6 +43,13 @@ interface Ticket {
     name: string
     email: string
   } | null
+  attachments?: {
+    id: string
+    filename: string
+    filepath: string
+    mimetype: string
+    size: number
+  }[]
   comments: {
     id: string
     content: string
@@ -93,7 +101,7 @@ interface CustomPriority {
 }
 
 const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: any } = {
+  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
     ArrowRight,
     CheckCircle2,
@@ -258,6 +266,50 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
               <p className="text-sm whitespace-pre-wrap">{ticket.description}</p>
             </div>
           </div>
+
+          {/* Ticket Attachments */}
+          {ticket.attachments && ticket.attachments.length > 0 && (
+            <div>
+              <h3 className="font-medium text-base mb-3 flex items-center gap-2">
+                <Paperclip className="h-4 w-4" />
+                Attachments ({ticket.attachments.length})
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {ticket.attachments.map((attachment) => (
+                  <div
+                    key={attachment.id}
+                    className="flex items-center gap-3 p-3 border rounded-lg hover:bg-muted/50"
+                  >
+                    {attachment.mimetype.startsWith('image/') ? (
+                      <div className="relative">
+                        <img
+                          src={attachment.filepath}
+                          alt={attachment.filename}
+                          className="w-12 h-12 object-cover rounded cursor-pointer"
+                          onClick={() => window.open(attachment.filepath, '_blank')}
+                        />
+                      </div>
+                    ) : (
+                      <FileText className="h-8 w-8 text-muted-foreground" />
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{attachment.filename}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {(attachment.size / 1024).toFixed(1)} KB
+                      </p>
+                    </div>
+                    <a
+                      href={attachment.filepath}
+                      download={attachment.filename}
+                      className="text-primary hover:text-primary/80"
+                    >
+                      <Download className="h-4 w-4" />
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           
           <div className="border-t pt-6">
             <h3 className="font-medium text-base mb-3 flex items-center gap-2">

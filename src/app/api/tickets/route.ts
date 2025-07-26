@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     // Parse request body
     const body = await req.json()
-    const { subject, description, fromEmail, fromName, priority } = body
+    const { subject, description, fromEmail, fromName, priority, htmlContent, attachments } = body
 
     // Validate required fields
     if (!subject || !description) {
@@ -34,12 +34,26 @@ export async function POST(req: NextRequest) {
         ticketNumber: uniqueTicketNumber,
         subject,
         description,
+        htmlContent: htmlContent || null,
         fromEmail: fromEmail || 'internal@support.com',
         fromName: fromName || 'Internal Support',
         priority: priority || 'Medium',
         status: 'Open',
       },
     })
+
+    // Create attachments if provided
+    if (attachments && attachments.length > 0) {
+      await prisma.ticketAttachment.createMany({
+        data: attachments.map((attachment: any) => ({
+          filename: attachment.filename,
+          filepath: attachment.filepath,
+          mimetype: attachment.mimetype,
+          size: attachment.size,
+          ticketId: ticket.id,
+        })),
+      })
+    }
 
     return NextResponse.json(ticket, { status: 201 })
   } catch (error) {

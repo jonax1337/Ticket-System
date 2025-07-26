@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { UserPlus } from 'lucide-react'
 import { UserRole } from '@prisma/client'
+import { toast } from 'sonner'
 
 export default function AddUserForm() {
   const [formData, setFormData] = useState({
@@ -46,19 +47,31 @@ export default function AddUserForm() {
       })
 
       if (response.ok) {
+        const userData = await response.json()
         setFormData({
           name: '',
           email: '',
           password: '',
           role: 'SUPPORTER',
         })
+        toast.success('User created successfully', {
+          description: `${userData.name} has been added as a ${userData.role.toLowerCase()}.`
+        })
         router.refresh()
       } else {
         const data = await response.json()
-        setError(data.error || 'Failed to create user')
+        const errorMessage = data.error || 'Failed to create user'
+        setError(errorMessage)
+        toast.error('Failed to create user', {
+          description: errorMessage
+        })
       }
     } catch {
-      setError('An error occurred while creating the user')
+      const errorMessage = 'An error occurred while creating the user'
+      setError(errorMessage)
+      toast.error('Failed to create user', {
+        description: errorMessage
+      })
     } finally {
       setIsLoading(false)
     }

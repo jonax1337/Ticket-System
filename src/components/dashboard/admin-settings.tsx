@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Palette, Save, Type, Image, Pipette, Settings, Hash, Mail } from 'lucide-react'
-import InboxSettings from './inbox-settings'
+import { toast } from 'sonner'
 
 // Helper function to convert hex to HSL
 function hexToHsl(hex: string): string {
@@ -60,6 +60,7 @@ interface SystemSettings {
 
 interface AdminSettingsProps {
   settings: SystemSettings
+  tabMode?: 'general' | 'customize' | 'full'
 }
 
 const themeColors = [
@@ -69,7 +70,7 @@ const themeColors = [
   { name: 'Purple', value: 'purple', color: 'bg-violet-600' },
 ]
 
-export default function AdminSettings({ settings }: AdminSettingsProps) {
+export default function AdminSettings({ settings, tabMode = 'full' }: AdminSettingsProps) {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [appName, setAppName] = useState(settings.appName)
@@ -121,10 +122,20 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
         } else {
           document.documentElement.setAttribute('data-theme', themeColor)
         }
+        toast.success('Settings saved successfully', {
+          description: 'Your changes have been applied and will be visible across the application.'
+        })
         router.refresh()
+      } else {
+        toast.error('Failed to save settings', {
+          description: 'Please try again or contact support if the problem persists.'
+        })
       }
     } catch (error) {
       console.error('Failed to save settings:', error)
+      toast.error('Failed to save settings', {
+        description: 'An unexpected error occurred. Please try again.'
+      })
     } finally {
       setIsLoading(false)
     }
@@ -134,8 +145,8 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
     document.documentElement.setAttribute('data-theme', color)
   }
 
-  return (
-    <div className="grid gap-6">
+  const renderGeneralSettings = () => (
+    <>
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -175,6 +186,88 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
         </CardContent>
       </Card>
 
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Hash className="h-5 w-5" />
+            Ticket Numbering
+          </CardTitle>
+          <CardDescription>
+            Configure how ticket numbers are generated.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="ticketPrefix">Ticket Prefix</Label>
+              <Input
+                id="ticketPrefix"
+                value={ticketPrefix}
+                onChange={(e) => setTicketPrefix(e.target.value.toUpperCase())}
+                placeholder="T"
+                maxLength={5}
+              />
+              <p className="text-sm text-muted-foreground">
+                Prefix for all ticket numbers (e.g., &quot;T&quot;, &quot;TICKET&quot;, &quot;SUP&quot;)
+              </p>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="ticketNumberType">Number Type</Label>
+              <Select value={ticketNumberType} onValueChange={setTicketNumberType}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="sequential">Sequential (001, 002, 003...)</SelectItem>
+                  <SelectItem value="random">Random (AB3X5F, K9L2M8...)</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-sm text-muted-foreground">
+                Choose between sequential numbers or random alphanumeric codes
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="ticketNumberLength">Number Length</Label>
+            <Select value={ticketNumberLength.toString()} onValueChange={(value) => setTicketNumberLength(parseInt(value))}>
+              <SelectTrigger className="w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="4">4 digits</SelectItem>
+                <SelectItem value="5">5 digits</SelectItem>
+                <SelectItem value="6">6 digits</SelectItem>
+                <SelectItem value="7">7 digits</SelectItem>
+                <SelectItem value="8">8 digits</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-sm text-muted-foreground">
+              Length of the number/code part
+            </p>
+          </div>
+          
+          <div className="bg-muted/50 rounded-lg p-4">
+            <p className="text-sm font-medium mb-2">Preview:</p>
+            <div className="font-mono text-lg">
+              {ticketPrefix}-{ticketNumberType === 'sequential' 
+                ? '0'.repeat(Math.max(0, ticketNumberLength - 1)) + '1'
+                : 'A'.repeat(Math.ceil(ticketNumberLength / 2)) + '1'.repeat(Math.floor(ticketNumberLength / 2))
+              }
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Example of how new ticket numbers will look
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+    </>
+  )
+
+  const renderCustomizeSettings = () => (
+    <>
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -230,12 +323,9 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
                   onCheckedChange={(checked) => setHideAppName(checked === true)}
                 />
                 <Label htmlFor="hideAppName" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Hide Application Name
+                  Hide Application Name and Slogan
                 </Label>
               </div>
-              <p className="text-xs text-muted-foreground ml-6">
-                When enabled, only the logo will be displayed in the header (without the application name).
-              </p>
             </div>
           )}
         </CardContent>
@@ -353,116 +443,19 @@ export default function AdminSettings({ settings }: AdminSettingsProps) {
           </p>
         </CardContent>
       </Card>
+    </>
+  )
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Hash className="h-5 w-5" />
-            Ticket Numbering
-          </CardTitle>
-          <CardDescription>
-            Configure how ticket numbers are generated.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="ticketPrefix">Ticket Prefix</Label>
-              <Input
-                id="ticketPrefix"
-                value={ticketPrefix}
-                onChange={(e) => setTicketPrefix(e.target.value.toUpperCase())}
-                placeholder="T"
-                maxLength={5}
-              />
-              <p className="text-sm text-muted-foreground">
-                Prefix for all ticket numbers (e.g., "T", "TICKET", "SUP")
-              </p>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="ticketNumberType">Number Type</Label>
-              <Select value={ticketNumberType} onValueChange={setTicketNumberType}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="sequential">Sequential (001, 002, 003...)</SelectItem>
-                  <SelectItem value="random">Random (AB3X5F, K9L2M8...)</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-sm text-muted-foreground">
-                Choose between sequential numbers or random alphanumeric codes
-              </p>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="ticketNumberLength">Number Length</Label>
-            <Select value={ticketNumberLength.toString()} onValueChange={(value) => setTicketNumberLength(parseInt(value))}>
-              <SelectTrigger className="w-32">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="4">4 digits</SelectItem>
-                <SelectItem value="5">5 digits</SelectItem>
-                <SelectItem value="6">6 digits</SelectItem>
-                <SelectItem value="7">7 digits</SelectItem>
-                <SelectItem value="8">8 digits</SelectItem>
-              </SelectContent>
-            </Select>
-            <p className="text-sm text-muted-foreground">
-              Length of the number/code part
-            </p>
-          </div>
-          
-          <div className="bg-muted/50 rounded-lg p-4">
-            <p className="text-sm font-medium mb-2">Preview:</p>
-            <div className="font-mono text-lg">
-              {ticketPrefix}-{ticketNumberType === 'sequential' 
-                ? '0'.repeat(Math.max(0, ticketNumberLength - 1)) + '1'
-                : 'A'.repeat(Math.ceil(ticketNumberLength / 2)) + '1'.repeat(Math.floor(ticketNumberLength / 2))
-              }
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Example of how new ticket numbers will look
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="h-5 w-5" />
-            Workflow Management
-          </CardTitle>
-          <CardDescription>
-            Manage custom statuses and priorities for your tickets.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">
-            Configure custom ticket statuses and priorities to match your team's workflow. These will be available in all ticket dropdowns.
-          </p>
-          <div className="flex gap-4">
-            <Button 
-              variant="outline" 
-              onClick={() => router.push('/dashboard/admin/workflow/statuses')}
-              className="flex-1"
-            >
-              Manage Statuses
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={() => router.push('/dashboard/admin/workflow/priorities')}
-              className="flex-1"
-            >
-              Manage Priorities
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+  return (
+    <div className="grid gap-6">
+      {tabMode === 'general' && renderGeneralSettings()}
+      {tabMode === 'customize' && renderCustomizeSettings()}
+      {tabMode === 'full' && (
+        <>
+          {renderGeneralSettings()}
+          {renderCustomizeSettings()}
+        </>
+      )}
 
       <div className="flex justify-end">
         <Button onClick={handleSave} disabled={isLoading}>

@@ -33,6 +33,7 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp } from 'lucide-react'
+import { toast } from 'sonner'
 
 interface User {
   id: string
@@ -50,7 +51,7 @@ interface CustomPriority {
 }
 
 const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: any } = {
+  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
     ArrowRight,
     CheckCircle2,
@@ -134,6 +135,27 @@ export function CreateTicketDialog() {
     const formData = new FormData(event.currentTarget)
     
     try {
+      // Upload attachments first if any
+      let uploadedFiles: Array<{filename: string, filepath: string, mimetype: string, size: number}> = []
+      
+      if (attachments.length > 0) {
+        const uploadFormData = new FormData()
+        attachments.forEach(file => {
+          uploadFormData.append('files', file)
+        })
+
+        const uploadResponse = await fetch('/api/upload', {
+          method: 'POST',
+          body: uploadFormData,
+        })
+
+        if (uploadResponse.ok) {
+          const uploadResult = await uploadResponse.json()
+          uploadedFiles = uploadResult.files
+        }
+      }
+
+      // Create ticket with attachments
       const response = await fetch('/api/tickets', {
         method: 'POST',
         body: JSON.stringify({
@@ -143,6 +165,7 @@ export function CreateTicketDialog() {
           fromName: formData.get('fromName') || 'Internal Support',
           priority: priority,
           assignedTo: assignedTo || null,
+          attachments: uploadedFiles,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -153,15 +176,25 @@ export function CreateTicketDialog() {
         throw new Error('Failed to create ticket')
       }
 
+      const createdTicket = await response.json()
+
       // Reset form and close dialog on success
       const defaultPriority = priorities.find(p => p.name === 'Medium') || priorities[0]
       setPriority(defaultPriority?.name || 'Medium')
       setAssignedTo('')
       setAttachments([])
       setOpen(false)
+      
+      toast.success('Ticket created successfully', {
+        description: `Ticket ${createdTicket.ticketNumber || createdTicket.id} has been created.`
+      })
+      
       router.refresh()
     } catch (error) {
       console.error('Error creating ticket:', error)
+      toast.error('Failed to create ticket', {
+        description: 'Please try again or contact support if the problem persists.'
+      })
     } finally {
       setIsSubmitting(false)
     }

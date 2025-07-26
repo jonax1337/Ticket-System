@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { User, Mail, Trash2 } from 'lucide-react'
 import { UserRole } from '@prisma/client'
+import { toast } from 'sonner'
 
 interface User {
   id: string
@@ -59,10 +60,14 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
       })
 
       if (response.ok) {
+        toast.success('User role updated successfully')
         router.refresh()
+      } else {
+        toast.error('Failed to update user role')
       }
     } catch (error) {
       console.error('Failed to update role:', error)
+      toast.error('Failed to update user role')
     } finally {
       setIsLoading(false)
     }
@@ -76,14 +81,18 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
       })
 
       if (response.ok) {
+        toast.success('User deleted successfully')
         router.refresh()
       } else {
         const errorData = await response.json()
-        alert(errorData.error || 'Failed to delete user')
+        const errorMessage = errorData.error || 'Failed to delete user'
+        toast.error('Failed to delete user', {
+          description: errorMessage
+        })
       }
     } catch (error) {
       console.error('Failed to delete user:', error)
-      alert('Failed to delete user')
+      toast.error('Failed to delete user')
     } finally {
       setIsLoading(false)
     }
@@ -149,21 +158,21 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Benutzer löschen</AlertDialogTitle>
+                        <AlertDialogTitle>Delete User</AlertDialogTitle>
                         <AlertDialogDescription>
-                          Möchtest du den Benutzer <strong>{user.name}</strong> wirklich löschen? 
-                          Diese Aktion kann nicht rückgängig gemacht werden.
+                          Are you sure you want to delete user <strong>{user.name}</strong>? 
+                          This action cannot be undone.
                           <br /><br />
-                          <em>Hinweis: Benutzer mit offenen oder in Bearbeitung befindlichen Tickets können nicht gelöscht werden.</em>
+                          <em>Note: Users with open or in-progress tickets cannot be deleted.</em>
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction 
                           onClick={() => handleDeleteUser(user.id)}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
-                          Löschen
+                          Delete
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>

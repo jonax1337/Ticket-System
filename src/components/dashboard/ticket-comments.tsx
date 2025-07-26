@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon } from 'lucide-react'
+import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import {
   AlertDialog,
@@ -29,7 +30,7 @@ import {
 } from "@/components/ui/dialog"
 
 const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: any } = {
+  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
     ArrowRight,
     CheckCircle2,
@@ -146,10 +147,14 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
       })
 
       if (response.ok) {
+        toast.success('Comment deleted successfully')
         router.refresh()
+      } else {
+        toast.error('Failed to delete comment')
       }
     } catch (error) {
       console.error('Failed to delete comment:', error)
+      toast.error('Failed to delete comment')
     } finally {
       setIsLoading(false)
     }
@@ -198,10 +203,14 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
         setNewComment('')
         setNextStatus('')
         setSelectedFiles([])
+        toast.success('Comment added successfully')
         router.refresh()
+      } else {
+        toast.error('Failed to add comment')
       }
     } catch (error) {
       console.error('Failed to add comment:', error)
+      toast.error('Failed to add comment')
     } finally {
       setIsLoading(false)
     }
@@ -265,18 +274,18 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>Kommentar löschen</AlertDialogTitle>
+                          <AlertDialogTitle>Delete Comment</AlertDialogTitle>
                           <AlertDialogDescription>
-                            Möchtest du diesen Kommentar wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
+                            Are you sure you want to delete this comment? This action cannot be undone.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Abbrechen</AlertDialogCancel>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
                           <AlertDialogAction 
                             onClick={() => handleDeleteComment(comment.id)}
                             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                           >
-                            Löschen
+                            Delete
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>

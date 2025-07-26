@@ -28,6 +28,7 @@ export default async function TicketPage({ params }: TicketPageProps) {
           email: true,
         },
       },
+      attachments: true,
       comments: {
         include: {
           user: {

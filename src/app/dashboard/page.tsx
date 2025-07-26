@@ -12,6 +12,8 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 
 interface DashboardPageProps {
   searchParams: Promise<{
@@ -26,6 +28,9 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const params = await searchParams
   const { status, priority, search } = params
   const assigned = params.assigned || 'UNASSIGNED'
+  
+  // Get session to check if user is admin
+  const session = await getServerSession(authOptions)
 
   const where = {
     ...(status && { status }),
@@ -158,7 +163,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
       <div className="space-y-4">
         <TicketFilters />
-        <TicketsList tickets={tickets} />
+        <TicketsList tickets={tickets} isAdmin={session?.user?.role === 'ADMIN'} />
       </div>
     </div>
   )

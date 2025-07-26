@@ -73,3 +73,51 @@ export async function PATCH(
     )
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session?.user || session.user.role !== 'ADMIN') {
+      return NextResponse.json(
+        { error: 'Unauthorized - Admin access required' },
+        { status: 403 }
+      )
+    }
+
+    const params = await context.params
+
+    // Check if ticket exists
+    const existingTicket = await prisma.ticket.findUnique({
+      where: { id: params.id }
+    })
+
+    if (!existingTicket) {
+      return NextResponse.json(
+        { error: 'Ticket not found' },
+        { status: 404 }
+      )
+    }
+
+    // Delete related comments first (cascade delete)
+    await prisma.comment.deleteMany({
+      where: { ticketId: params.id }
+    })
+
+    // Delete the ticket
+    await prisma.ticket.delete({
+      where: { id: params.id }
+    })
+
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Ticket delete error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}

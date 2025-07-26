@@ -3,6 +3,8 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/components/providers/session-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import "@/lib/startup"; // Start email cron manager
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -29,6 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>{children}</AuthProvider>
+          <Toaster position="top-center" />
         </ThemeProvider>
       </body>
     </html>

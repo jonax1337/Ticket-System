@@ -78,6 +78,7 @@ model Ticket {
   ticketNumber String? @unique // Generated ticket number (e.g., T-001234)
   subject     String
   description String   @db.Text
+  htmlContent String?  @db.Text // Store original HTML content from emails
   status      String   @default("Open")
   priority    String   @default("Medium")
   fromEmail   String
@@ -88,6 +89,7 @@ model Ticket {
 
   assignedTo User?     @relation("AssignedTo", fields: [assignedToId], references: [id])
   comments   Comment[]
+  attachments TicketAttachment[]
 
   @@map("tickets")
 }
@@ -120,6 +122,20 @@ model CommentAttachment {
   comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   @@map("comment_attachments")
+}
+
+model TicketAttachment {
+  id        String   @id @default(cuid())
+  filename  String   // Original filename
+  filepath  String   // Path to file in uploads directory
+  mimetype  String   // MIME type of the file
+  size      Int      // File size in bytes
+  ticketId  String
+  createdAt DateTime @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@map("ticket_attachments")
 }
 
 model SetupStatus {
@@ -173,30 +189,38 @@ model CustomPriority {
   @@map("custom_priorities")
 }
 
-model InboxConfiguration {
+model EmailConfiguration {
   id          String   @id @default(cuid())
-  name        String   // Display name for the inbox
+  name        String   // Display name for the email account
   host        String   // IMAP server host
   port        Int      @default(993) // IMAP port (993 for SSL, 143 for non-SSL)
   username    String   // IMAP username/email
   password    String   // Encrypted IMAP password
   useSSL      Boolean  @default(true) // Use SSL/TLS
   folder      String   @default("INBOX") // IMAP folder to monitor
-  isActive    Boolean  @default(true) // Enable/disable this inbox
+  isActive    Boolean  @default(true) // Enable/disable this email account
   lastSync    DateTime? // Last successful sync timestamp
   syncInterval Int     @default(300) // Sync interval in seconds (5 minutes default)
   
-  // Email processing settings
-  markAsRead  Boolean  @default(true) // Mark emails as read after processing
-  deleteAfterImport Boolean @default(false) // Delete emails after importing as tickets
+  // Email processing actions
+  emailAction String   @default("mark_read") // "mark_read", "delete", "move_to_folder"
+  moveToFolder String? // Target folder when action is "move_to_folder"
   
-  // Default ticket settings for this inbox
-  defaultPriority String? // Default priority for tickets from this inbox
-  defaultStatus   String? // Default status for tickets from this inbox
-  defaultAssigneeId String? // Default assignee for tickets from this inbox
+  // Filters
+  processOnlyUnread Boolean @default(true) // Only process unread emails
+  subjectFilter String? // Optional subject filter (regex)
+  fromFilter String? // Optional sender filter (regex)
+  
+  // Default ticket settings for emails from this account
+  defaultPriority String? // Default priority for tickets from this email
+  defaultStatus   String? // Default status for tickets from this email
+  defaultAssigneeId String? // Default assignee for tickets from this email (always null)
+  
+  // Auto-sync settings
+  enableAutoSync Boolean @default(true) // Enable automatic background sync
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  @@map("inbox_configurations")
+  @@map("email_configurations")
 }

@@ -4,8 +4,21 @@ import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp } from 'lucide-react'
+import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2 } from 'lucide-react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import { toast } from 'sonner'
 
 interface Ticket {
   id: string
@@ -30,6 +43,7 @@ interface Ticket {
 
 interface TicketsListProps {
   tickets: Ticket[]
+  isAdmin?: boolean
 }
 
 type SortField = 'id' | 'subject' | 'status' | 'priority' | 'fromName' | 'assignedTo' | 'createdAt' | 'comments'
@@ -54,7 +68,7 @@ interface CustomPriority {
 }
 
 const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: any } = {
+  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
     ArrowRight,
     CheckCircle2,
@@ -67,12 +81,13 @@ const getIconComponent = (iconName: string) => {
   return iconMap[iconName] || AlertCircle
 }
 
-export default function TicketsList({ tickets }: TicketsListProps) {
+export default function TicketsList({ tickets, isAdmin = false }: TicketsListProps) {
   const router = useRouter()
   const [sortField, setSortField] = useState<SortField>('createdAt')
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
+  const [deletingTicket, setDeletingTicket] = useState<string | null>(null)
 
   useEffect(() => {
     // Load custom statuses and priorities for display
@@ -100,6 +115,28 @@ export default function TicketsList({ tickets }: TicketsListProps) {
     fetchData()
   }, [])
 
+  const handleDeleteTicket = async (ticketId: string) => {
+    setDeletingTicket(ticketId)
+    try {
+      const response = await fetch(`/api/tickets/${ticketId}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        toast.success('Ticket deleted successfully')
+        router.refresh()
+      } else {
+        const error = await response.json()
+        toast.error(`Failed to delete ticket: ${error.error || 'Unknown error'}`)
+      }
+    } catch (error) {
+      console.error('Delete error:', error)
+      toast.error('Failed to delete ticket. Please try again.')
+    } finally {
+      setDeletingTicket(null)
+    }
+  }
+
   const handleSort = (field: SortField) => {
     if (sortField === field) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
@@ -110,8 +147,8 @@ export default function TicketsList({ tickets }: TicketsListProps) {
   }
 
   const sortedTickets = [...tickets].sort((a, b) => {
-    let aValue: any
-    let bValue: any
+    let aValue: string | number
+    let bValue: string | number
 
     switch (sortField) {
       case 'id':
@@ -145,13 +182,9 @@ export default function TicketsList({ tickets }: TicketsListProps) {
         aValue = new Date(a.createdAt).getTime()
         bValue = new Date(b.createdAt).getTime()
         break
-      case 'comments':
-        aValue = a.comments.length
-        bValue = b.comments.length
-        break
       default:
-        aValue = a.createdAt
-        bValue = b.createdAt
+        aValue = new Date(a.createdAt).getTime()
+        bValue = new Date(b.createdAt).getTime()
     }
 
     if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1
@@ -215,9 +248,11 @@ export default function TicketsList({ tickets }: TicketsListProps) {
                 <th className="text-left p-4 font-medium text-muted-foreground text-sm">
                   <SortButton field="createdAt">Created</SortButton>
                 </th>
-                <th className="text-left p-4 font-medium text-muted-foreground text-sm">
-                  <SortButton field="comments">Comments</SortButton>
-                </th>
+                {isAdmin && (
+                  <th className="text-left p-4 font-medium text-muted-foreground text-sm">
+                    Actions
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -313,12 +348,44 @@ export default function TicketsList({ tickets }: TicketsListProps) {
                       </div>
                     </div>
                   </td>
-                  <td className="p-4">
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                      <MessageCircle className="h-3 w-3" />
-                      <span>{ticket.comments.length}</span>
-                    </div>
-                  </td>
+                  {isAdmin && (
+                    <td className="p-4" onClick={(e) => e.stopPropagation()}>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            disabled={deletingTicket === ticket.id}
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20"
+                          >
+                            {deletingTicket === ticket.id ? (
+                              <div className="h-4 w-4 animate-spin border-2 border-current border-t-transparent rounded-full" />
+                            ) : (
+                              <Trash2 className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Ticket</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete ticket {getDisplayTicketNumber(ticket)}? 
+                              This action cannot be undone and will permanently remove the ticket and all associated data.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleDeleteTicket(ticket.id)}
+                              className="bg-red-600 hover:bg-red-700 focus:ring-red-600 text-white"
+                            >
+                              Delete Ticket
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

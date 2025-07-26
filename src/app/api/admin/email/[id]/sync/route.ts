@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { syncImapEmails } from '@/lib/imap'
+import { syncEmails } from '@/lib/email-service'
 
-// POST - Sync emails from IMAP and create tickets
+// POST - Sync emails and create tickets
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -16,36 +16,39 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Get inbox configuration
-    const inbox = await prisma.inboxConfiguration.findUnique({
-      where: { id: params.id }
+    const resolvedParams = await params
+
+    // Get email configuration
+    const config = await prisma.emailConfiguration.findUnique({
+      where: { id: resolvedParams.id }
     })
 
-    if (!inbox) {
-      return NextResponse.json({ error: 'Inbox not found' }, { status: 404 })
+    if (!config) {
+      return NextResponse.json({ error: 'Email configuration not found' }, { status: 404 })
     }
 
-    if (!inbox.isActive) {
-      return NextResponse.json({ error: 'Inbox is not active' }, { status: 400 })
+    if (!config.isActive) {
+      return NextResponse.json({ error: 'Email configuration is not active' }, { status: 400 })
     }
 
     // Sync emails and create tickets
-    const result = await syncImapEmails(inbox)
+    const result = await syncEmails(config)
 
     // Update last sync timestamp
-    await prisma.inboxConfiguration.update({
-      where: { id: params.id },
+    await prisma.emailConfiguration.update({
+      where: { id: resolvedParams.id },
       data: { lastSync: new Date() }
     })
 
     return NextResponse.json({
       success: true,
       importedCount: result.importedCount,
-      skippedCount: result.skippedCount,
-      errorCount: result.errorCount
+      skippedCount: result.skippedCount,  
+      errorCount: result.errorCount,
+      processed: result.processed
     })
   } catch (error) {
-    console.error('Error syncing IMAP emails:', error)
+    console.error('Error syncing emails:', error)
     return NextResponse.json(
       { 
         success: false, 

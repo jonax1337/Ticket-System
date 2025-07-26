@@ -10,6 +10,18 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Plus, Edit, Trash2, Clock, Timer, AlertCircle, AlertTriangle, Zap, TrendingUp, GripVertical } from 'lucide-react'
+import { toast } from 'sonner'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import {
   DndContext,
   closestCenter,
@@ -174,9 +186,15 @@ export default function CustomPriorityManager() {
           icon: 'Clock',
           color: colorOptions[0].value
         })
+        toast.success(
+          editingPriority ? 'Priority updated successfully' : 'Priority created successfully'
+        )
+      } else {
+        toast.error('Failed to save priority')
       }
     } catch (error) {
       console.error('Error saving priority:', error)
+      toast.error('Failed to save priority')
     }
   }
 
@@ -192,22 +210,24 @@ export default function CustomPriorityManager() {
 
   const handleDelete = async (priority: CustomPriority) => {
     if (priority.isDefault) {
-      alert('Cannot delete default priority')
+      toast.error('Cannot delete default priority')
       return
     }
 
-    if (confirm(`Are you sure you want to delete the "${priority.name}" priority?`)) {
-      try {
-        const response = await fetch(`/api/admin/custom-priorities/${priority.id}`, {
-          method: 'DELETE',
-        })
+    try {
+      const response = await fetch(`/api/admin/custom-priorities/${priority.id}`, {
+        method: 'DELETE',
+      })
 
-        if (response.ok) {
-          await fetchPriorities()
-        }
-      } catch (error) {
-        console.error('Error deleting priority:', error)
+      if (response.ok) {
+        await fetchPriorities()
+        toast.success('Priority deleted successfully')
+      } else {
+        toast.error('Failed to delete priority')
       }
+    } catch (error) {
+      console.error('Error deleting priority:', error)
+      toast.error('Failed to delete priority')
     }
   }
 
@@ -266,13 +286,34 @@ export default function CustomPriorityManager() {
               <Edit className="h-4 w-4" />
             </Button>
             {!priority.isDefault && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleDelete(priority)}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Priority</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to delete the "{priority.name}" priority? 
+                      This action cannot be undone and may affect existing tickets using this priority.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => handleDelete(priority)}
+                      className="bg-red-600 hover:bg-red-700 focus:ring-red-600 text-white"
+                    >
+                      Delete Priority
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             )}
           </div>
         </TableCell>
@@ -292,7 +333,7 @@ export default function CustomPriorityManager() {
             <div>
               <CardTitle>Priority Configuration</CardTitle>
               <CardDescription>
-                Manage ticket priorities and their display properties. Drag to reorder.
+                Manage ticket priorities and their display properties.<br />Drag to reorder.
               </CardDescription>
             </div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

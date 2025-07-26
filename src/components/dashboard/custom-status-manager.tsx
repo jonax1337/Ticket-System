@@ -10,6 +10,18 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Plus, Edit, Trash2, AlertCircle, ArrowRight, CheckCircle2, Clock, Timer, AlertTriangle, GripVertical } from 'lucide-react'
+import { toast } from 'sonner'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import {
   DndContext,
   closestCenter,
@@ -174,9 +186,15 @@ export default function CustomStatusManager() {
           icon: 'AlertCircle',
           color: colorOptions[0].value
         })
+        toast.success(
+          editingStatus ? 'Status updated successfully' : 'Status created successfully'
+        )
+      } else {
+        toast.error('Failed to save status')
       }
     } catch (error) {
       console.error('Error saving status:', error)
+      toast.error('Failed to save status')
     }
   }
 
@@ -192,22 +210,24 @@ export default function CustomStatusManager() {
 
   const handleDelete = async (status: CustomStatus) => {
     if (status.isDefault) {
-      alert('Cannot delete default status')
+      toast.error('Cannot delete default status')
       return
     }
 
-    if (confirm(`Are you sure you want to delete the "${status.name}" status?`)) {
-      try {
-        const response = await fetch(`/api/admin/custom-statuses/${status.id}`, {
-          method: 'DELETE',
-        })
+    try {
+      const response = await fetch(`/api/admin/custom-statuses/${status.id}`, {
+        method: 'DELETE',
+      })
 
-        if (response.ok) {
-          await fetchStatuses()
-        }
-      } catch (error) {
-        console.error('Error deleting status:', error)
+      if (response.ok) {
+        await fetchStatuses()
+        toast.success('Status deleted successfully')
+      } else {
+        toast.error('Failed to delete status')
       }
+    } catch (error) {
+      console.error('Error deleting status:', error)
+      toast.error('Failed to delete status')
     }
   }
 
@@ -266,13 +286,34 @@ export default function CustomStatusManager() {
               <Edit className="h-4 w-4" />
             </Button>
             {!status.isDefault && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleDelete(status)}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Status</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to delete the "{status.name}" status? 
+                      This action cannot be undone and may affect existing tickets using this status.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => handleDelete(status)}
+                      className="bg-red-600 hover:bg-red-700 focus:ring-red-600 text-white"
+                    >
+                      Delete Status
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             )}
           </div>
         </TableCell>
@@ -292,7 +333,7 @@ export default function CustomStatusManager() {
             <div>
               <CardTitle>Status Configuration</CardTitle>
               <CardDescription>
-                Manage ticket statuses and their display properties. Drag to reorder.
+                Manage ticket statuses and their display properties.<br />Drag to reorder.
               </CardDescription>
             </div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
