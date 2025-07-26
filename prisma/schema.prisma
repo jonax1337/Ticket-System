@@ -30,6 +30,8 @@ model User {
   comments        Comment[]
   accounts        Account[]
   sessions        Session[]
+  notifications   Notification[] @relation("UserNotifications")
+  actorNotifications Notification[] @relation("ActorNotifications")
 
   @@map("users")
 }
@@ -90,6 +92,7 @@ model Ticket {
   assignedTo User?     @relation("AssignedTo", fields: [assignedToId], references: [id])
   comments   Comment[]
   attachments TicketAttachment[]
+  notifications Notification[]
 
   @@map("tickets")
 }
@@ -106,6 +109,7 @@ model Comment {
   ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id])
   attachments CommentAttachment[]
+  notifications Notification[]
 
   @@map("comments")
 }
@@ -223,4 +227,26 @@ model EmailConfiguration {
   updatedAt   DateTime @updatedAt
 
   @@map("email_configurations")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String   // "ticket_assigned", "ticket_unassigned", "comment_added"
+  title     String   // Notification title
+  message   String   @db.Text // Notification message
+  ticketId  String?  // Related ticket ID
+  commentId String?  // Related comment ID (if applicable)
+  userId    String   // User who should receive the notification
+  actorId   String   // User who triggered the notification
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user    User     @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  actor   User     @relation("ActorNotifications", fields: [actorId], references: [id], onDelete: Cascade)
+  ticket  Ticket?  @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
 }

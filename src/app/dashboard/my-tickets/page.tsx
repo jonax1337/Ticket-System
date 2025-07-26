@@ -15,7 +15,7 @@ interface SearchParams {
 }
 
 interface MyTicketsPageProps {
-  searchParams: SearchParams
+  searchParams: Promise<SearchParams>
 }
 
 async function getMyTickets(userId: string, searchParams: SearchParams) {
@@ -104,9 +104,12 @@ export default async function MyTicketsPage({ searchParams }: MyTicketsPageProps
     redirect('/auth/signin')
   }
 
+  // Await searchParams as it's now a Promise in Next.js 15
+  const resolvedSearchParams = await searchParams
+
   const { tickets, totalCount, totalPages, currentPage } = await getMyTickets(
     session.user.id,
-    searchParams
+    resolvedSearchParams
   )
 
   return (

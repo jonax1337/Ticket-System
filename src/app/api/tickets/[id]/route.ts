@@ -50,6 +50,29 @@ export async function PATCH(
 
     const params = await context.params
 
+    // Get current ticket state before update to check for assignment changes
+    const currentTicket = await prisma.ticket.findUnique({
+      where: { id: params.id },
+      select: {
+        assignedToId: true,
+        ticketNumber: true,
+        subject: true,
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    })
+
+    if (!currentTicket) {
+      return NextResponse.json(
+        { error: 'Ticket not found' },
+        { status: 404 }
+      )
+    }
+
     const ticket = await prisma.ticket.update({
       where: { id: params.id },
       data: updateData,
@@ -63,6 +86,63 @@ export async function PATCH(
         },
       },
     })
+
+    // Handle assignment notifications
+    if (assignedToId !== undefined) {
+      const previousAssigneeId = currentTicket.assignedToId
+      const newAssigneeId = assignedToId || null
+
+      // If assignment changed
+      if (previousAssigneeId !== newAssigneeId) {
+        try {
+          // Notify previous assignee that ticket was unassigned
+          if (previousAssigneeId && previousAssigneeId !== session.user.id) {
+            const displayTicketNumber = currentTicket.ticketNumber || `#${params.id.slice(-6).toUpperCase()}`
+            
+            let message = `Ticket ${displayTicketNumber} has been unassigned from you`
+            if (newAssigneeId) {
+              const newAssignee = await prisma.user.findUnique({
+                where: { id: newAssigneeId },
+                select: { name: true },
+              })
+              if (newAssignee) {
+                message = `Ticket ${displayTicketNumber} has been reassigned from you to ${newAssignee.name}`
+              }
+            }
+
+            await prisma.notification.create({
+              data: {
+                type: 'ticket_unassigned',
+                title: 'Ticket Unassigned',
+                message,
+                userId: previousAssigneeId,
+                actorId: session.user.id,
+                ticketId: params.id,
+              }
+            })
+          }
+
+          // Notify new assignee that ticket was assigned
+          if (newAssigneeId && newAssigneeId !== session.user.id) {
+            const displayTicketNumber = currentTicket.ticketNumber || `#${params.id.slice(-6).toUpperCase()}`
+            
+            await prisma.notification.create({
+              data: {
+                type: 'ticket_assigned',
+                title: 'Ticket Assigned',
+                message: `You have been assigned to ticket ${displayTicketNumber}: ${currentTicket.subject}`,
+                userId: newAssigneeId,
+                actorId: session.user.id,
+                ticketId: params.id,
+              }
+            })
+          }
+        } catch (notificationError) {
+          console.error('Error creating notifications:', notificationError)
+          // Don't fail the main request if notifications fail
+        }
+      }
+    }
 
     return NextResponse.json(ticket)
   } catch (error) {

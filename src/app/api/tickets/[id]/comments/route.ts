@@ -22,9 +22,17 @@ export async function POST(
 
     const params = await context.params
 
-    // Verify ticket exists
+    // Verify ticket exists and get assignment info
     const ticket = await prisma.ticket.findUnique({
       where: { id: params.id },
+      include: {
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
     })
 
     if (!ticket) {
@@ -108,6 +116,28 @@ export async function POST(
         })
 
         attachments.push(attachment)
+      }
+    }
+
+    // Create notification for assigned user (if different from comment author)
+    if (ticket.assignedTo && ticket.assignedTo.id !== session.user.id) {
+      try {
+        const displayTicketNumber = ticket.ticketNumber || `#${params.id.slice(-6).toUpperCase()}`
+        
+        await prisma.notification.create({
+          data: {
+            type: 'comment_added',
+            title: 'New Comment',
+            message: `A new comment was added to your ticket ${displayTicketNumber}: ${ticket.subject}`,
+            userId: ticket.assignedTo.id,
+            actorId: session.user.id,
+            ticketId: params.id,
+            commentId: comment.id,
+          }
+        })
+      } catch (notificationError) {
+        console.error('Error creating comment notification:', notificationError)
+        // Don't fail the main request if notifications fail
       }
     }
 

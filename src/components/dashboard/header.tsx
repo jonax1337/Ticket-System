@@ -24,6 +24,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import NotificationPopover from './notification-popover'
 
 interface DashboardHeaderProps {
   user: {
@@ -155,49 +156,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
           {/* Right: Notifications + User Menu */}
           <div className="flex items-center gap-3">
             {/* Notification Center */}
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="relative hover:bg-muted rounded-md h-9 w-9 p-0"
-                >
-                  <Bell className="h-5 w-5" />
-                  {/* Notification badge - placeholder for future use */}
-                  {/* <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
-                    3
-                  </Badge> */}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-80 p-0" align="end">
-                <div className="p-4 border-b">
-                  <h3 className="font-semibold text-base">Notifications</h3>
-                  <p className="text-sm text-muted-foreground">Stay updated with your tickets</p>
-                </div>
-                
-                <div className="p-4">
-                  <div className="flex flex-col items-center justify-center py-8 text-center">
-                    <Bell className="h-12 w-12 text-muted-foreground/50 mb-3" />
-                    <h4 className="text-sm font-medium text-muted-foreground mb-1">
-                      No notifications yet
-                    </h4>
-                    <p className="text-xs text-muted-foreground">
-                      When you receive ticket updates, they'll appear here
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="border-t p-2">
-                  <Button 
-                    variant="ghost" 
-                    className="w-full text-sm justify-center h-8"
-                    disabled
-                  >
-                    View all notifications
-                  </Button>
-                </div>
-              </PopoverContent>
-            </Popover>
+            <NotificationPopover />
 
             <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none">
