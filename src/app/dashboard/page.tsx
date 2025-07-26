@@ -47,6 +47,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
               { description: { contains: word } },
               { fromEmail: { contains: word } },
               { fromName: { contains: word } },
+              { ticketNumber: { contains: word } },
             ]
           }))
         }
@@ -58,6 +59,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
             { description: { contains: search } },
             { fromEmail: { contains: search } },
             { fromName: { contains: search } },
+            { ticketNumber: { contains: search } },
           ]
         }
       }

@@ -41,6 +41,7 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
           { description: { contains: word } },
           { fromEmail: { contains: word } },
           { fromName: { contains: word } },
+          { ticketNumber: { contains: word } },
         ]
       }))
     } else if (words.length === 1) {
@@ -49,6 +50,7 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
         { description: { contains: words[0] } },
         { fromEmail: { contains: words[0] } },
         { fromName: { contains: words[0] } },
+        { ticketNumber: { contains: words[0] } },
       ]
     }
   }

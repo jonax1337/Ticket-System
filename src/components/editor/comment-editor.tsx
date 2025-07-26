@@ -123,14 +123,14 @@ const theme = {
   },
 }
 
-export const CommentEditor = forwardRef<CommentEditorRef, CommentEditorProps>(({
+export const CommentEditor = forwardRef<CommentEditorRef, CommentEditorProps>(function CommentEditor({
   placeholder = "Add a comment... (use @username to mention someone)",
   value = "",
   onChange,
   users = [],
   disabled = false,
   className = ""
-}: CommentEditorProps, ref) => {
+}: CommentEditorProps, ref) {
   const initialConfig = useMemo(() => ({
     namespace: 'CommentEditor',
     theme,

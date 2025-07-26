@@ -5,8 +5,9 @@ import { prisma } from '@/lib/prisma'
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const session = await getServerSession(authOptions)
     
@@ -17,7 +18,7 @@ export async function PUT(
     const { name, icon, color, order } = await request.json()
 
     const priority = await prisma.customPriority.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name,
         icon,
@@ -35,8 +36,9 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const session = await getServerSession(authOptions)
     
@@ -46,7 +48,7 @@ export async function DELETE(
 
     // Check if this is a default priority
     const priority = await prisma.customPriority.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (priority?.isDefault) {
@@ -54,7 +56,7 @@ export async function DELETE(
     }
 
     await prisma.customPriority.delete({
-      where: { id: params.id }
+      where: { id }
     })
 
     return NextResponse.json({ message: 'Priority deleted successfully' })

@@ -23,9 +23,9 @@ export default async function AdminPage() {
   }
 
   // Get email configurations and related data
-  let emailConfigs: Array<Record<string, unknown>> = []
-  let priorities: Array<Record<string, unknown>> = []
-  let statuses: Array<Record<string, unknown>> = []
+  let emailConfigs: any[] = []
+  let priorities: any[] = []
+  let statuses: any[] = []
 
   try {
     emailConfigs = await prisma.emailConfiguration.findMany({
