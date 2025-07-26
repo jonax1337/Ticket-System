@@ -128,7 +128,7 @@ export default function TicketFilters() {
   }
 
   // Simple debounce function
-  function debounce<T extends (...args: unknown[]) => void>(
+  function debounce<T extends (...args: string[]) => void>(
     func: T,
     wait: number
   ): (...args: Parameters<T>) => void {
