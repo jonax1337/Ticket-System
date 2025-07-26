@@ -22,9 +22,23 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { Mail, Plus, Settings, Trash2, TestTube, CheckCircle, XCircle, Clock, Eye, EyeOff, Filter, Zap, RotateCcw } from 'lucide-react'
+import { Mail, Plus, Settings, Trash2, TestTube, CheckCircle, XCircle, Clock, Eye, EyeOff, Filter, Zap, RotateCcw, AlertCircle, ArrowRight, CheckCircle2, Timer, AlertTriangle, TrendingUp } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+
+const getIconComponent = (iconName: string) => {
+  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
+    AlertCircle,
+    ArrowRight,
+    CheckCircle2,
+    Clock,
+    Timer,
+    AlertTriangle,
+    Zap,
+    TrendingUp
+  }
+  return iconMap[iconName] || AlertCircle
+}
 
 interface EmailConfiguration {
   id: string
@@ -53,8 +67,8 @@ interface EmailConfiguration {
 
 interface EmailSettingsProps {
   emailConfigs: EmailConfiguration[]
-  priorities: Array<{ id: string; name: string }>
-  statuses: Array<{ id: string; name: string }>
+  priorities: Array<{ id: string; name: string; icon: string; color: string }>
+  statuses: Array<{ id: string; name: string; icon: string; color: string }>
 }
 
 export default function EmailSettings({ emailConfigs, priorities, statuses }: EmailSettingsProps) {
@@ -490,16 +504,22 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                       <div className="space-y-2">
                         <Label htmlFor="defaultPriority">Default Priority</Label>
                         <Select value={formData.defaultPriority} onValueChange={(value) => setFormData({ ...formData, defaultPriority: value })}>
-                          <SelectTrigger>
+                          <SelectTrigger className={formData.defaultPriority !== 'none' ? priorities.find(p => p.name === formData.defaultPriority)?.color || '' : ''}>
                             <SelectValue placeholder="Select..." />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="none">None</SelectItem>
-                            {priorities.map((priority) => (
-                              <SelectItem key={priority.id} value={priority.name}>
-                                {priority.name}
-                              </SelectItem>
-                            ))}
+                            {priorities.map((priority) => {
+                              const IconComponent = getIconComponent(priority.icon)
+                              return (
+                                <SelectItem key={priority.id} value={priority.name}>
+                                  <span className="flex items-center gap-2">
+                                    <IconComponent className="h-4 w-4" />
+                                    <span>{priority.name}</span>
+                                  </span>
+                                </SelectItem>
+                              )
+                            })}
                           </SelectContent>
                         </Select>
                       </div>
@@ -507,16 +527,22 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                       <div className="space-y-2">
                         <Label htmlFor="defaultStatus">Default Status</Label>
                         <Select value={formData.defaultStatus} onValueChange={(value) => setFormData({ ...formData, defaultStatus: value })}>
-                          <SelectTrigger>
+                          <SelectTrigger className={formData.defaultStatus !== 'none' ? statuses.find(s => s.name === formData.defaultStatus)?.color || '' : ''}>
                             <SelectValue placeholder="Select..." />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="none">None</SelectItem>
-                            {statuses.map((status) => (
-                              <SelectItem key={status.id} value={status.name}>
-                                {status.name}
-                              </SelectItem>
-                            ))}
+                            {statuses.map((status) => {
+                              const IconComponent = getIconComponent(status.icon)
+                              return (
+                                <SelectItem key={status.id} value={status.name}>
+                                  <span className="flex items-center gap-2">
+                                    <IconComponent className="h-4 w-4" />
+                                    <span>{status.name}</span>
+                                  </span>
+                                </SelectItem>
+                              )
+                            })}
                           </SelectContent>
                         </Select>
                       </div>

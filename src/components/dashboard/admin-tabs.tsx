@@ -51,8 +51,8 @@ interface EmailConfiguration {
 interface AdminTabsProps {
   settings: SystemSettings
   emailConfigs: EmailConfiguration[]
-  priorities: Array<{ id: string; name: string }>
-  statuses: Array<{ id: string; name: string }>
+  priorities: Array<{ id: string; name: string; icon: string; color: string }>
+  statuses: Array<{ id: string; name: string; icon: string; color: string }>
 }
 
 export default function AdminTabs({ settings, emailConfigs, priorities, statuses }: AdminTabsProps) {
