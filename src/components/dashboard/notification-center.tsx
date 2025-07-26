@@ -22,7 +22,7 @@ interface Notification {
     id: string
     name: string
     email: string
-  }
+  } | null // Can be null for external users
   ticket?: {
     id: string
     ticketNumber?: string | null
@@ -166,6 +166,20 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
   useEffect(() => {
     fetchNotifications(showUnreadOnly)
   }, [])
+
+  // Auto-refresh notifications every 30 seconds for live updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchNotifications(showUnreadOnly)
+    }, 30000) // Refresh every 30 seconds
+
+    return () => clearInterval(interval)
+  }, [showUnreadOnly])
+
+  // Also refresh when filter changes
+  useEffect(() => {
+    fetchNotifications(showUnreadOnly)
+  }, [showUnreadOnly])
 
   const displayedNotifications = showUnreadOnly 
     ? notifications.filter(n => !n.isRead)

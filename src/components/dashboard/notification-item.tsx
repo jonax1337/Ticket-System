@@ -21,7 +21,7 @@ interface Notification {
     id: string
     name: string
     email: string
-  }
+  } | null // Can be null for external users
   ticket?: {
     id: string
     ticketNumber?: string | null
@@ -160,8 +160,12 @@ export default function NotificationItem({
           
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <span>by {notification.actor.name}</span>
-              <span>•</span>
+              {notification.actor && (
+                <>
+                  <span>by {notification.actor.name}</span>
+                  <span>•</span>
+                </>
+              )}
               <time dateTime={new Date(notification.createdAt).toISOString()}>
                 {format(new Date(notification.createdAt), 'MMM d, HH:mm')}
               </time>

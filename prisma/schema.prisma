@@ -240,14 +240,14 @@ model Notification {
   ticketId  String?  // Related ticket ID
   commentId String?  // Related comment ID (if applicable)
   userId    String   // User who should receive the notification
-  actorId   String   // User who triggered the notification
+  actorId   String?  // User who triggered the notification (optional for external users)
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
   user    User     @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
-  actor   User     @relation("ActorNotifications", fields: [actorId], references: [id], onDelete: Cascade)
+  actor   User?    @relation("ActorNotifications", fields: [actorId], references: [id], onDelete: Cascade)
   ticket  Ticket?  @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 

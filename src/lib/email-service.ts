@@ -497,8 +497,6 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     const subject = email.subject || ''
     const fromAddress = email.from?.value?.[0]?.address || ''
     
-    console.log('[EMAIL REPLY DEBUG] Processing email:', subject)
-    console.log('[EMAIL REPLY DEBUG] From address:', fromAddress)
     
     // Extract ticket number from subject - handle various formats like:
     // [Ticket IT-B8LOD55I] 
@@ -511,7 +509,6 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     }
 
     const ticketNumber = ticketMatch[1]
-    console.log('[EMAIL REPLY DEBUG] Found ticket number:', ticketNumber)
   
     // Find existing ticket
     let ticket
@@ -521,18 +518,15 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           ticketNumber: ticketNumber
         }
       })
-      console.log('[EMAIL REPLY DEBUG] Database query completed for ticket lookup')
     } catch (dbError) {
-      console.error('[EMAIL REPLY DEBUG] Database error finding ticket:', dbError)
+      console.error('Database error finding ticket:', dbError)
       throw dbError
     }
 
     if (!ticket) {
-      console.log('[EMAIL REPLY DEBUG] Ticket not found for number:', ticketNumber)
       return false // Ticket not found
     }
 
-    console.log('[EMAIL REPLY DEBUG] Found ticket:', ticket.id)
 
     // Check for duplicate reply (based on email content and sender within last hour)
     let recentSimilarComment
@@ -551,32 +545,27 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           createdAt: 'desc'
         }
       })
-      console.log('[EMAIL REPLY DEBUG] Duplicate check query completed')
     } catch (dbError) {
-      console.error('[EMAIL REPLY DEBUG] Database error checking duplicates:', dbError)
+      console.error('Database error checking duplicates:', dbError)
       throw dbError
     }
 
     // Basic duplicate detection - if very similar content exists recently, skip
     const newContent = extractNewReplyContent(email.text || '')
-    console.log('[EMAIL REPLY DEBUG] Extracted new content length:', newContent?.length || 0)
     
     if (recentSimilarComment && newContent) {
       const existingContent = recentSimilarComment.content.replace('[EMAIL REPLY] ', '')
       if (existingContent.trim() === newContent.trim()) {
-        console.log('[EMAIL REPLY DEBUG] Duplicate email detected, skipping')
         return true // Skip duplicate, but return true to prevent new ticket creation
       }
     }
 
-    console.log('[EMAIL REPLY DEBUG] Creating comment with content:', newContent?.substring(0, 100) + '...')
 
     // Create comment from email reply - extract only new content
     const fullTextBody = email.text || 'No text content'
     const newReplyContent = extractNewReplyContent(fullTextBody)
     const textBody = newReplyContent || fullTextBody // Fallback to full text if extraction fails
     
-    console.log('[EMAIL REPLY DEBUG] Final text body length:', textBody.length)
     
     // Find or create a user for the email sender (simplified)
     let userId = null
@@ -586,7 +575,6 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           email: fromAddress
         }
       })
-      console.log('[EMAIL REPLY DEBUG] User lookup completed, found:', !!existingUser)
 
       if (existingUser) {
         userId = existingUser.id
@@ -595,7 +583,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         userId = null
       }
     } catch (dbError) {
-      console.error('[EMAIL REPLY DEBUG] Database error finding user:', dbError)
+      console.error('Database error finding user:', dbError)
       // Continue with null userId since external users are allowed
       userId = null
     }
@@ -662,6 +650,8 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
 
     // Create notification for email reply - only for assigned user
     try {
+      console.log('[NOTIFICATION DEBUG] Checking for ticket assignment...')
+      
       // Get the ticket with assignment information
       const ticketWithAssignment = await prisma.ticket.findUnique({
         where: { id: ticket.id },
@@ -675,11 +665,19 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         },
       })
 
+      console.log('[NOTIFICATION DEBUG] Ticket assignment info:', {
+        ticketId: ticket.id,
+        assignedTo: ticketWithAssignment?.assignedTo,
+        assignedToId: ticketWithAssignment?.assignedToId
+      })
+
       // Only create notification if ticket is assigned to someone
       if (ticketWithAssignment?.assignedTo) {
         const displayTicketNumber = ticketWithAssignment.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
         
-        await prisma.notification.create({
+        console.log('[NOTIFICATION DEBUG] Creating notification for user:', ticketWithAssignment.assignedTo.id)
+        
+        const notification = await prisma.notification.create({
           data: {
             type: 'comment_added',
             title: 'New Email Reply',
@@ -690,9 +688,13 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
             commentId: comment.id,
           }
         })
+        
+        console.log('[NOTIFICATION DEBUG] Notification created successfully:', notification.id)
+      } else {
+        console.log('[NOTIFICATION DEBUG] No assigned user found, skipping notification')
       }
     } catch (notificationError) {
-      console.error('Error creating notifications for email reply:', notificationError)
+      console.error('[NOTIFICATION DEBUG] Error creating notifications for email reply:', notificationError)
       // Don't fail the main process if notifications fail
     }
 
