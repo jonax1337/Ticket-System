@@ -250,7 +250,17 @@ export default function EmailTemplateManager() {
         const updatedConfig = await response.json()
         setEmailTypes(prev => prev.map(config => 
           config.type === selectedType 
-            ? { ...updatedConfig, sections: JSON.parse(updatedConfig.sections), actionButton: updatedConfig.actionButton ? JSON.parse(updatedConfig.actionButton) : null }
+            ? { 
+                ...updatedConfig, 
+                sections: (() => {
+                  try { return JSON.parse(updatedConfig.sections) } 
+                  catch { return [] }
+                })(),
+                actionButton: (() => {
+                  try { return updatedConfig.actionButton ? JSON.parse(updatedConfig.actionButton) : null }
+                  catch { return null }
+                })()
+              }
             : config
         ))
         setSelectedType(null)
