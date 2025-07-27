@@ -24,41 +24,43 @@ export default async function AccountPage() {
       </div>
       
       <div className="grid gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Profile Picture</CardTitle>
-            <CardDescription>
-              Upload or update your profile picture.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <AvatarUploadForm user={session.user} />
-          </CardContent>
-        </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Profile Picture</CardTitle>
+              <CardDescription>
+                Upload or update your profile picture.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AvatarUploadForm user={session.user} />
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Profile Information</CardTitle>
-            <CardDescription>
-              Update your personal information and email address.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ProfileForm />
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Profile Information</CardTitle>
+              <CardDescription>
+                Update your personal information and email address.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ProfileForm />
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Change Password</CardTitle>
-            <CardDescription>
-              Ensure your account is secure by updating your password regularly.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <PasswordChangeForm />
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Change Password</CardTitle>
+              <CardDescription>
+                Ensure your account is secure by updating your password regularly.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <PasswordChangeForm />
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )

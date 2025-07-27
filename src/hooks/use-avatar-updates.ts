@@ -32,11 +32,17 @@ export function useAvatarUpdates() {
   }, [session?.user?.id, session?.user?.avatarUrl, update])
 }
 
+interface UserSessionData {
+  avatarUrl?: string | null
+  name?: string
+  email?: string
+}
+
 /**
  * Manual trigger to update session with latest user data
  * Note: This should be called from a component that has access to the session update function
  */
-export async function refreshUserSession(updateFunction: (data: any) => Promise<any>) {
+export async function refreshUserSession(updateFunction: (data: UserSessionData) => Promise<unknown>) {
   try {
     const response = await fetch('/api/users/me')
     if (response.ok) {
