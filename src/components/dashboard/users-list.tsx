@@ -267,9 +267,6 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      
                       <AvatarUploadDialog
                         user={{
                           id: user.id,
@@ -287,52 +284,48 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                       
                       <DropdownMenuSeparator />
                       
-                      {user.id !== currentUserId && (
-                        <>
+                      <DropdownMenuItem 
+                        onClick={() => handleRoleChange(user.id, user.role === 'ADMIN' ? 'SUPPORTER' : 'ADMIN')}
+                        disabled={user.id === currentUserId || isLoading}
+                      >
+                        <Shield className="h-4 w-4" />
+                        {user.role === 'ADMIN' ? 'Make Supporter' : 'Make Admin'}
+                      </DropdownMenuItem>
+                      
+                      <DropdownMenuSeparator />
+                      
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
                           <DropdownMenuItem 
-                            onClick={() => handleRoleChange(user.id, user.role === 'ADMIN' ? 'SUPPORTER' : 'ADMIN')}
-                            disabled={isLoading}
+                            onSelect={(e) => e.preventDefault()}
+                            className="text-destructive focus:text-destructive"
+                            disabled={user.id === currentUserId || isLoading}
                           >
-                            <Shield className="h-4 w-4" />
-                            {user.role === 'ADMIN' ? 'Make Supporter' : 'Make Admin'}
+                            <Trash2 className="h-4 w-4" />
+                            Delete User
                           </DropdownMenuItem>
-                          
-                          <DropdownMenuSeparator />
-                          
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <DropdownMenuItem 
-                                onSelect={(e) => e.preventDefault()}
-                                className="text-destructive focus:text-destructive"
-                                disabled={isLoading}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                                Delete User
-                              </DropdownMenuItem>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Delete User</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Are you sure you want to delete user <strong>{user.name}</strong>? 
-                                  This action cannot be undone.
-                                  <br /><br />
-                                  <em>Note: Users with open or in-progress tickets cannot be deleted.</em>
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction 
-                                  onClick={() => handleDeleteUser(user.id)}
-                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                >
-                                  Delete
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </>
-                      )}
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete User</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete user <strong>{user.name}</strong>? 
+                              This action cannot be undone.
+                              <br /><br />
+                              <em>Note: Users with open or in-progress tickets cannot be deleted.</em>
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction 
+                              onClick={() => handleDeleteUser(user.id)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            >
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
