@@ -243,7 +243,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
 }
 
 /**
- * Generate sections content for specific email types
+ * Generate sections content for specific email types (fallback for when DB config not available)
  */
 export function generateEmailSections(type: string, variables: Record<string, unknown>): EmailContentSection[] {
   switch (type) {
@@ -419,6 +419,28 @@ export function generateEmailSections(type: string, variables: Record<string, un
     default:
       return []
   }
+}
+
+/**
+ * Get sections from database configuration or fallback to hardcoded
+ */
+export async function getEmailSectionsFromConfig(type: string, variables: Record<string, unknown> = {}): Promise<EmailContentSection[]> {
+  try {
+    const { prisma } = await import('./prisma')
+    const config = await prisma.emailTypeConfig.findUnique({
+      where: { type }
+    })
+    
+    if (config && config.sections) {
+      const sections = JSON.parse(config.sections) as EmailContentSection[]
+      return sections.length > 0 ? sections : generateEmailSections(type, variables)
+    }
+  } catch (error) {
+    console.error('Error fetching email sections from config:', error)
+  }
+  
+  // Fallback to hardcoded sections
+  return generateEmailSections(type, variables)
 }
 
 /**

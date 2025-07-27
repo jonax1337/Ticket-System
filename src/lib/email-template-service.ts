@@ -169,7 +169,7 @@ export async function renderEmailTemplate(
 
     if (isUnifiedTemplate) {
       // Use unified template system
-      renderedHtmlContent = renderUnifiedTemplate(type, template, fullVariables)
+      renderedHtmlContent = await renderUnifiedTemplate(type, template, fullVariables)
     } else {
       // Legacy template format
       renderedHtmlContent = replaceTemplateVariables(template.htmlContent, fullVariables)
@@ -202,17 +202,46 @@ export async function renderEmailTemplate(
 /**
  * Render email using unified template system
  */
-function renderUnifiedTemplate(
+async function renderUnifiedTemplate(
   type: EmailTemplateType,
   template: EmailTemplate,
   variables: TemplateVariables
-): string {
-  // Get base configuration for this email type
-  const baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
-  
-  // Generate sections and action button
-  const sections = generateEmailSections(type, variables as Record<string, unknown>)
-  const actionButton = generateActionButton(type, variables as Record<string, unknown>)
+): Promise<string> {
+  // Try to get configuration from database first
+  let baseConfig: Partial<UnifiedEmailData>
+  let sections: EmailContentSection[]
+  let actionButton: { text: string; url: string; color: string } | null
+
+  try {
+    const config = await prisma.emailTypeConfig.findUnique({
+      where: { type }
+    })
+
+    if (config) {
+      // Use database configuration
+      baseConfig = {
+        headerTitle: config.headerTitle,
+        headerSubtitle: config.headerSubtitle,
+        headerColor: config.headerColor,
+        greeting: config.greeting,
+        introText: config.introText,
+        footerText: config.footerText
+      }
+      sections = JSON.parse(config.sections) as EmailContentSection[]
+      actionButton = config.actionButton ? JSON.parse(config.actionButton) : null
+    } else {
+      // Fallback to hardcoded configuration
+      baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
+      sections = generateEmailSections(type, variables as Record<string, unknown>)
+      actionButton = generateActionButton(type, variables as Record<string, unknown>)
+    }
+  } catch (error) {
+    console.error('Error fetching email configuration from database:', error)
+    // Fallback to hardcoded configuration
+    baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
+    sections = generateEmailSections(type, variables as Record<string, unknown>)
+    actionButton = generateActionButton(type, variables as Record<string, unknown>)
+  }
   
   // Create unified email data
   const emailData: UnifiedEmailData = {

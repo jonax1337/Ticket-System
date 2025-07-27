@@ -302,3 +302,20 @@ model EmailTemplate {
   @@unique([type, isDefault]) // Only one default template per type
   @@map("email_templates")
 }
+
+model EmailTypeConfig {
+  id            String   @id @default(cuid())
+  type          String   @unique // "ticket_created", "status_changed", etc.
+  headerTitle   String   @default("{{systemName}}")
+  headerSubtitle String  @default("Notification")
+  headerColor   String   @default("#2563eb")
+  greeting      String   @default("Hello {{customerName}},")
+  introText     String   @db.Text
+  footerText    String   @db.Text
+  sections      String   @db.Text // JSON array of content sections
+  actionButton  String?  @db.Text // JSON object for action button config
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("email_type_configs")
+}
