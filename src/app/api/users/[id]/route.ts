@@ -45,6 +45,7 @@ export async function PATCH(
         name: true,
         email: true,
         role: true,
+        avatarUrl: true,
       },
     })
 

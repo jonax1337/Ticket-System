@@ -74,6 +74,7 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
             id: true,
             name: true,
             email: true,
+            avatarUrl: true,
           },
         },
         comments: {
