@@ -2,12 +2,13 @@
 
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Settings, Palette, Mail, Workflow, FileText } from 'lucide-react'
+import { Settings, Palette, Mail, Workflow, FileText, Bot } from 'lucide-react'
 import AdminSettings from '@/components/dashboard/admin-settings'
 import EmailSettings from '@/components/dashboard/email-settings'
 import EmailTemplateManager from '@/components/dashboard/email-template-manager'
 import CustomStatusManager from '@/components/dashboard/custom-status-manager'
 import CustomPriorityManager from '@/components/dashboard/custom-priority-manager'
+import AutomationSettings from '@/components/dashboard/automation-settings'
 
 interface SystemSettings {
   id: string
@@ -20,6 +21,10 @@ interface SystemSettings {
   ticketNumberType: string
   ticketNumberLength: number
   lastTicketNumber: number
+  automationEnabled: boolean
+  automationWarningDays: number
+  automationCloseDays: number
+  automationCheckInterval: number
   createdAt: Date
   updatedAt: Date
 }
@@ -82,6 +87,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
           <Workflow className="h-4 w-4" />
           Workflow
         </TabsTrigger>
+        <TabsTrigger value="automation" className="flex items-center gap-2">
+          <Bot className="h-4 w-4" />
+          Automation
+        </TabsTrigger>
       </TabsList>
       
       <TabsContent value="general" className="space-y-6 mt-6">
@@ -106,6 +115,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
       
       <TabsContent value="workflow" className="space-y-6 mt-6">
         <WorkflowSettings />
+      </TabsContent>
+      
+      <TabsContent value="automation" className="space-y-6 mt-6">
+        <AutomationSettings settings={settings} />
       </TabsContent>
     </Tabs>
   )
