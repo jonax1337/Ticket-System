@@ -899,10 +899,25 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       const supportEmails = emailConfigurations.map(config => config.username.toLowerCase())
       
       // Add the sender (FROM) as participant if not already the original requester and not a support email
-      if (fromAddress && fromAddress !== ticket.fromEmail) {
-        const isSupportEmail = supportEmails.includes(fromAddress.toLowerCase())
+      // Normalize email addresses for comparison to handle case differences and whitespace
+      const normalizedFromEmail = fromAddress?.toLowerCase().trim()
+      const normalizedTicketFromEmail = ticket.fromEmail?.toLowerCase().trim()
+      
+      if (normalizedFromEmail && normalizedFromEmail !== normalizedTicketFromEmail) {
+        const isSupportEmail = supportEmails.includes(normalizedFromEmail)
         
-        if (!isSupportEmail) {
+        // Also check if this email is already in the participants list to avoid duplicates
+        const existingParticipant = await prisma.ticketParticipant.findFirst({
+          where: {
+            ticketId: ticket.id,
+            email: {
+              equals: normalizedFromEmail,
+              mode: 'insensitive'
+            }
+          }
+        })
+        
+        if (!isSupportEmail && !existingParticipant) {
           participantsToAdd.push({
             ticketId: ticket.id,
             email: fromAddress,
@@ -919,12 +934,20 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           if (ccRecipient.value && ccRecipient.value.length > 0) {
             for (const ccAddress of ccRecipient.value) {
               if (ccAddress.address) {
-                participantsToAdd.push({
-                  ticketId: ticket.id,
-                  email: ccAddress.address,
-                  name: ccAddress.name || ccAddress.address,
-                  type: 'cc'
-                })
+                const normalizedCcEmail = ccAddress.address.toLowerCase().trim()
+                
+                // Skip if this is support email or already the original requester
+                const isSupport = supportEmails.includes(normalizedCcEmail)
+                const isOriginalRequester = normalizedCcEmail === normalizedTicketFromEmail
+                
+                if (!isSupport && !isOriginalRequester) {
+                  participantsToAdd.push({
+                    ticketId: ticket.id,
+                    email: ccAddress.address,
+                    name: ccAddress.name || ccAddress.address,
+                    type: 'cc'
+                  })
+                }
               }
             }
           }
@@ -938,12 +961,20 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           if (bccRecipient.value && bccRecipient.value.length > 0) {
             for (const bccAddress of bccRecipient.value) {
               if (bccAddress.address) {
-                participantsToAdd.push({
-                  ticketId: ticket.id,
-                  email: bccAddress.address,
-                  name: bccAddress.name || bccAddress.address,
-                  type: 'cc'
-                })
+                const normalizedBccEmail = bccAddress.address.toLowerCase().trim()
+                
+                // Skip if this is support email or already the original requester
+                const isSupport = supportEmails.includes(normalizedBccEmail)
+                const isOriginalRequester = normalizedBccEmail === normalizedTicketFromEmail
+                
+                if (!isSupport && !isOriginalRequester) {
+                  participantsToAdd.push({
+                    ticketId: ticket.id,
+                    email: bccAddress.address,
+                    name: bccAddress.name || bccAddress.address,
+                    type: 'cc' // Treat BCC same as CC for participants
+                  })
+                }
               }
             }
           }
@@ -958,9 +989,11 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
             for (const toAddress of toRecipient.value) {
               // Skip our own support email addresses, but add any external TO addresses
               if (toAddress.address) {
-                const isSupport = supportEmails.includes(toAddress.address.toLowerCase())
+                const normalizedToEmail = toAddress.address.toLowerCase().trim()
+                const isSupport = supportEmails.includes(normalizedToEmail)
+                const isOriginalRequester = normalizedToEmail === normalizedTicketFromEmail
                 
-                if (!isSupport) {
+                if (!isSupport && !isOriginalRequester) {
                   participantsToAdd.push({
                     ticketId: ticket.id,
                     email: toAddress.address,

@@ -159,50 +159,74 @@ export async function POST(
           // Use selected participants or fall back to requester
           const emailRecipients = selectedParticipants.length > 0 ? selectedParticipants : [ticket.fromEmail]
           
-          // Try to send using template first
-          const templateSent = await sendTemplatedEmail({
-            templateType: 'comment_added',
-            to: ticket.fromEmail,
-            toName: ticket.fromName || undefined,
-            ticketId: params.id,
-            variables: {
-              commentContent: content.trim(),
-              commentAuthor: session.user.name,
-              commentCreatedAt: new Date().toLocaleString(),
-              actorName: session.user.name,
-              actorEmail: session.user.email
-            },
-            attachments: attachments.length > 0 ? attachments.map(att => ({
-              filename: att.filename,
-              path: join(process.cwd(), 'public', att.filepath),
-              contentType: att.mimetype
-            })) : undefined
-          })
-
-          // Fallback to legacy email if template fails
-          if (!templateSent) {
-            const emailSent = await sendExternalEmail({
-              to: ticket.fromEmail,
-              toName: ticket.fromName || undefined,
-              subject: ticket.subject,
-              content: content.trim(),
-              ticketNumber: displayTicketNumber,
+          // Send templated email to each recipient
+          for (const recipientEmail of emailRecipients) {
+            // Get recipient info for better personalization
+            let recipientName = recipientEmail
+            
+            // Try to get participant info from database
+            const participant = await prisma.ticketParticipant.findFirst({
+              where: {
+                ticketId: params.id,
+                email: {
+                  equals: recipientEmail,
+                  mode: 'insensitive'
+                }
+              }
+            })
+            
+            // Fall back to ticket requester info if this is the original requester
+            if (!participant && recipientEmail.toLowerCase() === ticket.fromEmail.toLowerCase()) {
+              recipientName = ticket.fromName || recipientEmail
+            } else if (participant) {
+              recipientName = participant.name || recipientEmail
+            }
+            
+            const templateSent = await sendTemplatedEmail({
+              templateType: 'comment_added',
+              to: recipientEmail,
+              toName: recipientName,
               ticketId: params.id,
-              selectedParticipants: emailRecipients,
+              variables: {
+                commentContent: content.trim(),
+                commentAuthor: session.user.name,
+                commentCreatedAt: new Date().toLocaleString(),
+                actorName: session.user.name,
+                actorEmail: session.user.email
+              },
               attachments: attachments.length > 0 ? attachments.map(att => ({
                 filename: att.filename,
                 path: join(process.cwd(), 'public', att.filepath),
                 contentType: att.mimetype
               })) : undefined
             })
-            
-            if (emailSent) {
-              console.log(`Legacy external email sent successfully for ticket ${displayTicketNumber}`)
+
+            if (templateSent) {
+              console.log(`Templated external email sent successfully to ${recipientEmail} for ticket ${displayTicketNumber}`)
             } else {
-              console.error(`Failed to send external email for ticket ${displayTicketNumber}`)
+              console.log(`Template failed for ${recipientEmail}, trying legacy email`)
+              // Fallback to legacy email if template fails
+              const emailSent = await sendExternalEmail({
+                to: recipientEmail,
+                toName: recipientName,
+                subject: ticket.subject,
+                content: content.trim(),
+                ticketNumber: displayTicketNumber,
+                ticketId: params.id,
+                selectedParticipants: [recipientEmail], // Send only to this specific recipient
+                attachments: attachments.length > 0 ? attachments.map(att => ({
+                  filename: att.filename,
+                  path: join(process.cwd(), 'public', att.filepath),
+                  contentType: att.mimetype
+                })) : undefined
+              })
+              
+              if (emailSent) {
+                console.log(`Legacy external email sent successfully to ${recipientEmail} for ticket ${displayTicketNumber}`)
+              } else {
+                console.error(`Failed to send external email to ${recipientEmail} for ticket ${displayTicketNumber}`)
+              }
             }
-          } else {
-            console.log(`Templated external email sent successfully for ticket ${displayTicketNumber}`)
           }
         } catch (emailError) {
           console.error('Error sending external email:', emailError)
