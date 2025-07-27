@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
   Dialog,
@@ -13,6 +13,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { UserAvatar } from '@/components/ui/user-avatar'
+import { Dropzone, DropzoneContent, DropzoneEmptyState } from '@/components/ui/shadcn-io/dropzone'
 import { Upload, Trash2, Camera } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -31,11 +32,12 @@ export function AvatarUploadDialog({ user, onAvatarUpdate, trigger }: AvatarUplo
   const [isOpen, setIsOpen] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const { update } = useSession()
   const router = useRouter()
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+  const handleFileSelect = (files: File[]) => {
+    const file = files[0]
     if (!file) return
 
     // Validate file type
@@ -52,6 +54,8 @@ export function AvatarUploadDialog({ user, onAvatarUpdate, trigger }: AvatarUplo
       return
     }
 
+    setSelectedFile(file)
+
     // Create preview
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -60,14 +64,17 @@ export function AvatarUploadDialog({ user, onAvatarUpdate, trigger }: AvatarUplo
     reader.readAsDataURL(file)
   }
 
+  const handleError = (error: Error) => {
+    toast.error(error.message || 'Error uploading file')
+  }
+
   const handleUpload = async () => {
-    const file = fileInputRef.current?.files?.[0]
-    if (!file) return
+    if (!selectedFile) return
 
     setIsUploading(true)
     try {
       const formData = new FormData()
-      formData.append('avatar', file)
+      formData.append('avatar', selectedFile)
 
       const response = await fetch('/api/users/avatar', {
         method: 'POST',
@@ -81,9 +88,10 @@ export function AvatarUploadDialog({ user, onAvatarUpdate, trigger }: AvatarUplo
         onAvatarUpdate?.(result.avatarUrl)
         setIsOpen(false)
         setPreview(null)
-        if (fileInputRef.current) {
-          fileInputRef.current.value = ''
-        }
+        setSelectedFile(null)
+        
+        // Update the session to reflect the new avatar
+        await update({ avatarUrl: result.avatarUrl })
         router.refresh()
       } else {
         toast.error(result.error || 'Upload failed')
@@ -110,9 +118,10 @@ export function AvatarUploadDialog({ user, onAvatarUpdate, trigger }: AvatarUplo
         onAvatarUpdate?.(null)
         setIsOpen(false)
         setPreview(null)
-        if (fileInputRef.current) {
-          fileInputRef.current.value = ''
-        }
+        setSelectedFile(null)
+        
+        // Update the session to reflect the removed avatar
+        await update({ avatarUrl: null })
         router.refresh()
       } else {
         toast.error(result.error || 'Remove failed')
@@ -127,9 +136,7 @@ export function AvatarUploadDialog({ user, onAvatarUpdate, trigger }: AvatarUplo
 
   const clearPreview = () => {
     setPreview(null)
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
+    setSelectedFile(null)
   }
 
   return (
@@ -160,20 +167,39 @@ export function AvatarUploadDialog({ user, onAvatarUpdate, trigger }: AvatarUplo
             </div>
           </div>
 
-          {/* File Input */}
+          {/* File Upload */}
           <div className="space-y-2">
-            <Label htmlFor="avatar-upload">Choose New Avatar</Label>
-            <Input
-              id="avatar-upload"
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileSelect}
+            <Label>Choose New Avatar</Label>
+            <Dropzone
+              onDrop={handleFileSelect}
+              onError={handleError}
+              accept={{
+                'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp']
+              }}
+              maxSize={5 * 1024 * 1024} // 5MB
+              maxFiles={1}
               disabled={isUploading}
-            />
-            <p className="text-xs text-muted-foreground">
-              Supported formats: JPEG, PNG, GIF, WebP. Max size: 5MB.
-            </p>
+              src={selectedFile ? [selectedFile] : undefined}
+              className="min-h-[100px]"
+            >
+              <DropzoneEmptyState>
+                <div className="flex flex-col items-center justify-center text-center">
+                  <div className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground mb-1">
+                    <Upload size={14} />
+                  </div>
+                  <p className="font-medium text-sm mb-1">
+                    Upload avatar image
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    Drag and drop or click to upload
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    JPEG, PNG, GIF, WebP. Max 5MB.
+                  </p>
+                </div>
+              </DropzoneEmptyState>
+              <DropzoneContent />
+            </Dropzone>
           </div>
 
           {/* Actions */}

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { UserAvatar } from '@/components/ui/user-avatar'
@@ -23,6 +24,7 @@ export function AvatarUploadForm({ user, onAvatarUpdate }: AvatarUploadFormProps
   const [isUploading, setIsUploading] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const { update } = useSession()
   const router = useRouter()
 
   const handleFileSelect = (files: File[]) => {
@@ -77,6 +79,9 @@ export function AvatarUploadForm({ user, onAvatarUpdate }: AvatarUploadFormProps
         onAvatarUpdate?.(result.avatarUrl)
         setPreview(null)
         setSelectedFile(null)
+        
+        // Update the session to reflect the new avatar
+        await update({ avatarUrl: result.avatarUrl })
         router.refresh()
       } else {
         toast.error(result.error || 'Upload failed')
@@ -103,6 +108,9 @@ export function AvatarUploadForm({ user, onAvatarUpdate }: AvatarUploadFormProps
         onAvatarUpdate?.(null)
         setPreview(null)
         setSelectedFile(null)
+        
+        // Update the session to reflect the removed avatar
+        await update({ avatarUrl: null })
         router.refresh()
       } else {
         toast.error(result.error || 'Remove failed')
