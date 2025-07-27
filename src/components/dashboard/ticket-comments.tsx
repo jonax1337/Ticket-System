@@ -355,12 +355,11 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
       if (commentResponse.ok) {
         setNewComment('')
         setEditorSerializedState(null)
-        // Only reset nextStatus to the new status if status was changed, otherwise keep current ticket status
-        if (isStatusChanging && statusUpdateSuccess) {
-          setNextStatus(nextStatus) // Keep the new status that was successfully updated
-        } else {
-          setNextStatus(ticket.status) // Reset to current ticket status
+        // Reset nextStatus to current ticket status unless status change was successful
+        if (!(isStatusChanging && statusUpdateSuccess)) {
+          setNextStatus(ticket.status)
         }
+        // If status change was successful, nextStatus should already be correct
         setSelectedFiles([])
         // Clear the editor using the ref
         editorRef.current?.clear()
