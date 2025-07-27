@@ -6,7 +6,7 @@ import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import { parseMentionsFromComment, createMentionNotification } from '@/lib/notification-service'
-import { sendExternalEmail } from '@/lib/email-service'
+import { sendExternalEmail, sendTemplatedEmail } from '@/lib/email-service'
 
 export async function POST(
   request: NextRequest,
@@ -142,25 +142,50 @@ export async function POST(
           // Use selected participants or fall back to requester
           const emailRecipients = selectedParticipants.length > 0 ? selectedParticipants : [ticket.fromEmail]
           
-          const emailSent = await sendExternalEmail({
-            to: ticket.fromEmail, // Keep for backward compatibility
+          // Try to send using template first
+          const templateSent = await sendTemplatedEmail({
+            templateType: 'comment_added',
+            to: ticket.fromEmail,
             toName: ticket.fromName || undefined,
-            subject: ticket.subject,
-            content: content.trim(),
-            ticketNumber: displayTicketNumber,
             ticketId: params.id,
-            selectedParticipants: emailRecipients, // Pass selected participants
+            variables: {
+              commentContent: content.trim(),
+              commentAuthor: session.user.name,
+              commentCreatedAt: new Date().toLocaleString(),
+              actorName: session.user.name,
+              actorEmail: session.user.email
+            },
             attachments: attachments.length > 0 ? attachments.map(att => ({
               filename: att.filename,
               path: join(process.cwd(), 'public', att.filepath),
               contentType: att.mimetype
             })) : undefined
           })
-          
-          if (emailSent) {
-            console.log(`External email sent successfully for ticket ${displayTicketNumber}`)
+
+          // Fallback to legacy email if template fails
+          if (!templateSent) {
+            const emailSent = await sendExternalEmail({
+              to: ticket.fromEmail,
+              toName: ticket.fromName || undefined,
+              subject: ticket.subject,
+              content: content.trim(),
+              ticketNumber: displayTicketNumber,
+              ticketId: params.id,
+              selectedParticipants: emailRecipients,
+              attachments: attachments.length > 0 ? attachments.map(att => ({
+                filename: att.filename,
+                path: join(process.cwd(), 'public', att.filepath),
+                contentType: att.mimetype
+              })) : undefined
+            })
+            
+            if (emailSent) {
+              console.log(`Legacy external email sent successfully for ticket ${displayTicketNumber}`)
+            } else {
+              console.error(`Failed to send external email for ticket ${displayTicketNumber}`)
+            }
           } else {
-            console.error(`Failed to send external email for ticket ${displayTicketNumber}`)
+            console.log(`Templated external email sent successfully for ticket ${displayTicketNumber}`)
           }
         } catch (emailError) {
           console.error('Error sending external email:', emailError)
