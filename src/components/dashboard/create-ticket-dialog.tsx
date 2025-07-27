@@ -32,7 +32,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
-import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar } from 'lucide-react'
+import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar, Bell } from 'lucide-react'
 import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
@@ -79,6 +79,7 @@ export function CreateTicketDialog() {
   const [assignedTo, setAssignedTo] = useState<string>('')
   const [attachments, setAttachments] = useState<File[]>([])
   const [dueDate, setDueDate] = useState<Date | undefined>(undefined)
+  const [reminderDate, setReminderDate] = useState<Date | undefined>(undefined)
 
   const handleAssigneeChange = (value: string) => {
     setAssignedTo(value)
@@ -176,6 +177,7 @@ export function CreateTicketDialog() {
           assignedTo: assignedTo || null,
           attachments: uploadedFiles,
           dueDate: dueDate ? normalizeDateToMidnight(dueDate)?.toISOString() : null,
+          reminderDate: reminderDate ? normalizeDateToMidnight(reminderDate)?.toISOString() : null,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -194,6 +196,7 @@ export function CreateTicketDialog() {
       setAssignedTo('')
       setAttachments([])
       setDueDate(undefined)
+      setReminderDate(undefined)
       setOpen(false)
       
       toast.success('Ticket created successfully', {
@@ -362,6 +365,17 @@ export function CreateTicketDialog() {
                       date={dueDate}
                       setDate={setDueDate}
                       placeholder="Select due date"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="reminderDate" className="text-sm font-medium flex items-center gap-2">
+                      <Bell className="h-4 w-4" />
+                      Reminder Date (optional)
+                    </Label>
+                    <DatePicker
+                      date={reminderDate}
+                      setDate={setReminderDate}
+                      placeholder="Select reminder date"
                     />
                   </div>
                 </div>

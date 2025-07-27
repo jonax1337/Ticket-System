@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     // Parse request body
     const body = await req.json()
-    const { subject, description, fromEmail, fromName, priority, htmlContent, attachments, dueDate } = body
+    const { subject, description, fromEmail, fromName, priority, htmlContent, attachments, dueDate, reminderDate } = body
 
     // Validate required fields
     if (!subject || !description) {
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
         priority: priority || 'Medium',
         status: 'Open',
         dueDate: normalizeDateToMidnight(dueDate),
+        reminderDate: normalizeDateToMidnight(reminderDate),
       },
     })
 

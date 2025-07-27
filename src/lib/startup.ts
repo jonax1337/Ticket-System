@@ -2,6 +2,7 @@
 import './email-cron'
 import './automation-service'
 import './due-date-cron'
+import './reminder-cron'
 
 import { createDefaultEmailTemplates } from './email-template-service'
 

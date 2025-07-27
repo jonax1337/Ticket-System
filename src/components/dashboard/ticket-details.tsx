@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw } from 'lucide-react'
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
@@ -43,6 +43,7 @@ interface Ticket {
   fromEmail: string
   fromName: string | null
   dueDate?: Date | null
+  reminderDate?: Date | null
   createdAt: Date
   updatedAt: Date
   assignedTo: {
@@ -121,6 +122,8 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const [isLoading, setIsLoading] = useState(false)
   const [editingDueDate, setEditingDueDate] = useState(false)
   const [tempDueDate, setTempDueDate] = useState<Date | undefined>(undefined)
+  const [editingReminderDate, setEditingReminderDate] = useState(false)
+  const [tempReminderDate, setTempReminderDate] = useState<Date | undefined>(undefined)
   const router = useRouter()
   const { statuses, priorities, isLoading: cacheLoading } = useCache()
 
@@ -279,6 +282,58 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
       return { status: 'due_soon', color: 'text-amber-600', bg: 'bg-amber-50' }
     }
     return { status: 'normal', color: 'text-green-600', bg: 'bg-green-50' }
+  }
+
+  const handleReminderDateEdit = () => {
+    setEditingReminderDate(true)
+    setTempReminderDate(ticket.reminderDate ? new Date(ticket.reminderDate) : undefined)
+  }
+
+  const handleReminderDateSave = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch(`/api/tickets/${ticket.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          reminderDate: tempReminderDate ? normalizeDateToMidnight(tempReminderDate)?.toISOString() : null
+        }),
+      })
+
+      if (response.ok) {
+        const updatedTicket = await response.json()
+        // Update the ticket data
+        Object.assign(ticket, updatedTicket)
+        setEditingReminderDate(false)
+        router.refresh()
+      }
+    } catch (error) {
+      console.error('Failed to update reminder date:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleReminderDateCancel = () => {
+    setEditingReminderDate(false)
+    setTempReminderDate(ticket.reminderDate ? new Date(ticket.reminderDate) : undefined)
+  }
+
+  const getReminderStatus = () => {
+    if (!ticket.reminderDate) return null
+    
+    const now = new Date()
+    const reminderDate = new Date(ticket.reminderDate)
+    const diffHours = Math.ceil((reminderDate.getTime() - now.getTime()) / (1000 * 60 * 60))
+    
+    if (diffHours < 0) {
+      return { status: 'overdue', color: 'text-red-600', bg: 'bg-red-50' }
+    } else if (diffHours <= 24) {
+      return { status: 'due_soon', color: 'text-amber-600', bg: 'bg-amber-50' }
+    }
+    return { status: 'normal', color: 'text-blue-600', bg: 'bg-blue-50' }
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -545,6 +600,67 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
                         className="h-6 w-6 p-0"
                       >
                         <Calendar className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              {/* Reminder Date */}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground flex items-center gap-2">
+                  <Bell className="h-4 w-4" />
+                  Reminder Date:
+                </span>
+                <div className="flex items-center gap-2">
+                  {editingReminderDate ? (
+                    <div className="flex items-center gap-2">
+                      <DatePicker
+                        date={tempReminderDate}
+                        setDate={setTempReminderDate}
+                        placeholder="Select reminder date"
+                        className="h-8 text-xs"
+                      />
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={handleReminderDateSave}
+                        disabled={isLoading}
+                        className="h-8 px-2"
+                      >
+                        ✓
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={handleReminderDateCancel}
+                        className="h-8 px-2"
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      {ticket.reminderDate ? (
+                        <span className={`${getReminderStatus()?.color || ''} font-medium`}>
+                          {format(new Date(ticket.reminderDate), 'MMM d, yyyy')}
+                          {getReminderStatus()?.status === 'overdue' && (
+                            <Badge variant="destructive" className="ml-2 text-xs">Reminder Passed</Badge>
+                          )}
+                          {getReminderStatus()?.status === 'due_soon' && (
+                            <Badge variant="secondary" className="ml-2 text-xs bg-blue-100 text-blue-800">Reminder Soon</Badge>
+                          )}
+                        </span>
+                      ) : (
+                        <span className="text-muted-foreground">Not set</span>
+                      )}
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        onClick={handleReminderDateEdit}
+                        className="h-6 w-6 p-0"
+                      >
+                        <Bell className="h-3 w-3" />
                       </Button>
                     </div>
                   )}

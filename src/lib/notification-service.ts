@@ -1,6 +1,6 @@
 import { prisma } from './prisma'
 
-export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment' | 'ticket_due_soon' | 'ticket_overdue' | 'ticket_auto_close_warning' | 'ticket_auto_closed'
+export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment' | 'ticket_due_soon' | 'ticket_overdue' | 'ticket_reminder' | 'ticket_auto_close_warning' | 'ticket_auto_closed'
 
 interface CreateNotificationParams {
   type: NotificationType
@@ -204,6 +204,29 @@ export async function createTicketOverdueNotification(
     type: 'ticket_overdue',
     title: 'Ticket Overdue',
     message: `Ticket ${displayTicketNumber} was due on ${dueDateStr} and is now overdue: ${ticketSubject || 'Untitled'}`,
+    userId: assignedUserId,
+    actorId: assignedUserId, // System notification, use same user as actor
+    ticketId,
+  })
+}
+
+/**
+ * Create a reminder notification for a ticket
+ */
+export async function createTicketReminderNotification(
+  ticketId: string,
+  assignedUserId: string,
+  reminderDate: Date,
+  ticketNumber?: string,
+  ticketSubject?: string
+) {
+  const displayTicketNumber = ticketNumber || `#${ticketId.slice(-6).toUpperCase()}`
+  const reminderDateStr = reminderDate.toLocaleDateString()
+  
+  return createNotification({
+    type: 'ticket_reminder',
+    title: 'Ticket Reminder',
+    message: `Reminder for ticket ${displayTicketNumber} on ${reminderDateStr}: ${ticketSubject || 'Untitled'}`,
     userId: assignedUserId,
     actorId: assignedUserId, // System notification, use same user as actor
     ticketId,
@@ -551,6 +574,69 @@ export async function checkTicketDueDates() {
       overdueCount: 0,
       totalDueSoon: 0,
       totalOverdue: 0,
+    }
+  }
+}
+
+/**
+ * Check for tickets that have reminder dates reached and create notifications
+ */
+export async function checkTicketReminders() {
+  const now = new Date()
+  
+  try {
+    // Find tickets that have reached their reminder date and not yet notified
+    const reminderTickets = await prisma.ticket.findMany({
+      where: {
+        reminderDate: {
+          lte: now,
+        },
+        assignedToId: {
+          not: null,
+        },
+        status: {
+          not: 'Closed', // Don't notify for closed tickets
+        },
+      },
+      include: {
+        assignedTo: true,
+        notifications: {
+          where: {
+            type: 'ticket_reminder',
+            createdAt: {
+              gte: new Date(now.getTime() - 24 * 60 * 60 * 1000), // Last 24 hours
+            },
+          },
+        },
+      },
+    })
+
+    let reminderCount = 0
+
+    // Create reminder notifications
+    for (const ticket of reminderTickets) {
+      // Only create notification if none exists in the last 24 hours
+      if (ticket.notifications.length === 0 && ticket.assignedTo && ticket.reminderDate) {
+        await createTicketReminderNotification(
+          ticket.id,
+          ticket.assignedTo.id,
+          ticket.reminderDate,
+          ticket.ticketNumber || undefined,
+          ticket.subject
+        )
+        reminderCount++
+      }
+    }
+
+    return {
+      reminderCount,
+      totalReminders: reminderTickets.length,
+    }
+  } catch (error) {
+    console.error('Error checking ticket reminders:', error)
+    return {
+      reminderCount: 0,
+      totalReminders: 0,
     }
   }
 }
