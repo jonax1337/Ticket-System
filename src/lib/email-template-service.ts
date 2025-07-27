@@ -267,8 +267,14 @@ async function renderUnifiedTemplate(
         introText: config.introText,
         footerText: config.footerText
       }
-      sections = JSON.parse(config.sections) as EmailContentSection[]
-      actionButton = config.actionButton ? JSON.parse(config.actionButton) : null
+      try {
+        sections = JSON.parse(config.sections) as EmailContentSection[]
+        actionButton = config.actionButton ? JSON.parse(config.actionButton) : null
+      } catch (parseError) {
+        console.error('Error parsing email configuration JSON:', parseError)
+        sections = generateEmailSections(type, variables as Record<string, unknown>)
+        actionButton = generateActionButton(type, variables as Record<string, unknown>)
+      }
     } else {
       // Fallback to hardcoded configuration
       baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
