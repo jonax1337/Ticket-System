@@ -668,10 +668,37 @@ export default function EmailTemplateManager() {
                   </div>
                   <div className="space-y-2">
                     <Label>Email Content:</Label>
-                    <div 
-                      className="border rounded p-4 bg-white dark:bg-slate-900"
-                      dangerouslySetInnerHTML={{ __html: previewData.htmlContent }}
-                    />
+                    <div className="border rounded bg-white dark:bg-slate-900 overflow-hidden">
+                      <iframe
+                        srcDoc={`
+                          <!DOCTYPE html>
+                          <html>
+                            <head>
+                              <meta charset="utf-8">
+                              <meta name="viewport" content="width=device-width, initial-scale=1">
+                              <style>
+                                body {
+                                  margin: 16px;
+                                  font-family: system-ui, -apple-system, sans-serif;
+                                  line-height: 1.5;
+                                  color: #333;
+                                  background: #fff;
+                                }
+                                * {
+                                  box-sizing: border-box;
+                                }
+                              </style>
+                            </head>
+                            <body>
+                              ${previewData.htmlContent}
+                            </body>
+                          </html>
+                        `}
+                        className="w-full h-96 border-0"
+                        title="Email Preview"
+                        sandbox="allow-same-origin"
+                      />
+                    </div>
                   </div>
                 </TabsContent>
                 
