@@ -411,7 +411,7 @@ ${textBody}
     })
   }
 
-  console.log(`Added ${participantsData.length} new participants from email reply: ${participantsData.map(p => `${p.email} (${p.type})`).join(', ')}`)
+  console.log(`Added ${participantsData.length} participants to ticket: ${participantsData.map(p => `${p.email} (${p.type})`).join(', ')}`)
 
   // Send ticket creation notification to customer using template
   try {
@@ -435,6 +435,41 @@ ${textBody}
   } catch (emailError) {
     console.error('Failed to send ticket creation notification:', emailError)
     // Don't fail ticket creation if email notification fails
+  }
+
+  // Send participant notifications to CC/BCC recipients (exclude the original requester)
+  for (const participant of participantsData) {
+    // Skip the original requester - they already got the ticket_created notification
+    if (participant.type === 'creator') {
+      continue
+    }
+    
+    try {
+      await sendTemplatedEmail({
+        templateType: 'participant_added',
+        to: participant.email,
+        toName: participant.name,
+        ticketId: ticket.id,
+        variables: {
+          ticketNumber,
+          ticketSubject: subject,
+          ticketDescription: textBody,
+          ticketStatus: config.defaultStatus || 'Open',
+          ticketPriority: config.defaultPriority || 'Medium',
+          ticketCreatedAt: receivedDate.toLocaleString(),
+          participantName: participant.name,
+          participantEmail: participant.email,
+          participantType: participant.type === 'cc' ? 'CC recipient' : 'Email participant',
+          actorName: 'Email System',
+          actorEmail: 'system',
+          ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`
+        }
+      })
+      console.log(`Participant notification sent to ${participant.email} (${participant.type})`)
+    } catch (participantEmailError) {
+      console.error(`Failed to send participant notification to ${participant.email}:`, participantEmailError)
+      // Continue with other participants even if one fails
+    }
   }
 
   return true
