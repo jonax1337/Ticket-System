@@ -176,7 +176,7 @@ export async function POST(
             })
             
             // Fall back to ticket requester info if this is the original requester
-            if (!participant && normalizedRecipientEmail === ticket.fromEmail.toLowerCase()) {
+            if (!participant && normalizedRecipientEmail === ticket.fromEmail.toLowerCase().trim()) {
               recipientName = ticket.fromName || recipientEmail
             } else if (participant) {
               recipientName = participant.name || recipientEmail
