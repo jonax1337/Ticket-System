@@ -46,7 +46,7 @@ export function CacheProvider({ children }: CacheProviderProps) {
     const now = Date.now()
     
     // Don't refetch if cache is still valid and not forced
-    if (!force && now - lastFetch < CACHE_DURATION && statuses.length > 0) {
+    if (!force && now - lastFetch < CACHE_DURATION && statuses.length > 0 && priorities.length > 0) {
       return
     }
 
