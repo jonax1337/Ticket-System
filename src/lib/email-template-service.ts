@@ -180,9 +180,11 @@ export async function renderEmailTemplate(
     let renderedSubject = replaceTemplateVariables(template.subject, fullVariables)
     const subjectPrefix = replaceTemplateVariables(fullVariables.emailSubjectPrefix || '[Ticket {{ticketNumber}}]', fullVariables)
     
-    // Add prefix if not already present
-    if (!renderedSubject.includes(subjectPrefix.replace(/{{[^}]+}}/g, ''))) {
-      renderedSubject = `${subjectPrefix} ${renderedSubject}`
+    // Add prefix if not already present (check for exact prefix pattern)
+    const prefixPattern = fullVariables.emailSubjectPrefix || '[Ticket {{ticketNumber}}]'
+    const renderedPrefix = replaceTemplateVariables(prefixPattern, fullVariables)
+    if (!renderedSubject.startsWith(renderedPrefix)) {
+      renderedSubject = `${renderedPrefix} ${renderedSubject}`
     }
     
     const renderedTextContent = template.textContent 
