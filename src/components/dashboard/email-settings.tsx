@@ -701,7 +701,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={refreshStatus}
+                  onClick={() => refreshStatus(true)}
                   className="ml-auto"
                 >
                   <RefreshCw className="h-3 w-3" />

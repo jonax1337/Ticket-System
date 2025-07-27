@@ -116,7 +116,7 @@ export async function PUT(
     }
 
     // For partial updates, only update provided fields
-    const updateData: any = { ...validatedData }
+    const updateData: z.infer<typeof emailConfigSchema> | z.infer<typeof emailConfigPartialSchema> = { ...validatedData }
     
     // Only encrypt password if it's provided (full update)
     if (validatedData.password) {
