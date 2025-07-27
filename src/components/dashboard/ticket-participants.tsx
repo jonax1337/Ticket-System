@@ -21,6 +21,7 @@ import {
 import { Plus, Mail, UserPlus, Users, Trash2, Crown, UserX, User, Edit } from 'lucide-react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { CustomerAvatar } from '@/components/ui/customer-avatar'
 
 interface TicketParticipant {
   id: string
@@ -40,12 +41,12 @@ interface TicketParticipantsProps {
   onRequesterUpdate?: (name: string, email: string) => void
 }
 
-const getParticipantIcon = (type: string) => {
+const getParticipantIcon = (type: string, name?: string | null, email?: string) => {
   switch (type) {
     case 'creator':
-      return <User className="h-4 w-4 text-slate-600" />
+      return <CustomerAvatar name={name} email={email || 'unknown@example.com'} size="sm" />
     default:
-      return <Users className="h-4 w-4 text-slate-600" />
+      return <CustomerAvatar name={name} email={email || 'unknown@example.com'} size="sm" />
   }
 }
 
@@ -184,7 +185,11 @@ export default function TicketParticipants({ ticketId, participants, requester, 
           </div>
           <div className="flex items-center justify-between p-4 border rounded-lg bg-slate-50/50 dark:bg-slate-900/10">
             <div className="flex items-center gap-3">
-              <User className="h-5 w-5 text-slate-600" />
+              <CustomerAvatar 
+                name={requester.name}
+                email={requester.email}
+                size="md"
+              />
               <div>
                 <div className="font-medium text-base">
                   {requester.name || requester.email}
@@ -319,7 +324,7 @@ export default function TicketParticipants({ ticketId, participants, requester, 
                 className="flex items-center justify-between p-2.5 border rounded-lg hover:bg-muted/30 transition-colors"
               >
                 <div className="flex items-center gap-2.5">
-                  {getParticipantIcon(participant.type)}
+                  {getParticipantIcon(participant.type, participant.name, participant.email)}
                   <div>
                     <div className="font-medium text-sm">
                       {participant.name || participant.email}

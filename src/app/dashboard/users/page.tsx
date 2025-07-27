@@ -18,6 +18,7 @@ export default async function UsersPage() {
       name: true,
       email: true,
       role: true,
+      avatarUrl: true,
       createdAt: true,
       _count: {
         select: {
