@@ -87,6 +87,7 @@ model Ticket {
   fromEmail   String   // Keep for backward compatibility, but use participants for new logic
   fromName    String?  // Keep for backward compatibility
   assignedToId String?
+  dueDate     DateTime? // Optional due date for tickets
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

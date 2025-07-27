@@ -18,7 +18,7 @@ export async function PATCH(
       )
     }
 
-    const { status, priority, assignedToId, fromName, fromEmail } = await request.json()
+    const { status, priority, assignedToId, fromName, fromEmail, dueDate } = await request.json()
 
     const updateData: Record<string, unknown> = {}
     
@@ -40,6 +40,10 @@ export async function PATCH(
     
     if (fromEmail !== undefined) {
       updateData.fromEmail = fromEmail
+    }
+    
+    if (dueDate !== undefined) {
+      updateData.dueDate = dueDate ? new Date(dueDate) : null
     }
 
     if (Object.keys(updateData).length === 0) {
