@@ -24,6 +24,7 @@ interface EmailConfiguration {
   useSSL: boolean
   folder: string
   isActive: boolean
+  isOutbound: boolean
   lastSync: Date | null
   syncInterval: number
   emailAction: string
@@ -535,11 +536,15 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       return false
     }
 
-    // Get email configuration
+    // Get email configuration - prioritize outbound-designated account
     const emailConfig = await prisma.emailConfiguration.findFirst({
       where: {
         isActive: true
-      }
+      },
+      orderBy: [
+        { isOutbound: 'desc' }, // Prioritize outbound accounts
+        { createdAt: 'asc' }    // Fallback to oldest if no outbound set
+      ]
     })
 
     if (!emailConfig) {
@@ -585,11 +590,15 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
 
 export async function sendExternalEmail(options: SendEmailOptions): Promise<boolean> {
   try {
-    // Get first active email configuration for sending
+    // Get outbound email configuration - prioritize outbound-designated account
     const emailConfig = await prisma.emailConfiguration.findFirst({
       where: {
         isActive: true
-      }
+      },
+      orderBy: [
+        { isOutbound: 'desc' }, // Prioritize outbound accounts
+        { createdAt: 'asc' }    // Fallback to oldest if no outbound set
+      ]
     })
 
     if (!emailConfig) {

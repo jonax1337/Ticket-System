@@ -14,6 +14,7 @@ const emailConfigSchema = z.object({
   useSSL: z.boolean(),
   folder: z.string().min(1),
   isActive: z.boolean(),
+  isOutbound: z.boolean(),
   syncInterval: z.number().min(60),
   emailAction: z.enum(['mark_read', 'delete', 'move_to_folder']),
   moveToFolder: z.string().nullable(),
@@ -62,6 +63,14 @@ export async function POST(request: NextRequest) {
     
     // Validate input
     const validatedData = emailConfigSchema.parse(body)
+
+    // If this configuration is marked as outbound, unset all other outbound configurations
+    if (validatedData.isOutbound) {
+      await prisma.emailConfiguration.updateMany({
+        where: { isOutbound: true },
+        data: { isOutbound: false }
+      })
+    }
 
     // In a real application, encrypt the password
     const encryptedPassword = validatedData.password // TODO: Implement proper encryption
