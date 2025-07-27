@@ -566,12 +566,28 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
           )}
 
           <div className="flex justify-between items-center pt-2">
-            <div className="text-xs text-muted-foreground">
-              {commentType === 'external' 
-                ? `Will send email to ${selectedParticipants.length} recipient${selectedParticipants.length !== 1 ? 's' : ''}` 
-                : "Only visible internally"}
+            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                {commentType === 'external' ? (
+                  <>
+                    <Mail className="h-3 w-3" />
+                    <span>Will send email to {selectedParticipants.length} recipient{selectedParticipants.length !== 1 ? 's' : ''}</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-3 w-3" />
+                    <span>Only visible internally</span>
+                  </>
+                )}
+              </div>
+              
               {nextStatus && nextStatus !== ticket.status && (
-                <span className="ml-2">• Status will change to &quot;{nextStatus}&quot;</span>
+                <div className="flex items-center gap-1 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
+                  <ArrowRight className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                  <span className="text-blue-700 dark:text-blue-300 font-medium">
+                    Status will change to &quot;{nextStatus}&quot;
+                  </span>
+                </div>
               )}
             </div>
             
