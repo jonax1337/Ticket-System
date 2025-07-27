@@ -2,6 +2,7 @@ import { ImapFlow, FetchMessageObject } from 'imapflow'
 import { simpleParser, ParsedMail } from 'mailparser'
 import { prisma } from '@/lib/prisma'
 import { generateTicketNumber } from '@/lib/ticket-number-generator'
+import { renderEmailTemplate, EmailTemplateType } from '@/lib/email-template-service'
 import nodemailer from 'nodemailer'
 
 interface EmailConfig {
@@ -405,7 +406,31 @@ ${textBody}
     })
   }
 
-  console.log(`Ticket created with ${participantsData.length} participants: ${participantsData.map(p => p.email).join(', ')}`)
+  console.log(`Added ${participantsData.length} new participants from email reply: ${participantsData.map(p => `${p.email} (${p.type})`).join(', ')}`)
+
+  // Send ticket creation notification to customer using template
+  try {
+    await sendTemplatedEmail({
+      templateType: 'ticket_created',
+      to: fromAddress,
+      toName: fromName,
+      ticketId: ticket.id,
+      variables: {
+        ticketNumber,
+        ticketSubject: subject,
+        ticketDescription: textBody,
+        ticketStatus: config.defaultStatus || 'Open',
+        ticketPriority: config.defaultPriority || 'Medium',
+        ticketCreatedAt: receivedDate.toLocaleString(),
+        customerName: fromName,
+        customerEmail: fromAddress,
+        ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`
+      }
+    })
+  } catch (emailError) {
+    console.error('Failed to send ticket creation notification:', emailError)
+    // Don't fail ticket creation if email notification fails
+  }
 
   return true
 }
@@ -450,6 +475,112 @@ interface SendEmailOptions {
     path: string
     contentType?: string
   }>
+}
+
+interface SendTemplatedEmailOptions {
+  templateType: EmailTemplateType
+  to: string
+  toName?: string
+  ticketId: string
+  variables?: Record<string, unknown>
+  attachments?: Array<{
+    filename: string
+    path: string
+    contentType?: string
+  }>
+}
+
+export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Promise<boolean> {
+  try {
+    // Get ticket details for variables
+    const ticket = await prisma.ticket.findUnique({
+      where: { id: options.ticketId },
+      include: {
+        assignedTo: {
+          select: {
+            name: true,
+            email: true
+          }
+        }
+      }
+    })
+
+    if (!ticket) {
+      console.error('Ticket not found for templated email')
+      return false
+    }
+
+    // Prepare template variables
+    const templateVariables = {
+      ticketNumber: ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`,
+      ticketSubject: ticket.subject,
+      ticketDescription: ticket.description,
+      ticketStatus: ticket.status,
+      ticketPriority: ticket.priority,
+      ticketCreatedAt: ticket.createdAt.toLocaleString(),
+      ticketUpdatedAt: ticket.updatedAt.toLocaleString(),
+      ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`,
+      customerName: options.toName || ticket.fromName || options.to,
+      customerEmail: options.to,
+      assignedToName: ticket.assignedTo?.name,
+      assignedToEmail: ticket.assignedTo?.email,
+      ...options.variables
+    }
+
+    // Render template
+    const renderedTemplate = await renderEmailTemplate(options.templateType, templateVariables)
+    
+    if (!renderedTemplate) {
+      console.error(`No template found for type: ${options.templateType}`)
+      return false
+    }
+
+    // Get email configuration
+    const emailConfig = await prisma.emailConfiguration.findFirst({
+      where: {
+        isActive: true
+      }
+    })
+
+    if (!emailConfig) {
+      throw new Error('No active email configuration found for sending emails')
+    }
+
+    // Create SMTP transporter
+    const transporter = nodemailer.createTransport({
+      host: emailConfig.host,
+      port: emailConfig.port === 993 ? 587 : emailConfig.port,
+      secure: emailConfig.port === 465,
+      auth: {
+        user: emailConfig.username,
+        pass: emailConfig.password
+      }
+    })
+
+    // Send email
+    const mailOptions = {
+      from: {
+        name: emailConfig.name || 'Support',
+        address: emailConfig.username
+      },
+      to: {
+        name: options.toName || options.to,
+        address: options.to
+      },
+      subject: renderedTemplate.subject,
+      html: renderedTemplate.htmlContent,
+      text: renderedTemplate.textContent || undefined,
+      attachments: options.attachments
+    }
+
+    const result = await transporter.sendMail(mailOptions)
+    console.log('Templated email sent successfully:', result.messageId)
+
+    return true
+  } catch (error) {
+    console.error('Failed to send templated email:', error)
+    return false
+  }
 }
 
 export async function sendExternalEmail(options: SendEmailOptions): Promise<boolean> {
