@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Bell, BellOff, CheckCircle, UserPlus, UserMinus, MessageSquare, AtSign, ExternalLink } from 'lucide-react'
+import { Bell, BellOff, CheckCircle, UserPlus, UserMinus, MessageSquare, AtSign, ExternalLink, Clock, AlertTriangle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Notification {
@@ -45,6 +45,10 @@ const getNotificationIcon = (type: string) => {
       return <MessageSquare className="h-4 w-4 text-blue-600" />
     case 'mentioned_in_comment':
       return <AtSign className="h-4 w-4 text-purple-600" />
+    case 'ticket_due_soon':
+      return <Clock className="h-4 w-4 text-amber-600" />
+    case 'ticket_overdue':
+      return <AlertTriangle className="h-4 w-4 text-red-600" />
     default:
       return <Bell className="h-4 w-4 text-gray-600" />
   }
@@ -58,6 +62,12 @@ const getNotificationColor = (type: string) => {
       return 'border-l-orange-500'
     case 'comment_added':
       return 'border-l-blue-500'
+    case 'mentioned_in_comment':
+      return 'border-l-purple-500'
+    case 'ticket_due_soon':
+      return 'border-l-amber-500'
+    case 'ticket_overdue':
+      return 'border-l-red-500'
     default:
       return 'border-l-gray-500'
   }
