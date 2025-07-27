@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Switch } from '@/components/ui/switch'
-import { LogOut, User, Users, LayoutDashboard, Moon, Sun, Settings, Briefcase, Bell } from 'lucide-react'
+import { LogOut, User, Users, LayoutDashboard, Moon, Sun, Settings, Briefcase, Bell, UserCog } from 'lucide-react'
 import {
   Popover,
   PopoverContent,
@@ -177,6 +177,13 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                   {user.role}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/account" className="flex items-center gap-2">
+                    <UserCog className="h-4 w-4" />
+                    Account Settings
+                  </Link>
+                </DropdownMenuItem>
                 
                 {/* Mobile Navigation */}
                 <div className="md:hidden">
