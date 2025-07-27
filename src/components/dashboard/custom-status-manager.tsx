@@ -322,7 +322,22 @@ export default function CustomStatusManager() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <AlertCircle className="h-5 w-5" />
+            Status Configuration
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+            <p className="mt-2 text-sm text-muted-foreground">Loading statuses...</p>
+          </div>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
