@@ -888,7 +888,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     })
 
     // Check if ticket is closed - if so, create a new ticket instead of adding comment
-    if (ticket.status === 'CLOSED') {
+    if (ticket.status?.toUpperCase() === 'CLOSED') {
       console.log('[EMAIL REPLY DEBUG] Ticket is closed, will create new ticket instead of adding comment')
       return false // Return false to trigger new ticket creation
     }
