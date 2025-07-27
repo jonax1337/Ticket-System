@@ -5,7 +5,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { UserAvatar } from '@/components/ui/user-avatar'
+import { AvatarUploadDialog } from '@/components/dashboard/avatar-upload-dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,16 +23,17 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import NotificationPopover from './notification-popover'
 
 interface DashboardHeaderProps {
   user: {
+    id?: string
     name?: string | null
     email?: string | null
     role?: string
     image?: string | null
+    avatarUrl?: string | null
   }
   appName?: string
   slogan?: string | null
@@ -54,12 +56,6 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  
-  // Get first letter of name for Avatar fallback
-  const getInitials = () => {
-    if (!user.name) return 'U'
-    return user.name.charAt(0).toUpperCase()
-  }
 
   return (
     <header className={`
@@ -160,10 +156,14 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
 
             <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none">
-                <Avatar className="cursor-pointer hover:opacity-80 transition-opacity">
-                  <AvatarImage src={user.image || undefined} alt={user.name || 'User'} />
-                  <AvatarFallback>{getInitials()}</AvatarFallback>
-                </Avatar>
+                <UserAvatar 
+                  user={{
+                    name: user.name,
+                    email: user.email,
+                    avatarUrl: user.avatarUrl || user.image
+                  }}
+                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel className="flex items-center gap-2">
@@ -184,6 +184,30 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                     Account Settings
                   </Link>
                 </DropdownMenuItem>
+
+                {/* Avatar Upload */}
+                {user.id && (
+                  <>
+                    <div className="px-2 py-1">
+                      <AvatarUploadDialog
+                        user={{
+                          id: user.id,
+                          name: user.name,
+                          email: user.email,
+                          avatarUrl: user.avatarUrl || user.image
+                        }}
+                        trigger={
+                          <Button variant="ghost" className="w-full justify-start text-sm font-normal">
+                            <User className="mr-2 h-4 w-4" />
+                            Change Avatar
+                          </Button>
+                        }
+                      />
+                    </div>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
+
                 
                 {/* Mobile Navigation */}
                 <div className="md:hidden">

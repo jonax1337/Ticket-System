@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { sendTemplatedEmail } from '@/lib/email-service'
 
 export async function GET(
   request: NextRequest,
@@ -123,6 +124,27 @@ export async function POST(
         type: type || 'added_manually'
       }
     })
+
+    // Send participant notification using template
+    try {
+      await sendTemplatedEmail({
+        templateType: 'participant_added',
+        to: email.trim(),
+        toName: name?.trim() || email.trim(),
+        ticketId: params.id,
+        variables: {
+          participantName: name?.trim() || email.trim(),
+          participantEmail: email.trim(),
+          participantType: type || 'Added manually',
+          actorName: session.user.name,
+          actorEmail: session.user.email
+        }
+      })
+      console.log(`Participant notification sent to ${email.trim()}`)
+    } catch (emailError) {
+      console.error('Error sending participant notification:', emailError)
+      // Don't fail the main request if email sending fails
+    }
 
     return NextResponse.json(participant)
   } catch (error) {

@@ -26,6 +26,7 @@ export default async function TicketPage({ params }: TicketPageProps) {
           id: true,
           name: true,
           email: true,
+          avatarUrl: true,
         },
       },
       attachments: true,
@@ -47,6 +48,7 @@ export default async function TicketPage({ params }: TicketPageProps) {
               id: true,
               name: true,
               email: true,
+              avatarUrl: true,
             },
           },
           attachments: true,
@@ -75,6 +77,7 @@ export default async function TicketPage({ params }: TicketPageProps) {
       id: true,
       name: true,
       email: true,
+      avatarUrl: true,
     },
     orderBy: {
       name: 'asc',
