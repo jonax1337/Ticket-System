@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,7 +15,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Checkbox } from '@/components/ui/checkbox'
 import { 
-  Mail, 
   Edit, 
   Eye,
   Info,
@@ -24,10 +24,7 @@ import {
   CheckCircle,
   XCircle,
   Settings,
-  RefreshCw,
   FileType,
-  Save,
-  Palette,
   Plus,
   Trash2,
   ArrowUp,
@@ -484,9 +481,11 @@ export default function EmailTemplateManager() {
                             <div className="space-y-2">
                               <Label className="text-sm font-medium">Current Logo</Label>
                               <div className="flex items-center space-x-3 p-3 border rounded-lg bg-muted/50">
-                                <img 
+                                <Image 
                                   src={baseTemplate.logoUrl} 
                                   alt="Logo preview" 
+                                  width={120}
+                                  height={48}
                                   className="h-12 w-auto max-w-[120px] object-contain"
                                 />
                                 <div className="text-xs text-muted-foreground">
@@ -884,7 +883,7 @@ export default function EmailTemplateManager() {
                                 <span className="text-sm font-medium">Section {index + 1}</span>
                                 <Select
                                   value={section.style}
-                                  onValueChange={(value) => updateSection(index, 'style', value as any)}
+                                  onValueChange={(value) => updateSection(index, 'style', value)}
                                 >
                                   <SelectTrigger className="w-32 h-8">
                                     <SelectValue />
