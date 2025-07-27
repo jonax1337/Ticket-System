@@ -126,6 +126,8 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const handleStatusChange = async (status: string) => {
     setIsLoading(true)
     try {
+      const previousStatus = ticket.status
+      
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
         headers: {
@@ -135,6 +137,24 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
       })
 
       if (response.ok) {
+        // Create an automatic comment to log the status change
+        try {
+          const statusChangeComment = `[STATUS_CHANGE] Status changed from "${previousStatus}" to "${status}"`
+          
+          const formData = new FormData()
+          formData.append('content', statusChangeComment)
+          formData.append('type', 'internal')
+          formData.append('fileCount', '0')
+          
+          await fetch(`/api/tickets/${ticket.id}/comments`, {
+            method: 'POST',
+            body: formData,
+          })
+        } catch (commentError) {
+          console.error('Failed to create status change comment:', commentError)
+          // Don't fail the main request if comment creation fails
+        }
+        
         router.refresh()
       }
     } catch (error) {
@@ -349,7 +369,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Status</h4>
               <Select 
-                defaultValue={statuses.find(s => s.name === ticket.status)?.name || ticket.status}
+                value={statuses.find(s => s.name === ticket.status)?.name || ticket.status}
                 onValueChange={handleStatusChange}
                 disabled={isLoading}
               >
@@ -376,7 +396,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Priority</h4>
               <Select 
-                defaultValue={priorities.find(p => p.name === ticket.priority)?.name || ticket.priority}
+                value={priorities.find(p => p.name === ticket.priority)?.name || ticket.priority}
                 onValueChange={handlePriorityChange}
                 disabled={isLoading}
               >

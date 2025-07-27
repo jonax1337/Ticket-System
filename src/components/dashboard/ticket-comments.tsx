@@ -4,12 +4,10 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { CommentEditor, CommentEditorRef } from '@/components/editor/comment-editor'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { User, Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon, ChevronDown, ChevronRight, Users, Crown, UserPlus, Check } from 'lucide-react'
+import { Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon, ChevronDown, ChevronRight, Users, Check } from 'lucide-react'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import CommentContent from './comment-content'
@@ -102,19 +100,15 @@ interface TicketCommentsProps {
     id: string
     name?: string | null
   }
-  onTicketUpdate?: (updatedTicket: unknown) => void
 }
 
-export default function TicketComments({ ticket, currentUser, onTicketUpdate }: TicketCommentsProps) {
+export default function TicketComments({ ticket, currentUser }: TicketCommentsProps) {
   const router = useRouter()
-  const [comments, setComments] = useState<Comment[]>(ticket.comments || [])
   const [newComment, setNewComment] = useState('')
   const [commentType, setCommentType] = useState<'internal' | 'external'>('internal')
   const [isLoading, setIsLoading] = useState(false)
   const [nextStatus, setNextStatus] = useState<string>(ticket.status)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
-  const [previewContent, setPreviewContent] = useState<{url: string, type: string, name: string} | null>(null)
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [users, setUsers] = useState<{ id: string; name: string; email: string }[]>([])
   const [expandedEmailHistory, setExpandedEmailHistory] = useState<{[key: string]: boolean}>({})
@@ -157,6 +151,11 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
     
     fetchData()
   }, [ticket.id, ticket.fromEmail])
+
+  // Sync nextStatus with ticket.status when the component receives updated props
+  useEffect(() => {
+    setNextStatus(ticket.status)
+  }, [ticket.status])
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
@@ -290,6 +289,10 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       // Extract proper mention format from editor state
       const processedComment = extractMentionsFromState(editorSerializedState)
       
+      // Check if status is changing to add status change info to comment
+      const isStatusChanging = nextStatus && nextStatus !== ticket.status
+      const previousStatus = ticket.status
+      
       // Wenn wir einen externen Kommentar schicken, fügen wir einen Präfix für die Anzeige hinzu
       const commentContent = commentType === 'external' 
         ? `[EMAIL] ${processedComment.trim()}`
@@ -299,6 +302,14 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       const formData = new FormData()
       formData.append('content', commentContent)
       formData.append('type', commentType)
+      
+      // Add status change information if status is changing
+      if (isStatusChanging) {
+        formData.append('statusChange', JSON.stringify({
+          from: previousStatus,
+          to: nextStatus
+        }))
+      }
       
       // Add selected participants for external comments
       if (commentType === 'external' && selectedParticipants.length > 0) {
@@ -311,31 +322,58 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       })
       formData.append('fileCount', selectedFiles.length.toString())
 
-      // First add the comment with attachments
+      // Process comment and status change together
       const commentResponse = await fetch(`/api/tickets/${ticket.id}/comments`, {
         method: 'POST',
         body: formData,
       })
 
-      // Then update status if selected and different from current
-      if (nextStatus && nextStatus !== ticket.status) {
-        await fetch(`/api/tickets/${ticket.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ status: nextStatus }),
-        })
+      // Update status if needed (moved after comment to ensure proper tracking)
+      let statusUpdateSuccess = true
+      if (isStatusChanging) {
+        try {
+          const statusResponse = await fetch(`/api/tickets/${ticket.id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: nextStatus }),
+          })
+          
+          if (!statusResponse.ok) {
+            statusUpdateSuccess = false
+            console.error('Failed to update status')
+            toast.error('Comment added but status update failed')
+          }
+        } catch (statusError) {
+          statusUpdateSuccess = false
+          console.error('Status update error:', statusError)
+          toast.error('Comment added but status update failed')
+        }
       }
 
       if (commentResponse.ok) {
         setNewComment('')
         setEditorSerializedState(null)
-        setNextStatus(ticket.status)
+        // Reset nextStatus to current ticket status unless status change was successful
+        if (!(isStatusChanging && statusUpdateSuccess)) {
+          setNextStatus(ticket.status)
+        }
+        // If status change was successful, nextStatus should already be correct
         setSelectedFiles([])
         // Clear the editor using the ref
         editorRef.current?.clear()
-        toast.success('Comment added successfully')
+        
+        // Show appropriate success message
+        if (isStatusChanging && statusUpdateSuccess) {
+          toast.success(`Comment added and status changed to "${nextStatus}"`)
+        } else if (isStatusChanging && !statusUpdateSuccess) {
+          toast.success('Comment added (status update failed)')
+        } else {
+          toast.success('Comment added successfully')
+        }
+        
+        // Refresh to show changes
         router.refresh()
       } else {
         toast.error('Failed to add comment')
@@ -527,12 +565,28 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
           )}
 
           <div className="flex justify-between items-center pt-2">
-            <div className="text-xs text-muted-foreground">
-              {commentType === 'external' 
-                ? `Will send email to ${selectedParticipants.length} recipient${selectedParticipants.length !== 1 ? 's' : ''}` 
-                : "Only visible internally"}
+            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                {commentType === 'external' ? (
+                  <>
+                    <Mail className="h-3 w-3" />
+                    <span>Will send email to {selectedParticipants.length} recipient{selectedParticipants.length !== 1 ? 's' : ''}</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="h-3 w-3" />
+                    <span>Only visible internally</span>
+                  </>
+                )}
+              </div>
+              
               {nextStatus && nextStatus !== ticket.status && (
-                <span className="ml-2">• Status will change to &quot;{nextStatus}&quot;</span>
+                <div className="flex items-center gap-1 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
+                  <ArrowRight className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                  <span className="text-blue-700 dark:text-blue-300 font-medium">
+                    Status will change to &quot;{nextStatus}&quot;
+                  </span>
+                </div>
               )}
             </div>
             
@@ -671,16 +725,73 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                   )}
                 </div>
                 <div className="text-sm">
-                  <CommentContent 
-                    content={(() => {
-                      if (comment.content.startsWith('[EMAIL REPLY]')) {
-                        return comment.content.substring(13) // Entferne '[EMAIL REPLY] '
-                      } else if (comment.content.startsWith('[EMAIL]')) {
-                        return comment.content.substring(7) // Entferne '[EMAIL] '
+                  {(() => {
+                    let contentToDisplay = comment.content
+                    let statusChangeInfo = null
+                    
+                    // Extract status change information if present
+                    const statusChangeMatch = contentToDisplay.match(/\[STATUS_CHANGE\] Status changed from "([^"]+)" to "([^"]+)"/)
+                    if (statusChangeMatch) {
+                      statusChangeInfo = {
+                        from: statusChangeMatch[1],
+                        to: statusChangeMatch[2]
                       }
-                      return comment.content
-                    })()}
-                  />
+                      // Remove status change info from main content
+                      contentToDisplay = contentToDisplay.replace(/\[STATUS_CHANGE\] Status changed from "[^"]+" to "[^"]+"/, '').trim()
+                    }
+                    
+                    // Clean content based on type
+                    if (contentToDisplay.startsWith('[EMAIL REPLY]')) {
+                      contentToDisplay = contentToDisplay.substring(13) // Remove '[EMAIL REPLY] '
+                    } else if (contentToDisplay.startsWith('[EMAIL]')) {
+                      contentToDisplay = contentToDisplay.substring(7) // Remove '[EMAIL] '
+                    }
+                    
+                    // Check if this is a status change comment made via ticket details (no additional content)
+                    const isStatusChangeOnly = statusChangeInfo && !contentToDisplay.trim()
+                    
+                    return (
+                      <>
+                        {/* Status Change Indicator */}
+                        {statusChangeInfo && (
+                          <div className={`p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md ${isStatusChangeOnly ? '' : 'mb-3'}`}>
+                            <div className="flex items-center gap-2 text-sm">
+                              <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                              <span className="font-medium text-blue-800 dark:text-blue-200">Status changed</span>
+                              <div className="flex items-center gap-2">
+                                {(() => {
+                                  const fromStatus = statuses.find(s => s.name === statusChangeInfo.from)
+                                  const FromIcon = fromStatus ? getIconComponent(fromStatus.icon) : () => null
+                                  return (
+                                    <Badge variant="outline" className={fromStatus?.color || 'bg-gray-100 text-gray-700 border-gray-300'}>
+                                      {fromStatus && <FromIcon className="h-3 w-3 mr-1" />}
+                                      {statusChangeInfo.from}
+                                    </Badge>
+                                  )
+                                })()}
+                                <ArrowRight className="h-3 w-3 text-gray-500" />
+                                {(() => {
+                                  const toStatus = statuses.find(s => s.name === statusChangeInfo.to)
+                                  const ToIcon = toStatus ? getIconComponent(toStatus.icon) : () => null
+                                  return (
+                                    <Badge variant="outline" className={toStatus?.color || 'bg-blue-100 text-blue-700 border-blue-300'}>
+                                      {toStatus && <ToIcon className="h-3 w-3 mr-1" />}
+                                      {statusChangeInfo.to}
+                                    </Badge>
+                                  )
+                                })()}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Regular Comment Content - Hide if it's only a status change from ticket details */}
+                        {contentToDisplay.trim() && !isStatusChangeOnly && (
+                          <CommentContent content={contentToDisplay.trim()} />
+                        )}
+                      </>
+                    )
+                  })()}
                   
                   {/* Email History Section for Email Replies */}
                   {comment.content.startsWith('[EMAIL REPLY]') && comment.fullEmailContent && (() => {
