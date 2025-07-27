@@ -202,8 +202,8 @@ function renderUnifiedTemplate(
   const baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
   
   // Generate sections and action button
-  const sections = generateEmailSections(type, variables as Record<string, unknown>)
-  const actionButton = generateActionButton(type, variables as Record<string, unknown>)
+  const sections = generateEmailSections(type, variables)
+  const actionButton = generateActionButton(type, variables)
   
   // Create unified email data
   const emailData: UnifiedEmailData = {
@@ -221,8 +221,8 @@ function renderUnifiedTemplate(
   // Start with base template
   let html = BASE_EMAIL_TEMPLATE
 
-  // Create extended variables with additional template data
-  const extendedVariables: TemplateVariables = {
+  // Replace main placeholders
+  html = replaceTemplateVariables(html, {
     ...variables,
     headerTitle: emailData.headerTitle,
     headerSubtitle: emailData.headerSubtitle,
@@ -232,17 +232,14 @@ function renderUnifiedTemplate(
     footerText: emailData.footerText,
     disclaimerText: emailData.disclaimerText,
     buttonColor: actionButton?.color || '#2563eb'
-  }
-
-  // Replace main placeholders
-  html = replaceTemplateVariables(html, extendedVariables)
+  })
 
   // Replace sections placeholder
   const sectionsHtml = renderSections(emailData.sections)
   html = html.replace('{{sections}}', sectionsHtml)
 
   // Replace action button placeholder
-  const buttonHtml = renderActionButton(emailData.actionButton || null)
+  const buttonHtml = renderActionButton(emailData.actionButton)
   html = html.replace('{{actionButton}}', buttonHtml)
 
   // Final variable replacement
@@ -259,8 +256,8 @@ function generatePlainTextFromUnified(
   variables: TemplateVariables
 ): string {
   const baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
-  const sections = generateEmailSections(type, variables as Record<string, unknown>)
-  const actionButton = generateActionButton(type, variables as Record<string, unknown>)
+  const sections = generateEmailSections(type, variables)
+  const actionButton = generateActionButton(type, variables)
 
   let text = `${replaceTemplateVariables(baseConfig.greeting || 'Hello {{customerName}},', variables)}\n\n`
   text += `${replaceTemplateVariables(baseConfig.introText || '', variables)}\n\n`
@@ -503,8 +500,8 @@ export async function createTestEmailTemplate(
   variables: TemplateVariables
 ): Promise<string> {
   const baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
-  const sections = generateEmailSections(type, variables as Record<string, unknown>)
-  const actionButton = generateActionButton(type, variables as Record<string, unknown>)
+  const sections = generateEmailSections(type, variables)
+  const actionButton = generateActionButton(type, variables)
   
   const emailData: UnifiedEmailData = {
     headerTitle: baseConfig.headerTitle || '{{systemName}}',
@@ -520,8 +517,8 @@ export async function createTestEmailTemplate(
 
   let html = BASE_EMAIL_TEMPLATE
 
-  // Create extended variables with additional template data
-  const extendedVariables: TemplateVariables = {
+  // Replace main placeholders
+  html = replaceTemplateVariables(html, {
     ...variables,
     headerTitle: emailData.headerTitle,
     headerSubtitle: emailData.headerSubtitle,
@@ -531,17 +528,14 @@ export async function createTestEmailTemplate(
     footerText: emailData.footerText,
     disclaimerText: emailData.disclaimerText,
     buttonColor: actionButton?.color || '#2563eb'
-  }
-
-  // Replace main placeholders
-  html = replaceTemplateVariables(html, extendedVariables)
+  })
 
   // Replace sections placeholder
   const sectionsHtml = renderSections(emailData.sections)
   html = html.replace('{{sections}}', sectionsHtml)
 
   // Replace action button placeholder
-  const buttonHtml = renderActionButton(emailData.actionButton || null)
+  const buttonHtml = renderActionButton(emailData.actionButton)
   html = html.replace('{{actionButton}}', buttonHtml)
 
   // Final variable replacement
