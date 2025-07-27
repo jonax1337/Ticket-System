@@ -348,16 +348,8 @@ ${textBody}
     })
   }
 
-  // Create ticket participants (creator + CC recipients)
+  // Create ticket participants (CC/BCC recipients only - requester is already stored in ticket.fromEmail)
   const participantsData = []
-  
-  // Add creator (from email) - normalize email for storage
-  participantsData.push({
-    ticketId: ticket.id,
-    email: fromAddress.toLowerCase().trim(),
-    name: fromName,
-    type: 'creator'
-  })
 
   // Add CC recipients if any
   if (email.cc) {
@@ -437,13 +429,8 @@ ${textBody}
     // Don't fail ticket creation if email notification fails
   }
 
-  // Send participant notifications to CC/BCC recipients (exclude the original requester)
+  // Send participant notifications to CC/BCC recipients (exclude the original requester - they get ticket_created notification)
   for (const participant of participantsData) {
-    // Skip the original requester - they already got the ticket_created notification
-    if (participant.type === 'creator') {
-      continue
-    }
-    
     try {
       await sendTemplatedEmail({
         templateType: 'participant_added',
