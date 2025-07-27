@@ -56,18 +56,26 @@ export function CacheProvider({ children }: CacheProviderProps) {
         fetch('/api/statuses'),
         fetch('/api/priorities')
       ])
-      
+  
+      let statusSuccess = false
+      let prioritySuccess = false
+  
       if (statusesResponse.ok) {
         const statusData = await statusesResponse.json()
         setStatuses(statusData)
+        statusSuccess = true
       }
-      
+  
       if (prioritiesResponse.ok) {
         const priorityData = await prioritiesResponse.json()
         setPriorities(priorityData)
+        prioritySuccess = true
       }
-      
-      setLastFetch(now)
+  
+      // Only update lastFetch if both requests succeeded
+      if (statusSuccess && prioritySuccess) {
+        setLastFetch(now)
+      }
     } catch (error) {
       console.error('Failed to fetch cache data:', error)
     } finally {
