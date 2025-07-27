@@ -22,9 +22,10 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { Mail, Plus, Settings, Trash2, TestTube, CheckCircle, XCircle, Clock, Eye, EyeOff, Filter, Zap, RotateCcw, AlertCircle, ArrowRight, CheckCircle2, Timer, AlertTriangle, TrendingUp } from 'lucide-react'
+import { Mail, Plus, Settings, Trash2, TestTube, CheckCircle, XCircle, Clock, Eye, EyeOff, Filter, Zap, RotateCcw, AlertCircle, ArrowRight, CheckCircle2, Timer, AlertTriangle, TrendingUp, RefreshCw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { useEmailSyncStatus, useEmailSyncCountdown, formatCountdown, formatTimeSince } from '@/hooks/use-email-sync-status'
 
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
@@ -80,6 +81,9 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
   const [showPassword, setShowPassword] = useState<Record<string, boolean>>({})
   const [editingConfig, setEditingConfig] = useState<EmailConfiguration | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  // Use the real-time email sync status hook
+  const { emailConfigs: liveConfigs, loading: statusLoading, error: statusError, refresh: refreshStatus } = useEmailSyncStatus(emailConfigs)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -186,6 +190,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
         toast.success(
           editingConfig ? 'Email configuration updated successfully' : 'Email configuration created successfully'
         )
+        await refreshStatus()
         router.refresh()
       } else {
         toast.error('Failed to save email configuration')
@@ -206,6 +211,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
 
       if (response.ok) {
         toast.success('Email configuration deleted successfully')
+        await refreshStatus()
         router.refresh()
       } else {
         toast.error('Failed to delete email configuration')
@@ -250,7 +256,8 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
         toast.success(`Sync completed!`, {
           description: `Imported: ${result.importedCount}, Skipped: ${result.skippedCount}, Errors: ${result.errorCount}`
         })
-        router.refresh()
+        // Refresh the live status immediately
+        await refreshStatus()
       } else {
         toast.error(`Sync failed: ${result.error}`)
       }
@@ -267,6 +274,51 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
       dateStyle: 'short',
       timeStyle: 'short'
     }).format(new Date(lastSync))
+  }
+
+  // Real-time sync status component for each email config
+  const SyncStatusDisplay = ({ config }: { config: EmailConfiguration }) => {
+    const countdown = useEmailSyncCountdown(config)
+    
+    if (!config.isActive || !config.enableAutoSync) {
+      return (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Clock className="h-3 w-3" />
+          <span>Last Sync: {formatLastSync(config.lastSync)}</span>
+        </div>
+      )
+    }
+
+    return (
+      <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-2">
+          <Clock className="h-3 w-3" />
+          <span className="text-muted-foreground">Last Sync: {formatLastSync(config.lastSync)}</span>
+        </div>
+        
+        {config.lastSync && (
+          <div className="flex items-center gap-2">
+            <Timer className={`h-3 w-3 ${countdown.isOverdue ? 'text-red-500' : 'text-blue-500'}`} />
+            <span className={countdown.isOverdue ? 'text-red-500' : 'text-blue-500'}>
+              {countdown.timeToNext > 0 
+                ? `Next in ${formatCountdown(countdown.timeToNext)}`
+                : countdown.isOverdue 
+                  ? 'Overdue'
+                  : 'Syncing...'
+              }
+            </span>
+          </div>
+        )}
+        
+        {countdown.timeSinceLast > 0 && (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <span className="text-xs">
+              {formatTimeSince(countdown.timeSinceLast)}
+            </span>
+          </div>
+        )}
+      </div>
+    )
   }
 
 
@@ -580,7 +632,24 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
           </div>
         </CardHeader>
         <CardContent>
-          {emailConfigs.length === 0 ? (
+          {statusError && (
+            <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+              <div className="flex items-center gap-2 text-red-600 dark:text-red-400 text-sm">
+                <AlertCircle className="h-4 w-4" />
+                <span>Error loading sync status: {statusError}</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={refreshStatus}
+                  className="ml-auto"
+                >
+                  <RefreshCw className="h-3 w-3" />
+                </Button>
+              </div>
+            </div>
+          )}
+          
+          {liveConfigs.length === 0 ? (
             <div className="text-center py-8">
               <Mail className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Email Accounts</h3>
@@ -590,7 +659,14 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
             </div>
           ) : (
             <div className="space-y-4">
-              {emailConfigs.map((config) => (
+              {statusLoading && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                  <RefreshCw className="h-3 w-3 animate-spin" />
+                  <span>Updating sync status...</span>
+                </div>
+              )}
+              
+              {liveConfigs.map((config) => (
                 <div key={config.id} className="border rounded-lg p-4">
                   <div className="flex items-start justify-between">
                     <div className="space-y-2">
@@ -628,9 +704,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                         <div className="flex items-center gap-4">
                           <span>{config.username}@{config.host}:{config.port}</span>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <span>Last Sync: {formatLastSync(config.lastSync)}</span>
-                        </div>
+                        <SyncStatusDisplay config={config} />
                         {(config.subjectFilter || config.fromFilter) && (
                           <div className="flex items-center gap-2">
                             <Filter className="h-3 w-3" />
