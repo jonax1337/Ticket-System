@@ -1208,13 +1208,13 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       }
     }
 
-    // Create notification for email reply - only for assigned user
+    // Create notifications and send emails for email reply
     try {
-      console.log('[EMAIL REPLY DEBUG] Starting notification processing...')
+      console.log('[EMAIL REPLY DEBUG] Starting notification and email processing...')
       console.log('[EMAIL REPLY DEBUG] Checking for ticket assignment...')
       
-      // Get the ticket with assignment information
-      const ticketWithAssignment = await prisma.ticket.findUnique({
+      // Get the ticket with assignment information and participants
+      const ticketWithDetails = await prisma.ticket.findUnique({
         where: { id: ticket.id },
         include: {
           assignedTo: {
@@ -1223,37 +1223,120 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
               name: true,
             },
           },
+          participants: {
+            select: {
+              id: true,
+              email: true,
+              name: true,
+              type: true,
+            },
+          },
         },
       })
 
-      console.log('[EMAIL REPLY DEBUG] Ticket assignment info:', {
+      console.log('[EMAIL REPLY DEBUG] Ticket details:', {
         ticketId: ticket.id,
-        assignedTo: ticketWithAssignment?.assignedTo,
-        assignedToId: ticketWithAssignment?.assignedToId
+        assignedTo: ticketWithDetails?.assignedTo,
+        participantCount: ticketWithDetails?.participants?.length || 0
       })
 
-      // Only create notification if ticket is assigned to someone
-      if (ticketWithAssignment?.assignedTo) {
-        const displayTicketNumber = ticketWithAssignment.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
-        
-        console.log('[EMAIL REPLY DEBUG] Creating notification for user:', ticketWithAssignment.assignedTo.id)
+      const displayTicketNumber = ticketWithDetails?.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
+
+      // Create in-app notification for assigned user
+      if (ticketWithDetails?.assignedTo) {
+        console.log('[EMAIL REPLY DEBUG] Creating in-app notification for assignee:', ticketWithDetails.assignedTo.id)
         
         const notification = await prisma.notification.create({
           data: {
             type: 'comment_added',
             title: 'New Email Reply',
-            message: `${fromName} replied via email to ticket ${displayTicketNumber}: ${ticketWithAssignment.subject}`,
-            userId: ticketWithAssignment.assignedTo.id,
+            message: `${fromName} replied via email to ticket ${displayTicketNumber}: ${ticketWithDetails.subject}`,
+            userId: ticketWithDetails.assignedTo.id,
             actorId: userId, // This can be null for external users
             ticketId: ticket.id,
             commentId: comment.id,
           }
         })
         
-        console.log('[EMAIL REPLY DEBUG] Notification created successfully:', notification.id)
+        console.log('[EMAIL REPLY DEBUG] In-app notification created successfully:', notification.id)
       } else {
-        console.log('[EMAIL REPLY DEBUG] No assigned user found, skipping notification')
+        console.log('[EMAIL REPLY DEBUG] No assigned user found, skipping in-app notification')
       }
+
+      // Send email notifications to all participants and requester (excluding the sender)
+      console.log('[EMAIL REPLY DEBUG] Starting email notification process...')
+      
+      const emailRecipientsToNotify = []
+      
+      // Add the original requester (if they're not the sender)
+      const normalizedSenderEmail = fromAddress.toLowerCase().trim()
+      const normalizedRequesterEmail = ticket.fromEmail.toLowerCase().trim()
+      
+      if (normalizedSenderEmail !== normalizedRequesterEmail) {
+        emailRecipientsToNotify.push({
+          email: ticket.fromEmail,
+          name: ticket.fromName || ticket.fromEmail,
+          type: 'requester'
+        })
+        console.log('[EMAIL REPLY DEBUG] Added requester to email notifications:', ticket.fromEmail)
+      } else {
+        console.log('[EMAIL REPLY DEBUG] Skipping requester (is the sender):', ticket.fromEmail)
+      }
+      
+      // Add all participants (excluding the sender)
+      if (ticketWithDetails?.participants) {
+        for (const participant of ticketWithDetails.participants) {
+          const normalizedParticipantEmail = participant.email.toLowerCase().trim()
+          
+          if (normalizedParticipantEmail !== normalizedSenderEmail) {
+            emailRecipientsToNotify.push({
+              email: participant.email,
+              name: participant.name || participant.email,
+              type: 'participant'
+            })
+            console.log('[EMAIL REPLY DEBUG] Added participant to email notifications:', participant.email)
+          } else {
+            console.log('[EMAIL REPLY DEBUG] Skipping participant (is the sender):', participant.email)
+          }
+        }
+      }
+      
+      console.log('[EMAIL REPLY DEBUG] Total email recipients to notify:', emailRecipientsToNotify.length)
+      
+      // Send templated email notification to each recipient
+      for (const recipient of emailRecipientsToNotify) {
+        try {
+          console.log('[EMAIL REPLY DEBUG] Sending email notification to:', recipient.email)
+          
+          const emailSent = await sendTemplatedEmail({
+            templateType: 'comment_added',
+            to: recipient.email,
+            toName: recipient.name,
+            ticketId: ticket.id,
+            variables: {
+              commentContent: textBody,
+              commentAuthor: fromName,
+              commentCreatedAt: new Date().toLocaleString(),
+              actorName: fromName,
+              actorEmail: fromAddress,
+              ticketNumber: displayTicketNumber,
+              ticketSubject: ticket.subject,
+              ticketStatus: ticket.status,
+              ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`
+            }
+          })
+          
+          if (emailSent) {
+            console.log('[EMAIL REPLY DEBUG] Email notification sent successfully to:', recipient.email)
+          } else {
+            console.log('[EMAIL REPLY DEBUG] Failed to send email notification to:', recipient.email)
+          }
+        } catch (emailError) {
+          console.error('[EMAIL REPLY DEBUG] Error sending email notification to', recipient.email, ':', emailError)
+          // Continue with other recipients even if one fails
+        }
+      }
+      
     } catch (notificationError) {
       console.error('[EMAIL REPLY DEBUG] Error creating notifications for email reply:', notificationError)
       // Don't fail the main process if notifications fail
