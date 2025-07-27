@@ -52,6 +52,9 @@ export async function POST(
     const selectedParticipants = formData.get('selectedParticipants') 
       ? JSON.parse(formData.get('selectedParticipants') as string) as string[]
       : []
+    const statusChange = formData.get('statusChange')
+      ? JSON.parse(formData.get('statusChange') as string) as { from: string; to: string }
+      : null
 
     if (!content || !content.trim()) {
       return NextResponse.json(
@@ -61,7 +64,14 @@ export async function POST(
     }
 
     // Add selected participants info to content if external (less intrusive)
-    const finalContent = content.trim()
+    let finalContent = content.trim()
+    
+    // Add status change information to comment content if present
+    if (statusChange) {
+      const statusChangeInfo = `\n\n[STATUS_CHANGE] Status changed from "${statusChange.from}" to "${statusChange.to}"`
+      finalContent = finalContent + statusChangeInfo
+    }
+    
     let sentToInfo = null
     if (type === 'external' && selectedParticipants.length > 0) {
       sentToInfo = selectedParticipants.join(', ')

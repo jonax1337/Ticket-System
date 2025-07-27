@@ -349,7 +349,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Status</h4>
               <Select 
-                defaultValue={statuses.find(s => s.name === ticket.status)?.name || ticket.status}
+                value={statuses.find(s => s.name === ticket.status)?.name || ticket.status}
                 onValueChange={handleStatusChange}
                 disabled={isLoading}
               >
@@ -376,7 +376,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             <div className="space-y-2">
               <h4 className="text-sm font-medium">Priority</h4>
               <Select 
-                defaultValue={priorities.find(p => p.name === ticket.priority)?.name || ticket.priority}
+                value={priorities.find(p => p.name === ticket.priority)?.name || ticket.priority}
                 onValueChange={handlePriorityChange}
                 disabled={isLoading}
               >
