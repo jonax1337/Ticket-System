@@ -235,7 +235,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/auth/signin' })}>
-                  <LogOut className="mr-2 h-4 w-4" />
+                  <LogOut className="h-4 w-4" />
                   Sign out
                 </DropdownMenuItem>
               </DropdownMenuContent>
