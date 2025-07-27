@@ -898,6 +898,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     // Check for duplicate reply (based on email content and sender within last hour)
     let recentSimilarComment
     try {
+      console.log('[EMAIL REPLY DEBUG] Checking for recent duplicate comments...')
       recentSimilarComment = await prisma.comment.findFirst({
         where: {
           ticketId: ticket.id,
@@ -912,8 +913,9 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           createdAt: 'desc'
         }
       })
+      console.log('[EMAIL REPLY DEBUG] Duplicate check completed')
     } catch (dbError) {
-      console.error('Database error checking duplicates:', dbError)
+      console.error('[EMAIL REPLY DEBUG] Database error checking duplicates:', dbError)
       throw dbError
     }
 
@@ -923,20 +925,24 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     if (recentSimilarComment && newContent) {
       const existingContent = recentSimilarComment.content.replace('[EMAIL REPLY] ', '')
       if (existingContent.trim() === newContent.trim()) {
+        console.log('[EMAIL REPLY DEBUG] Skipping duplicate content')
         return true // Skip duplicate, but return true to prevent new ticket creation
       }
     }
 
+    console.log('[EMAIL REPLY DEBUG] Proceeding to create comment...')
 
     // Create comment from email reply - extract only new content
     const fullTextBody = email.text || 'No text content'
     const newReplyContent = extractNewReplyContent(fullTextBody)
     const textBody = newReplyContent || fullTextBody // Fallback to full text if extraction fails
     
+    console.log('[EMAIL REPLY DEBUG] Text content extracted, length:', textBody.length)
     
     // Find or create a user for the email sender (simplified)
     let userId = null
     try {
+      console.log('[EMAIL REPLY DEBUG] Looking up user for email:', fromAddress)
       const existingUser = await prisma.user.findFirst({
         where: {
           email: fromAddress
@@ -945,66 +951,92 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
 
       if (existingUser) {
         userId = existingUser.id
+        console.log('[EMAIL REPLY DEBUG] Found existing user:', userId)
       } else {
         // External users can reply without being registered - this is normal for support systems
         userId = null
+        console.log('[EMAIL REPLY DEBUG] No existing user found, proceeding as external user')
       }
     } catch (dbError) {
-      console.error('Database error finding user:', dbError)
+      console.error('[EMAIL REPLY DEBUG] Database error finding user:', dbError)
       // Continue with null userId since external users are allowed
       userId = null
     }
 
     // Extract sender information
     const fromName = email.from?.value?.[0]?.name || fromAddress
+    console.log('[EMAIL REPLY DEBUG] Sender info - Name:', fromName, 'Email:', fromAddress)
 
     // Create comment
-    const comment = await prisma.comment.create({
-      data: {
-        content: `[EMAIL REPLY] ${textBody.trim()}`,
-        fullEmailContent: fullTextBody, // Store the complete email content including history
-        ticketId: ticket.id,
-        userId: userId, // This can be null for external users
-        fromName: fromName, // Store sender name for external users
-        fromEmail: fromAddress, // Store sender email for external users
-        type: 'external'
-      }
-    })
+    console.log('[EMAIL REPLY DEBUG] Creating comment in database...')
+    let comment
+    try {
+      comment = await prisma.comment.create({
+        data: {
+          content: `[EMAIL REPLY] ${textBody.trim()}`,
+          fullEmailContent: fullTextBody, // Store the complete email content including history
+          ticketId: ticket.id,
+          userId: userId, // This can be null for external users
+          fromName: fromName, // Store sender name for external users
+          fromEmail: fromAddress, // Store sender email for external users
+          type: 'external'
+        }
+      })
+      console.log('[EMAIL REPLY DEBUG] Comment created successfully with ID:', comment.id)
+    } catch (commentError) {
+      console.error('[EMAIL REPLY DEBUG] Error creating comment:', commentError)
+      throw commentError
+    }
 
     // Process ALL recipients from email reply and add them as participants
     try {
+      console.log('[EMAIL REPLY DEBUG] Starting participant processing...')
       const participantsToAdd = []
       
       // Get all configured email addresses to exclude them from participants
+      console.log('[EMAIL REPLY DEBUG] Fetching email configurations...')
       const emailConfigurations = await prisma.emailConfiguration.findMany({
         select: { username: true }
       })
       const supportEmails = emailConfigurations.map(config => config.username.toLowerCase())
+      console.log('[EMAIL REPLY DEBUG] Support emails to exclude:', supportEmails)
       
       // Add the sender (FROM) as participant if not already the original requester and not a support email
       // Normalize email addresses for comparison to handle case differences and whitespace
+      console.log('[EMAIL REPLY DEBUG] Processing sender as potential participant...')
       const normalizedFromEmail = fromAddress?.toLowerCase().trim()
       const normalizedTicketFromEmail = ticket.fromEmail?.toLowerCase().trim()
+      console.log('[EMAIL REPLY DEBUG] Sender email (normalized):', normalizedFromEmail)
+      console.log('[EMAIL REPLY DEBUG] Original requester email (normalized):', normalizedTicketFromEmail)
       
       if (normalizedFromEmail && normalizedFromEmail !== normalizedTicketFromEmail) {
+        console.log('[EMAIL REPLY DEBUG] Sender is different from original requester, checking if support email...')
         const isSupportEmail = supportEmails.includes(normalizedFromEmail)
+        console.log('[EMAIL REPLY DEBUG] Is sender a support email?', isSupportEmail)
         
         // Also check if this email is already in the participants list to avoid duplicates
+        console.log('[EMAIL REPLY DEBUG] Checking for existing participant...')
         const existingParticipant = await prisma.ticketParticipant.findFirst({
           where: {
             ticketId: ticket.id,
             email: normalizedFromEmail
           }
         })
+        console.log('[EMAIL REPLY DEBUG] Existing participant found?', !!existingParticipant)
         
         if (!isSupportEmail && !existingParticipant) {
+          console.log('[EMAIL REPLY DEBUG] Adding sender as participant')
           participantsToAdd.push({
             ticketId: ticket.id,
             email: normalizedFromEmail, // Store normalized email
             name: fromName,
             type: 'added_via_reply'
           })
+        } else {
+          console.log('[EMAIL REPLY DEBUG] Skipping sender - either support email or already participant')
         }
+      } else {
+        console.log('[EMAIL REPLY DEBUG] Sender is same as original requester, skipping')
       }
       
       // Add CC recipients if any
@@ -1089,6 +1121,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
 
       // Create new participants with extra safety check to prevent requester duplication
       if (participantsToAdd.length > 0) {
+        console.log('[EMAIL REPLY DEBUG] Processing', participantsToAdd.length, 'participants to add...')
         // Extra safety: double-check that none of these participants are the original requester
         const safeParticipants = participantsToAdd.filter(participant => {
           const normalizedParticipantEmail = participant.email.toLowerCase().trim()
@@ -1097,19 +1130,20 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         })
         
         if (safeParticipants.length > 0) {
+          console.log('[EMAIL REPLY DEBUG] Adding', safeParticipants.length, 'safe participants to database...')
           await prisma.ticketParticipant.createMany({
             data: safeParticipants,
             skipDuplicates: true // Skip if participant already exists
           })
-          console.log(`Added ${safeParticipants.length} new participants from email reply: ${safeParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
+          console.log(`[EMAIL REPLY DEBUG] Added ${safeParticipants.length} new participants from email reply: ${safeParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
         } else {
-          console.log('No participants to add from email reply after filtering out requester duplicates')
+          console.log('[EMAIL REPLY DEBUG] No participants to add from email reply after filtering out requester duplicates')
         }
       } else {
-        console.log('No new participants to add from email reply')
+        console.log('[EMAIL REPLY DEBUG] No new participants to add from email reply')
       }
     } catch (participantError) {
-      console.error('Error processing participants from email reply:', participantError)
+      console.error('[EMAIL REPLY DEBUG] Error processing participants from email reply:', participantError)
       // Don't fail the main process if participant processing fails
     }
 
@@ -1159,7 +1193,8 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
 
     // Create notification for email reply - only for assigned user
     try {
-      console.log('[NOTIFICATION DEBUG] Checking for ticket assignment...')
+      console.log('[EMAIL REPLY DEBUG] Starting notification processing...')
+      console.log('[EMAIL REPLY DEBUG] Checking for ticket assignment...')
       
       // Get the ticket with assignment information
       const ticketWithAssignment = await prisma.ticket.findUnique({
@@ -1174,7 +1209,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         },
       })
 
-      console.log('[NOTIFICATION DEBUG] Ticket assignment info:', {
+      console.log('[EMAIL REPLY DEBUG] Ticket assignment info:', {
         ticketId: ticket.id,
         assignedTo: ticketWithAssignment?.assignedTo,
         assignedToId: ticketWithAssignment?.assignedToId
@@ -1184,7 +1219,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       if (ticketWithAssignment?.assignedTo) {
         const displayTicketNumber = ticketWithAssignment.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
         
-        console.log('[NOTIFICATION DEBUG] Creating notification for user:', ticketWithAssignment.assignedTo.id)
+        console.log('[EMAIL REPLY DEBUG] Creating notification for user:', ticketWithAssignment.assignedTo.id)
         
         const notification = await prisma.notification.create({
           data: {
@@ -1198,20 +1233,21 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           }
         })
         
-        console.log('[NOTIFICATION DEBUG] Notification created successfully:', notification.id)
+        console.log('[EMAIL REPLY DEBUG] Notification created successfully:', notification.id)
       } else {
-        console.log('[NOTIFICATION DEBUG] No assigned user found, skipping notification')
+        console.log('[EMAIL REPLY DEBUG] No assigned user found, skipping notification')
       }
     } catch (notificationError) {
-      console.error('[NOTIFICATION DEBUG] Error creating notifications for email reply:', notificationError)
+      console.error('[EMAIL REPLY DEBUG] Error creating notifications for email reply:', notificationError)
       // Don't fail the main process if notifications fail
     }
 
-    console.log(`Email reply processed successfully: ${subject} -> Comment ${comment.id}`)
+    console.log(`[EMAIL REPLY DEBUG] Email reply processed successfully: ${subject} -> Comment ${comment.id}`)
     return true
 
   } catch (error) {
-    console.error('Error processing email reply:', error)
+    console.error('[EMAIL REPLY DEBUG] Error processing email reply:', error)
+    console.error('[EMAIL REPLY DEBUG] Error stack:', error instanceof Error ? error.stack : 'No stack trace')
     // Return false to allow the email to be processed as a new ticket instead
     return false
   }
