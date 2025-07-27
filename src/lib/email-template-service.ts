@@ -164,7 +164,9 @@ export async function renderEmailTemplate(
     }
 
     // Check if template uses unified template system or legacy format
-    const isUnifiedTemplate = !template.htmlContent.includes('<!DOCTYPE html>')
+    const isUnifiedTemplate = template.htmlContent === 'unified_template' || 
+                             (!template.htmlContent.includes('<!DOCTYPE html>') && 
+                              !template.htmlContent.includes('<html>'))
     
     let renderedHtmlContent: string
 
