@@ -1,13 +1,13 @@
 import { prisma } from './prisma'
 
-export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment'
+export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment' | 'ticket_auto_close_warning' | 'ticket_auto_closed'
 
 interface CreateNotificationParams {
   type: NotificationType
   title: string
   message: string
   userId: string
-  actorId: string
+  actorId?: string // Made optional for system notifications
   ticketId?: string
   commentId?: string
 }
@@ -16,8 +16,8 @@ interface CreateNotificationParams {
  * Create a new notification for a user
  */
 export async function createNotification(params: CreateNotificationParams) {
-  // Don't create notification if user is acting on themselves
-  if (params.userId === params.actorId) {
+  // Don't create notification if user is acting on themselves (skip for system notifications)
+  if (params.actorId && params.userId === params.actorId) {
     return null
   }
 
@@ -28,18 +28,18 @@ export async function createNotification(params: CreateNotificationParams) {
         title: params.title,
         message: params.message,
         userId: params.userId,
-        actorId: params.actorId,
+        actorId: params.actorId || null, // Allow null for system notifications
         ticketId: params.ticketId,
         commentId: params.commentId,
       },
       include: {
-        actor: {
+        actor: params.actorId ? {
           select: {
             id: true,
             name: true,
             email: true,
           },
-        },
+        } : false,
         ticket: {
           select: {
             id: true,
@@ -330,6 +330,47 @@ export async function markAllNotificationsAsRead(userId: string) {
     console.error('Error marking all notifications as read:', error)
     return 0
   }
+}
+
+/**
+ * Create notification when a ticket will be auto-closed soon
+ */
+export async function createAutoCloseWarningNotification(
+  ticketId: string,
+  assignedUserId: string,
+  daysUntilClose: number,
+  ticketNumber?: string,
+  ticketSubject?: string
+) {
+  const displayTicketNumber = ticketNumber || `#${ticketId.slice(-6).toUpperCase()}`
+  
+  return createNotification({
+    type: 'ticket_auto_close_warning',
+    title: 'Ticket Auto-Close Warning',
+    message: `Ticket ${displayTicketNumber} will be automatically closed in ${daysUntilClose} days due to inactivity: ${ticketSubject || 'Untitled'}`,
+    userId: assignedUserId,
+    ticketId,
+  })
+}
+
+/**
+ * Create notification when a ticket has been auto-closed
+ */
+export async function createAutoClosedNotification(
+  ticketId: string,
+  assignedUserId: string,
+  ticketNumber?: string,
+  ticketSubject?: string
+) {
+  const displayTicketNumber = ticketNumber || `#${ticketId.slice(-6).toUpperCase()}`
+  
+  return createNotification({
+    type: 'ticket_auto_closed',
+    title: 'Ticket Auto-Closed',
+    message: `Ticket ${displayTicketNumber} has been automatically closed due to 14 days of inactivity: ${ticketSubject || 'Untitled'}`,
+    userId: assignedUserId,
+    ticketId,
+  })
 }
 
 /**
