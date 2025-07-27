@@ -395,15 +395,27 @@ ${textBody}
     }
   }
 
-  // Create all participants
+  // Create all participants (with additional safety check to prevent requester duplication)
   if (participantsData.length > 0) {
-    await prisma.ticketParticipant.createMany({
-      data: participantsData,
-      skipDuplicates: true // In case same email appears multiple times
+    // Extra safety: filter out any participants that match the requester email
+    const filteredParticipants = participantsData.filter(participant => {
+      const normalizedParticipantEmail = participant.email.toLowerCase().trim()
+      const normalizedRequesterEmail = fromAddress.toLowerCase().trim()
+      return normalizedParticipantEmail !== normalizedRequesterEmail
     })
+    
+    if (filteredParticipants.length > 0) {
+      await prisma.ticketParticipant.createMany({
+        data: filteredParticipants,
+        skipDuplicates: true // In case same email appears multiple times
+      })
+      console.log(`Added ${filteredParticipants.length} participants to ticket: ${filteredParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
+    } else {
+      console.log('No participants to add after filtering out requester duplicates')
+    }
+  } else {
+    console.log('No participants to add from email')
   }
-
-  console.log(`Added ${participantsData.length} participants to ticket: ${participantsData.map(p => `${p.email} (${p.type})`).join(', ')}`)
 
   // Send ticket creation notification to customer using template
   try {
@@ -813,7 +825,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     // Extract ticket number from subject using flexible patterns:
     // - [Ticket TICKETNUMBER] (original format)
     // - TICKETNUMBER (any ticket number in subject)
-    // - Re: TICKETNUMBER, Fwd: TICKETNUMBER, etc.
+    // - Re: TICKETNUMBER, Fwd: TICKETNUMBER, AW: TICKETNUMBER, etc.
     
     let ticketNumber = null
     
@@ -823,13 +835,25 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       ticketNumber = ticketMatch[1]
       console.log('[EMAIL REPLY DEBUG] Found ticket number in [Ticket] format:', ticketNumber)
     } else {
-      // Try to find any ticket number pattern in the subject: PREFIX-ALPHANUMERIC
-      // This will match patterns like T-000001, IT-B8LOD55I, SUP-ABC123, SUPPORT-CASE-123 etc.
-      // Updated to capture more complex patterns with multiple hyphens/underscores
-      ticketMatch = subject.match(/([A-Z]+[-_][A-Z0-9]+(?:[-_][A-Z0-9]+)*)/i)
+      // Enhanced regex to handle reply prefixes and various ticket number patterns
+      // Remove common reply prefixes first, then search for ticket numbers
+      const cleanSubject = subject.replace(/^(Re:|AW:|Fwd:|Fw:|Antwort:|Reply:)\s*/i, '').trim()
+      console.log('[EMAIL REPLY DEBUG] Cleaned subject (removed reply prefixes):', cleanSubject)
+      
+      // Try to find any ticket number pattern in the cleaned subject
+      // This handles patterns like: T-000001, IT-B8LOD55I, SUP-ABC123, SUPPORT-CASE-123 etc.
+      // Made more flexible to handle both single letter and multi-letter prefixes
+      ticketMatch = cleanSubject.match(/([A-Z][-_][A-Z0-9]+(?:[-_][A-Z0-9]+)*)/i)
       if (ticketMatch) {
         ticketNumber = ticketMatch[1]
-        console.log('[EMAIL REPLY DEBUG] Found ticket number pattern:', ticketNumber)
+        console.log('[EMAIL REPLY DEBUG] Found ticket number pattern in cleaned subject:', ticketNumber)
+      } else {
+        // Also try the original subject in case the prefix is part of the ticket number
+        ticketMatch = subject.match(/([A-Z][-_][A-Z0-9]+(?:[-_][A-Z0-9]+)*)/i)
+        if (ticketMatch) {
+          ticketNumber = ticketMatch[1]
+          console.log('[EMAIL REPLY DEBUG] Found ticket number pattern in original subject:', ticketNumber)
+        }
       }
     }
     
@@ -1063,14 +1087,24 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         }
       }
 
-      // Create new participants (skipDuplicates will handle existing ones)
+      // Create new participants with extra safety check to prevent requester duplication
       if (participantsToAdd.length > 0) {
-        await prisma.ticketParticipant.createMany({
-          data: participantsToAdd,
-          skipDuplicates: true // Skip if participant already exists
+        // Extra safety: double-check that none of these participants are the original requester
+        const safeParticipants = participantsToAdd.filter(participant => {
+          const normalizedParticipantEmail = participant.email.toLowerCase().trim()
+          const normalizedOriginalRequester = normalizedTicketFromEmail || ''
+          return normalizedParticipantEmail !== normalizedOriginalRequester
         })
         
-        console.log(`Added ${participantsToAdd.length} new participants from email reply: ${participantsToAdd.map(p => `${p.email} (${p.type})`).join(', ')}`)
+        if (safeParticipants.length > 0) {
+          await prisma.ticketParticipant.createMany({
+            data: safeParticipants,
+            skipDuplicates: true // Skip if participant already exists
+          })
+          console.log(`Added ${safeParticipants.length} new participants from email reply: ${safeParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
+        } else {
+          console.log('No participants to add from email reply after filtering out requester duplicates')
+        }
       } else {
         console.log('No new participants to add from email reply')
       }
