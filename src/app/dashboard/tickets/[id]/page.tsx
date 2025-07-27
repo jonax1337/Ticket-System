@@ -37,11 +37,6 @@ export default async function TicketPage({ params }: TicketPageProps) {
         ]
       },
       comments: {
-        where: {
-          userId: {
-            not: null
-          }
-        },
         include: {
           user: {
             select: {
@@ -64,12 +59,10 @@ export default async function TicketPage({ params }: TicketPageProps) {
     notFound()
   }
 
-  // Filter comments with null users and create type-safe ticket object
-  const ticketWithValidComments = {
+  // Include all comments - both internal (with user) and external email replies (without user but with fromEmail/fromName)
+  const ticketWithAllComments = {
     ...ticket,
-    comments: ticket.comments.filter((comment): comment is typeof comment & { user: NonNullable<typeof comment.user> } => 
-      comment.user !== null
-    )
+    comments: ticket.comments // Include all comments, don't filter any out
   }
 
   const users = await prisma.user.findMany({
@@ -87,7 +80,7 @@ export default async function TicketPage({ params }: TicketPageProps) {
   return (
     <div>
       <TicketDetails 
-        ticket={ticketWithValidComments} 
+        ticket={ticketWithAllComments} 
         users={users} 
         currentUser={session.user}
       />

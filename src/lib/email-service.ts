@@ -969,6 +969,14 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
 
     // Create comment
     console.log('[EMAIL REPLY DEBUG] Creating comment in database...')
+    console.log('[EMAIL REPLY DEBUG] Comment data:', {
+      content: `[EMAIL REPLY] ${textBody.trim()}`,
+      ticketId: ticket.id,
+      userId: userId,
+      fromName: fromName,
+      fromEmail: fromAddress,
+      type: 'external'
+    })
     let comment
     try {
       comment = await prisma.comment.create({
@@ -983,6 +991,15 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         }
       })
       console.log('[EMAIL REPLY DEBUG] Comment created successfully with ID:', comment.id)
+      console.log('[EMAIL REPLY DEBUG] Comment details:', {
+        id: comment.id,
+        content: comment.content,
+        ticketId: comment.ticketId,
+        userId: comment.userId,
+        fromName: comment.fromName,
+        fromEmail: comment.fromEmail,
+        type: comment.type
+      })
     } catch (commentError) {
       console.error('[EMAIL REPLY DEBUG] Error creating comment:', commentError)
       throw commentError
