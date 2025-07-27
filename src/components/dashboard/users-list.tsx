@@ -180,7 +180,6 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
           <div className="flex gap-2">
             <Select value={roleFilter} onValueChange={setRoleFilter}>
               <SelectTrigger className="w-32">
-                <Filter className="h-4 w-4" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -192,7 +191,6 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
             
             <Select value={activityFilter} onValueChange={setActivityFilter}>
               <SelectTrigger className="w-32">
-                <Activity className="h-4 w-4" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
