@@ -5,9 +5,9 @@ import { prisma } from '@/lib/prisma'
 import { EMAIL_TYPE_CONFIGS, generateEmailSections, generateActionButton } from '@/lib/email-base-template'
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     type: string
-  }
+  }>
 }
 
 // GET - Get specific email type configuration
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       )
     }
 
-    const { type } = params
+    const { type } = await params
 
     // Get configuration for specific type
     let config = await prisma.emailTypeConfig.findUnique({
@@ -79,7 +79,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       )
     }
 
-    const { type } = params
+    const { type } = await params
     const body = await request.json()
     const { 
       headerTitle, 
