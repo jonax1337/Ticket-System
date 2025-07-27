@@ -96,8 +96,8 @@ export function useEmailSyncStatus(initialConfigs: EmailConfiguration[] = []) {
   }, [fetchEmailConfigs, initialConfigs.length])
 
   // Manually trigger refresh
-  const refresh = useCallback(() => {
-    return fetchEmailConfigs(true) // Show loading when manually refreshed
+  const refresh = useCallback((showLoading = false) => {
+    return fetchEmailConfigs(showLoading) // Silent refresh by default
   }, [fetchEmailConfigs])
 
   return {
