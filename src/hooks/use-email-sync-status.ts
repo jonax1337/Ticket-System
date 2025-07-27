@@ -3,10 +3,26 @@ import { useEffect, useState, useCallback } from 'react'
 interface EmailConfiguration {
   id: string
   name: string
+  host: string
+  port: number
+  username: string
+  password: string
+  useSSL: boolean
+  folder: string
+  isActive: boolean
   lastSync: Date | null
   syncInterval: number
-  isActive: boolean
+  emailAction: string
+  moveToFolder: string | null
+  processOnlyUnread: boolean
+  subjectFilter: string | null
+  fromFilter: string | null
+  defaultPriority: string | null
+  defaultStatus: string | null
+  defaultAssigneeId: string | null
   enableAutoSync: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 interface EmailSyncStatus {
