@@ -243,22 +243,36 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
 
       {/* Notifications List */}
       <div className="flex-1 min-h-0 overflow-hidden">
-        {isLoading ? (
-          <div className="flex items-center justify-center py-8">
-            <div className="h-6 w-6 animate-spin border-2 border-current border-t-transparent rounded-full" />
+        {/* Silent loading indicator */}
+        {isLoading && displayedNotifications.length > 0 && (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2 px-4">
+            <RefreshCw className="h-3 w-3 animate-spin" />
+            <span>Updating notifications...</span>
           </div>
-        ) : displayedNotifications.length === 0 ? (
+        )}
+        
+        {displayedNotifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center px-4">
-            <Inbox className="h-12 w-12 text-muted-foreground/50 mb-3" />
-            <h4 className="text-sm font-medium text-muted-foreground mb-1">
-              {showUnreadOnly ? 'No unread notifications' : 'No notifications yet'}
-            </h4>
-            <p className="text-xs text-muted-foreground">
-              {showUnreadOnly 
-                ? 'All caught up! Check back later for new updates.'
-                : 'When you receive ticket updates, they\'ll appear here'
-              }
-            </p>
+            {isLoading ? (
+              <>
+                <div className="h-6 w-6 animate-spin border-2 border-current border-t-transparent rounded-full mb-3" />
+                <h4 className="text-sm font-medium text-muted-foreground mb-1">Loading notifications...</h4>
+                <p className="text-xs text-muted-foreground">Please wait while we fetch your notifications</p>
+              </>
+            ) : (
+              <>
+                <Inbox className="h-12 w-12 text-muted-foreground/50 mb-3" />
+                <h4 className="text-sm font-medium text-muted-foreground mb-1">
+                  {showUnreadOnly ? 'No unread notifications' : 'No notifications yet'}
+                </h4>
+                <p className="text-xs text-muted-foreground">
+                  {showUnreadOnly 
+                    ? 'All caught up! Check back later for new updates.'
+                    : 'When you receive ticket updates, they\'ll appear here'
+                  }
+                </p>
+              </>
+            )}
           </div>
         ) : (
           <div className="h-[320px] overflow-y-auto scrollbar-thin scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-800 dark:scrollbar-thumb-slate-600 hover:scrollbar-thumb-slate-400 dark:hover:scrollbar-thumb-slate-500">
