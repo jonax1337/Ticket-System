@@ -22,6 +22,7 @@ export async function GET() {
         name: true,
         email: true,
         role: true,
+        avatarUrl: true,
       },
       orderBy: {
         name: 'asc',
@@ -100,6 +101,7 @@ export async function POST(request: NextRequest) {
         name: true,
         email: true,
         role: true,
+        avatarUrl: true,
         createdAt: true,
       },
     })

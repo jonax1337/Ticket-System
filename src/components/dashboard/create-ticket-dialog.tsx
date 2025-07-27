@@ -34,11 +34,13 @@ import {
 } from '@/components/ui/shadcn-io/combobox'
 import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar } from 'lucide-react'
 import { toast } from 'sonner'
+import { UserAvatar } from '@/components/ui/user-avatar'
 
 interface User {
   id: string
   name: string
   email: string
+  avatarUrl?: string | null
 }
 
 interface CustomPriority {
@@ -298,7 +300,14 @@ export function CreateTicketDialog() {
                         {assignedTo ? (
                           users.find(user => user.id === assignedTo) ? (
                             <span className="flex items-center gap-2">
-                              <User className="h-4 w-4" />
+                              <UserAvatar 
+                                user={{
+                                  name: users.find(user => user.id === assignedTo)?.name,
+                                  email: users.find(user => user.id === assignedTo)?.email,
+                                  avatarUrl: users.find(user => user.id === assignedTo)?.avatarUrl
+                                }}
+                                size="sm"
+                              />
                               {users.find(user => user.id === assignedTo)?.name}
                             </span>
                           ) : (
@@ -321,7 +330,14 @@ export function CreateTicketDialog() {
                             {users.map((user) => (
                               <ComboboxItem key={user.id} value={user.id}>
                                 <div className="flex items-center gap-2">
-                                  <User className="h-4 w-4" />
+                                  <UserAvatar 
+                                    user={{
+                                      name: user.name,
+                                      email: user.email,
+                                      avatarUrl: user.avatarUrl
+                                    }}
+                                    size="sm"
+                                  />
                                   <span>{user.name}</span>
                                 </div>
                               </ComboboxItem>

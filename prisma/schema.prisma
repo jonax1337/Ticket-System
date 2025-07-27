@@ -23,6 +23,7 @@ model User {
   name      String
   password  String?
   role      UserRole @default(SUPPORTER)
+  avatarUrl String?  // URL to user's avatar image
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -271,4 +272,20 @@ model Notification {
   comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   @@map("notifications")
+}
+
+model EmailTemplate {
+  id          String   @id @default(cuid())
+  type        String   // "ticket_created", "status_changed", "comment_added", "participant_added"
+  name        String   // Display name for the template
+  subject     String   @db.Text // Email subject with variables
+  htmlContent String   @db.Text // HTML email content with variables
+  textContent String?  @db.Text // Plain text fallback (optional)
+  isDefault   Boolean  @default(false) // Mark as default system template
+  isActive    Boolean  @default(true) // Enable/disable template
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([type, isDefault]) // Only one default template per type
+  @@map("email_templates")
 }

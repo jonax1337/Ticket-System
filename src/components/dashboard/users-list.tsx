@@ -21,12 +21,15 @@ import {
 import { User, Mail, Trash2 } from 'lucide-react'
 import { UserRole } from '@prisma/client'
 import { toast } from 'sonner'
+import { UserAvatar } from '@/components/ui/user-avatar'
+import { AvatarUploadDialog } from '@/components/dashboard/avatar-upload-dialog'
 
 interface User {
   id: string
   name: string
   email: string
   role: UserRole
+  avatarUrl?: string | null
   createdAt: Date
   _count: {
     assignedTickets: number
@@ -108,9 +111,14 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
           {users.map((user) => (
             <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted">
-                  <User className="h-5 w-5" />
-                </div>
+                <UserAvatar 
+                  user={{
+                    name: user.name,
+                    email: user.email,
+                    avatarUrl: user.avatarUrl
+                  }}
+                  size="md"
+                />
                 <div>
                   <div className="flex items-center gap-2">
                     <p className="font-medium">{user.name}</p>
@@ -131,6 +139,20 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
               </div>
               
               <div className="flex items-center gap-2">
+                <AvatarUploadDialog
+                  user={{
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    avatarUrl: user.avatarUrl
+                  }}
+                  trigger={
+                    <Button variant="outline" size="sm">
+                      <User className="h-4 w-4" />
+                    </Button>
+                  }
+                />
+                
                 <Select
                   defaultValue={user.role}
                   onValueChange={(role: UserRole) => handleRoleChange(user.id, role)}

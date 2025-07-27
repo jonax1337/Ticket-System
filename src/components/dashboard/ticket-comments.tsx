@@ -14,6 +14,8 @@ import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import CommentContent from './comment-content'
 import { CommentToolbar } from './comment-toolbar'
+import { UserAvatar } from '@/components/ui/user-avatar'
+import { CustomerAvatar } from '@/components/ui/customer-avatar'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -58,6 +60,7 @@ interface Comment {
     id: string
     name: string
     email: string
+    avatarUrl?: string | null
   } | null // Can be null for external email replies
   fromName?: string | null // Name of external user for email replies
   fromEmail?: string | null // Email of external user for email replies
@@ -560,9 +563,22 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
             {[...ticket.comments].reverse().map((comment) => (
               <div key={comment.id} className="bg-muted/30 rounded-md p-4">
                 <div className="flex items-center gap-2 mb-2 pb-2 border-b border-border/50">
-                  <div className="bg-primary/10 text-primary rounded-full p-1">
-                    <User className="h-4 w-4" />
-                  </div>
+                  {comment.user ? (
+                    <UserAvatar 
+                      user={{
+                        name: comment.user.name,
+                        email: comment.user.email,
+                        avatarUrl: comment.user.avatarUrl
+                      }}
+                      size="sm"
+                    />
+                  ) : (
+                    <CustomerAvatar 
+                      name={comment.fromName}
+                      email={comment.fromEmail || 'unknown@example.com'}
+                      size="sm"
+                    />
+                  )}
                   <span className="font-medium text-sm">
                     {comment.user ? comment.user.name : (comment.fromName || 'External User')}
                   </span>

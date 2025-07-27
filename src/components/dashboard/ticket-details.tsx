@@ -11,6 +11,7 @@ import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, Arr
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
+import { UserAvatar } from '@/components/ui/user-avatar'
 import {
   Combobox,
   ComboboxContent,
@@ -45,6 +46,7 @@ interface Ticket {
     id: string
     name: string
     email: string
+    avatarUrl?: string | null
   } | null
   participants?: {
     id: string
@@ -85,6 +87,7 @@ interface TicketDetailsProps {
     id: string
     name: string
     email: string
+    avatarUrl?: string | null
   }[]
   currentUser: {
     id: string
@@ -456,7 +459,14 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
                 <ComboboxTrigger className="w-full">
                   {ticket.assignedTo ? (
                     <span className="flex items-center gap-2">
-                      <User className="h-4 w-4" />
+                      <UserAvatar 
+                        user={{
+                          name: ticket.assignedTo.name,
+                          email: ticket.assignedTo.email,
+                          avatarUrl: ticket.assignedTo.avatarUrl
+                        }}
+                        size="sm"
+                      />
                       {ticket.assignedTo.name}
                     </span>
                   ) : (
@@ -476,7 +486,14 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
                       {users.map((user) => (
                         <ComboboxItem key={user.id} value={user.id}>
                           <div className="flex items-center gap-2">
-                            <User className="h-4 w-4" />
+                            <UserAvatar 
+                              user={{
+                                name: user.name,
+                                email: user.email,
+                                avatarUrl: user.avatarUrl
+                              }}
+                              size="sm"
+                            />
                             <span>{user.name}</span>
                           </div>
                         </ComboboxItem>

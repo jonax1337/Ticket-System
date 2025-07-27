@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { sendTemplatedEmail } from '@/lib/email-service'
 
 export async function PATCH(
   request: NextRequest,
@@ -61,6 +62,10 @@ export async function PATCH(
         assignedToId: true,
         ticketNumber: true,
         subject: true,
+        status: true,
+        priority: true,
+        fromEmail: true,
+        fromName: true,
         assignedTo: {
           select: {
             id: true,
@@ -145,6 +150,30 @@ export async function PATCH(
           console.error('Error creating notifications:', notificationError)
           // Don't fail the main request if notifications fail
         }
+      }
+    }
+
+    // Handle status change notifications
+    if (status && status !== currentTicket.status) {
+      try {
+        // Send status change notification to customer using template
+        await sendTemplatedEmail({
+          templateType: 'status_changed',
+          to: currentTicket.fromEmail,
+          toName: currentTicket.fromName || undefined,
+          ticketId: params.id,
+          variables: {
+            previousStatus: currentTicket.status,
+            newStatus: status,
+            actorName: session.user.name,
+            actorEmail: session.user.email,
+            statusChangeReason: undefined // Could be added to request body in future
+          }
+        })
+        console.log(`Status change notification sent for ticket ${currentTicket.ticketNumber}`)
+      } catch (emailError) {
+        console.error('Error sending status change notification:', emailError)
+        // Don't fail the main request if email sending fails
       }
     }
 
