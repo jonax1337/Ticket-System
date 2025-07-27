@@ -32,7 +32,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
-import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp } from 'lucide-react'
+import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface User {
@@ -73,6 +73,7 @@ export function CreateTicketDialog() {
   const [priority, setPriority] = useState<string>('Medium')
   const [assignedTo, setAssignedTo] = useState<string>('')
   const [attachments, setAttachments] = useState<File[]>([])
+  const [dueDate, setDueDate] = useState<string>('')
 
   const handleAssigneeChange = (value: string) => {
     setAssignedTo(value)
@@ -166,6 +167,7 @@ export function CreateTicketDialog() {
           priority: priority,
           assignedTo: assignedTo || null,
           attachments: uploadedFiles,
+          dueDate: dueDate || null,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -183,6 +185,7 @@ export function CreateTicketDialog() {
       setPriority(defaultPriority?.name || 'Medium')
       setAssignedTo('')
       setAttachments([])
+      setDueDate('')
       setOpen(false)
       
       toast.success('Ticket created successfully', {
@@ -327,6 +330,20 @@ export function CreateTicketDialog() {
                         </ComboboxList>
                       </ComboboxContent>
                     </Combobox>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="dueDate" className="text-sm font-medium flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      Due Date (optional)
+                    </Label>
+                    <Input
+                      id="dueDate"
+                      name="dueDate"
+                      type="datetime-local"
+                      value={dueDate}
+                      onChange={(e) => setDueDate(e.target.value)}
+                      min={new Date().toISOString().slice(0, 16)}
+                    />
                   </div>
                 </div>
               </div>

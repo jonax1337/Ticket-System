@@ -5,8 +5,9 @@ import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download } from 'lucide-react'
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
@@ -37,6 +38,7 @@ interface Ticket {
   priority: string
   fromEmail: string
   fromName: string | null
+  dueDate?: Date | null
   createdAt: Date
   updatedAt: Date
   assignedTo: {
@@ -126,6 +128,8 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const [isLoading, setIsLoading] = useState(false)
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
+  const [editingDueDate, setEditingDueDate] = useState(false)
+  const [tempDueDate, setTempDueDate] = useState('')
   const router = useRouter()
 
   const getDisplayTicketNumber = () => {
@@ -240,6 +244,55 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
     } else {
       throw new Error('Failed to update requester')
     }
+  }
+
+  const handleDueDateEdit = () => {
+    setEditingDueDate(true)
+    setTempDueDate(ticket.dueDate ? new Date(ticket.dueDate).toISOString().slice(0, 16) : '')
+  }
+
+  const handleDueDateSave = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch(`/api/tickets/${ticket.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          dueDate: tempDueDate || null
+        }),
+      })
+
+      if (response.ok) {
+        setEditingDueDate(false)
+        router.refresh()
+      }
+    } catch (error) {
+      console.error('Failed to update due date:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleDueDateCancel = () => {
+    setEditingDueDate(false)
+    setTempDueDate('')
+  }
+
+  const getDueDateStatus = () => {
+    if (!ticket.dueDate) return null
+    
+    const now = new Date()
+    const dueDate = new Date(ticket.dueDate)
+    const diffHours = Math.ceil((dueDate.getTime() - now.getTime()) / (1000 * 60 * 60))
+    
+    if (diffHours < 0) {
+      return { status: 'overdue', color: 'text-red-600', bg: 'bg-red-50' }
+    } else if (diffHours <= 24) {
+      return { status: 'due_soon', color: 'text-amber-600', bg: 'bg-amber-50' }
+    }
+    return { status: 'normal', color: 'text-green-600', bg: 'bg-green-50' }
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -437,6 +490,67 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
             {/* Dates */}
             <div className="space-y-3 pt-2">
+              {/* Due Date */}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  Due Date:
+                </span>
+                <div className="flex items-center gap-2">
+                  {editingDueDate ? (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="datetime-local"
+                        value={tempDueDate}
+                        onChange={(e) => setTempDueDate(e.target.value)}
+                        className="h-8 text-xs"
+                      />
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={handleDueDateSave}
+                        disabled={isLoading}
+                        className="h-8 px-2"
+                      >
+                        ✓
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={handleDueDateCancel}
+                        className="h-8 px-2"
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      {ticket.dueDate ? (
+                        <span className={`${getDueDateStatus()?.color || ''} font-medium`}>
+                          {format(new Date(ticket.dueDate), 'MMM d, yyyy HH:mm')}
+                          {getDueDateStatus()?.status === 'overdue' && (
+                            <Badge variant="destructive" className="ml-2 text-xs">Overdue</Badge>
+                          )}
+                          {getDueDateStatus()?.status === 'due_soon' && (
+                            <Badge variant="secondary" className="ml-2 text-xs bg-amber-100 text-amber-800">Due Soon</Badge>
+                          )}
+                        </span>
+                      ) : (
+                        <span className="text-muted-foreground">Not set</span>
+                      )}
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        onClick={handleDueDateEdit}
+                        className="h-6 w-6 p-0"
+                      >
+                        <Calendar className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Created:</span>
                 <span>{format(new Date(ticket.createdAt), 'MMM d, yyyy HH:mm')}</span>

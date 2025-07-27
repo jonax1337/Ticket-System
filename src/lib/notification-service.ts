@@ -1,6 +1,6 @@
 import { prisma } from './prisma'
 
-export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment'
+export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment' | 'ticket_due_soon' | 'ticket_overdue'
 
 interface CreateNotificationParams {
   type: NotificationType
@@ -161,6 +161,52 @@ export async function createMentionNotification(
     actorId,
     ticketId,
     commentId,
+  })
+}
+
+/**
+ * Create notification when a ticket is due soon
+ */
+export async function createTicketDueSoonNotification(
+  ticketId: string,
+  assignedUserId: string,
+  dueDate: Date,
+  ticketNumber?: string,
+  ticketSubject?: string
+) {
+  const displayTicketNumber = ticketNumber || `#${ticketId.slice(-6).toUpperCase()}`
+  const dueDateStr = dueDate.toLocaleDateString()
+  
+  return createNotification({
+    type: 'ticket_due_soon',
+    title: 'Ticket Due Soon',
+    message: `Ticket ${displayTicketNumber} is due on ${dueDateStr}: ${ticketSubject || 'Untitled'}`,
+    userId: assignedUserId,
+    actorId: assignedUserId, // System notification, use same user as actor
+    ticketId,
+  })
+}
+
+/**
+ * Create notification when a ticket is overdue
+ */
+export async function createTicketOverdueNotification(
+  ticketId: string,
+  assignedUserId: string,
+  dueDate: Date,
+  ticketNumber?: string,
+  ticketSubject?: string
+) {
+  const displayTicketNumber = ticketNumber || `#${ticketId.slice(-6).toUpperCase()}`
+  const dueDateStr = dueDate.toLocaleDateString()
+  
+  return createNotification({
+    type: 'ticket_overdue',
+    title: 'Ticket Overdue',
+    message: `Ticket ${displayTicketNumber} was due on ${dueDateStr} and is now overdue: ${ticketSubject || 'Untitled'}`,
+    userId: assignedUserId,
+    actorId: assignedUserId, // System notification, use same user as actor
+    ticketId,
   })
 }
 
@@ -353,5 +399,117 @@ export async function cleanupOldNotifications(daysOld: number = 30) {
   } catch (error) {
     console.error('Error cleaning up old notifications:', error)
     return 0
+  }
+}
+
+/**
+ * Check for tickets that are due soon or overdue and create notifications
+ */
+export async function checkTicketDueDates() {
+  const now = new Date()
+  const dueSoonThreshold = new Date()
+  dueSoonThreshold.setDate(now.getDate() + 1) // 1 day ahead
+  
+  try {
+    // Find tickets that are due soon (within 1 day) and not yet notified
+    const dueSoonTickets = await prisma.ticket.findMany({
+      where: {
+        dueDate: {
+          gte: now,
+          lte: dueSoonThreshold,
+        },
+        assignedToId: {
+          not: null,
+        },
+        status: {
+          not: 'Closed', // Don't notify for closed tickets
+        },
+      },
+      include: {
+        assignedTo: true,
+        notifications: {
+          where: {
+            type: 'ticket_due_soon',
+            createdAt: {
+              gte: new Date(now.getTime() - 24 * 60 * 60 * 1000), // Last 24 hours
+            },
+          },
+        },
+      },
+    })
+
+    // Find tickets that are overdue and not yet notified
+    const overdueTickets = await prisma.ticket.findMany({
+      where: {
+        dueDate: {
+          lt: now,
+        },
+        assignedToId: {
+          not: null,
+        },
+        status: {
+          not: 'Closed', // Don't notify for closed tickets
+        },
+      },
+      include: {
+        assignedTo: true,
+        notifications: {
+          where: {
+            type: 'ticket_overdue',
+            createdAt: {
+              gte: new Date(now.getTime() - 24 * 60 * 60 * 1000), // Last 24 hours
+            },
+          },
+        },
+      },
+    })
+
+    let dueSoonCount = 0
+    let overdueCount = 0
+
+    // Create due soon notifications
+    for (const ticket of dueSoonTickets) {
+      // Only create notification if none exists in the last 24 hours
+      if (ticket.notifications.length === 0 && ticket.assignedTo && ticket.dueDate) {
+        await createTicketDueSoonNotification(
+          ticket.id,
+          ticket.assignedTo.id,
+          ticket.dueDate,
+          ticket.ticketNumber || undefined,
+          ticket.subject
+        )
+        dueSoonCount++
+      }
+    }
+
+    // Create overdue notifications
+    for (const ticket of overdueTickets) {
+      // Only create notification if none exists in the last 24 hours
+      if (ticket.notifications.length === 0 && ticket.assignedTo && ticket.dueDate) {
+        await createTicketOverdueNotification(
+          ticket.id,
+          ticket.assignedTo.id,
+          ticket.dueDate,
+          ticket.ticketNumber || undefined,
+          ticket.subject
+        )
+        overdueCount++
+      }
+    }
+
+    return {
+      dueSoonCount,
+      overdueCount,
+      totalDueSoon: dueSoonTickets.length,
+      totalOverdue: overdueTickets.length,
+    }
+  } catch (error) {
+    console.error('Error checking ticket due dates:', error)
+    return {
+      dueSoonCount: 0,
+      overdueCount: 0,
+      totalDueSoon: 0,
+      totalOverdue: 0,
+    }
   }
 }
