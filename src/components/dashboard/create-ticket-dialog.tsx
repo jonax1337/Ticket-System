@@ -35,6 +35,8 @@ import {
 import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar } from 'lucide-react'
 import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
+import { DatePicker } from '@/components/ui/date-picker'
+import { normalizeDateToMidnight } from '@/lib/date-utils'
 
 interface User {
   id: string
@@ -75,7 +77,7 @@ export function CreateTicketDialog() {
   const [priority, setPriority] = useState<string>('Medium')
   const [assignedTo, setAssignedTo] = useState<string>('')
   const [attachments, setAttachments] = useState<File[]>([])
-  const [dueDate, setDueDate] = useState<string>('')
+  const [dueDate, setDueDate] = useState<Date | undefined>(undefined)
 
   const handleAssigneeChange = (value: string) => {
     setAssignedTo(value)
@@ -169,7 +171,7 @@ export function CreateTicketDialog() {
           priority: priority,
           assignedTo: assignedTo || null,
           attachments: uploadedFiles,
-          dueDate: dueDate || null,
+          dueDate: dueDate ? normalizeDateToMidnight(dueDate)?.toISOString() : null,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -187,7 +189,7 @@ export function CreateTicketDialog() {
       setPriority(defaultPriority?.name || 'Medium')
       setAssignedTo('')
       setAttachments([])
-      setDueDate('')
+      setDueDate(undefined)
       setOpen(false)
       
       toast.success('Ticket created successfully', {
@@ -352,13 +354,10 @@ export function CreateTicketDialog() {
                       <Calendar className="h-4 w-4" />
                       Due Date (optional)
                     </Label>
-                    <Input
-                      id="dueDate"
-                      name="dueDate"
-                      type="datetime-local"
-                      value={dueDate}
-                      onChange={(e) => setDueDate(e.target.value)}
-                      min={new Date().toISOString().slice(0, 16)}
+                    <DatePicker
+                      date={dueDate}
+                      setDate={setDueDate}
+                      placeholder="Select due date"
                     />
                   </div>
                 </div>

@@ -12,6 +12,8 @@ import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
 import { UserAvatar } from '@/components/ui/user-avatar'
+import { DatePicker } from '@/components/ui/date-picker'
+import { normalizeDateToMidnight } from '@/lib/date-utils'
 import {
   Combobox,
   ComboboxContent,
@@ -132,7 +134,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const [editingDueDate, setEditingDueDate] = useState(false)
-  const [tempDueDate, setTempDueDate] = useState('')
+  const [tempDueDate, setTempDueDate] = useState<Date | undefined>(undefined)
   const router = useRouter()
 
   const getDisplayTicketNumber = () => {
@@ -251,7 +253,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleDueDateEdit = () => {
     setEditingDueDate(true)
-    setTempDueDate(ticket.dueDate ? new Date(ticket.dueDate).toISOString().slice(0, 16) : '')
+    setTempDueDate(ticket.dueDate ? new Date(ticket.dueDate) : undefined)
   }
 
   const handleDueDateSave = async () => {
@@ -263,7 +265,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          dueDate: tempDueDate || null
+          dueDate: tempDueDate ? normalizeDateToMidnight(tempDueDate)?.toISOString() : null
         }),
       })
 
@@ -280,7 +282,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleDueDateCancel = () => {
     setEditingDueDate(false)
-    setTempDueDate('')
+    setTempDueDate(ticket.dueDate ? new Date(ticket.dueDate) : undefined)
   }
 
   const getDueDateStatus = () => {
@@ -516,10 +518,10 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
                 <div className="flex items-center gap-2">
                   {editingDueDate ? (
                     <div className="flex items-center gap-2">
-                      <Input
-                        type="datetime-local"
-                        value={tempDueDate}
-                        onChange={(e) => setTempDueDate(e.target.value)}
+                      <DatePicker
+                        date={tempDueDate}
+                        setDate={setTempDueDate}
+                        placeholder="Select due date"
                         className="h-8 text-xs"
                       />
                       <Button 
@@ -544,7 +546,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
                     <div className="flex items-center gap-2">
                       {ticket.dueDate ? (
                         <span className={`${getDueDateStatus()?.color || ''} font-medium`}>
-                          {format(new Date(ticket.dueDate), 'MMM d, yyyy HH:mm')}
+                          {format(new Date(ticket.dueDate), 'MMM d, yyyy')}
                           {getDueDateStatus()?.status === 'overdue' && (
                             <Badge variant="destructive" className="ml-2 text-xs">Overdue</Badge>
                           )}

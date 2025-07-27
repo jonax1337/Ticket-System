@@ -361,24 +361,20 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
                   <td className="p-4">
                     <div className="text-sm">
                       {ticket.dueDate ? (
-                        <div className="space-y-1">
+                        <div className="flex items-center gap-2">
                           <div className={`font-medium ${getDueDateStatus(ticket.dueDate)?.color || ''}`}>
                             {format(new Date(ticket.dueDate), 'MMM d, yyyy')}
                           </div>
-                          <div className="text-xs flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            {format(new Date(ticket.dueDate), 'HH:mm')}
-                            {getDueDateStatus(ticket.dueDate)?.status === 'overdue' && (
-                              <Badge variant="destructive" className="text-[10px] px-1 py-0">
-                                Overdue
-                              </Badge>
-                            )}
-                            {getDueDateStatus(ticket.dueDate)?.status === 'due_soon' && (
-                              <Badge variant="secondary" className="text-[10px] px-1 py-0 bg-amber-100 text-amber-800">
-                                Due Soon
-                              </Badge>
-                            )}
-                          </div>
+                          {getDueDateStatus(ticket.dueDate)?.status === 'overdue' && (
+                            <Badge variant="destructive" className="text-[10px] px-1 py-0">
+                              Overdue
+                            </Badge>
+                          )}
+                          {getDueDateStatus(ticket.dueDate)?.status === 'due_soon' && (
+                            <Badge variant="secondary" className="text-[10px] px-1 py-0 bg-amber-100 text-amber-800">
+                              Due Soon
+                            </Badge>
+                          )}
                         </div>
                       ) : (
                         <span className="text-muted-foreground text-xs">

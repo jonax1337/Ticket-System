@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { generateTicketNumber, ensureUniqueTicketNumber } from '@/lib/ticket-number-generator'
+import { normalizeDateToMidnight } from '@/lib/date-utils'
 
 export async function POST(req: NextRequest) {
   try {
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
         fromName: fromName || 'Internal Support',
         priority: priority || 'Medium',
         status: 'Open',
-        dueDate: dueDate ? new Date(dueDate) : null,
+        dueDate: normalizeDateToMidnight(dueDate),
       },
     })
 

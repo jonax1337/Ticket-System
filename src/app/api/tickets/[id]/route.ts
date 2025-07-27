@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { sendTemplatedEmail } from '@/lib/email-service'
+import { normalizeDateToMidnight } from '@/lib/date-utils'
 
 export async function PATCH(
   request: NextRequest,
@@ -43,7 +44,7 @@ export async function PATCH(
     }
     
     if (dueDate !== undefined) {
-      updateData.dueDate = dueDate ? new Date(dueDate) : null
+      updateData.dueDate = normalizeDateToMidnight(dueDate)
     }
 
     if (Object.keys(updateData).length === 0) {
