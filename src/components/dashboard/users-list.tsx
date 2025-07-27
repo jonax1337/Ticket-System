@@ -75,7 +75,8 @@ const roleIcons = {
 }
 
 export default function UsersList({ users, currentUserId }: UsersListProps) {
-  const [isLoading, setIsLoading] = useState(false)
+  const [updatingRole, setUpdatingRole] = useState<string | null>(null)
+  const [deletingUser, setDeletingUser] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [roleFilter, setRoleFilter] = useState<string>('ALL')
   const [activityFilter, setActivityFilter] = useState<string>('ALL')
@@ -99,7 +100,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
   }, [users, searchQuery, roleFilter, activityFilter])
 
   const handleRoleChange = async (userId: string, role: UserRole) => {
-    setIsLoading(true)
+    setUpdatingRole(userId)
     try {
       const response = await fetch(`/api/users/${userId}`, {
         method: 'PATCH',
@@ -119,12 +120,12 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
       console.error('Failed to update role:', error)
       toast.error('Failed to update user role')
     } finally {
-      setIsLoading(false)
+      setUpdatingRole(null)
     }
   }
 
   const handleDeleteUser = async (userId: string) => {
-    setIsLoading(true)
+    setDeletingUser(userId)
     try {
       const response = await fetch(`/api/users/${userId}`, {
         method: 'DELETE',
@@ -144,7 +145,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
       console.error('Failed to delete user:', error)
       toast.error('Failed to delete user')
     } finally {
-      setIsLoading(false)
+      setDeletingUser(null)
     }
   }
 
@@ -284,9 +285,13 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                       
                       <DropdownMenuItem 
                         onClick={() => handleRoleChange(user.id, user.role === 'ADMIN' ? 'SUPPORTER' : 'ADMIN')}
-                        disabled={user.id === currentUserId || isLoading}
+                        disabled={user.id === currentUserId || updatingRole === user.id || deletingUser === user.id}
                       >
-                        <Shield className="h-4 w-4" />
+                        {updatingRole === user.id ? (
+                          <div className="h-4 w-4 animate-spin border-2 border-current border-t-transparent rounded-full" />
+                        ) : (
+                          <Shield className="h-4 w-4" />
+                        )}
                         {user.role === 'ADMIN' ? 'Make Supporter' : 'Make Admin'}
                       </DropdownMenuItem>
                       
@@ -297,9 +302,13 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                           <DropdownMenuItem 
                             onSelect={(e) => e.preventDefault()}
                             className="text-destructive focus:text-destructive"
-                            disabled={user.id === currentUserId || isLoading}
+                            disabled={user.id === currentUserId || updatingRole === user.id || deletingUser === user.id}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            {deletingUser === user.id ? (
+                              <div className="h-4 w-4 animate-spin border-2 border-current border-t-transparent rounded-full" />
+                            ) : (
+                              <Trash2 className="h-4 w-4" />
+                            )}
                             Delete User
                           </DropdownMenuItem>
                         </AlertDialogTrigger>

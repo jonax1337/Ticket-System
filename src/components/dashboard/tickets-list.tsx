@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2, Calendar } from 'lucide-react'
+import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2, Calendar, RefreshCw } from 'lucide-react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,6 +19,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { toast } from 'sonner'
+import { useCache } from '@/lib/cache-context'
 
 interface Ticket {
   id: string
@@ -50,24 +51,6 @@ interface TicketsListProps {
 type SortField = 'id' | 'subject' | 'status' | 'priority' | 'fromName' | 'assignedTo' | 'createdAt' | 'comments'
 type SortDirection = 'asc' | 'desc'
 
-interface CustomStatus {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
-
-interface CustomPriority {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
-
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
@@ -86,35 +69,8 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
   const router = useRouter()
   const [sortField, setSortField] = useState<SortField>('createdAt')
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
-  const [statuses, setStatuses] = useState<CustomStatus[]>([])
-  const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const [deletingTicket, setDeletingTicket] = useState<string | null>(null)
-
-  useEffect(() => {
-    // Load custom statuses and priorities for display
-    const fetchData = async () => {
-      try {
-        const [statusesResponse, prioritiesResponse] = await Promise.all([
-          fetch('/api/statuses'),
-          fetch('/api/priorities')
-        ])
-        
-        if (statusesResponse.ok) {
-          const statusData = await statusesResponse.json()
-          setStatuses(statusData)
-        }
-        
-        if (prioritiesResponse.ok) {
-          const priorityData = await prioritiesResponse.json()
-          setPriorities(priorityData)
-        }
-      } catch (error) {
-        console.error('Failed to fetch data:', error)
-      }
-    }
-    
-    fetchData()
-  }, [])
+  const { statuses, priorities, isLoading: cacheLoading } = useCache()
 
   const handleDeleteTicket = async (ticketId: string) => {
     setDeletingTicket(ticketId)
@@ -238,6 +194,14 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
   return (
     <Card>
       <CardContent className="p-0">
+        {/* Silent loading indicator */}
+        {cacheLoading && tickets.length > 0 && (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground p-4 border-b">
+            <RefreshCw className="h-3 w-3 animate-spin" />
+            <span>Loading status and priority data...</span>
+          </div>
+        )}
+        
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>

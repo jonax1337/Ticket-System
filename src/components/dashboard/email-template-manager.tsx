@@ -37,7 +37,8 @@ import {
   Globe,
   CheckCircle,
   XCircle,
-  Settings
+  Settings,
+  RefreshCw
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
@@ -304,25 +305,6 @@ export default function EmailTemplateManager() {
     }
   }
 
-  if (isLoading && templates.length === 0) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Mail className="h-5 w-5" />
-            Email Templates
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-            <p className="mt-2 text-sm text-muted-foreground">Loading templates...</p>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }
-
   return (
     <div className="space-y-6">
       <Card>
@@ -489,13 +471,30 @@ export default function EmailTemplateManager() {
           </div>
         </CardHeader>
         <CardContent>
+          {/* Silent loading indicator */}
+          {isLoading && templates.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+              <RefreshCw className="h-3 w-3 animate-spin" />
+              <span>Updating templates...</span>
+            </div>
+          )}
+          
           {templates.length === 0 ? (
             <div className="text-center py-8">
-              <Mail className="mx-auto h-12 w-12 text-muted-foreground" />
-              <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Email Templates</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Create your first email template to customize customer notifications.
-              </p>
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                  <p className="mt-2 text-sm text-muted-foreground">Loading templates...</p>
+                </>
+              ) : (
+                <>
+                  <Mail className="mx-auto h-12 w-12 text-muted-foreground" />
+                  <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Email Templates</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Create your first email template to customize customer notifications.
+                  </p>
+                </>
+              )}
             </div>
           ) : (
             <div className="space-y-4">

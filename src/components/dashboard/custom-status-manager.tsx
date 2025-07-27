@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Plus, Edit, Trash2, AlertCircle, ArrowRight, CheckCircle2, Clock, Timer, AlertTriangle, GripVertical } from 'lucide-react'
+import { Plus, Edit, Trash2, AlertCircle, ArrowRight, CheckCircle2, Clock, Timer, AlertTriangle, GripVertical, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
 import {
   AlertDialog,
@@ -321,32 +321,16 @@ export default function CustomStatusManager() {
     )
   }
 
-  if (isLoading) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <AlertCircle className="h-5 w-5" />
-            Status Configuration
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-            <p className="mt-2 text-sm text-muted-foreground">Loading statuses...</p>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }
-
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Status Configuration</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <AlertCircle className="h-5 w-5" />
+                Status Configuration
+              </CardTitle>
               <CardDescription>
                 Manage ticket statuses and their display properties.<br />Drag to reorder.
               </CardDescription>
@@ -454,29 +438,54 @@ export default function CustomStatusManager() {
           </div>
         </CardHeader>
         <CardContent>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Preview</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <SortableContext items={statuses.map(s => s.id)} strategy={verticalListSortingStrategy}>
-                  {statuses.map((status) => (
-                    <SortableStatusRow key={status.id} status={status} />
-                  ))}
-                </SortableContext>
-              </TableBody>
-            </Table>
-          </DndContext>
+          {/* Silent loading indicator */}
+          {isLoading && statuses.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+              <RefreshCw className="h-3 w-3 animate-spin" />
+              <span>Updating statuses...</span>
+            </div>
+          )}
+          
+          {statuses.length === 0 ? (
+            <div className="text-center py-8">
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                  <p className="mt-2 text-sm text-muted-foreground">Loading statuses...</p>
+                </>
+              ) : (
+                <>
+                  <AlertCircle className="h-12 w-12 text-muted-foreground/50 mx-auto mb-3" />
+                  <h4 className="text-sm font-medium text-muted-foreground mb-1">No statuses configured</h4>
+                  <p className="text-xs text-muted-foreground">Add your first status to get started</p>
+                </>
+              )}
+            </div>
+          ) : (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Preview</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <SortableContext items={statuses.map(s => s.id)} strategy={verticalListSortingStrategy}>
+                    {statuses.map((status) => (
+                      <SortableStatusRow key={status.id} status={status} />
+                    ))}
+                  </SortableContext>
+                </TableBody>
+              </Table>
+            </DndContext>
+          )}
         </CardContent>
       </Card>
     </div>

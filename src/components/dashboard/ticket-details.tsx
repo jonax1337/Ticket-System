@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar } from 'lucide-react'
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
@@ -24,6 +24,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
+import { useCache } from '@/lib/cache-context'
 
 interface User {
   id: string
@@ -97,24 +98,6 @@ interface TicketDetailsProps {
   }
 }
 
-interface CustomStatus {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
-
-interface CustomPriority {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
-
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
@@ -131,41 +114,14 @@ const getIconComponent = (iconName: string) => {
 
 export default function TicketDetails({ ticket, users, currentUser }: TicketDetailsProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const [statuses, setStatuses] = useState<CustomStatus[]>([])
-  const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const [editingDueDate, setEditingDueDate] = useState(false)
   const [tempDueDate, setTempDueDate] = useState<Date | undefined>(undefined)
   const router = useRouter()
+  const { statuses, priorities, isLoading: cacheLoading } = useCache()
 
   const getDisplayTicketNumber = () => {
     return ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
   }
-
-  useEffect(() => {
-    // Load custom statuses and priorities
-    const fetchData = async () => {
-      try {
-        const [statusesResponse, prioritiesResponse] = await Promise.all([
-          fetch('/api/statuses'),
-          fetch('/api/priorities')
-        ])
-        
-        if (statusesResponse.ok) {
-          const statusData = await statusesResponse.json()
-          setStatuses(statusData)
-        }
-        
-        if (prioritiesResponse.ok) {
-          const priorityData = await prioritiesResponse.json()
-          setPriorities(priorityData)
-        }
-      } catch (error) {
-        console.error('Failed to fetch data:', error)
-      }
-    }
-    
-    fetchData()
-  }, [])
   
   const handleStatusChange = async (status: string) => {
     setIsLoading(true)
