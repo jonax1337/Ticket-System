@@ -27,6 +27,29 @@ const emailConfigSchema = z.object({
   enableAutoSync: z.boolean(),
 })
 
+// Schema for partial updates (used for outbound toggle)
+const emailConfigPartialSchema = z.object({
+  name: z.string().min(1).optional(),
+  host: z.string().min(1).optional(),
+  port: z.number().min(1).max(65535).optional(),
+  username: z.string().min(1).optional(),
+  password: z.string().min(1).optional(),
+  useSSL: z.boolean().optional(),
+  folder: z.string().min(1).optional(),
+  isActive: z.boolean().optional(),
+  isOutbound: z.boolean().optional(),
+  syncInterval: z.number().min(60).optional(),
+  emailAction: z.enum(['mark_read', 'delete', 'move_to_folder']).optional(),
+  moveToFolder: z.string().nullable().optional(),
+  processOnlyUnread: z.boolean().optional(),
+  subjectFilter: z.string().nullable().optional(),
+  fromFilter: z.string().nullable().optional(),
+  defaultPriority: z.string().nullable().optional(),
+  defaultStatus: z.string().nullable().optional(),
+  defaultAssigneeId: z.string().nullable().optional(),
+  enableAutoSync: z.boolean().optional(),
+})
+
 // GET - Get specific email configuration
 export async function GET(
   request: NextRequest,
@@ -73,11 +96,16 @@ export async function PUT(
     const resolvedParams = await params
     const body = await request.json()
     
-    // Validate input
-    const validatedData = emailConfigSchema.parse(body)
+    // Check if this is a partial update (only contains some fields)
+    const isPartialUpdate = Object.keys(body).length < 10 // Arbitrary threshold for partial vs full update
+    
+    // Validate input - use partial schema for small updates
+    const validatedData = isPartialUpdate 
+      ? emailConfigPartialSchema.parse(body)
+      : emailConfigSchema.parse(body)
 
     // If this configuration is marked as outbound, unset all other outbound configurations
-    if (validatedData.isOutbound) {
+    if (validatedData.isOutbound === true) {
       await prisma.emailConfiguration.updateMany({
         where: { 
           isOutbound: true,
@@ -87,15 +115,17 @@ export async function PUT(
       })
     }
 
-    // In a real application, encrypt the password
-    const encryptedPassword = validatedData.password // TODO: Implement proper encryption
+    // For partial updates, only update provided fields
+    const updateData: z.infer<typeof emailConfigSchema> | z.infer<typeof emailConfigPartialSchema> = { ...validatedData }
+    
+    // Only encrypt password if it's provided (full update)
+    if (validatedData.password) {
+      updateData.password = validatedData.password // TODO: Implement proper encryption
+    }
 
     const config = await prisma.emailConfiguration.update({
       where: { id: resolvedParams.id },
-      data: {
-        ...validatedData,
-        password: encryptedPassword,
-      }
+      data: updateData
     })
 
     // Restart email cron manager to pick up changes

@@ -10,6 +10,7 @@ interface EmailConfiguration {
   useSSL: boolean
   folder: string
   isActive: boolean
+  isOutbound: boolean
   lastSync: Date | null
   syncInterval: number
   emailAction: string
@@ -45,9 +46,11 @@ export function useEmailSyncStatus(initialConfigs: EmailConfiguration[] = []) {
     lastUpdated: null
   })
 
-  const fetchEmailConfigs = useCallback(async () => {
+  const fetchEmailConfigs = useCallback(async (showLoading = false) => {
     try {
-      setStatus(prev => ({ ...prev, loading: true, error: null }))
+      if (showLoading) {
+        setStatus(prev => ({ ...prev, loading: true, error: null }))
+      }
       
       const response = await fetch('/api/admin/email')
       if (!response.ok) {
@@ -78,7 +81,7 @@ export function useEmailSyncStatus(initialConfigs: EmailConfiguration[] = []) {
   useEffect(() => {
     // Initial load if no configs provided
     if (initialConfigs.length === 0) {
-      fetchEmailConfigs()
+      fetchEmailConfigs(true) // Show loading on initial fetch
     } else {
       setStatus(prev => ({
         ...prev,
@@ -87,15 +90,15 @@ export function useEmailSyncStatus(initialConfigs: EmailConfiguration[] = []) {
       }))
     }
 
-    // Poll for updates every 30 seconds
-    const interval = setInterval(fetchEmailConfigs, 30000)
+    // Poll for updates every 30 seconds - silently without loading spinner
+    const interval = setInterval(() => fetchEmailConfigs(false), 30000)
 
     return () => clearInterval(interval)
   }, [fetchEmailConfigs, initialConfigs.length])
 
   // Manually trigger refresh
-  const refresh = useCallback(() => {
-    return fetchEmailConfigs()
+  const refresh = useCallback((showLoading = false) => {
+    return fetchEmailConfigs(showLoading) // Silent refresh by default
   }, [fetchEmailConfigs])
 
   return {

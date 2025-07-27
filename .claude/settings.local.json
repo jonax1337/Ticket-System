@@ -20,7 +20,8 @@
       "Bash(npm uninstall:*)",
       "WebFetch(domain:ui.shadcn.com)",
       "Bash(grep:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(dos2unix:*)"
     ],
     "deny": []
   }

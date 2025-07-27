@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Mail, Plus, Settings, Trash2, TestTube, CheckCircle, XCircle, Clock, Eye, EyeOff, Filter, Zap, RotateCcw, AlertCircle, ArrowRight, CheckCircle2, Timer, AlertTriangle, TrendingUp, RefreshCw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
@@ -84,6 +85,19 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
 
   // Use the real-time email sync status hook
   const { emailConfigs: liveConfigs, loading: statusLoading, error: statusError, refresh: refreshStatus } = useEmailSyncStatus(emailConfigs)
+  
+  // Local state for optimistic updates
+  const [optimisticConfigs, setOptimisticConfigs] = useState<EmailConfiguration[]>([])
+  
+  // Use optimistic configs if available, otherwise use live configs
+  const displayConfigs = optimisticConfigs.length > 0 ? optimisticConfigs : liveConfigs
+  
+  // Clear optimistic updates when live configs change (after successful server sync)
+  useEffect(() => {
+    if (optimisticConfigs.length > 0 && liveConfigs.length > 0) {
+      setOptimisticConfigs([])
+    }
+  }, [liveConfigs, optimisticConfigs.length])
 
   const [formData, setFormData] = useState({
     name: '',
@@ -191,7 +205,6 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
           editingConfig ? 'Email configuration updated successfully' : 'Email configuration created successfully'
         )
         await refreshStatus()
-        router.refresh()
       } else {
         toast.error('Failed to save email configuration')
       }
@@ -212,7 +225,6 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
       if (response.ok) {
         toast.success('Email configuration deleted successfully')
         await refreshStatus()
-        router.refresh()
       } else {
         toast.error('Failed to delete email configuration')
       }
@@ -240,6 +252,55 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
       toast.error('Test failed: ' + (err instanceof Error ? err.message : 'Unknown error'))
     } finally {
       setTestingConfig(null)
+    }
+  }
+
+  const handleSetOutbound = async (configId: string, isOutbound: boolean) => {
+    // Optimistic update
+    const currentConfigs = displayConfigs
+    const updatedConfigs = currentConfigs.map(config => {
+      if (config.id === configId) {
+        return { ...config, isOutbound }
+      }
+      // If setting this one as outbound, remove outbound from others
+      if (isOutbound && config.isOutbound) {
+        return { ...config, isOutbound: false }
+      }
+      return config
+    })
+    setOptimisticConfigs(updatedConfigs)
+
+    try {
+      const response = await fetch(`/api/admin/email/${configId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          isOutbound
+        }),
+      })
+
+      if (response.ok) {
+        toast.success(
+          isOutbound 
+            ? 'Email configuration set as outbound'
+            : 'Email configuration removed from outbound'
+        )
+        // Silent refresh to sync with server
+        await refreshStatus()
+        // Clear optimistic state after successful update
+        setOptimisticConfigs([])
+      } else {
+        // Revert optimistic update on error
+        setOptimisticConfigs([])
+        toast.error('Failed to update outbound configuration')
+      }
+    } catch (err) {
+      // Revert optimistic update on error
+      setOptimisticConfigs([])
+      console.error('Failed to update outbound configuration:', err)
+      toast.error('Failed to update outbound configuration')
     }
   }
 
@@ -469,7 +530,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                           checked={formData.isOutbound}
                           onCheckedChange={(checked) => setFormData({ ...formData, isOutbound: !!checked })}
                         />
-                        <Label htmlFor="isOutbound">Outbound</Label>
+                        <Label htmlFor="isOutbound">Use for outbound mail</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -640,7 +701,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={refreshStatus}
+                  onClick={() => refreshStatus(true)}
                   className="ml-auto"
                 >
                   <RefreshCw className="h-3 w-3" />
@@ -649,7 +710,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
             </div>
           )}
           
-          {liveConfigs.length === 0 ? (
+          {displayConfigs.length === 0 ? (
             <div className="text-center py-8">
               <Mail className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Email Accounts</h3>
@@ -666,7 +727,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                 </div>
               )}
               
-              {liveConfigs.map((config) => (
+              {displayConfigs.map((config) => (
                 <div key={config.id} className="border rounded-lg p-4">
                   <div className="flex items-start justify-between">
                     <div className="space-y-2">
@@ -711,6 +772,29 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                             <span>Filters active</span>
                           </div>
                         )}
+                      </div>
+                      
+                      {/* Outbound Mail Selection */}
+                      <div className="mt-3 pt-3 border-t border-border/50">
+                        <div className="space-y-3">
+                          <Tabs 
+                            value={config.isOutbound ? "outbound" : "inbound"} 
+                            onValueChange={(value) => handleSetOutbound(config.id, value === "outbound")}
+                            className="w-full"
+                          >
+                            <TabsList className="grid w-full grid-cols-2">
+                              <TabsTrigger value="inbound" className="text-sm">
+                                Inbound only
+                              </TabsTrigger>
+                              <TabsTrigger value="outbound" className="text-sm">
+                                Use for outbound mail
+                              </TabsTrigger>
+                            </TabsList>
+                          </Tabs>
+                          <p className="text-xs text-muted-foreground">
+                            Only one email configuration can be used for outbound mail at a time.
+                          </p>
+                        </div>
                       </div>
                     </div>
 
