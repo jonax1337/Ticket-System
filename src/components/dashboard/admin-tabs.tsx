@@ -2,11 +2,12 @@
 
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Settings, Palette, Mail, Workflow } from 'lucide-react'
+import { Settings, Palette, Mail, Workflow, Bot } from 'lucide-react'
 import AdminSettings from '@/components/dashboard/admin-settings'
 import EmailSettings from '@/components/dashboard/email-settings'
 import CustomStatusManager from '@/components/dashboard/custom-status-manager'
 import CustomPriorityManager from '@/components/dashboard/custom-priority-manager'
+import AutomationSettings from '@/components/dashboard/automation-settings'
 
 interface SystemSettings {
   id: string
@@ -19,6 +20,10 @@ interface SystemSettings {
   ticketNumberType: string
   ticketNumberLength: number
   lastTicketNumber: number
+  automationEnabled: boolean
+  automationWarningDays: number
+  automationCloseDays: number
+  automationCheckInterval: number
   createdAt: Date
   updatedAt: Date
 }
@@ -60,7 +65,7 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-4">
+      <TabsList className="grid w-full grid-cols-5">
         <TabsTrigger value="general" className="flex items-center gap-2">
           <Settings className="h-4 w-4" />
           General
@@ -76,6 +81,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
         <TabsTrigger value="workflow" className="flex items-center gap-2">
           <Workflow className="h-4 w-4" />
           Workflow
+        </TabsTrigger>
+        <TabsTrigger value="automation" className="flex items-center gap-2">
+          <Bot className="h-4 w-4" />
+          Automation
         </TabsTrigger>
       </TabsList>
       
@@ -97,6 +106,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
       
       <TabsContent value="workflow" className="space-y-6 mt-6">
         <WorkflowSettings />
+      </TabsContent>
+      
+      <TabsContent value="automation" className="space-y-6 mt-6">
+        <AutomationSettings settings={settings} />
       </TabsContent>
     </Tabs>
   )

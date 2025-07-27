@@ -182,6 +182,13 @@ model SystemSettings {
   ticketNumberType String @default("sequential") // "sequential" or "random"
   ticketNumberLength Int @default(6) // Length of the number part
   lastTicketNumber Int @default(0) // For sequential numbering
+  
+  // Automation settings
+  automationEnabled Boolean @default(true) // Enable/disable ticket automation
+  automationWarningDays Int @default(7) // Days before auto-close warning
+  automationCloseDays Int @default(14) // Days of inactivity before auto-close
+  automationCheckInterval Int @default(60) // Check interval in minutes
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

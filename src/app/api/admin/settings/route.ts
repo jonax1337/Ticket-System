@@ -22,7 +22,11 @@ export async function POST(request: NextRequest) {
       themeColor, 
       ticketPrefix, 
       ticketNumberType, 
-      ticketNumberLength 
+      ticketNumberLength,
+      automationEnabled,
+      automationWarningDays,
+      automationCloseDays,
+      automationCheckInterval
     } = await request.json()
 
     if (!appName || !themeColor || !ticketPrefix || !ticketNumberType || !ticketNumberLength) {
@@ -43,6 +47,10 @@ export async function POST(request: NextRequest) {
         ticketPrefix,
         ticketNumberType,
         ticketNumberLength,
+        ...(typeof automationEnabled === 'boolean' && { automationEnabled }),
+        ...(typeof automationWarningDays === 'number' && { automationWarningDays }),
+        ...(typeof automationCloseDays === 'number' && { automationCloseDays }),
+        ...(typeof automationCheckInterval === 'number' && { automationCheckInterval }),
       },
       create: {
         id: 'system',
@@ -54,6 +62,10 @@ export async function POST(request: NextRequest) {
         ticketPrefix,
         ticketNumberType,
         ticketNumberLength,
+        automationEnabled: automationEnabled ?? true,
+        automationWarningDays: automationWarningDays ?? 7,
+        automationCloseDays: automationCloseDays ?? 14,
+        automationCheckInterval: automationCheckInterval ?? 60,
       },
     })
 
@@ -82,7 +94,11 @@ export async function GET() {
           ticketPrefix: 'T',
           ticketNumberType: 'sequential',
           ticketNumberLength: 6,
-          lastTicketNumber: 0
+          lastTicketNumber: 0,
+          automationEnabled: true,
+          automationWarningDays: 7,
+          automationCloseDays: 14,
+          automationCheckInterval: 60
         }
       })
     }

@@ -18,7 +18,13 @@ export default async function AdminPage() {
 
   if (!settings) {
     settings = await prisma.systemSettings.create({
-      data: { id: 'system' }
+      data: { 
+        id: 'system',
+        automationEnabled: true,
+        automationWarningDays: 7,
+        automationCloseDays: 14,
+        automationCheckInterval: 60
+      }
     })
   }
 

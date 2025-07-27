@@ -62,13 +62,38 @@ class TicketAutomationManager {
   }
 
   private async loadConfig() {
-    // For now, use environment variables or defaults
-    // In the future, this could be moved to SystemSettings
-    this.config = {
-      enabled: process.env.TICKET_AUTOMATION_ENABLED !== 'false',
-      daysUntilWarning: parseInt(process.env.TICKET_AUTOMATION_WARNING_DAYS || '7'),
-      daysUntilAutoClose: parseInt(process.env.TICKET_AUTOMATION_CLOSE_DAYS || '14'),
-      checkIntervalMinutes: parseInt(process.env.TICKET_AUTOMATION_CHECK_INTERVAL || '60')
+    try {
+      // Try to load from database first, fallback to environment variables
+      const settings = await prisma.systemSettings.findUnique({
+        where: { id: 'system' }
+      })
+
+      if (settings) {
+        // Use database settings if available
+        this.config = {
+          enabled: settings.automationEnabled,
+          daysUntilWarning: settings.automationWarningDays,
+          daysUntilAutoClose: settings.automationCloseDays,
+          checkIntervalMinutes: settings.automationCheckInterval
+        }
+      } else {
+        // Fallback to environment variables or defaults
+        this.config = {
+          enabled: process.env.TICKET_AUTOMATION_ENABLED !== 'false',
+          daysUntilWarning: parseInt(process.env.TICKET_AUTOMATION_WARNING_DAYS || '7'),
+          daysUntilAutoClose: parseInt(process.env.TICKET_AUTOMATION_CLOSE_DAYS || '14'),
+          checkIntervalMinutes: parseInt(process.env.TICKET_AUTOMATION_CHECK_INTERVAL || '60')
+        }
+      }
+    } catch (error) {
+      console.error('Error loading automation config from database, using defaults:', error)
+      // Fallback to environment variables or defaults
+      this.config = {
+        enabled: process.env.TICKET_AUTOMATION_ENABLED !== 'false',
+        daysUntilWarning: parseInt(process.env.TICKET_AUTOMATION_WARNING_DAYS || '7'),
+        daysUntilAutoClose: parseInt(process.env.TICKET_AUTOMATION_CLOSE_DAYS || '14'),
+        checkIntervalMinutes: parseInt(process.env.TICKET_AUTOMATION_CHECK_INTERVAL || '60')
+      }
     }
   }
 
@@ -406,6 +431,25 @@ Support Team
     }
     
     await this.processTickets()
+  }
+
+  // Reload configuration from database
+  async reloadConfig() {
+    const oldInterval = this.config.checkIntervalMinutes
+    await this.loadConfig()
+    
+    // If automation is enabled and interval changed, restart the service
+    if (this.config.enabled && this.isRunning && oldInterval !== this.config.checkIntervalMinutes) {
+      console.log('Automation config changed, restarting service...')
+      this.stop()
+      await this.start()
+    } else if (!this.config.enabled && this.isRunning) {
+      console.log('Automation disabled, stopping service...')
+      this.stop()
+    } else if (this.config.enabled && !this.isRunning) {
+      console.log('Automation enabled, starting service...')
+      await this.start()
+    }
   }
 }
 
