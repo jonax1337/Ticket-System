@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Plus, Edit, Trash2, Clock, Timer, AlertCircle, AlertTriangle, Zap, TrendingUp, GripVertical } from 'lucide-react'
+import { Plus, Edit, Trash2, Clock, Timer, AlertCircle, AlertTriangle, Zap, TrendingUp, GripVertical, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
 import {
   AlertDialog,
@@ -321,32 +321,16 @@ export default function CustomPriorityManager() {
     )
   }
 
-  if (isLoading) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Clock className="h-5 w-5" />
-            Priority Configuration
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-            <p className="mt-2 text-sm text-muted-foreground">Loading priorities...</p>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }
-
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Priority Configuration</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Clock className="h-5 w-5" />
+                Priority Configuration
+              </CardTitle>
               <CardDescription>
                 Manage ticket priorities and their display properties.<br />Drag to reorder.
               </CardDescription>
@@ -454,29 +438,54 @@ export default function CustomPriorityManager() {
           </div>
         </CardHeader>
         <CardContent>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Priority</TableHead>
-                  <TableHead>Preview</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <SortableContext items={priorities.map(p => p.id)} strategy={verticalListSortingStrategy}>
-                  {priorities.map((priority) => (
-                    <SortablePriorityRow key={priority.id} priority={priority} />
-                  ))}
-                </SortableContext>
-              </TableBody>
-            </Table>
-          </DndContext>
+          {/* Silent loading indicator */}
+          {isLoading && priorities.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+              <RefreshCw className="h-3 w-3 animate-spin" />
+              <span>Updating priorities...</span>
+            </div>
+          )}
+          
+          {priorities.length === 0 ? (
+            <div className="text-center py-8">
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                  <p className="mt-2 text-sm text-muted-foreground">Loading priorities...</p>
+                </>
+              ) : (
+                <>
+                  <Clock className="h-12 w-12 text-muted-foreground/50 mx-auto mb-3" />
+                  <h4 className="text-sm font-medium text-muted-foreground mb-1">No priorities configured</h4>
+                  <p className="text-xs text-muted-foreground">Add your first priority to get started</p>
+                </>
+              )}
+            </div>
+          ) : (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Priority</TableHead>
+                    <TableHead>Preview</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <SortableContext items={priorities.map(p => p.id)} strategy={verticalListSortingStrategy}>
+                    {priorities.map((priority) => (
+                      <SortablePriorityRow key={priority.id} priority={priority} />
+                    ))}
+                  </SortableContext>
+                </TableBody>
+              </Table>
+            </DndContext>
+          )}
         </CardContent>
       </Card>
     </div>
