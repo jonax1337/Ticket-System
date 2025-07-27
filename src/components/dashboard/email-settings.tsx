@@ -243,7 +243,34 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
     }
   }
 
-  const handleSync = async (config: EmailConfiguration) => {
+  const handleSetOutbound = async (configId: string, isOutbound: boolean) => {
+    try {
+      const response = await fetch(`/api/admin/email/${configId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          isOutbound
+        }),
+      })
+
+      if (response.ok) {
+        toast.success(
+          isOutbound 
+            ? 'Email configuration set as outbound'
+            : 'Email configuration removed from outbound'
+        )
+        await refreshStatus()
+        router.refresh()
+      } else {
+        toast.error('Failed to update outbound configuration')
+      }
+    } catch (err) {
+      console.error('Failed to update outbound configuration:', err)
+      toast.error('Failed to update outbound configuration')
+    }
+  }
     setSyncingConfig(config.id)
     try {
       const response = await fetch(`/api/admin/email/${config.id}/sync`, {
@@ -469,7 +496,10 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                           checked={formData.isOutbound}
                           onCheckedChange={(checked) => setFormData({ ...formData, isOutbound: !!checked })}
                         />
-                        <Label htmlFor="isOutbound">Outbound</Label>
+                        <Label htmlFor="isOutbound">Use for outbound mail</Label>
+                        <p className="text-xs text-muted-foreground ml-2">
+                          (Only one configuration can be outbound)
+                        </p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -711,6 +741,44 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                             <span>Filters active</span>
                           </div>
                         )}
+                      </div>
+                      
+                      {/* Outbound Mail Selection */}
+                      <div className="mt-3 pt-3 border-t border-border/50">
+                        <div className="flex items-center gap-3">
+                          <Label className="text-sm font-medium">Outbound Mail:</Label>
+                          <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="radio"
+                                id={`outbound-yes-${config.id}`}
+                                name={`outbound-${config.id}`}
+                                checked={config.isOutbound}
+                                onChange={() => !config.isOutbound && handleSetOutbound(config.id, true)}
+                                className="w-4 h-4 text-primary focus:ring-primary"
+                              />
+                              <Label htmlFor={`outbound-yes-${config.id}`} className="text-sm">
+                                Use for outbound mail
+                              </Label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="radio"
+                                id={`outbound-no-${config.id}`}
+                                name={`outbound-${config.id}`}
+                                checked={!config.isOutbound}
+                                onChange={() => config.isOutbound && handleSetOutbound(config.id, false)}
+                                className="w-4 h-4 text-primary focus:ring-primary"
+                              />
+                              <Label htmlFor={`outbound-no-${config.id}`} className="text-sm">
+                                Inbound only
+                              </Label>
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Only one email configuration can be used for outbound mail at a time.
+                        </p>
                       </div>
                     </div>
 
