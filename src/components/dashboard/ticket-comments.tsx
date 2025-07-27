@@ -152,6 +152,11 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
     fetchData()
   }, [ticket.id, ticket.fromEmail])
 
+  // Sync nextStatus with ticket.status when the component receives updated props
+  useEffect(() => {
+    setNextStatus(ticket.status)
+  }, [ticket.status])
+
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
     setSelectedFiles(prev => [...prev, ...files])
@@ -350,7 +355,12 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
       if (commentResponse.ok) {
         setNewComment('')
         setEditorSerializedState(null)
-        setNextStatus(ticket.status)
+        // Only reset nextStatus to the new status if status was changed, otherwise keep current ticket status
+        if (isStatusChanging && statusUpdateSuccess) {
+          setNextStatus(nextStatus) // Keep the new status that was successfully updated
+        } else {
+          setNextStatus(ticket.status) // Reset to current ticket status
+        }
         setSelectedFiles([])
         // Clear the editor using the ref
         editorRef.current?.clear()
