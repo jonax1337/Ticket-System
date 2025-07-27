@@ -808,18 +808,35 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     const subject = email.subject || ''
     const fromAddress = email.from?.value?.[0]?.address || ''
     
+    console.log('[EMAIL REPLY DEBUG] Processing email subject:', subject)
     
-    // Extract ticket number from subject - handle various formats like:
-    // [Ticket IT-B8LOD55I] 
-    // Re: [Ticket IT-B8LOD55I]
-    // Fwd: [Ticket IT-B8LOD55I]
-    const ticketMatch = subject.match(/\[Ticket\s+([^\]]+)\]/i)
-    if (!ticketMatch) {
+    // Extract ticket number from subject using flexible patterns:
+    // - [Ticket TICKETNUMBER] (original format)
+    // - TICKETNUMBER (any ticket number in subject)
+    // - Re: TICKETNUMBER, Fwd: TICKETNUMBER, etc.
+    
+    let ticketNumber = null
+    
+    // First try the original [Ticket NUMBER] format for backward compatibility
+    let ticketMatch = subject.match(/\[Ticket\s+([^\]]+)\]/i)
+    if (ticketMatch) {
+      ticketNumber = ticketMatch[1]
+      console.log('[EMAIL REPLY DEBUG] Found ticket number in [Ticket] format:', ticketNumber)
+    } else {
+      // Try to find any ticket number pattern in the subject: PREFIX-ALPHANUMERIC
+      // This will match patterns like T-000001, IT-B8LOD55I, SUP-ABC123, SUPPORT-CASE-123 etc.
+      // Updated to capture more complex patterns with multiple hyphens/underscores
+      ticketMatch = subject.match(/([A-Z]+[-_][A-Z0-9]+(?:[-_][A-Z0-9]+)*)/i)
+      if (ticketMatch) {
+        ticketNumber = ticketMatch[1]
+        console.log('[EMAIL REPLY DEBUG] Found ticket number pattern:', ticketNumber)
+      }
+    }
+    
+    if (!ticketNumber) {
       console.log('[EMAIL REPLY DEBUG] No ticket number found in subject')
       return false // Not a reply to existing ticket
     }
-
-    const ticketNumber = ticketMatch[1]
   
     // Find existing ticket
     let ticket
@@ -835,9 +852,24 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     }
 
     if (!ticket) {
-      return false // Ticket not found
+      console.log('[EMAIL REPLY DEBUG] Ticket not found in database:', ticketNumber)
+      return false // Ticket not found, will create new ticket
     }
 
+    console.log('[EMAIL REPLY DEBUG] Found ticket:', {
+      id: ticket.id,
+      ticketNumber: ticket.ticketNumber,
+      status: ticket.status,
+      subject: ticket.subject
+    })
+
+    // Check if ticket is closed - if so, create a new ticket instead of adding comment
+    if (ticket.status === 'CLOSED') {
+      console.log('[EMAIL REPLY DEBUG] Ticket is closed, will create new ticket instead of adding comment')
+      return false // Return false to trigger new ticket creation
+    }
+
+    console.log('[EMAIL REPLY DEBUG] Ticket is open, proceeding to add as comment')
 
     // Check for duplicate reply (based on email content and sender within last hour)
     let recentSimilarComment
