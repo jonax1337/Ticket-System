@@ -109,12 +109,16 @@ const availableVariables = {
 }
 
 export default function EmailTemplateManager() {
-  const router = useRouter()
   const [templates, setTemplates] = useState<EmailTemplate[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [editingTemplate, setEditingTemplate] = useState<EmailTemplate | null>(null)
-  const [previewData, setPreviewData] = useState<any>(null)
+  const [previewData, setPreviewData] = useState<{
+    subject: string;
+    htmlContent: string;
+    textContent?: string;
+    sampleData: Record<string, unknown>;
+  } | null>(null)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const [formData, setFormData] = useState({
     type: '',
@@ -264,10 +268,6 @@ export default function EmailTemplateManager() {
       isActive: true
     })
     setIsDialogOpen(true)
-  }
-
-  const getTypeLabel = (type: string) => {
-    return templateTypes.find(t => t.value === type)?.label || type
   }
 
   const getTypeBadgeColor = (type: string) => {

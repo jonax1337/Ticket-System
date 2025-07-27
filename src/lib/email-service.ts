@@ -482,7 +482,7 @@ interface SendTemplatedEmailOptions {
   to: string
   toName?: string
   ticketId: string
-  variables?: Record<string, any>
+  variables?: Record<string, unknown>
   attachments?: Array<{
     filename: string
     path: string
