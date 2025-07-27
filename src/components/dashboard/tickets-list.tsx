@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2 } from 'lucide-react'
+import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2, Calendar } from 'lucide-react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,6 +29,7 @@ interface Ticket {
   priority: string
   fromEmail: string
   fromName: string | null
+  dueDate?: Date | null
   createdAt: Date
   updatedAt: Date
   assignedTo: {
@@ -210,6 +211,20 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
     return ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
   }
 
+  const getDueDateStatus = (dueDate: Date | null) => {
+    if (!dueDate) return null
+    
+    const now = new Date()
+    const diffHours = Math.ceil((dueDate.getTime() - now.getTime()) / (1000 * 60 * 60))
+    
+    if (diffHours < 0) {
+      return { status: 'overdue', color: 'text-red-600', bgColor: 'bg-red-50' }
+    } else if (diffHours <= 24) {
+      return { status: 'due_soon', color: 'text-amber-600', bgColor: 'bg-amber-50' }
+    }
+    return { status: 'normal', color: 'text-green-600', bgColor: 'bg-green-50' }
+  }
+
   if (tickets.length === 0) {
     return (
       <Card>
@@ -244,6 +259,9 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
                 </th>
                 <th className="text-left p-4 font-medium text-muted-foreground text-sm">
                   <SortButton field="assignedTo">Assigned</SortButton>
+                </th>
+                <th className="text-left p-4 font-medium text-muted-foreground text-sm">
+                  Due Date
                 </th>
                 <th className="text-left p-4 font-medium text-muted-foreground text-sm">
                   <SortButton field="createdAt">Created</SortButton>
@@ -336,6 +354,35 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
                       ) : (
                         <span className="text-muted-foreground text-xs">
                           Unassigned
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <div className="text-sm">
+                      {ticket.dueDate ? (
+                        <div className="space-y-1">
+                          <div className={`font-medium ${getDueDateStatus(ticket.dueDate)?.color || ''}`}>
+                            {format(new Date(ticket.dueDate), 'MMM d, yyyy')}
+                          </div>
+                          <div className="text-xs flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {format(new Date(ticket.dueDate), 'HH:mm')}
+                            {getDueDateStatus(ticket.dueDate)?.status === 'overdue' && (
+                              <Badge variant="destructive" className="text-[10px] px-1 py-0">
+                                Overdue
+                              </Badge>
+                            )}
+                            {getDueDateStatus(ticket.dueDate)?.status === 'due_soon' && (
+                              <Badge variant="secondary" className="text-[10px] px-1 py-0 bg-amber-100 text-amber-800">
+                                Due Soon
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-muted-foreground text-xs">
+                          No due date
                         </span>
                       )}
                     </div>

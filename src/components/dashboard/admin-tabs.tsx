@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Settings, Palette, Mail, Workflow, Bot } from 'lucide-react'
+import { Settings, Palette, Mail, Workflow, FileText, Bot } from 'lucide-react'
 import AdminSettings from '@/components/dashboard/admin-settings'
 import EmailSettings from '@/components/dashboard/email-settings'
+import EmailTemplateManager from '@/components/dashboard/email-template-manager'
 import CustomStatusManager from '@/components/dashboard/custom-status-manager'
 import CustomPriorityManager from '@/components/dashboard/custom-priority-manager'
 import AutomationSettings from '@/components/dashboard/automation-settings'
@@ -78,6 +79,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
           <Mail className="h-4 w-4" />
           Email
         </TabsTrigger>
+        <TabsTrigger value="templates" className="flex items-center gap-2">
+          <FileText className="h-4 w-4" />
+          Templates
+        </TabsTrigger>
         <TabsTrigger value="workflow" className="flex items-center gap-2">
           <Workflow className="h-4 w-4" />
           Workflow
@@ -102,6 +107,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
           priorities={priorities} 
           statuses={statuses} 
         />
+      </TabsContent>
+      
+      <TabsContent value="templates" className="space-y-6 mt-6">
+        <EmailTemplateManager />
       </TabsContent>
       
       <TabsContent value="workflow" className="space-y-6 mt-6">
