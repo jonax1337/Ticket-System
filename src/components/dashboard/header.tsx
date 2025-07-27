@@ -166,7 +166,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
+                  <User className="mr-2 h-4 w-4" />
                   <span>{user.name || 'User'}</span>
                 </DropdownMenuLabel>
                 <DropdownMenuLabel className="text-xs text-muted-foreground">
@@ -179,7 +179,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                 
                 <DropdownMenuItem asChild>
                   <Link href="/dashboard/account" className="flex items-center gap-2">
-                    <UserCog className="h-4 w-4" />
+                    <UserCog className="mr-2 h-4 w-4" />
                     Account Settings
                   </Link>
                 </DropdownMenuItem>
@@ -190,13 +190,13 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                 <div className="md:hidden">
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard" className="flex items-center gap-2">
-                      <LayoutDashboard className="h-4 w-4" />
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
                       Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard/my-tickets" className="flex items-center gap-2">
-                      <Briefcase className="h-4 w-4" />
+                      <Briefcase className="mr-2 h-4 w-4" />
                       My Tickets
                     </Link>
                   </DropdownMenuItem>
@@ -204,13 +204,13 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                     <>
                       <DropdownMenuItem asChild>
                         <Link href="/dashboard/users" className="flex items-center gap-2">
-                          <Users className="h-4 w-4" />
+                          <Users className="mr-2 h-4 w-4" />
                           Users
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/dashboard/admin" className="flex items-center gap-2">
-                          <Settings className="h-4 w-4" />
+                          <Settings className="mr-2 h-4 w-4" />
                           Admin
                         </Link>
                       </DropdownMenuItem>
@@ -222,9 +222,9 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                 <div className="flex items-center justify-between px-2 py-1.5">
                   <div className="flex items-center gap-2 text-sm">
                     {theme === 'dark' ? (
-                      <Moon className="h-4 w-4" />
+                      <Moon className="mr-2 h-4 w-4" />
                     ) : (
-                      <Sun className="h-4 w-4" />
+                      <Sun className="mr-2 h-4 w-4" />
                     )}
                     <span>Dark Mode</span>
                   </div>

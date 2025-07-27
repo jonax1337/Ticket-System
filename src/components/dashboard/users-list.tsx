@@ -180,7 +180,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
           <div className="flex gap-2">
             <Select value={roleFilter} onValueChange={setRoleFilter}>
               <SelectTrigger className="w-32">
-                <Filter className="h-4 w-4 mr-2" />
+                <Filter className="mr-2 h-4 w-4" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -192,7 +192,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
             
             <Select value={activityFilter} onValueChange={setActivityFilter}>
               <SelectTrigger className="w-32">
-                <Activity className="h-4 w-4 mr-2" />
+                <Activity className="mr-2 h-4 w-4" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -279,7 +279,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                         }}
                         trigger={
                           <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                            <User className="h-4 w-4 mr-2" />
+                            <User className="mr-2 h-4 w-4" />
                             Change Avatar
                           </DropdownMenuItem>
                         }
@@ -293,7 +293,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                             onClick={() => handleRoleChange(user.id, user.role === 'ADMIN' ? 'SUPPORTER' : 'ADMIN')}
                             disabled={isLoading}
                           >
-                            <Crown className="h-4 w-4 mr-2" />
+                            <Crown className="mr-2 h-4 w-4" />
                             {user.role === 'ADMIN' ? 'Make Supporter' : 'Make Admin'}
                           </DropdownMenuItem>
                           
@@ -306,7 +306,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                                 className="text-destructive focus:text-destructive"
                                 disabled={isLoading}
                               >
-                                <Trash2 className="h-4 w-4 mr-2" />
+                                <Trash2 className="mr-2 h-4 w-4" />
                                 Delete User
                               </DropdownMenuItem>
                             </AlertDialogTrigger>
