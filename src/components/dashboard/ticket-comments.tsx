@@ -738,7 +738,7 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
                         to: statusChangeMatch[2]
                       }
                       // Remove status change info from main content
-                      contentToDisplay = contentToDisplay.replace(/\n\n\[STATUS_CHANGE\] Status changed from "[^"]+" to "[^"]+"/, '')
+                      contentToDisplay = contentToDisplay.replace(/\[STATUS_CHANGE\] Status changed from "[^"]+" to "[^"]+"/, '').trim()
                     }
                     
                     // Clean content based on type
@@ -747,6 +747,9 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
                     } else if (contentToDisplay.startsWith('[EMAIL]')) {
                       contentToDisplay = contentToDisplay.substring(7) // Remove '[EMAIL] '
                     }
+                    
+                    // Check if this is a status change comment made via ticket details (no additional content)
+                    const isStatusChangeOnly = statusChangeInfo && !contentToDisplay.trim()
                     
                     return (
                       <>
@@ -757,23 +760,34 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
                               <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                               <span className="font-medium text-blue-800 dark:text-blue-200">Status changed</span>
                               <div className="flex items-center gap-2">
-                                <Badge variant="outline" className="bg-gray-100 text-gray-700 border-gray-300">
-                                  {statusChangeInfo.from}
-                                </Badge>
+                                {(() => {
+                                  const fromStatus = statuses.find(s => s.name === statusChangeInfo.from)
+                                  const FromIcon = fromStatus ? getIconComponent(fromStatus.icon) : () => null
+                                  return (
+                                    <Badge variant="outline" className={fromStatus?.color || 'bg-gray-100 text-gray-700 border-gray-300'}>
+                                      {fromStatus && <FromIcon className="h-3 w-3 mr-1" />}
+                                      {statusChangeInfo.from}
+                                    </Badge>
+                                  )
+                                })()}
                                 <ArrowRight className="h-3 w-3 text-gray-500" />
-                                <Badge variant="outline" className={`${
-                                  // Try to get status color from our cached statuses
-                                  statuses.find(s => s.name === statusChangeInfo.to)?.color || 'bg-blue-100 text-blue-700 border-blue-300'
-                                }`}>
-                                  {statusChangeInfo.to}
-                                </Badge>
+                                {(() => {
+                                  const toStatus = statuses.find(s => s.name === statusChangeInfo.to)
+                                  const ToIcon = toStatus ? getIconComponent(toStatus.icon) : () => null
+                                  return (
+                                    <Badge variant="outline" className={toStatus?.color || 'bg-blue-100 text-blue-700 border-blue-300'}>
+                                      {toStatus && <ToIcon className="h-3 w-3 mr-1" />}
+                                      {statusChangeInfo.to}
+                                    </Badge>
+                                  )
+                                })()}
                               </div>
                             </div>
                           </div>
                         )}
                         
-                        {/* Regular Comment Content */}
-                        {contentToDisplay.trim() && (
+                        {/* Regular Comment Content - Hide if it's only a status change from ticket details */}
+                        {contentToDisplay.trim() && !isStatusChangeOnly && (
                           <CommentContent content={contentToDisplay.trim()} />
                         )}
                       </>
