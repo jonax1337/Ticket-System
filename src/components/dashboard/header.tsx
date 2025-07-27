@@ -6,7 +6,6 @@ import { signOut } from 'next-auth/react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { UserAvatar } from '@/components/ui/user-avatar'
-import { AvatarUploadDialog } from '@/components/dashboard/avatar-upload-dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -185,28 +184,6 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                   </Link>
                 </DropdownMenuItem>
 
-                {/* Avatar Upload */}
-                {user.id && (
-                  <>
-                    <div className="px-2 py-1">
-                      <AvatarUploadDialog
-                        user={{
-                          id: user.id,
-                          name: user.name,
-                          email: user.email,
-                          avatarUrl: user.avatarUrl || user.image
-                        }}
-                        trigger={
-                          <Button variant="ghost" className="w-full justify-start text-sm font-normal">
-                            <User className="mr-2 h-4 w-4" />
-                            Change Avatar
-                          </Button>
-                        }
-                      />
-                    </div>
-                    <DropdownMenuSeparator />
-                  </>
-                )}
 
                 
                 {/* Mobile Navigation */}

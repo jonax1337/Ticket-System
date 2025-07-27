@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator'
 import ProfileForm from '@/components/dashboard/profile-form'
 import PasswordChangeForm from '@/components/dashboard/password-change-form'
+import { AvatarUploadForm } from '@/components/dashboard/avatar-upload-form'
 
 export default async function AccountPage() {
   const session = await getServerSession(authOptions)
@@ -22,9 +23,19 @@ export default async function AccountPage() {
         </p>
       </div>
       
-      <Separator />
-      
       <div className="grid gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Profile Picture</CardTitle>
+            <CardDescription>
+              Upload or update your profile picture.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AvatarUploadForm user={session.user} />
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle>Profile Information</CardTitle>
