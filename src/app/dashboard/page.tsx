@@ -77,6 +77,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           id: true,
           name: true,
           email: true,
+          avatarUrl: true,
         },
       },
       comments: {
