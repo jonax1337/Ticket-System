@@ -1,12 +1,12 @@
 # Ticket System
 
-[![Build Status](https://github.com/jonax1337/Ticket-System/workflows/NodeJS%20with%20Grunt/badge.svg)](https://github.com/jonax1337/Ticket-System/actions)
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/jonax1337/Ticket-System/releases)
-[![Node.js](https://img.shields.io/badge/node-18%2B-brightgreen.svg)](https://nodejs.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/jonax1337/Ticket-System/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/jonax1337/Ticket-System/pulls)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/jonax1337/Ticket-System/node.js.yml?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jonax1337/Ticket-System/actions)
+[![Version](https://img.shields.io/badge/version-0.1.0-2563eb?style=for-the-badge&logo=semantic-release&logoColor=white)](https://github.com/jonax1337/Ticket-System/releases)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://github.com/jonax1337/Ticket-System/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-22c55e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jonax1337/Ticket-System/pulls)
 
 A modern, full-featured support ticket management system built for professional IT teams. This self-hosted web application provides a complete solution for managing support tickets with advanced filtering, user management, and customizable workflows.
 
