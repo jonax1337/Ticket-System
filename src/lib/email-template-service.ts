@@ -315,7 +315,7 @@ async function renderUnifiedTemplate(
     introText: baseConfig.introText || '',
     sections,
     actionButton: actionButton || undefined,
-    footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Support Team',
+    footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Team',
     disclaimerText: 'This email was sent from {{systemName}} support system.'
   }
 
@@ -384,7 +384,7 @@ function generatePlainTextFromUnified(
     text += `${actionButton.text}: ${actionButton.url}\n\n`
   }
 
-  text += `${replaceTemplateVariables(baseConfig.footerText?.replace('<br>', '\n') || 'Best regards,\n{{systemName}} Support Team', variables)}\n\n`
+  text += `${replaceTemplateVariables(baseConfig.footerText?.replace('<br>', '\n') || 'Best regards,\n{{systemName}} Team', variables)}\n\n`
   text += '---\n'
   text += `This email was sent from ${variables.systemName || 'Support System'} support system.\n`
   text += `If you believe you received this email in error, please contact us at ${variables.supportEmail || 'support@example.com'}`
@@ -620,7 +620,7 @@ export async function createTestEmailTemplate(
     introText: baseConfig.introText || '',
     sections,
     actionButton: actionButton || undefined,
-    footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Support Team',
+    footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Team',
     disclaimerText: 'This email was sent from {{systemName}} support system.'
   }
 
