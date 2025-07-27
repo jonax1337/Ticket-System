@@ -265,7 +265,7 @@ export default function AutomationSettings({ settings }: AutomationSettingsProps
           {/* Configuration Options */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="warningDays">Warning Period (Days)</Label>
+              <Label htmlFor="warningDays">Warning Period</Label>
               <Select value={warningDays.toString()} onValueChange={(value) => setWarningDays(parseInt(value))}>
                 <SelectTrigger>
                   <SelectValue />
@@ -284,7 +284,7 @@ export default function AutomationSettings({ settings }: AutomationSettingsProps
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="closeDays">Auto-Close Period (Days)</Label>
+              <Label htmlFor="closeDays">Auto-Close Period</Label>
               <Select value={closeDays.toString()} onValueChange={(value) => setCloseDays(parseInt(value))}>
                 <SelectTrigger>
                   <SelectValue />
@@ -303,7 +303,7 @@ export default function AutomationSettings({ settings }: AutomationSettingsProps
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="checkInterval">Check Interval (Minutes)</Label>
+              <Label htmlFor="checkInterval">Check Interval</Label>
               <Select value={checkInterval.toString()} onValueChange={(value) => setCheckInterval(parseInt(value))}>
                 <SelectTrigger>
                   <SelectValue />

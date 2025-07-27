@@ -59,7 +59,9 @@ const templateTypes = [
   { value: 'ticket_created', label: 'Ticket Created', description: 'Sent when a new ticket is created' },
   { value: 'status_changed', label: 'Status Changed', description: 'Sent when ticket status is updated' },
   { value: 'comment_added', label: 'Comment Added', description: 'Sent when a new comment is added' },
-  { value: 'participant_added', label: 'Participant Added', description: 'Sent when someone is added as participant' }
+  { value: 'participant_added', label: 'Participant Added', description: 'Sent when someone is added as participant' },
+  { value: 'automation_warning', label: 'Automation Warning', description: 'Sent before automatic ticket closure due to inactivity' },
+  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'Sent when ticket is automatically closed due to inactivity' }
 ]
 
 const availableVariables = {
@@ -276,6 +278,8 @@ export default function EmailTemplateManager() {
       case 'status_changed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
       case 'comment_added': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
       case 'participant_added': return 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200'
+      case 'automation_warning': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+      case 'automation_closed': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
     }
   }

@@ -5,6 +5,8 @@ export type EmailTemplateType =
   | 'status_changed' 
   | 'comment_added'
   | 'participant_added'
+  | 'automation_warning'
+  | 'automation_closed'
 
 interface TemplateVariables {
   // Ticket information
@@ -569,6 +571,239 @@ Original Request:
 {{/ticketDescription}}
 
 You will receive email notifications for any updates to this ticket. You can also reply to participate in the conversation by responding to notification emails.
+
+Best regards,
+{{systemName}} Support Team
+
+---
+This email was sent from {{systemName}} support system.
+If you believe you received this email in error, please contact us at {{supportEmail}}`
+    },
+    {
+      type: 'automation_warning',
+      name: 'Automation Warning - Ticket Will Auto-Close',
+      subject: 'Action Required: Ticket {{ticketNumber}} Will Auto-Close Soon',
+      htmlContent: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Auto-Close Warning</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4; }
+    .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+    .header { background-color: #f59e0b; color: white; padding: 20px; text-align: center; }
+    .content { padding: 30px; }
+    .warning-box { background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; }
+    .ticket-info { background-color: #f8fafc; border-left: 4px solid #2563eb; padding: 15px; margin: 20px 0; }
+    .footer { background-color: #f8fafc; padding: 20px; text-align: center; font-size: 12px; color: #666; }
+    .button { display: inline-block; background-color: #f59e0b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 10px 0; }
+    .urgent { background-color: #fee2e2; border-left: 4px solid #dc2626; padding: 15px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>{{systemName}}</h1>
+      <p>⚠️ Action Required - Ticket Auto-Close Warning</p>
+    </div>
+    
+    <div class="content">
+      <h2>Hello {{customerName}},</h2>
+      
+      <div class="urgent">
+        <h3>🚨 Urgent: Your ticket will be automatically closed soon</h3>
+        <p>This is a reminder that your support ticket has been inactive and will be automatically closed if no response is received soon.</p>
+      </div>
+      
+      <div class="warning-box">
+        <h3>Important Notice</h3>
+        <p>We haven't received a response from you regarding this ticket. If you still need assistance or if your issue is not resolved, please reply to this email as soon as possible.</p>
+        <p><strong>If we don't hear from you, this ticket will be automatically closed to keep our system organized.</strong></p>
+      </div>
+      
+      <div class="ticket-info">
+        <h3>Ticket Details</h3>
+        <p><strong>Ticket Number:</strong> {{ticketNumber}}</p>
+        <p><strong>Subject:</strong> {{ticketSubject}}</p>
+        <p><strong>Status:</strong> {{ticketStatus}}</p>
+        <p><strong>Priority:</strong> {{ticketPriority}}</p>
+        <p><strong>Created:</strong> {{ticketCreatedAt}}</p>
+        <p><strong>Last Updated:</strong> {{ticketUpdatedAt}}</p>
+      </div>
+      
+      <h3>What you can do:</h3>
+      <ul>
+        <li><strong>Reply to this email</strong> if you need further assistance</li>
+        <li><strong>Update your ticket</strong> with any new information</li>
+        <li><strong>Let us know if your issue is resolved</strong> so we can close the ticket properly</li>
+      </ul>
+      
+      {{#ticketUrl}}
+      <a href="{{ticketUrl}}" class="button">View & Update Ticket</a>
+      {{/ticketUrl}}
+      
+      <p>If your issue has been resolved, you don't need to take any action - the ticket will close automatically.</p>
+      
+      <p>Thank you for using our support system!</p>
+      
+      <p>Best regards,<br>{{systemName}} Support Team</p>
+    </div>
+    
+    <div class="footer">
+      <p>This email was sent from {{systemName}} support system.</p>
+      <p>If you believe you received this email in error, please contact us at {{supportEmail}}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+      textContent: `Hello {{customerName}},
+
+🚨 URGENT: Your ticket will be automatically closed soon
+
+This is a reminder that your support ticket has been inactive and will be automatically closed if no response is received soon.
+
+IMPORTANT NOTICE:
+We haven't received a response from you regarding this ticket. If you still need assistance or if your issue is not resolved, please reply to this email as soon as possible.
+
+If we don't hear from you, this ticket will be automatically closed to keep our system organized.
+
+Ticket Details:
+- Ticket Number: {{ticketNumber}}
+- Subject: {{ticketSubject}}
+- Status: {{ticketStatus}}
+- Priority: {{ticketPriority}}
+- Created: {{ticketCreatedAt}}
+- Last Updated: {{ticketUpdatedAt}}
+
+What you can do:
+- Reply to this email if you need further assistance
+- Update your ticket with any new information
+- Let us know if your issue is resolved so we can close the ticket properly
+
+If your issue has been resolved, you don't need to take any action - the ticket will close automatically.
+
+Thank you for using our support system!
+
+Best regards,
+{{systemName}} Support Team
+
+---
+This email was sent from {{systemName}} support system.
+If you believe you received this email in error, please contact us at {{supportEmail}}`
+    },
+    {
+      type: 'automation_closed',
+      name: 'Ticket Automatically Closed',
+      subject: 'Ticket {{ticketNumber}} Has Been Automatically Closed',
+      htmlContent: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Automatically Closed</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4; }
+    .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+    .header { background-color: #6b7280; color: white; padding: 20px; text-align: center; }
+    .content { padding: 30px; }
+    .closure-info { background-color: #f3f4f6; border-left: 4px solid #6b7280; padding: 15px; margin: 20px 0; }
+    .ticket-info { background-color: #f8fafc; border-left: 4px solid #2563eb; padding: 15px; margin: 20px 0; }
+    .footer { background-color: #f8fafc; padding: 20px; text-align: center; font-size: 12px; color: #666; }
+    .button { display: inline-block; background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 10px 0; }
+    .reopen-box { background-color: #dbeafe; border-left: 4px solid #2563eb; padding: 15px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>{{systemName}}</h1>
+      <p>✅ Ticket Automatically Closed</p>
+    </div>
+    
+    <div class="content">
+      <h2>Hello {{customerName}},</h2>
+      
+      <p>Your support ticket has been automatically closed due to inactivity. We hope your issue has been resolved!</p>
+      
+      <div class="closure-info">
+        <h3>Closure Information</h3>
+        <p><strong>Reason:</strong> Automatic closure due to customer inactivity</p>
+        <p><strong>Closed on:</strong> {{currentDate}} at {{currentTime}}</p>
+        <p><strong>Final Status:</strong> CLOSED</p>
+      </div>
+      
+      <div class="ticket-info">
+        <h3>Ticket Summary</h3>
+        <p><strong>Ticket Number:</strong> {{ticketNumber}}</p>
+        <p><strong>Subject:</strong> {{ticketSubject}}</p>
+        <p><strong>Priority:</strong> {{ticketPriority}}</p>
+        <p><strong>Created:</strong> {{ticketCreatedAt}}</p>
+        <p><strong>Duration:</strong> From {{ticketCreatedAt}} to {{currentDate}}</p>
+        {{#assignedToName}}
+        <p><strong>Handled by:</strong> {{assignedToName}}</p>
+        {{/assignedToName}}
+      </div>
+      
+      <div class="reopen-box">
+        <h3>Need Further Assistance?</h3>
+        <p>If your issue is not resolved or if you need additional help, you can easily reopen this ticket or create a new one:</p>
+        <ul>
+          <li><strong>Reply to this email</strong> to reopen the existing ticket</li>
+          <li><strong>Contact us</strong> at {{supportEmail}} for immediate assistance</li>
+          <li><strong>Create a new ticket</strong> if you have a different issue</li>
+        </ul>
+      </div>
+      
+      {{#ticketUrl}}
+      <a href="{{ticketUrl}}" class="button">View Closed Ticket</a>
+      {{/ticketUrl}}
+      
+      <p>We appreciate your patience and hope we were able to help you. If you have any feedback about our support service, please don't hesitate to let us know.</p>
+      
+      <p>Thank you for choosing {{systemName}}!</p>
+      
+      <p>Best regards,<br>{{systemName}} Support Team</p>
+    </div>
+    
+    <div class="footer">
+      <p>This email was sent from {{systemName}} support system.</p>
+      <p>If you believe you received this email in error, please contact us at {{supportEmail}}</p>
+    </div>
+  </div>
+</body>
+</html>`,
+      textContent: `Hello {{customerName}},
+
+Your support ticket has been automatically closed due to inactivity. We hope your issue has been resolved!
+
+Closure Information:
+- Reason: Automatic closure due to customer inactivity
+- Closed on: {{currentDate}} at {{currentTime}}
+- Final Status: CLOSED
+
+Ticket Summary:
+- Ticket Number: {{ticketNumber}}
+- Subject: {{ticketSubject}}
+- Priority: {{ticketPriority}}
+- Created: {{ticketCreatedAt}}
+- Duration: From {{ticketCreatedAt}} to {{currentDate}}
+{{#assignedToName}}
+- Handled by: {{assignedToName}}
+{{/assignedToName}}
+
+Need Further Assistance?
+If your issue is not resolved or if you need additional help, you can easily reopen this ticket or create a new one:
+
+- Reply to this email to reopen the existing ticket
+- Contact us at {{supportEmail}} for immediate assistance  
+- Create a new ticket if you have a different issue
+
+We appreciate your patience and hope we were able to help you. If you have any feedback about our support service, please don't hesitate to let us know.
+
+Thank you for choosing {{systemName}}!
 
 Best regards,
 {{systemName}} Support Team
