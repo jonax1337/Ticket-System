@@ -59,10 +59,11 @@ function stopReminderCron() {
   }
 }
 
-// Start automatically when module is imported
-if (typeof window === 'undefined') { // Only run on server side
-  startReminderCron()
-}
+// Export functions but don't auto-start
+// The cron should be explicitly started from a single entry point
+// if (typeof window === 'undefined') { // Only run on server side
+//   startReminderCron()
+// }
 
 export {
   startReminderCron,
