@@ -9,28 +9,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Checkbox } from '@/components/ui/checkbox'
 import { 
   Mail, 
-  Plus, 
   Edit, 
-  Trash2, 
-  Eye, 
-  Copy,
+  Eye,
   Info,
   FileText,
   Code,
@@ -38,31 +24,30 @@ import {
   CheckCircle,
   XCircle,
   Settings,
-  RefreshCw
+  RefreshCw,
+  FileType,
+  Save,
+  Palette
 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-interface EmailTemplate {
+interface BaseTemplateConfig {
   id: string
-  type: string
-  name: string
-  subject: string
-  htmlContent: string
-  textContent: string | null
-  isDefault: boolean
+  subjectPrefix: string
+  htmlTemplate: string
   isActive: boolean
+  systemName: string
   createdAt: string
   updatedAt: string
 }
 
 const templateTypes = [
-  { value: 'ticket_created', label: 'Ticket Created', description: 'Sent when a new ticket is created' },
-  { value: 'status_changed', label: 'Status Changed', description: 'Sent when ticket status is updated' },
-  { value: 'comment_added', label: 'Comment Added', description: 'Sent when a new comment is added' },
-  { value: 'participant_added', label: 'Participant Added', description: 'Sent when someone is added as participant' },
-  { value: 'automation_warning', label: 'Automation Warning', description: 'Sent before automatic ticket closure due to inactivity' },
-  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'Sent when ticket is automatically closed due to inactivity' }
+  { value: 'ticket_created', label: 'Ticket Created', description: 'When a new ticket is created' },
+  { value: 'status_changed', label: 'Status Changed', description: 'When ticket status is updated' },
+  { value: 'comment_added', label: 'Comment Added', description: 'When a new comment is added' },
+  { value: 'participant_added', label: 'Participant Added', description: 'When someone is added as participant' },
+  { value: 'automation_warning', label: 'Automation Warning', description: 'Before automatic ticket closure' },
+  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'When ticket is automatically closed' }
 ]
 
 const availableVariables = {
@@ -112,87 +97,53 @@ const availableVariables = {
 }
 
 export default function EmailTemplateManager() {
-  const [templates, setTemplates] = useState<EmailTemplate[]>([])
+  const [baseTemplate, setBaseTemplate] = useState<BaseTemplateConfig | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [editingTemplate, setEditingTemplate] = useState<EmailTemplate | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [previewData, setPreviewData] = useState<{
     subject: string;
     htmlContent: string;
-    textContent?: string;
     sampleData: Record<string, unknown>;
   } | null>(null)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [previewType, setPreviewType] = useState('ticket_created')
   const [formData, setFormData] = useState({
-    type: '',
-    name: '',
-    subject: '',
-    htmlContent: '',
-    textContent: '',
+    subjectPrefix: '[Ticket {{ticketNumber}}]',
+    htmlTemplate: '',
     isActive: true
   })
 
   useEffect(() => {
-    fetchTemplates()
+    fetchBaseTemplate()
   }, [])
 
-  const fetchTemplates = async () => {
+  const fetchBaseTemplate = async () => {
     try {
-      const response = await fetch('/api/admin/email-templates')
+      const response = await fetch('/api/admin/email-templates/base')
       if (response.ok) {
         const data = await response.json()
-        setTemplates(data)
+        setBaseTemplate(data)
+        setFormData({
+          subjectPrefix: data.subjectPrefix,
+          htmlTemplate: data.htmlTemplate,
+          isActive: data.isActive
+        })
       } else {
-        toast.error('Failed to fetch email templates')
+        toast.error('Failed to fetch base template configuration')
       }
     } catch (error) {
-      console.error('Error fetching templates:', error)
-      toast.error('Failed to fetch email templates')
+      console.error('Error fetching base template:', error)
+      toast.error('Failed to fetch base template configuration')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const resetForm = () => {
-    setFormData({
-      type: '',
-      name: '',
-      subject: '',
-      htmlContent: '',
-      textContent: '',
-      isActive: true
-    })
-  }
-
-  const openEditDialog = (template?: EmailTemplate) => {
-    if (template) {
-      setEditingTemplate(template)
-      setFormData({
-        type: template.type,
-        name: template.name,
-        subject: template.subject,
-        htmlContent: template.htmlContent,
-        textContent: template.textContent || '',
-        isActive: template.isActive
-      })
-    } else {
-      setEditingTemplate(null)
-      resetForm()
-    }
-    setIsDialogOpen(true)
-  }
-
   const handleSave = async () => {
     setIsLoading(true)
     try {
-      const url = editingTemplate 
-        ? `/api/admin/email-templates/${editingTemplate.id}`
-        : '/api/admin/email-templates'
-      
-      const method = editingTemplate ? 'PUT' : 'POST'
-
-      const response = await fetch(url, {
-        method,
+      const response = await fetch('/api/admin/email-templates/base', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -200,51 +151,30 @@ export default function EmailTemplateManager() {
       })
 
       if (response.ok) {
-        setIsDialogOpen(false)
-        resetForm()
-        toast.success(
-          editingTemplate ? 'Email template updated successfully' : 'Email template created successfully'
-        )
-        fetchTemplates()
+        const updatedTemplate = await response.json()
+        setBaseTemplate(updatedTemplate)
+        setIsEditDialogOpen(false)
+        toast.success('Base email template updated successfully')
       } else {
         const error = await response.json()
-        toast.error(error.error || 'Failed to save email template')
+        toast.error(error.error || 'Failed to update base template')
       }
     } catch (err) {
-      console.error('Failed to save email template:', err)
-      toast.error('Failed to save email template')
+      console.error('Failed to save base template:', err)
+      toast.error('Failed to save base template')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleDelete = async (id: string) => {
+  const handlePreview = async (templateType: string) => {
     try {
-      const response = await fetch(`/api/admin/email-templates/${id}`, {
-        method: 'DELETE',
-      })
-
-      if (response.ok) {
-        toast.success('Email template deleted successfully')
-        fetchTemplates()
-      } else {
-        const error = await response.json()
-        toast.error(error.error || 'Failed to delete email template')
-      }
-    } catch (err) {
-      console.error('Failed to delete email template:', err)
-      toast.error('Failed to delete email template')
-    }
-  }
-
-  const handlePreview = async (template: EmailTemplate) => {
-    try {
-      const response = await fetch(`/api/admin/email-templates/${template.id}/preview`, {
+      const response = await fetch('/api/admin/email-templates/base/preview', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({})
+        body: JSON.stringify({ templateType })
       })
 
       if (response.ok) {
@@ -260,33 +190,8 @@ export default function EmailTemplateManager() {
     }
   }
 
-  const handleDuplicate = (template: EmailTemplate) => {
-    setEditingTemplate(null)
-    setFormData({
-      type: template.type,
-      name: `${template.name} (Copy)`,
-      subject: template.subject,
-      htmlContent: template.htmlContent,
-      textContent: template.textContent || '',
-      isActive: true
-    })
-    setIsDialogOpen(true)
-  }
-
-  const getTypeBadgeColor = (type: string) => {
-    switch (type) {
-      case 'ticket_created': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-      case 'status_changed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-      case 'comment_added': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-      case 'participant_added': return 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200'
-      case 'automation_warning': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-      case 'automation_closed': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-    }
-  }
-
   const insertVariable = (variable: string) => {
-    const htmlTextarea = document.getElementById('htmlContent') as HTMLTextAreaElement
+    const htmlTextarea = document.getElementById('htmlTemplate') as HTMLTextAreaElement
     if (htmlTextarea) {
       const start = htmlTextarea.selectionStart
       const end = htmlTextarea.selectionEnd
@@ -295,7 +200,7 @@ export default function EmailTemplateManager() {
       const after = text.substring(end, text.length)
       const newText = before + `{{${variable}}}` + after
       
-      setFormData({ ...formData, htmlContent: newText })
+      setFormData({ ...formData, htmlTemplate: newText })
       
       // Set cursor position after inserted variable
       setTimeout(() => {
@@ -305,6 +210,15 @@ export default function EmailTemplateManager() {
     }
   }
 
+  const openEditDialog = () => {
+    setFormData({
+      subjectPrefix: baseTemplate?.subjectPrefix || '[Ticket {{ticketNumber}}]',
+      htmlTemplate: baseTemplate?.htmlTemplate || '',
+      isActive: baseTemplate?.isActive || true
+    })
+    setIsEditDialogOpen(true)
+  }
+
   return (
     <div className="space-y-6">
       <Card>
@@ -312,29 +226,29 @@ export default function EmailTemplateManager() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                Email Templates
+                <FileType className="h-5 w-5" />
+                Unified Email Template
               </CardTitle>
               <CardDescription>
-                Manage customizable email templates for different ticket actions. Use variables to personalize content.
+                Manage the single base template used for all email notifications. Configure the subject prefix and HTML template that adapts automatically for different email types.
               </CardDescription>
             </div>
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
               <DialogTrigger asChild>
-                <Button onClick={() => openEditDialog()}>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Create Template
+                <Button onClick={openEditDialog} disabled={!baseTemplate}>
+                  <Edit className="mr-2 h-4 w-4" />
+                  Edit Base Template
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-6xl w-full max-h-[90vh] m-4 p-0 overflow-hidden flex flex-col gap-0">
                 <div className="p-6 border-b flex-shrink-0">
                   <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                      <Mail className="h-5 w-5" />
-                      {editingTemplate ? 'Edit Email Template' : 'New Email Template'}
+                      <FileType className="h-5 w-5" />
+                      Edit Base Email Template
                     </DialogTitle>
                     <DialogDescription>
-                      Create customizable email templates with variables for dynamic content.
+                      Configure the unified email template and subject prefix used for all email notifications.
                     </DialogDescription>
                   </DialogHeader>
                 </div>
@@ -344,45 +258,19 @@ export default function EmailTemplateManager() {
                   <div className="flex-1 overflow-y-auto p-6 space-y-6">
                     {/* Basic Settings */}
                     <div className="space-y-4">
-                      <h4 className="text-sm font-medium">Basic Settings</h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="type">Template Type</Label>
-                          <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select type..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {templateTypes.map((type) => (
-                                <SelectItem key={type.value} value={type.value}>
-                                  <div>
-                                    <div className="font-medium">{type.label}</div>
-                                    <div className="text-xs text-muted-foreground">{type.description}</div>
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Template Name</Label>
-                          <Input
-                            id="name"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            placeholder="e.g. Welcome New Customer"
-                          />
-                        </div>
-                      </div>
+                      <h4 className="text-sm font-medium">Configuration</h4>
                       
                       <div className="space-y-2">
-                        <Label htmlFor="subject">Email Subject</Label>
+                        <Label htmlFor="subjectPrefix">Subject Prefix</Label>
                         <Input
-                          id="subject"
-                          value={formData.subject}
-                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          placeholder="e.g. Ticket {{ticketNumber}} Created: {{ticketSubject}}"
+                          id="subjectPrefix"
+                          value={formData.subjectPrefix}
+                          onChange={(e) => setFormData({ ...formData, subjectPrefix: e.target.value })}
+                          placeholder="e.g. [Ticket {{ticketNumber}}]"
                         />
+                        <p className="text-xs text-muted-foreground">
+                          This prefix will be added to all email subjects automatically. Use {`{{ticketNumber}}`} for dynamic ticket numbers.
+                        </p>
                       </div>
 
                       <div className="flex items-center space-x-2">
@@ -397,30 +285,22 @@ export default function EmailTemplateManager() {
 
                     <Separator />
 
-                    {/* Content */}
+                    {/* Template Content */}
                     <div className="space-y-4">
-                      <h4 className="text-sm font-medium">Email Content</h4>
+                      <h4 className="text-sm font-medium">Base HTML Template</h4>
                       
                       <div className="space-y-2">
-                        <Label htmlFor="htmlContent">HTML Content</Label>
+                        <Label htmlFor="htmlTemplate">HTML Template</Label>
                         <Textarea
-                          id="htmlContent"
-                          value={formData.htmlContent}
-                          onChange={(e) => setFormData({ ...formData, htmlContent: e.target.value })}
-                          placeholder="Enter HTML email content with variables..."
-                          className="min-h-[200px] font-mono text-sm"
+                          id="htmlTemplate"
+                          value={formData.htmlTemplate}
+                          onChange={(e) => setFormData({ ...formData, htmlTemplate: e.target.value })}
+                          placeholder="Enter the base HTML template with placeholders..."
+                          className="min-h-[400px] font-mono text-sm"
                         />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="textContent">Plain Text Content (Optional)</Label>
-                        <Textarea
-                          id="textContent"
-                          value={formData.textContent}
-                          onChange={(e) => setFormData({ ...formData, textContent: e.target.value })}
-                          placeholder="Plain text fallback content..."
-                          className="min-h-[100px]"
-                        />
+                        <p className="text-xs text-muted-foreground">
+                          This is the unified HTML template that will be used for all email types. Use placeholders like {`{{headerTitle}}`}, {`{{sections}}`}, {`{{actionButton}}`} for dynamic content.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -458,7 +338,7 @@ export default function EmailTemplateManager() {
 
                 <div className="p-6 border-t flex-shrink-0">
                   <DialogFooter>
-                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                    <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
                       Cancel
                     </Button>
                     <Button onClick={handleSave} disabled={isLoading}>
@@ -472,155 +352,113 @@ export default function EmailTemplateManager() {
         </CardHeader>
         <CardContent>
           {/* Silent loading indicator */}
-          {isLoading && templates.length > 0 && (
+          {isLoading && baseTemplate && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
               <RefreshCw className="h-3 w-3 animate-spin" />
-              <span>Updating templates...</span>
+              <span>Updating template...</span>
             </div>
           )}
           
-          {templates.length === 0 ? (
+          {!baseTemplate ? (
             <div className="text-center py-8">
               {isLoading ? (
                 <>
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-                  <p className="mt-2 text-sm text-muted-foreground">Loading templates...</p>
+                  <p className="mt-2 text-sm text-muted-foreground">Loading base template...</p>
                 </>
               ) : (
                 <>
-                  <Mail className="mx-auto h-12 w-12 text-muted-foreground" />
-                  <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Email Templates</h3>
+                  <FileType className="mx-auto h-12 w-12 text-muted-foreground" />
+                  <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Base Template</h3>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Create your first email template to customize customer notifications.
+                    Failed to load the base email template configuration.
                   </p>
                 </>
               )}
             </div>
           ) : (
-            <div className="space-y-4">
-              {templateTypes.map((templateType) => {
-                const typeTemplates = templates.filter(t => t.type === templateType.value)
-                
-                return (
-                  <div key={templateType.value} className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <Badge className={getTypeBadgeColor(templateType.value)}>
-                        {templateType.label}
+            <div className="space-y-6">
+              {/* Base Template Overview */}
+              <div className="border rounded-lg p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <FileType className="h-5 w-5" />
+                      Base Email Template
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Unified template system for all email notifications
+                    </p>
+                  </div>
+                  <div className="flex gap-1">
+                    {baseTemplate.isActive ? (
+                      <Badge variant="default" className="text-xs">
+                        <CheckCircle className="mr-1 h-3 w-3" />
+                        Active
                       </Badge>
-                      <span className="text-sm text-muted-foreground">{templateType.description}</span>
-                    </div>
-                    
-                    {typeTemplates.length === 0 ? (
-                      <div className="border rounded-lg p-4 bg-muted/20">
-                        <p className="text-sm text-muted-foreground">No templates for this type</p>
-                      </div>
                     ) : (
-                      <div className="space-y-2">
-                        {typeTemplates.map((template) => (
-                          <div key={template.id} className="border rounded-lg p-4">
-                            <div className="flex items-start justify-between">
-                              <div className="space-y-2">
-                                <div className="flex items-center gap-2">
-                                  <h3 className="font-medium">{template.name}</h3>
-                                  <div className="flex gap-1">
-                                    {template.isDefault && (
-                                      <Badge variant="outline" className="text-xs">
-                                        <Settings className="mr-1 h-3 w-3" />
-                                        Default
-                                      </Badge>
-                                    )}
-                                    {template.isActive ? (
-                                      <Badge variant="default" className="text-xs">
-                                        <CheckCircle className="mr-1 h-3 w-3" />
-                                        Active
-                                      </Badge>
-                                    ) : (
-                                      <Badge variant="secondary" className="text-xs">
-                                        <XCircle className="mr-1 h-3 w-3" />
-                                        Inactive
-                                      </Badge>
-                                    )}
-                                  </div>
-                                </div>
-                                
-                                <div className="text-sm text-muted-foreground">
-                                  <div className="font-medium">{template.subject}</div>
-                                  <div className="text-xs">
-                                    Updated: {new Date(template.updatedAt).toLocaleString()}
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="flex items-center gap-2">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => handlePreview(template)}
-                                >
-                                  <Eye className="mr-2 h-4 w-4" />
-                                  Preview
-                                </Button>
-                                
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => handleDuplicate(template)}
-                                >
-                                  <Copy className="mr-2 h-4 w-4" />
-                                  Duplicate
-                                </Button>
-
-                                {!template.isDefault && (
-                                  <>
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() => openEditDialog(template)}
-                                    >
-                                      <Edit className="mr-2 h-4 w-4" />
-                                      Edit
-                                    </Button>
-
-                                    <AlertDialog>
-                                      <AlertDialogTrigger asChild>
-                                        <Button
-                                          variant="outline"
-                                          size="sm"
-                                        >
-                                          <Trash2 className="mr-2 h-4 w-4" />
-                                          Delete
-                                        </Button>
-                                      </AlertDialogTrigger>
-                                      <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                          <AlertDialogTitle>Delete Email Template</AlertDialogTitle>
-                                          <AlertDialogDescription>
-                                            Are you sure you want to delete the template &quot;{template.name}&quot;? 
-                                            This action cannot be undone.
-                                          </AlertDialogDescription>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                          <AlertDialogAction
-                                            onClick={() => handleDelete(template.id)}
-                                            className="bg-red-600 hover:bg-red-700 focus:ring-red-600 text-white"
-                                          >
-                                            Delete Template
-                                          </AlertDialogAction>
-                                        </AlertDialogFooter>
-                                      </AlertDialogContent>
-                                    </AlertDialog>
-                                  </>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                      <Badge variant="secondary" className="text-xs">
+                        <XCircle className="mr-1 h-3 w-3" />
+                        Inactive
+                      </Badge>
                     )}
                   </div>
-                )
-              })}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <Label className="text-sm font-medium">Subject Prefix</Label>
+                    <div className="mt-1 p-2 bg-muted rounded text-sm font-mono">
+                      {baseTemplate.subjectPrefix}
+                    </div>
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium">System Name</Label>
+                    <div className="mt-1 p-2 bg-muted rounded text-sm">
+                      {baseTemplate.systemName}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-xs text-muted-foreground">
+                  Last updated: {new Date(baseTemplate.updatedAt).toLocaleString()}
+                </div>
+              </div>
+
+              {/* Email Type Previews */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Palette className="h-4 w-4" />
+                  <h4 className="text-sm font-medium">Email Type Previews</h4>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  See how the base template appears for different email types. Each type uses the same base template with different content sections.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {templateTypes.map((type) => (
+                    <div key={type.value} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <Badge variant="outline" className="text-xs">
+                          {type.label}
+                        </Badge>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handlePreview(type.value)}
+                        >
+                          <Eye className="mr-1 h-3 w-3" />
+                          Preview
+                        </Button>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{type.description}</p>
+                      <div className="mt-2 text-xs font-mono bg-muted p-2 rounded">
+                        {baseTemplate.subjectPrefix} {type.label}: Sample Subject
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </CardContent>
@@ -636,7 +474,7 @@ export default function EmailTemplateManager() {
                 Email Template Preview
               </DialogTitle>
               <DialogDescription>
-                Preview how the email will look with sample data
+                Preview how the unified template renders for different email types
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -644,14 +482,10 @@ export default function EmailTemplateManager() {
           <div className="flex-1 overflow-y-auto p-6">
             {previewData && (
               <Tabs defaultValue="html" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
+                <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="html" className="flex items-center gap-2">
                     <Globe className="h-4 w-4" />
                     HTML Preview
-                  </TabsTrigger>
-                  <TabsTrigger value="text" className="flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
-                    Plain Text
                   </TabsTrigger>
                   <TabsTrigger value="source" className="flex items-center gap-2">
                     <Code className="h-4 w-4" />
@@ -698,23 +532,6 @@ export default function EmailTemplateManager() {
                         title="Email Preview"
                         sandbox="allow-same-origin"
                       />
-                    </div>
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="text" className="space-y-4">
-                  <div className="space-y-2">
-                    <Label>Subject:</Label>
-                    <div className="p-3 bg-muted rounded font-mono text-sm">
-                      {previewData.subject}
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Plain Text Content:</Label>
-                    <div className="border rounded p-4 bg-muted/30">
-                      <pre className="whitespace-pre-wrap text-sm">
-                        {previewData.textContent || 'No plain text content available'}
-                      </pre>
                     </div>
                   </div>
                 </TabsContent>

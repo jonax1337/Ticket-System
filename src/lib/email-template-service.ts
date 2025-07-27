@@ -56,6 +56,7 @@ interface TemplateVariables {
   supportEmail?: string
   supportUrl?: string
   unsubscribeUrl?: string
+  emailSubjectPrefix?: string
   
   // Additional context
   additionalNotes?: string
@@ -174,7 +175,15 @@ export async function renderEmailTemplate(
       renderedHtmlContent = replaceTemplateVariables(template.htmlContent, fullVariables)
     }
 
-    const renderedSubject = replaceTemplateVariables(template.subject, fullVariables)
+    // Apply subject prefix from system settings
+    let renderedSubject = replaceTemplateVariables(template.subject, fullVariables)
+    const subjectPrefix = replaceTemplateVariables(fullVariables.emailSubjectPrefix || '[Ticket {{ticketNumber}}]', fullVariables)
+    
+    // Add prefix if not already present
+    if (!renderedSubject.includes(subjectPrefix.replace(/{{[^}]+}}/g, ''))) {
+      renderedSubject = `${subjectPrefix} ${renderedSubject}`
+    }
+    
     const renderedTextContent = template.textContent 
       ? replaceTemplateVariables(template.textContent, fullVariables)
       : generatePlainTextFromUnified(type, fullVariables)
@@ -299,7 +308,8 @@ async function getSystemDefaults(): Promise<TemplateVariables> {
       systemName: systemSettings?.appName || 'Support System',
       supportEmail: 'support@example.com', // This should come from email config
       supportUrl: process.env.NEXTAUTH_URL || 'https://localhost:3000',
-      unsubscribeUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/unsubscribe`
+      unsubscribeUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/unsubscribe`,
+      emailSubjectPrefix: systemSettings?.emailSubjectPrefix || '[Ticket {{ticketNumber}}]'
     }
   } catch (error) {
     console.error('Error fetching system defaults:', error)
@@ -307,7 +317,8 @@ async function getSystemDefaults(): Promise<TemplateVariables> {
       systemName: 'Support System',
       supportEmail: 'support@example.com',
       supportUrl: 'https://localhost:3000',
-      unsubscribeUrl: 'https://localhost:3000/unsubscribe'
+      unsubscribeUrl: 'https://localhost:3000/unsubscribe',
+      emailSubjectPrefix: '[Ticket {{ticketNumber}}]'
     }
   }
 }
@@ -320,42 +331,42 @@ export async function createDefaultEmailTemplates(): Promise<void> {
     {
       type: 'ticket_created',
       name: 'Ticket Created Confirmation',
-      subject: 'Ticket {{ticketNumber}} Created: {{ticketSubject}}',
+      subject: 'Ticket Created: {{ticketSubject}}',
       htmlContent: 'unified_template', // Marker to indicate unified template
       textContent: null // Will be generated automatically
     },
     {
       type: 'status_changed',
       name: 'Status Change Notification',
-      subject: 'Ticket {{ticketNumber}} Status Updated: {{newStatus}}',
+      subject: 'Status Updated: {{newStatus}}',
       htmlContent: 'unified_template',
       textContent: null
     },
     {
       type: 'comment_added',
       name: 'New Comment Notification',
-      subject: 'New Comment on Ticket {{ticketNumber}}: {{ticketSubject}}',
+      subject: 'New Comment: {{ticketSubject}}',
       htmlContent: 'unified_template',
       textContent: null
     },
     {
       type: 'participant_added',
       name: 'Added as Participant',
-      subject: 'You have been added to Ticket {{ticketNumber}}: {{ticketSubject}}',
+      subject: 'Added as Participant: {{ticketSubject}}',
       htmlContent: 'unified_template',
       textContent: null
     },
     {
       type: 'automation_warning',
       name: 'Automation Warning - Ticket Will Auto-Close',
-      subject: 'Action Required: Ticket {{ticketNumber}} Will Auto-Close Soon',
+      subject: 'Action Required: Will Auto-Close Soon',
       htmlContent: 'unified_template',
       textContent: null
     },
     {
       type: 'automation_closed',
       name: 'Ticket Automatically Closed',
-      subject: 'Ticket {{ticketNumber}} Has Been Automatically Closed',
+      subject: 'Automatically Closed',
       htmlContent: 'unified_template',
       textContent: null
     }

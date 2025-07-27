@@ -191,6 +191,11 @@ model SystemSettings {
   automationCloseDays Int @default(14) // Days of inactivity before auto-close
   automationCheckInterval Int @default(60) // Check interval in minutes
   
+  // Email template settings
+  emailSubjectPrefix String @default("[Ticket {{ticketNumber}}]") // Prefix for email subjects
+  emailBaseTemplate String? @db.Text // Base HTML template for emails
+  emailBaseTemplateActive Boolean @default(true) // Enable/disable base template
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
