@@ -32,7 +32,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
-import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar, Bell } from 'lucide-react'
+import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar, Bell, Inbox, Folder, Circle } from 'lucide-react'
 import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
@@ -64,7 +64,10 @@ const getIconComponent = (iconName: string) => {
     Timer,
     AlertTriangle,
     Zap,
-    TrendingUp
+    TrendingUp,
+    Inbox,
+    Folder,
+    Circle
   }
   return iconMap[iconName] || AlertCircle
 }
@@ -75,8 +78,10 @@ export function CreateTicketDialog() {
   const [open, setOpen] = useState(false)
   const [users, setUsers] = useState<User[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
+  const [queues, setQueues] = useState<Array<{id: string, name: string, color: string, icon: string}>>([])
   const [priority, setPriority] = useState<string>('Medium')
   const [assignedTo, setAssignedTo] = useState<string>('')
+  const [selectedQueue, setSelectedQueue] = useState<string>('')
   const [attachments, setAttachments] = useState<File[]>([])
   const [dueDate, setDueDate] = useState<Date | undefined>(undefined)
   const [reminderDate, setReminderDate] = useState<Date | undefined>(undefined)
@@ -106,12 +111,13 @@ export function CreateTicketDialog() {
   }
 
   useEffect(() => {
-    // Load users and priorities
+    // Load users, priorities, and queues
     const fetchData = async () => {
       try {
-        const [usersResponse, prioritiesResponse] = await Promise.all([
+        const [usersResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/users'),
-          fetch('/api/priorities')
+          fetch('/api/priorities'),
+          fetch('/api/queues')
         ])
         
         if (usersResponse.ok) {
@@ -126,6 +132,16 @@ export function CreateTicketDialog() {
           if (priorityData.length > 0) {
             const defaultPriority = priorityData.find((p: CustomPriority) => p.name === 'Medium') || priorityData[0]
             setPriority(defaultPriority.name)
+          }
+        }
+
+        if (queuesResponse.ok) {
+          const queueData = await queuesResponse.json()
+          setQueues(queueData)
+          // Set default queue if available
+          const defaultQueue = queueData.find((q: {id: string, name: string, color: string, icon: string, isDefault: boolean}) => q.isDefault)
+          if (defaultQueue) {
+            setSelectedQueue(defaultQueue.id)
           }
         }
       } catch (error) {
@@ -174,6 +190,7 @@ export function CreateTicketDialog() {
           fromEmail: formData.get('fromEmail') || 'internal@support.com',
           fromName: formData.get('fromName') || 'Internal Support',
           priority: priority,
+          queueId: selectedQueue || null,
           assignedTo: assignedTo || null,
           attachments: uploadedFiles,
           dueDate: dueDate ? normalizeDateToMidnight(dueDate)?.toISOString() : null,
@@ -194,6 +211,7 @@ export function CreateTicketDialog() {
       const defaultPriority = priorities.find(p => p.name === 'Medium') || priorities[0]
       setPriority(defaultPriority?.name || 'Medium')
       setAssignedTo('')
+      setSelectedQueue('')
       setAttachments([])
       setDueDate(undefined)
       setReminderDate(undefined)
@@ -284,6 +302,32 @@ export function CreateTicketDialog() {
                               <span className="flex items-center gap-2">
                                 <IconComponent className="h-4 w-4" />
                                 <span>{priorityOption.name}</span>
+                              </span>
+                            </SelectItem>
+                          )
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium">Queue</Label>
+                    <Select value={selectedQueue} onValueChange={(value: string) => setSelectedQueue(value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select queue" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">
+                          <span className="flex items-center gap-2">
+                            <span>No Queue</span>
+                          </span>
+                        </SelectItem>
+                        {queues.map((queue) => {
+                          const IconComponent = getIconComponent(queue.icon)
+                          return (
+                            <SelectItem key={queue.id} value={queue.id}>
+                              <span className="flex items-center gap-2">
+                                <IconComponent className="h-4 w-4" />
+                                <span>{queue.name}</span>
                               </span>
                             </SelectItem>
                           )
