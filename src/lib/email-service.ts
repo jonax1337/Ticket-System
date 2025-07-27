@@ -547,7 +547,7 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
     }
 
     // Create SMTP transporter
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       host: emailConfig.host,
       port: emailConfig.port === 993 ? 587 : emailConfig.port,
       secure: emailConfig.port === 465,
