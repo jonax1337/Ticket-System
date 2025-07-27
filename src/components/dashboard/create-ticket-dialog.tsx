@@ -37,6 +37,7 @@ import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
 import { normalizeDateToMidnight } from '@/lib/date-utils'
+import { Dropzone, DropzoneContent, DropzoneEmptyState } from '@/components/ui/shadcn-io/dropzone'
 
 interface User {
   id: string
@@ -83,9 +84,12 @@ export function CreateTicketDialog() {
     setAssignedTo(value)
   }
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || [])
+  const handleFileChange = (files: File[]) => {
     setAttachments(prev => [...prev, ...files])
+  }
+
+  const handleFileError = (error: Error) => {
+    toast.error(error.message || 'Error uploading files')
   }
 
   const removeAttachment = (index: number) => {
@@ -398,31 +402,41 @@ export function CreateTicketDialog() {
                 </h4>
                 <div className="space-y-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="attachments" className="text-sm font-medium">Upload Files</Label>
-                    <div className="flex items-center justify-center w-full">
-                      <label
-                        htmlFor="attachments"
-                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                      >
-                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                          <Upload className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" />
-                          <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold">Click to upload</span> or drag and drop
+                    <Label className="text-sm font-medium">Upload Files</Label>
+                    <Dropzone
+                      onDrop={handleFileChange}
+                      onError={handleFileError}
+                      accept={{
+                        'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
+                        'application/pdf': ['.pdf'],
+                        'application/msword': ['.doc'],
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+                        'text/plain': ['.txt'],
+                        'application/zip': ['.zip'],
+                        'application/x-rar-compressed': ['.rar']
+                      }}
+                      maxSize={10 * 1024 * 1024} // 10MB
+                      multiple
+                      className="min-h-[80px]"
+                    >
+                      <DropzoneEmptyState>
+                        <div className="flex flex-col items-center justify-center text-center">
+                          <div className="flex size-6 items-center justify-center rounded-md bg-muted text-muted-foreground mb-1">
+                            <Upload size={14} />
+                          </div>
+                          <p className="font-medium text-sm">
+                            Upload attachments
                           </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            Images, documents, archives (MAX. 10MB each)
+                          <p className="text-muted-foreground text-xs">
+                            Drag and drop or click to upload
+                          </p>
+                          <p className="text-muted-foreground text-xs">
+                            Images, documents, archives (Max 10MB each)
                           </p>
                         </div>
-                        <input
-                          id="attachments"
-                          type="file"
-                          multiple
-                          accept="image/*,.pdf,.doc,.docx,.txt,.zip,.rar"
-                          onChange={handleFileChange}
-                          className="hidden"
-                        />
-                      </label>
-                    </div>
+                      </DropzoneEmptyState>
+                      <DropzoneContent />
+                    </Dropzone>
                   </div>
                   
                   {attachments.length > 0 && (
