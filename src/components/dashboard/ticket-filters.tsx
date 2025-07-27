@@ -15,7 +15,7 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { Button } from '@/components/ui/button'
-import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp } from 'lucide-react'
+import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp, Inbox, Folder } from 'lucide-react'
 
 interface CustomStatus {
   id: string
@@ -35,6 +35,15 @@ interface CustomPriority {
   isDefault: boolean
 }
 
+interface Queue {
+  id: string
+  name: string
+  color: string
+  icon: string
+  order: number
+  isDefault: boolean
+}
+
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
@@ -45,7 +54,9 @@ const getIconComponent = (iconName: string) => {
     AlertTriangle,
     Circle,
     Zap,
-    TrendingUp
+    TrendingUp,
+    Inbox,
+    Folder
   }
   return iconMap[iconName] || AlertCircle
 }
@@ -62,19 +73,35 @@ export default function TicketFilters() {
   const [users, setUsers] = useState<User[]>([])
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
-  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '')
-  const currentStatus = searchParams.get('status') || 'ALL'
-  const currentPriority = searchParams.get('priority') || 'ALL'
-  const currentAssigned = searchParams.get('assigned') || 'UNASSIGNED'
+  const [queues, setQueues] = useState<Queue[]>([])
+  
+  // Get filter values from URL params first, then fallback to localStorage
+  const getFilterValue = (key: string, defaultValue: string) => {
+    const urlValue = searchParams.get(key)
+    if (urlValue) return urlValue
+    
+    if (typeof window !== 'undefined') {
+      const savedValue = localStorage.getItem(`dashboard-filter-${key}`)
+      return savedValue || defaultValue
+    }
+    return defaultValue
+  }
+  
+  const [searchValue, setSearchValue] = useState(() => getFilterValue('search', ''))
+  const currentStatus = getFilterValue('status', 'ALL')
+  const currentPriority = getFilterValue('priority', 'ALL')
+  const currentAssigned = getFilterValue('assigned', 'UNASSIGNED')
+  const currentQueue = getFilterValue('queue', 'ALL')
 
   useEffect(() => {
-    // Load users, statuses, and priorities
+    // Load users, statuses, priorities, and queues
     const fetchData = async () => {
       try {
-        const [usersResponse, statusesResponse, prioritiesResponse] = await Promise.all([
+        const [usersResponse, statusesResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/users'),
           fetch('/api/statuses'),
-          fetch('/api/priorities')
+          fetch('/api/priorities'),
+          fetch('/api/queues')
         ])
         
         if (usersResponse.ok) {
@@ -91,6 +118,11 @@ export default function TicketFilters() {
           const priorityData = await prioritiesResponse.json()
           setPriorities(priorityData)
         }
+
+        if (queuesResponse.ok) {
+          const queueData = await queuesResponse.json()
+          setQueues(queueData)
+        }
       } catch (error) {
         console.error('Failed to fetch data:', error)
       }
@@ -102,8 +134,16 @@ export default function TicketFilters() {
     const params = new URLSearchParams(searchParams.toString())
     if (value && value !== 'ALL') {
       params.set(key, value)
+      // Save to localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(`dashboard-filter-${key}`, value)
+      }
     } else {
       params.delete(key)
+      // Remove from localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(`dashboard-filter-${key}`)
+      }
     }
     router.push(`/dashboard?${params.toString()}`)
   }
@@ -113,8 +153,16 @@ export default function TicketFilters() {
       const params = new URLSearchParams(searchParams.toString())
       if (searchTerm.trim()) {
         params.set('search', searchTerm.trim())
+        // Save to localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('dashboard-filter-search', searchTerm.trim())
+        }
       } else {
         params.delete('search')
+        // Remove from localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('dashboard-filter-search')
+        }
       }
       router.push(`/dashboard?${params.toString()}`)
     }, 500),
@@ -142,6 +190,10 @@ export default function TicketFilters() {
   const handleAssignedChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set('assigned', value)
+    // Save to localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('dashboard-filter-assigned', value)
+    }
     router.push(`/dashboard?${params.toString()}`)
   }
 
@@ -273,6 +325,32 @@ export default function TicketFilters() {
             </ComboboxList>
           </ComboboxContent>
         </Combobox>
+        <Select
+          defaultValue={currentQueue}
+          onValueChange={(value) => handleFilterChange('queue', value)}
+        >
+          <SelectTrigger className={`w-[140px] ${currentQueue !== 'ALL' ? queues.find(q => q.id === currentQueue)?.color || '' : ''}`}>
+            <SelectValue placeholder="All Queues" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="ALL">
+              <span className="flex items-center gap-2">
+                <span>All Queues</span>
+              </span>
+            </SelectItem>
+            {queues.map((queue) => {
+              const IconComponent = getIconComponent(queue.icon)
+              return (
+                <SelectItem key={queue.id} value={queue.id}>
+                  <span className="flex items-center gap-2">
+                    <IconComponent className="h-4 w-4" />
+                    <span>{queue.name}</span>
+                  </span>
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   )

@@ -33,6 +33,7 @@ model User {
   sessions        Session[]
   notifications   Notification[] @relation("UserNotifications")
   actorNotifications Notification[] @relation("ActorNotifications")
+  userQueues      UserQueue[]
 
   @@map("users")
 }
@@ -87,12 +88,14 @@ model Ticket {
   fromEmail   String   // Keep for backward compatibility, but use participants for new logic
   fromName    String?  // Keep for backward compatibility
   assignedToId String?
+  queueId     String?  // Queue assignment for tickets
   dueDate     DateTime? // Optional due date for tickets
   reminderDate DateTime? // Optional reminder date for tickets
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   assignedTo User?     @relation("AssignedTo", fields: [assignedToId], references: [id])
+  queue      Queue?    @relation(fields: [queueId], references: [id])
   comments   Comment[]
   attachments TicketAttachment[]
   notifications Notification[]
@@ -322,4 +325,34 @@ model EmailTypeConfig {
   updatedAt     DateTime @updatedAt
 
   @@map("email_type_configs")
+}
+
+model Queue {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?  @db.Text
+  color       String   @default("#2563eb") // CSS color for queue identification
+  icon        String   @default("Inbox")   // Lucide icon name
+  isDefault   Boolean  @default(false)     // Mark as default queue
+  order       Int      @default(0)         // Display order
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tickets     Ticket[]
+  userQueues  UserQueue[]
+
+  @@map("queues")
+}
+
+model UserQueue {
+  id        String   @id @default(cuid())
+  userId    String
+  queueId   String
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  queue Queue @relation(fields: [queueId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, queueId])
+  @@map("user_queues")
 }

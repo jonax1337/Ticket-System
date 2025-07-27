@@ -19,7 +19,7 @@ export async function PATCH(
       )
     }
 
-    const { status, priority, assignedToId, fromName, fromEmail, dueDate, reminderDate } = await request.json()
+    const { status, priority, assignedToId, fromName, fromEmail, dueDate, reminderDate, queueId } = await request.json()
 
     const updateData: Record<string, unknown> = {}
     
@@ -49,6 +49,10 @@ export async function PATCH(
     
     if (reminderDate !== undefined) {
       updateData.reminderDate = normalizeDateToMidnight(reminderDate)
+    }
+
+    if (queueId !== undefined) {
+      updateData.queueId = queueId
     }
 
     if (Object.keys(updateData).length === 0) {

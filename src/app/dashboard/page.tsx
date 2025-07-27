@@ -21,12 +21,13 @@ interface DashboardPageProps {
     priority?: string
     search?: string
     assigned?: string
+    queue?: string
   }>
 }
 
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
   const params = await searchParams
-  const { status, priority, search } = params
+  const { status, priority, search, queue } = params
   const assigned = params.assigned || 'UNASSIGNED'
   
   // Get session to check if user is admin
@@ -35,6 +36,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const where = {
     ...(status && { status }),
     ...(priority && { priority }),
+    ...(queue && { queueId: queue }),
     ...(search && (() => {
       const words = search.trim().split(/\s+/).filter(word => word.length > 0)
       
@@ -78,6 +80,14 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           name: true,
           email: true,
           avatarUrl: true,
+        },
+      },
+      queue: {
+        select: {
+          id: true,
+          name: true,
+          color: true,
+          icon: true,
         },
       },
       comments: {

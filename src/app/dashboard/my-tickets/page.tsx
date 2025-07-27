@@ -11,6 +11,7 @@ interface SearchParams {
   search?: string
   status?: string
   priority?: string
+  queue?: string
   page?: string
 }
 
@@ -22,6 +23,7 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
   const search = searchParams.search || ''
   const status = searchParams.status || 'ALL'
   const priority = searchParams.priority || 'ALL'
+  const queue = searchParams.queue || 'ALL'
   const page = parseInt(searchParams.page || '1')
   const limit = 10
   const offset = (page - 1) * limit
@@ -65,6 +67,11 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
     where.priority = priority
   }
 
+  // Add queue filter
+  if (queue !== 'ALL') {
+    where.queueId = queue
+  }
+
   const [tickets, totalCount] = await Promise.all([
     prisma.ticket.findMany({
       where,
@@ -75,6 +82,14 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
             name: true,
             email: true,
             avatarUrl: true,
+          },
+        },
+        queue: {
+          select: {
+            id: true,
+            name: true,
+            color: true,
+            icon: true,
           },
         },
         comments: {

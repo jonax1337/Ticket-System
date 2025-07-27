@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2, Calendar, RefreshCw } from 'lucide-react'
+import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2, Calendar, RefreshCw, Inbox, Folder, Circle } from 'lucide-react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -38,6 +38,12 @@ interface Ticket {
     name: string
     email: string
   } | null
+  queue?: {
+    id: string
+    name: string
+    color: string
+    icon: string
+  } | null
   comments: {
     id: string
   }[]
@@ -60,7 +66,10 @@ const getIconComponent = (iconName: string) => {
     Timer,
     AlertTriangle,
     Zap,
-    TrendingUp
+    TrendingUp,
+    Inbox,
+    Folder,
+    Circle
   }
   return iconMap[iconName] || AlertCircle
 }
@@ -219,6 +228,9 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
                   <SortButton field="priority">Priority</SortButton>
                 </th>
                 <th className="text-left p-4 font-medium text-muted-foreground text-sm">
+                  Queue
+                </th>
+                <th className="text-left p-4 font-medium text-muted-foreground text-sm">
                   <SortButton field="fromName">Requester</SortButton>
                 </th>
                 <th className="text-left p-4 font-medium text-muted-foreground text-sm">
@@ -293,6 +305,21 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
                         </Badge>
                       )
                     })()}
+                  </td>
+                  <td className="p-4">
+                    {ticket.queue ? (
+                      (() => {
+                        const IconComponent = getIconComponent(ticket.queue.icon)
+                        return (
+                          <Badge variant="outline" className="text-xs">
+                            <IconComponent className="h-3 w-3 mr-1" />
+                            {ticket.queue.name}
+                          </Badge>
+                        )
+                      })()
+                    ) : (
+                      <span className="text-xs text-muted-foreground">No Queue</span>
+                    )}
                   </td>
                   <td className="p-4">
                     <div className="text-sm">

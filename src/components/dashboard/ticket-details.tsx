@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell } from 'lucide-react'
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell, Inbox, Folder, Circle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
@@ -51,6 +51,12 @@ interface Ticket {
     name: string
     email: string
     avatarUrl?: string | null
+  } | null
+  queue?: {
+    id: string
+    name: string
+    color: string
+    icon: string
   } | null
   participants?: {
     id: string
@@ -113,7 +119,10 @@ const getIconComponent = (iconName: string) => {
     Timer,
     AlertTriangle,
     Zap,
-    TrendingUp
+    TrendingUp,
+    Inbox,
+    Folder,
+    Circle
   }
   return iconMap[iconName] || AlertCircle
 }
@@ -124,8 +133,25 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const [tempDueDate, setTempDueDate] = useState<Date | undefined>(undefined)
   const [editingReminderDate, setEditingReminderDate] = useState(false)
   const [tempReminderDate, setTempReminderDate] = useState<Date | undefined>(undefined)
+  const [queues, setQueues] = useState<Array<{id: string, name: string, color: string, icon: string}>>([])
   const router = useRouter()
   const { statuses, priorities, isLoading: cacheLoading } = useCache()
+
+  // Load queues
+  useEffect(() => {
+    const fetchQueues = async () => {
+      try {
+        const response = await fetch('/api/queues')
+        if (response.ok) {
+          const queueData = await response.json()
+          setQueues(queueData)
+        }
+      } catch (error) {
+        console.error('Failed to fetch queues:', error)
+      }
+    }
+    fetchQueues()
+  }, [])
 
   const getDisplayTicketNumber = () => {
     return ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
@@ -188,6 +214,27 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
       }
     } catch (error) {
       console.error('Failed to update priority:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleQueueChange = async (queueId: string) => {
+    setIsLoading(true)
+    try {
+      const response = await fetch(`/api/tickets/${ticket.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ queueId: queueId === 'NONE' ? null : queueId }),
+      })
+
+      if (response.ok) {
+        router.refresh()
+      }
+    } catch (error) {
+      console.error('Failed to update queue:', error)
     } finally {
       setIsLoading(false)
     }
@@ -471,6 +518,39 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
                         <span className="flex items-center gap-2">
                           <IconComponent className="h-4 w-4" />
                           <span>{priority.name}</span>
+                        </span>
+                      </SelectItem>
+                    )
+                  })}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Queue */}
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium">Queue</h4>
+              <Select 
+                value={ticket.queue?.id || 'NONE'}
+                onValueChange={handleQueueChange}
+                disabled={isLoading}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="No Queue" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="NONE">
+                    <span className="flex items-center gap-2">
+                      <Circle className="h-4 w-4" />
+                      <span>No Queue</span>
+                    </span>
+                  </SelectItem>
+                  {queues.map((queue) => {
+                    const IconComponent = getIconComponent(queue.icon)
+                    return (
+                      <SelectItem key={queue.id} value={queue.id}>
+                        <span className="flex items-center gap-2">
+                          <IconComponent className="h-4 w-4" />
+                          <span>{queue.name}</span>
                         </span>
                       </SelectItem>
                     )
