@@ -1,10 +1,14 @@
 # Ticket System
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/jonax1337/Ticket-System/node.js.yml?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jonax1337/Ticket-System/actions)
 [![Version](https://img.shields.io/badge/version-0.1.0-2563eb?style=for-the-badge&logo=semantic-release&logoColor=white)](https://github.com/jonax1337/Ticket-System/releases)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.4.1-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.1.0-61dafb?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.12.0-2d3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479a1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4.1-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![NextAuth.js](https://img.shields.io/badge/NextAuth.js-4.24.11-7c3aed?style=for-the-badge&logo=next.js&logoColor=white)](https://next-auth.js.org/)
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://github.com/jonax1337/Ticket-System/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-22c55e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jonax1337/Ticket-System/pulls)
 
@@ -31,44 +35,53 @@ A modern, full-featured support ticket management system built for professional 
 ## 🚀 Features
 
 ### Core Functionality
-- **📧 Email-to-Ticket Integration**: Seamless ticket creation from emails (external bridge required)
-- **🎫 Advanced Ticket Management**: Status tracking, priority levels, assignments, and searchable history
+- **📧 Email-to-Ticket Integration**: IMAP-based automatic ticket creation with multiple email accounts
+- **🎫 Advanced Ticket Management**: Custom status/priority systems, assignments, and searchable history
 - **👥 User & Role Management**: Admin/Supporter roles with granular permissions
-- **💬 Internal Comments System**: Team collaboration with internal notes
-- **🔍 Smart Search & Filtering**: Multi-word search, status/priority filters, assignee filtering
+- **💬 Comments & Communication**: Internal notes and external email responses
+- **🔍 Smart Search & Filtering**: Multi-word search, custom filters, assignee filtering
+- **🔔 Notification System**: Real-time notifications for ticket updates and assignments
 
 ### User Experience
-- **🎨 Modern UI**: Built with Next.js 15, TailwindCSS, and ShadCN/UI components
+- **🎨 Modern UI**: Built with Next.js 15.4.1, React 19, TailwindCSS, and ShadCN/UI
 - **🌓 Theme System**: Dark/Light mode with custom color themes and logo support
 - **📱 Fully Responsive**: Works perfectly on desktop, tablet, and mobile devices
-- **⚡ Real-time Updates**: Instant UI updates with optimistic loading
+- **⚡ Real-time Updates**: Instant UI updates with optimistic loading patterns
 - **🗂️ Sortable Lists**: Click-to-sort by any column with visual indicators
 
 ### Advanced Features
-- **🏷️ Ticket Numbers**: Auto-generated ticket numbers (e.g., T202412-AB34)
-- **📂 File Attachments**: Drag & drop file upload support for tickets
+- **🏷️ Smart Ticket Numbers**: Configurable auto-generated ticket numbers (sequential/random)
+- **📂 File Attachments**: Drag & drop file upload support for tickets and comments
+- **👥 Participant Management**: Multiple participants per ticket with role tracking
 - **🎯 My Tickets View**: Personal dashboard for assigned tickets
-- **⚙️ Admin Configuration**: Customizable app name, logos, themes, and slogans
-- **🔒 Secure Authentication**: NextAuth.js with session management
-- **🌐 Sticky Glass Header**: Modern glassmorphism header with scroll effects
+- **⚙️ Admin Configuration**: Customizable app name, logos, themes, and automation settings
+- **🔒 Secure Authentication**: NextAuth.js with bcrypt password hashing
+- **📧 Email Templates**: Customizable email templates for all notification types
+- **⏰ Automation**: Due date tracking and automatic ticket closing
 
 ## 🛠️ Tech Stack
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript)
-![React](https://img.shields.io/badge/React-19-blue?logo=react)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-blue?logo=tailwindcss)
-![Prisma](https://img.shields.io/badge/Prisma-6.12-darkblue?logo=prisma)
-![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange?logo=mysql)
+[![Next.js](https://img.shields.io/badge/Next.js-15.4.1-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19.1.0-61dafb?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4.1-38b2ac?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.12.0-2d3748?style=flat-square&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479a1?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![NextAuth.js](https://img.shields.io/badge/NextAuth.js-4.24.11-7c3aed?style=flat-square&logo=next.js&logoColor=white)](https://next-auth.js.org/)
+[![ShadCN/UI](https://img.shields.io/badge/ShadCN%2FUI-Latest-000000?style=flat-square&logo=shadcnui&logoColor=white)](https://ui.shadcn.com/)
+[![Radix UI](https://img.shields.io/badge/Radix_UI-Latest-8b5cf6?style=flat-square&logo=radixui&logoColor=white)](https://www.radix-ui.com/)
 
-- **Framework**: Next.js 15 (App Router) with TypeScript
-- **Styling**: TailwindCSS + ShadCN/UI Components
-- **Database**: MySQL with Prisma ORM
-- **Authentication**: NextAuth.js with role-based access
-- **UI Components**: Radix UI + Headless UI + Lucide Icons
-- **Fonts**: Google Font "Space Grotesk"
-- **File Handling**: Native browser APIs with drag & drop
+- **Framework**: Next.js 15.4.1 (App Router) with TypeScript 5.8.3
+- **UI Library**: React 19.1.0 with modern React features
+- **Styling**: TailwindCSS 3.4.1 + ShadCN/UI Components
+- **Database**: MySQL 8.0+ with Prisma ORM 6.12.0
+- **Authentication**: NextAuth.js 4.24.11 with role-based access
+- **UI Components**: Radix UI + Lucide Icons + ShadCN/UI
+- **Email Processing**: ImapFlow for IMAP + MailParser for email parsing
+- **File Handling**: Multer for uploads with drag & drop support
+- **Date Handling**: date-fns for comprehensive date utilities
 - **State Management**: React Server Components + Client Components
+- **Development**: ESLint + TypeScript with strict mode
 
 ## ⚡ Quick Start
 
@@ -152,44 +165,58 @@ A modern, full-featured support ticket management system built for professional 
 
 ## 🗄️ Database Schema
 
-The application uses the following main entities:
+The application uses a comprehensive database schema with the following main entities:
 
-- **Users**: Supporters and admins with role-based access control
-- **Tickets**: Support requests with status, priority, assignment, and file attachments
-- **Comments**: Internal team communication with type differentiation
-- **SystemSettings**: App configuration (name, logo, theme, slogan)
-- **SetupStatus**: Application initialization tracking
+### Core Entities
+- **Users**: Admin/Supporter roles with bcrypt password hashing and avatar support
+- **Tickets**: Support requests with custom status/priority, attachments, and participant tracking
+- **Comments**: Internal/external communication with email integration and attachments
+- **TicketParticipants**: Modular participant system for multi-user tickets
+
+### Configuration & Customization
+- **CustomStatus**: User-defined ticket statuses with icons and colors
+- **CustomPriority**: Configurable priority levels with visual indicators
+- **SystemSettings**: App branding, themes, automation settings, and ticket numbering
+- **EmailConfiguration**: IMAP settings for multiple email accounts
+- **EmailTemplate**: Customizable notification templates with variable support
+
+### Communication & Notifications
+- **Notifications**: Real-time system notifications with read status tracking
+- **TicketAttachment/CommentAttachment**: File upload support for tickets and comments
 
 ### Key Features:
-- **Auto-generated IDs**: CUID-based unique identifiers
-- **Timestamps**: Automatic createdAt/updatedAt tracking
-- **Relationships**: Proper foreign key constraints
-- **Flexible Schema**: Easy to extend with new fields
+- **CUID-based IDs**: Collision-resistant unique identifiers for all entities
+- **Automatic Timestamps**: Built-in createdAt/updatedAt tracking
+- **Foreign Key Constraints**: Proper relational integrity with cascade deletes
+- **Extensible Design**: Easy to add custom fields and relationships
+- **MySQL Optimized**: Designed for MySQL 8.0+ with proper indexing
 
 ## 📧 Email Integration
 
-This application expects tickets to be created via an external email-to-ticket bridge that writes directly to the database. The bridge should:
+The application includes built-in IMAP-based email-to-ticket conversion with advanced features:
 
-1. Parse incoming emails
-2. Extract sender information, subject, and body
-3. Create ticket records in the `tickets` table
-4. Set appropriate status and priority
+### Email Processing Features
+- **Multi-Account Support**: Configure multiple email accounts with individual sync intervals
+- **Automatic Sync**: Background email processing with configurable intervals (default: 5 minutes)
+- **Smart Filtering**: Subject and sender filters with regex support
+- **Email Actions**: Mark as read, delete, or move to folder after processing
+- **Participant Tracking**: Automatically tracks all email participants (sender, CC, etc.)
 
-Example ticket creation:
-```sql
-INSERT INTO tickets (id, subject, description, fromEmail, fromName, status, priority, createdAt, updatedAt)
-VALUES (
-  'ticket_id', 
-  'Email Subject', 
-  'Email Body', 
-  'user@company.com', 
-  'User Name', 
-  'OPEN', 
-  'MEDIUM', 
-  NOW(), 
-  NOW()
-);
-```
+### Configuration
+Email accounts are configured through the admin panel with the following options:
+- **IMAP Settings**: Host, port, SSL/TLS, username, password
+- **Sync Options**: Interval, folder monitoring, unread-only processing
+- **Default Ticket Settings**: Priority, status, and assignee for new tickets
+- **Email Actions**: Post-processing actions for processed emails
+
+### Email Templates
+Customize email notifications with variables:
+- **Ticket Created**: Sent to participants when tickets are created
+- **Status Changed**: Notifications for status updates
+- **Comment Added**: Alerts for new comments
+- **Participant Added**: Welcome emails for new participants
+
+Template variables include: `{{ticket.subject}}`, `{{ticket.ticketNumber}}`, `{{user.name}}`, `{{comment.content}}`, and more.
 
 ## 👥 User Roles & Permissions
 
@@ -311,20 +338,25 @@ This project is open source and available under the [MIT License](https://github
 ## 🗺️ Roadmap
 
 ### 🎯 Planned Features
-- [ ] **Custom Status & Priority Management** - User-defined ticket statuses and priorities
-- [ ] **Advanced Email Templates** - Customizable notification templates
 - [ ] **Webhook Integrations** - Connect with external services and tools
 - [ ] **API Documentation & REST Endpoints** - Full API access for integrations
 - [ ] **Advanced Analytics Dashboard** - Detailed reporting and insights
 - [ ] **Bulk Actions for Tickets** - Mass operations on multiple tickets
 - [ ] **Custom Fields Support** - Flexible ticket metadata
 - [ ] **Multi-language Support** - Internationalization (i18n)
+- [ ] **SLA Management** - Service Level Agreement tracking
+- [ ] **Knowledge Base Integration** - Built-in documentation system
 
 ### 🚀 Recent Updates
-- ✅ **Email-to-Ticket Integration** - Automatic ticket creation from emails
-- ✅ **Modern UI/UX** - Next.js 15 with TailwindCSS and ShadCN/UI
-- ✅ **Theme Customization** - Dark/light modes with custom colors
-- ✅ **File Attachments** - Drag & drop file support
+- ✅ **Custom Status & Priority Management** - User-defined ticket statuses and priorities
+- ✅ **Advanced Email Templates** - Customizable notification templates
+- ✅ **Email-to-Ticket Integration** - IMAP-based automatic ticket creation
+- ✅ **Notification System** - Real-time notifications with mark as read
+- ✅ **Ticket Automation** - Due date tracking and auto-close functionality
+- ✅ **Participant Management** - Multiple participants per ticket
+- ✅ **Modern UI/UX** - Next.js 15.4.1 with React 19 and TailwindCSS
+- ✅ **Theme Customization** - Dark/light modes with custom colors and logos
+- ✅ **File Attachments** - Drag & drop file support for tickets and comments
 
 > 💡 Have a feature request? [Open an issue](https://github.com/jonax1337/Ticket-System/issues/new) to discuss it!
 
