@@ -88,6 +88,7 @@ model Ticket {
   fromName    String?  // Keep for backward compatibility
   assignedToId String?
   dueDate     DateTime? // Optional due date for tickets
+  reminderDate DateTime? // Optional reminder date for tickets
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

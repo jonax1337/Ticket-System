@@ -11,9 +11,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npx prisma generate` - Generate Prisma client after schema changes
 - `npx prisma db push` - Push schema changes to database
 - `npx prisma migrate dev` - Create and apply migration
+- `npx prisma migrate deploy` - Apply migrations to database
 - `npx prisma studio` - Open database browser
 
 **Note**: User prefers to run `npm run build` and `npm run dev` via PowerShell on their system. Claude should fix build errors but not execute builds.
+
+## Database Migration Notes
+
+When schema changes are made:
+1. Always run `npx prisma migrate dev` in development to create and apply migrations
+2. Use `npx prisma migrate deploy` to apply migrations without creating new ones
+3. If database sync issues occur, check that all migrations are properly applied
+4. For schema synchronization issues, see `DATABASE_FIX.md` for troubleshooting steps
 
 ## Email Sync Configuration
 
