@@ -1,6 +1,32 @@
 # Ticket System
 
+[![Build Status](https://github.com/jonax1337/Ticket-System/workflows/NodeJS%20with%20Grunt/badge.svg)](https://github.com/jonax1337/Ticket-System/actions)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/jonax1337/Ticket-System/releases)
+[![Node.js](https://img.shields.io/badge/node-18%2B-brightgreen.svg)](https://nodejs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/jonax1337/Ticket-System/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/jonax1337/Ticket-System/pulls)
+
 A modern, full-featured support ticket management system built for professional IT teams. This self-hosted web application provides a complete solution for managing support tickets with advanced filtering, user management, and customizable workflows.
+
+> 🔗 **Quick Links:** [Demo](https://github.com/jonax1337/Ticket-System#-screenshots) • [Installation](#-quick-start) • [Documentation](#-table-of-contents) • [Issues](https://github.com/jonax1337/Ticket-System/issues) • [Releases](https://github.com/jonax1337/Ticket-System/releases)
+
+## 📚 Table of Contents
+
+- [🚀 Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [⚡ Quick Start](#-quick-start)
+- [📸 Screenshots](#-screenshots)
+- [🔧 Configuration](#-configuration)
+- [🗄️ Database Schema](#️-database-schema)
+- [📧 Email Integration](#-email-integration)
+- [👥 User Roles](#-user-roles--permissions)
+- [🚀 Deployment](#-deployment)
+- [💻 Development](#-development)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🆘 Support](#-support--issues)
 
 ## 🚀 Features
 
@@ -28,6 +54,13 @@ A modern, full-featured support ticket management system built for professional 
 
 ## 🛠️ Tech Stack
 
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript)
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-blue?logo=tailwindcss)
+![Prisma](https://img.shields.io/badge/Prisma-6.12-darkblue?logo=prisma)
+![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange?logo=mysql)
+
 - **Framework**: Next.js 15 (App Router) with TypeScript
 - **Styling**: TailwindCSS + ShadCN/UI Components
 - **Database**: MySQL with Prisma ORM
@@ -37,20 +70,27 @@ A modern, full-featured support ticket management system built for professional 
 - **File Handling**: Native browser APIs with drag & drop
 - **State Management**: React Server Components + Client Components
 
-## Quick Start
+## ⚡ Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ and npm
-- MySQL database
-- External email-to-ticket bridge (for receiving tickets)
+**System Requirements:**
+- **Node.js**: 18.x or higher ([Download](https://nodejs.org/))
+- **npm**: Included with Node.js
+- **MySQL**: 8.0+ ([Download](https://dev.mysql.com/downloads/))
+- **External email-to-ticket bridge**: For receiving tickets (optional)
+
+**Recommended:**
+- **RAM**: 2GB+ available
+- **Storage**: 1GB+ free space
+- **OS**: Linux, macOS, or Windows with WSL2
 
 ### Installation
 
 1. **Clone and install dependencies**:
    ```bash
-   git clone <repository-url>
-   cd ticket-system
+   git clone https://github.com/jonax1337/Ticket-System.git
+   cd Ticket-System
    npm install
    ```
 
@@ -101,7 +141,7 @@ A modern, full-featured support ticket management system built for professional 
 - Logo upload support with preview
 - Customizable slogans and branding
 
-## Environment Variables
+## 🔧 Configuration
 
 | Variable | Description | Example |
 |----------|-------------|---------|
@@ -126,7 +166,7 @@ The application uses the following main entities:
 - **Relationships**: Proper foreign key constraints
 - **Flexible Schema**: Easy to extend with new fields
 
-## Email-to-Ticket Integration
+## 📧 Email Integration
 
 This application expects tickets to be created via an external email-to-ticket bridge that writes directly to the database. The bridge should:
 
@@ -168,7 +208,7 @@ VALUES (
 - ✅ Access to "My Tickets" personal dashboard
 - ❌ No access to user management or system settings
 
-## Deployment
+## 🚀 Deployment
 
 ### Using Docker
 
@@ -198,7 +238,7 @@ VALUES (
 3. Add environment variables in Vercel dashboard
 4. Deploy
 
-## Development
+## 💻 Development
 
 ### 📋 Available Scripts
 
@@ -226,44 +266,67 @@ VALUES (
 
 ## 🤝 Contributing
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Make** your changes with proper TypeScript types
-4. **Test** your changes thoroughly
-5. **Run** linting (`npm run lint`)
-6. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-7. **Push** to the branch (`git push origin feature/amazing-feature`)
-8. **Open** a Pull Request
+We welcome contributions! Here's how to get started:
+
+1. **Fork** the repository on GitHub
+2. **Clone** your fork locally (`git clone https://github.com/YOUR_USERNAME/Ticket-System.git`)
+3. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+4. **Make** your changes with proper TypeScript types
+5. **Test** your changes thoroughly locally
+6. **Run** linting (`npm run lint`) and fix any issues
+7. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+8. **Push** to your branch (`git push origin feature/amazing-feature`)
+9. **Open** a Pull Request with a clear description
 
 ### 📝 Development Guidelines
 - Follow existing code style and patterns
 - Add TypeScript types for all new code
 - Test responsive design on multiple screen sizes
-- Ensure database schema changes include migrations
+- Ensure database schema changes include proper migrations
 - Update documentation for new features
+- Write clear commit messages
+
+### 🐛 Reporting Issues
+- Use [GitHub Issues](https://github.com/jonax1337/Ticket-System/issues) with detailed reproduction steps
+- Include system information and error messages
+- Use issue templates when available
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the [MIT License](https://github.com/jonax1337/Ticket-System/blob/main/LICENSE).
 
 ## 🆘 Support & Issues
 
-- **Bug Reports**: Use GitHub Issues with detailed reproduction steps
-- **Feature Requests**: Open an issue with the "enhancement" label
-- **Questions**: Check existing issues or open a new discussion
-- **Security Issues**: Please report privately via email
+- **🐛 Bug Reports**: [Create an issue](https://github.com/jonax1337/Ticket-System/issues/new) with detailed reproduction steps
+- **💡 Feature Requests**: [Open an issue](https://github.com/jonax1337/Ticket-System/issues/new) with the "enhancement" label  
+- **❓ Questions**: Check [existing issues](https://github.com/jonax1337/Ticket-System/issues) or start a [discussion](https://github.com/jonax1337/Ticket-System/discussions)
+- **🔒 Security Issues**: Please report privately via [GitHub Security](https://github.com/jonax1337/Ticket-System/security)
 
-## 🚀 Roadmap
+### 📊 Project Stats
+![GitHub stars](https://img.shields.io/github/stars/jonax1337/Ticket-System?style=social)
+![GitHub forks](https://img.shields.io/github/forks/jonax1337/Ticket-System?style=social)
+![GitHub issues](https://img.shields.io/github/issues/jonax1337/Ticket-System)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/jonax1337/Ticket-System)
 
-### Planned Features
-- [ ] Custom Status & Priority Management
-- [ ] Advanced Email Templates
-- [ ] Webhook Integrations
-- [ ] API Documentation & REST Endpoints
-- [ ] Advanced Analytics Dashboard
-- [ ] Bulk Actions for Tickets
-- [ ] Custom Fields Support
-- [ ] Multi-language Support
+## 🗺️ Roadmap
+
+### 🎯 Planned Features
+- [ ] **Custom Status & Priority Management** - User-defined ticket statuses and priorities
+- [ ] **Advanced Email Templates** - Customizable notification templates
+- [ ] **Webhook Integrations** - Connect with external services and tools
+- [ ] **API Documentation & REST Endpoints** - Full API access for integrations
+- [ ] **Advanced Analytics Dashboard** - Detailed reporting and insights
+- [ ] **Bulk Actions for Tickets** - Mass operations on multiple tickets
+- [ ] **Custom Fields Support** - Flexible ticket metadata
+- [ ] **Multi-language Support** - Internationalization (i18n)
+
+### 🚀 Recent Updates
+- ✅ **Email-to-Ticket Integration** - Automatic ticket creation from emails
+- ✅ **Modern UI/UX** - Next.js 15 with TailwindCSS and ShadCN/UI
+- ✅ **Theme Customization** - Dark/light modes with custom colors
+- ✅ **File Attachments** - Drag & drop file support
+
+> 💡 Have a feature request? [Open an issue](https://github.com/jonax1337/Ticket-System/issues/new) to discuss it!
 
 ---
 
