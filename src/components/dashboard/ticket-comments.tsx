@@ -755,7 +755,7 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
                       <>
                         {/* Status Change Indicator */}
                         {statusChangeInfo && (
-                          <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
+                          <div className={`p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md ${isStatusChangeOnly ? '' : 'mb-3'}`}>
                             <div className="flex items-center gap-2 text-sm">
                               <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                               <span className="font-medium text-blue-800 dark:text-blue-200">Status changed</span>
