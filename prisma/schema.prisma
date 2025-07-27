@@ -192,6 +192,14 @@ model SystemSettings {
   automationCloseDays Int @default(14) // Days of inactivity before auto-close
   automationCheckInterval Int @default(60) // Check interval in minutes
   
+  // Email template settings
+  emailSubjectPrefix String @default("[Ticket {{ticketNumber}}]") // Prefix for email subjects
+  emailBaseTemplate String? @db.Text // Base HTML template for emails
+  emailBaseTemplateActive Boolean @default(true) // Enable/disable base template
+  emailShowLogo Boolean @default(true) // Show logo in emails (if logoUrl is set)
+  emailHideAppName Boolean @default(false) // Hide app name in emails
+  emailHideSlogan Boolean @default(false) // Hide slogan in emails
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -297,4 +305,21 @@ model EmailTemplate {
 
   @@unique([type, isDefault]) // Only one default template per type
   @@map("email_templates")
+}
+
+model EmailTypeConfig {
+  id            String   @id @default(cuid())
+  type          String   @unique // "ticket_created", "status_changed", etc.
+  headerTitle   String   @default("{{systemName}}")
+  headerSubtitle String  @default("Notification")
+  headerColor   String   @default("#2563eb")
+  greeting      String   @default("Hello {{customerName}},")
+  introText     String   @db.Text
+  footerText    String   @db.Text
+  sections      String   @db.Text // JSON array of content sections
+  actionButton  String?  @db.Text // JSON object for action button config
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("email_type_configs")
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,28 +10,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Checkbox } from '@/components/ui/checkbox'
 import { 
-  Mail, 
-  Plus, 
   Edit, 
-  Trash2, 
-  Eye, 
-  Copy,
+  Eye,
   Info,
   FileText,
   Code,
@@ -38,31 +24,61 @@ import {
   CheckCircle,
   XCircle,
   Settings,
-  RefreshCw
+  FileType,
+  Plus,
+  Trash2,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-interface EmailTemplate {
+interface BaseTemplateConfig {
+  id: string
+  subjectPrefix: string
+  htmlTemplate: string
+  isActive: boolean
+  showLogo: boolean
+  hideAppName: boolean
+  hideSlogan: boolean
+  systemName: string
+  logoUrl: string | null
+  slogan: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+interface EmailContentSection {
+  title: string
+  content: string
+  style: 'default' | 'info' | 'success' | 'warning' | 'error'
+}
+
+interface EmailTypeConfig {
   id: string
   type: string
-  name: string
-  subject: string
-  htmlContent: string
-  textContent: string | null
-  isDefault: boolean
-  isActive: boolean
+  headerTitle: string
+  headerSubtitle: string
+  headerColor: string
+  greeting: string
+  introText: string
+  footerText: string
+  sections: EmailContentSection[]
+  actionButton: {
+    text: string
+    url: string
+    color: string
+  } | null
   createdAt: string
   updatedAt: string
 }
 
 const templateTypes = [
-  { value: 'ticket_created', label: 'Ticket Created', description: 'Sent when a new ticket is created' },
-  { value: 'status_changed', label: 'Status Changed', description: 'Sent when ticket status is updated' },
-  { value: 'comment_added', label: 'Comment Added', description: 'Sent when a new comment is added' },
-  { value: 'participant_added', label: 'Participant Added', description: 'Sent when someone is added as participant' },
-  { value: 'automation_warning', label: 'Automation Warning', description: 'Sent before automatic ticket closure due to inactivity' },
-  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'Sent when ticket is automatically closed due to inactivity' }
+  { value: 'ticket_created', label: 'Ticket Created', description: 'When a new ticket is created', icon: '📝' },
+  { value: 'status_changed', label: 'Status Changed', description: 'When ticket status is updated', icon: '🔄' },
+  { value: 'comment_added', label: 'Comment Added', description: 'When a new comment is added', icon: '💬' },
+  { value: 'participant_added', label: 'Participant Added', description: 'When someone is added as participant', icon: '👥' },
+  { value: 'automation_warning', label: 'Automation Warning', description: 'Before automatic ticket closure', icon: '⚠️' },
+  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'When ticket is automatically closed', icon: '✅' }
 ]
 
 const availableVariables = {
@@ -111,140 +127,178 @@ const availableVariables = {
   'currentTime': 'Current time when email is sent'
 }
 
+const sectionStyles = [
+  { value: 'default', label: 'Default', color: '#2563eb' },
+  { value: 'info', label: 'Info', color: '#0891b2' },
+  { value: 'success', label: 'Success', color: '#059669' },
+  { value: 'warning', label: 'Warning', color: '#f59e0b' },
+  { value: 'error', label: 'Error', color: '#dc2626' }
+]
+
 export default function EmailTemplateManager() {
-  const [templates, setTemplates] = useState<EmailTemplate[]>([])
+  const [activeTab, setActiveTab] = useState('base')
+  const [baseTemplate, setBaseTemplate] = useState<BaseTemplateConfig | null>(null)
+  const [emailTypes, setEmailTypes] = useState<EmailTypeConfig[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [editingTemplate, setEditingTemplate] = useState<EmailTemplate | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [selectedType, setSelectedType] = useState<string | null>(null)
   const [previewData, setPreviewData] = useState<{
     subject: string;
     htmlContent: string;
-    textContent?: string;
     sampleData: Record<string, unknown>;
   } | null>(null)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
-  const [formData, setFormData] = useState({
-    type: '',
-    name: '',
-    subject: '',
-    htmlContent: '',
-    textContent: '',
-    isActive: true
+  
+  // Base template form data
+  const [baseFormData, setBaseFormData] = useState({
+    subjectPrefix: '[Ticket {{ticketNumber}}]',
+    htmlTemplate: '',
+    isActive: true,
+    showLogo: true,
+    hideAppName: false,
+    hideSlogan: false
   })
 
+  // Type configuration form data
+  const [typeFormData, setTypeFormData] = useState<Partial<EmailTypeConfig>>({})
+
   useEffect(() => {
-    fetchTemplates()
+    fetchData()
   }, [])
 
-  const fetchTemplates = async () => {
+  const fetchData = async () => {
+    setIsLoading(true)
     try {
-      const response = await fetch('/api/admin/email-templates')
-      if (response.ok) {
-        const data = await response.json()
-        setTemplates(data)
-      } else {
-        toast.error('Failed to fetch email templates')
+      // Fetch base template
+      const baseResponse = await fetch('/api/admin/email-templates/base')
+      if (baseResponse.ok) {
+        const baseData = await baseResponse.json()
+        setBaseTemplate(baseData)
+        setBaseFormData({
+          subjectPrefix: baseData.subjectPrefix,
+          htmlTemplate: baseData.htmlTemplate,
+          isActive: baseData.isActive,
+          showLogo: baseData.showLogo ?? true,
+          hideAppName: baseData.hideAppName ?? false,
+          hideSlogan: baseData.hideSlogan ?? false
+        })
+      }
+
+      // Fetch email type configurations
+      const typesResponse = await fetch('/api/admin/email-templates/types')
+      if (typesResponse.ok) {
+        const typesData = await typesResponse.json()
+        setEmailTypes(typesData.map((config: Record<string, unknown>) => ({
+          ...config,
+          sections: JSON.parse(config.sections as string),
+          actionButton: config.actionButton ? JSON.parse(config.actionButton as string) : null
+        })))
       }
     } catch (error) {
-      console.error('Error fetching templates:', error)
-      toast.error('Failed to fetch email templates')
+      console.error('Error fetching data:', error)
+      toast.error('Failed to fetch template configuration')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const resetForm = () => {
-    setFormData({
-      type: '',
-      name: '',
-      subject: '',
-      htmlContent: '',
-      textContent: '',
-      isActive: true
-    })
-  }
-
-  const openEditDialog = (template?: EmailTemplate) => {
-    if (template) {
-      setEditingTemplate(template)
-      setFormData({
-        type: template.type,
-        name: template.name,
-        subject: template.subject,
-        htmlContent: template.htmlContent,
-        textContent: template.textContent || '',
-        isActive: template.isActive
-      })
-    } else {
-      setEditingTemplate(null)
-      resetForm()
-    }
-    setIsDialogOpen(true)
-  }
-
-  const handleSave = async () => {
+  const handleSaveBase = async () => {
     setIsLoading(true)
     try {
-      const url = editingTemplate 
-        ? `/api/admin/email-templates/${editingTemplate.id}`
-        : '/api/admin/email-templates'
-      
-      const method = editingTemplate ? 'PUT' : 'POST'
-
-      const response = await fetch(url, {
-        method,
+      const response = await fetch('/api/admin/email-templates/base', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(baseFormData),
       })
 
       if (response.ok) {
-        setIsDialogOpen(false)
-        resetForm()
-        toast.success(
-          editingTemplate ? 'Email template updated successfully' : 'Email template created successfully'
-        )
-        fetchTemplates()
+        const updatedTemplate = await response.json()
+        setBaseTemplate(updatedTemplate)
+        setIsEditDialogOpen(false)
+        toast.success('Base email template updated successfully')
       } else {
         const error = await response.json()
-        toast.error(error.error || 'Failed to save email template')
+        toast.error(error.error || 'Failed to update base template')
       }
     } catch (err) {
-      console.error('Failed to save email template:', err)
-      toast.error('Failed to save email template')
+      console.error('Failed to save base template:', err)
+      toast.error('Failed to save base template')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleDelete = async (id: string) => {
+  const handleSaveType = async () => {
+    if (!selectedType || !typeFormData) return
+
+    setIsLoading(true)
     try {
-      const response = await fetch(`/api/admin/email-templates/${id}`, {
-        method: 'DELETE',
+      const response = await fetch(`/api/admin/email-templates/types/${selectedType}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(typeFormData),
       })
 
       if (response.ok) {
-        toast.success('Email template deleted successfully')
-        fetchTemplates()
+        const updatedConfig = await response.json()
+        setEmailTypes(prev => prev.map(config => 
+          config.type === selectedType 
+            ? { 
+                ...updatedConfig, 
+                sections: (() => {
+                  try { return JSON.parse(updatedConfig.sections) } 
+                  catch { return [] }
+                })(),
+                actionButton: (() => {
+                  try { return updatedConfig.actionButton ? JSON.parse(updatedConfig.actionButton) : null }
+                  catch { return null }
+                })()
+              }
+            : config
+        ))
+        setSelectedType(null)
+        setTypeFormData({})
+        toast.success('Email type configuration updated successfully')
       } else {
         const error = await response.json()
-        toast.error(error.error || 'Failed to delete email template')
+        toast.error(error.error || 'Failed to update type configuration')
       }
     } catch (err) {
-      console.error('Failed to delete email template:', err)
-      toast.error('Failed to delete email template')
+      console.error('Failed to save type configuration:', err)
+      toast.error('Failed to save type configuration')
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  const handlePreview = async (template: EmailTemplate) => {
+  const openEditType = async (type: string) => {
     try {
-      const response = await fetch(`/api/admin/email-templates/${template.id}/preview`, {
+      const response = await fetch(`/api/admin/email-templates/types/${type}`)
+      if (response.ok) {
+        const config = await response.json()
+        setTypeFormData(config)
+        setSelectedType(type)
+      } else {
+        toast.error('Failed to load type configuration')
+      }
+    } catch (error) {
+      console.error('Error loading type configuration:', error)
+      toast.error('Failed to load type configuration')
+    }
+  }
+
+  const handlePreview = async (templateType: string) => {
+    try {
+      const response = await fetch('/api/admin/email-templates/base/preview', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({})
+        body: JSON.stringify({ templateType })
       })
 
       if (response.ok) {
@@ -260,371 +314,677 @@ export default function EmailTemplateManager() {
     }
   }
 
-  const handleDuplicate = (template: EmailTemplate) => {
-    setEditingTemplate(null)
-    setFormData({
-      type: template.type,
-      name: `${template.name} (Copy)`,
-      subject: template.subject,
-      htmlContent: template.htmlContent,
-      textContent: template.textContent || '',
-      isActive: true
+  const addSection = () => {
+    if (!typeFormData.sections) return
+    const newSection: EmailContentSection = {
+      title: 'New Section',
+      content: '<p>Section content goes here...</p>',
+      style: 'default'
+    }
+    setTypeFormData({
+      ...typeFormData,
+      sections: [...typeFormData.sections, newSection]
     })
-    setIsDialogOpen(true)
   }
 
-  const getTypeBadgeColor = (type: string) => {
-    switch (type) {
-      case 'ticket_created': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-      case 'status_changed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-      case 'comment_added': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-      case 'participant_added': return 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200'
-      case 'automation_warning': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-      case 'automation_closed': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-    }
+  const updateSection = (index: number, field: keyof EmailContentSection, value: string) => {
+    if (!typeFormData.sections) return
+    const updatedSections = [...typeFormData.sections]
+    updatedSections[index] = { ...updatedSections[index], [field]: value }
+    setTypeFormData({
+      ...typeFormData,
+      sections: updatedSections
+    })
   }
 
-  const insertVariable = (variable: string) => {
-    const htmlTextarea = document.getElementById('htmlContent') as HTMLTextAreaElement
-    if (htmlTextarea) {
-      const start = htmlTextarea.selectionStart
-      const end = htmlTextarea.selectionEnd
-      const text = htmlTextarea.value
-      const before = text.substring(0, start)
-      const after = text.substring(end, text.length)
-      const newText = before + `{{${variable}}}` + after
-      
-      setFormData({ ...formData, htmlContent: newText })
-      
-      // Set cursor position after inserted variable
-      setTimeout(() => {
-        htmlTextarea.focus()
-        htmlTextarea.setSelectionRange(start + variable.length + 4, start + variable.length + 4)
-      }, 0)
-    }
+  const removeSection = (index: number) => {
+    if (!typeFormData.sections) return
+    const updatedSections = typeFormData.sections.filter((_, i) => i !== index)
+    setTypeFormData({
+      ...typeFormData,
+      sections: updatedSections
+    })
+  }
+
+  const moveSection = (index: number, direction: 'up' | 'down') => {
+    if (!typeFormData.sections) return
+    const newIndex = direction === 'up' ? index - 1 : index + 1
+    if (newIndex < 0 || newIndex >= typeFormData.sections.length) return
+
+    const updatedSections = [...typeFormData.sections]
+    const temp = updatedSections[index]
+    updatedSections[index] = updatedSections[newIndex]
+    updatedSections[newIndex] = temp
+
+    setTypeFormData({
+      ...typeFormData,
+      sections: updatedSections
+    })
   }
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                Email Templates
-              </CardTitle>
-              <CardDescription>
-                Manage customizable email templates for different ticket actions. Use variables to personalize content.
-              </CardDescription>
-            </div>
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                <Button onClick={() => openEditDialog()}>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Create Template
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-6xl w-full max-h-[90vh] m-4 p-0 overflow-hidden flex flex-col gap-0">
-                <div className="p-6 border-b flex-shrink-0">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
-                      <Mail className="h-5 w-5" />
-                      {editingTemplate ? 'Edit Email Template' : 'New Email Template'}
-                    </DialogTitle>
-                    <DialogDescription>
-                      Create customizable email templates with variables for dynamic content.
-                    </DialogDescription>
-                  </DialogHeader>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="base" className="flex items-center gap-2">
+            <FileType className="h-4 w-4" />
+            Base Template
+          </TabsTrigger>
+          <TabsTrigger value="types" className="flex items-center gap-2">
+            <Settings className="h-4 w-4" />
+            Email Types
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Base Template Tab */}
+        <TabsContent value="base" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileType className="h-5 w-5" />
+                    Unified Email Base Template
+                  </CardTitle>
+                  <CardDescription>
+                    Manage the single base HTML template and subject prefix used for all email notifications.
+                  </CardDescription>
                 </div>
-                
-                <div className="flex-1 overflow-hidden flex">
-                  {/* Main Form */}
-                  <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                    {/* Basic Settings */}
-                    <div className="space-y-4">
-                      <h4 className="text-sm font-medium">Basic Settings</h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="type">Template Type</Label>
-                          <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select type..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {templateTypes.map((type) => (
-                                <SelectItem key={type.value} value={type.value}>
-                                  <div>
-                                    <div className="font-medium">{type.label}</div>
-                                    <div className="text-xs text-muted-foreground">{type.description}</div>
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Template Name</Label>
-                          <Input
-                            id="name"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            placeholder="e.g. Welcome New Customer"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="subject">Email Subject</Label>
-                        <Input
-                          id="subject"
-                          value={formData.subject}
-                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          placeholder="e.g. Ticket {{ticketNumber}} Created: {{ticketSubject}}"
-                        />
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="isActive"
-                          checked={formData.isActive}
-                          onCheckedChange={(checked) => setFormData({ ...formData, isActive: !!checked })}
-                        />
-                        <Label htmlFor="isActive">Active Template</Label>
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    {/* Content */}
-                    <div className="space-y-4">
-                      <h4 className="text-sm font-medium">Email Content</h4>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="htmlContent">HTML Content</Label>
-                        <Textarea
-                          id="htmlContent"
-                          value={formData.htmlContent}
-                          onChange={(e) => setFormData({ ...formData, htmlContent: e.target.value })}
-                          placeholder="Enter HTML email content with variables..."
-                          className="min-h-[200px] font-mono text-sm"
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="textContent">Plain Text Content (Optional)</Label>
-                        <Textarea
-                          id="textContent"
-                          value={formData.textContent}
-                          onChange={(e) => setFormData({ ...formData, textContent: e.target.value })}
-                          placeholder="Plain text fallback content..."
-                          className="min-h-[100px]"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Variables Sidebar */}
-                  <div className="w-80 border-l bg-muted/30 overflow-y-auto p-4">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-2">
-                        <Info className="h-4 w-4" />
-                        <h4 className="text-sm font-medium">Available Variables</h4>
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Click on a variable to insert it into your template. Variables are replaced with actual data when emails are sent.
-                      </p>
-                      
-                      <ScrollArea className="h-[400px]">
-                        <div className="space-y-2">
-                          {Object.entries(availableVariables).map(([variable, description]) => (
-                            <div
-                              key={variable}
-                              className="p-2 border rounded cursor-pointer hover:bg-background transition-colors"
-                              onClick={() => insertVariable(variable)}
-                            >
-                              <code className="text-xs font-mono text-blue-600 dark:text-blue-400">
-                                {`{{${variable}}}`}
-                              </code>
-                              <p className="text-xs text-muted-foreground mt-1">{description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </ScrollArea>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6 border-t flex-shrink-0">
-                  <DialogFooter>
-                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Cancel
+                <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button onClick={() => setIsEditDialogOpen(true)} disabled={!baseTemplate}>
+                      <Edit className="mr-2 h-4 w-4" />
+                      Edit Base Template
                     </Button>
-                    <Button onClick={handleSave} disabled={isLoading}>
-                      {isLoading ? 'Saving...' : 'Save Template'}
-                    </Button>
-                  </DialogFooter>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {/* Silent loading indicator */}
-          {isLoading && templates.length > 0 && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-              <RefreshCw className="h-3 w-3 animate-spin" />
-              <span>Updating templates...</span>
-            </div>
-          )}
-          
-          {templates.length === 0 ? (
-            <div className="text-center py-8">
-              {isLoading ? (
-                <>
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-                  <p className="mt-2 text-sm text-muted-foreground">Loading templates...</p>
-                </>
-              ) : (
-                <>
-                  <Mail className="mx-auto h-12 w-12 text-muted-foreground" />
-                  <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Email Templates</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Create your first email template to customize customer notifications.
-                  </p>
-                </>
-              )}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {templateTypes.map((templateType) => {
-                const typeTemplates = templates.filter(t => t.type === templateType.value)
-                
-                return (
-                  <div key={templateType.value} className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <Badge className={getTypeBadgeColor(templateType.value)}>
-                        {templateType.label}
-                      </Badge>
-                      <span className="text-sm text-muted-foreground">{templateType.description}</span>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-6xl w-full max-h-[90vh] m-4 p-0 overflow-hidden flex flex-col gap-0">
+                    <div className="p-6 border-b flex-shrink-0">
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2">
+                          <FileType className="h-5 w-5" />
+                          Edit Base Email Template
+                        </DialogTitle>
+                        <DialogDescription>
+                          Configure the unified email template and subject prefix used for all email notifications.
+                        </DialogDescription>
+                      </DialogHeader>
                     </div>
                     
-                    {typeTemplates.length === 0 ? (
-                      <div className="border rounded-lg p-4 bg-muted/20">
-                        <p className="text-sm text-muted-foreground">No templates for this type</p>
-                      </div>
-                    ) : (
-                      <div className="space-y-2">
-                        {typeTemplates.map((template) => (
-                          <div key={template.id} className="border rounded-lg p-4">
-                            <div className="flex items-start justify-between">
-                              <div className="space-y-2">
-                                <div className="flex items-center gap-2">
-                                  <h3 className="font-medium">{template.name}</h3>
-                                  <div className="flex gap-1">
-                                    {template.isDefault && (
-                                      <Badge variant="outline" className="text-xs">
-                                        <Settings className="mr-1 h-3 w-3" />
-                                        Default
-                                      </Badge>
-                                    )}
-                                    {template.isActive ? (
-                                      <Badge variant="default" className="text-xs">
-                                        <CheckCircle className="mr-1 h-3 w-3" />
-                                        Active
-                                      </Badge>
-                                    ) : (
-                                      <Badge variant="secondary" className="text-xs">
-                                        <XCircle className="mr-1 h-3 w-3" />
-                                        Inactive
-                                      </Badge>
-                                    )}
-                                  </div>
-                                </div>
-                                
-                                <div className="text-sm text-muted-foreground">
-                                  <div className="font-medium">{template.subject}</div>
-                                  <div className="text-xs">
-                                    Updated: {new Date(template.updatedAt).toLocaleString()}
-                                  </div>
+                    <div className="flex-1 overflow-hidden flex">
+                      {/* Main Form */}
+                      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                        {/* Basic Settings */}
+                        <div className="space-y-4">
+                          <h4 className="text-sm font-medium">Configuration</h4>
+                          
+                          <div className="space-y-2">
+                            <Label htmlFor="subjectPrefix">Subject Prefix</Label>
+                            <Input
+                              id="subjectPrefix"
+                              value={baseFormData.subjectPrefix}
+                              onChange={(e) => setBaseFormData({ ...baseFormData, subjectPrefix: e.target.value })}
+                              placeholder="e.g. [Ticket {{ticketNumber}}]"
+                            />
+                            <p className="text-xs text-muted-foreground">
+                              This prefix will be added to all email subjects automatically. Use {`{{ticketNumber}}`} for dynamic ticket numbers.
+                            </p>
+                          </div>
+
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="isActive"
+                              checked={baseFormData.isActive}
+                              onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, isActive: !!checked })}
+                            />
+                            <Label htmlFor="isActive">Active Template</Label>
+                          </div>
+                        </div>
+
+                        <Separator />
+
+                        {/* Logo Configuration */}
+                        <div className="space-y-4">
+                          <h4 className="text-sm font-medium">Email Header Configuration</h4>
+                          
+                          {baseTemplate?.logoUrl && (
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id="showLogo"
+                                checked={baseFormData.showLogo}
+                                onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, showLogo: !!checked })}
+                              />
+                              <Label htmlFor="showLogo">Show logo in emails</Label>
+                            </div>
+                          )}
+                          
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="hideAppName"
+                              checked={baseFormData.hideAppName}
+                              onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, hideAppName: !!checked })}
+                            />
+                            <Label htmlFor="hideAppName">Hide application name in emails</Label>
+                          </div>
+
+                          {baseTemplate?.slogan && (
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id="hideSlogan"
+                                checked={baseFormData.hideSlogan}
+                                onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, hideSlogan: !!checked })}
+                              />
+                              <Label htmlFor="hideSlogan">Hide slogan in emails</Label>
+                            </div>
+                          )}
+
+                          {baseTemplate?.logoUrl && (
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">Current Logo</Label>
+                              <div className="flex items-center space-x-3 p-3 border rounded-lg bg-muted/50">
+                                <Image 
+                                  src={baseTemplate.logoUrl} 
+                                  alt="Logo preview" 
+                                  width={120}
+                                  height={48}
+                                  className="h-12 w-auto max-w-[120px] object-contain"
+                                />
+                                <div className="text-xs text-muted-foreground">
+                                  Logo will appear in email headers when enabled
                                 </div>
                               </div>
+                            </div>
+                          )}
 
+                          {!baseTemplate?.logoUrl && (
+                            <div className="p-3 border border-dashed rounded-lg bg-muted/20">
+                              <div className="text-sm text-muted-foreground text-center">
+                                No logo configured. Set a logo URL in <strong>Admin Settings</strong> to enable logo options for emails.
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        <Separator />
+
+                        {/* Template Content */}
+                        <div className="space-y-4">
+                          <h4 className="text-sm font-medium">Base HTML Template</h4>
+                          
+                          <div className="space-y-2">
+                            <Label htmlFor="htmlTemplate">HTML Template</Label>
+                            <Textarea
+                              id="htmlTemplate"
+                              value={baseFormData.htmlTemplate}
+                              onChange={(e) => setBaseFormData({ ...baseFormData, htmlTemplate: e.target.value })}
+                              placeholder="Enter the base HTML template with placeholders..."
+                              className="min-h-[400px] font-mono text-sm"
+                            />
+                            <p className="text-xs text-muted-foreground">
+                              This is the unified HTML template that will be used for all email types. Use placeholders like {`{{headerTitle}}`}, {`{{sections}}`}, {`{{actionButton}}`} for dynamic content.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Variables Sidebar */}
+                      <div className="w-80 border-l bg-muted/30 overflow-y-auto p-4">
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-2">
+                            <Info className="h-4 w-4" />
+                            <h4 className="text-sm font-medium">Available Variables</h4>
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            Click on a variable to insert it into your template.
+                          </p>
+                          
+                          <ScrollArea className="h-[400px]">
+                            <div className="space-y-2">
+                              {Object.entries(availableVariables).map(([variable, description]) => (
+                                <div
+                                  key={variable}
+                                  className="p-2 border rounded cursor-pointer hover:bg-background transition-colors"
+                                  onClick={() => {
+                                    const textarea = document.getElementById('htmlTemplate') as HTMLTextAreaElement
+                                    if (textarea) {
+                                      const start = textarea.selectionStart
+                                      const end = textarea.selectionEnd
+                                      const text = textarea.value
+                                      const before = text.substring(0, start)
+                                      const after = text.substring(end, text.length)
+                                      const newText = before + `{{${variable}}}` + after
+                                      setBaseFormData({ ...baseFormData, htmlTemplate: newText })
+                                      setTimeout(() => {
+                                        textarea.focus()
+                                        textarea.setSelectionRange(start + variable.length + 4, start + variable.length + 4)
+                                      }, 0)
+                                    }
+                                  }}
+                                >
+                                  <code className="text-xs font-mono text-blue-600 dark:text-blue-400">
+                                    {`{{${variable}}}`}
+                                  </code>
+                                  <p className="text-xs text-muted-foreground mt-1">{description}</p>
+                                </div>
+                              ))}
+                            </div>
+                          </ScrollArea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-6 border-t flex-shrink-0">
+                      <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                          Cancel
+                        </Button>
+                        <Button onClick={handleSaveBase} disabled={isLoading}>
+                          {isLoading ? 'Saving...' : 'Save Template'}
+                        </Button>
+                      </DialogFooter>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {!baseTemplate ? (
+                <div className="text-center py-8">
+                  {isLoading ? (
+                    <>
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                      <p className="mt-2 text-sm text-muted-foreground">Loading base template...</p>
+                    </>
+                  ) : (
+                    <>
+                      <FileType className="mx-auto h-12 w-12 text-muted-foreground" />
+                      <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No Base Template</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        Failed to load the base email template configuration.
+                      </p>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {/* Base Template Overview */}
+                  <div className="border rounded-lg p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-semibold flex items-center gap-2">
+                          <FileType className="h-5 w-5" />
+                          Base Email Template
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          Unified template system for all email notifications
+                        </p>
+                      </div>
+                      <div className="flex gap-1">
+                        {baseTemplate.isActive ? (
+                          <Badge variant="default" className="text-xs">
+                            <CheckCircle className="mr-1 h-3 w-3" />
+                            Active
+                          </Badge>
+                        ) : (
+                          <Badge variant="secondary" className="text-xs">
+                            <XCircle className="mr-1 h-3 w-3" />
+                            Inactive
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <Label className="text-sm font-medium">Subject Prefix</Label>
+                        <div className="mt-1 p-2 bg-muted rounded text-sm font-mono">
+                          {baseTemplate.subjectPrefix}
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">System Name</Label>
+                        <div className="mt-1 p-2 bg-muted rounded text-sm">
+                          {baseTemplate.systemName}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Logo Configuration Overview */}
+                    <div className="mb-4 space-y-3">
+                      <Label className="text-sm font-medium">Email Header Configuration</Label>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded text-sm">
+                          {baseTemplate.logoUrl && baseTemplate.showLogo ? (
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <XCircle className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span>Logo {baseTemplate.logoUrl && baseTemplate.showLogo ? 'Enabled' : 'Disabled'}</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded text-sm">
+                          {!baseTemplate.hideAppName ? (
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <XCircle className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span>App Name {!baseTemplate.hideAppName ? 'Shown' : 'Hidden'}</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded text-sm">
+                          {baseTemplate.slogan && !baseTemplate.hideSlogan ? (
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <XCircle className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span>Slogan {baseTemplate.slogan && !baseTemplate.hideSlogan ? 'Shown' : 'Hidden'}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="text-xs text-muted-foreground">
+                      Last updated: {new Date(baseTemplate.updatedAt).toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Email Types Tab */}
+        <TabsContent value="types" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="h-5 w-5" />
+                Email Type Configurations
+              </CardTitle>
+              <CardDescription>
+                Customize the content, sections, and appearance for each email type while using the unified base template.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                  <p className="mt-2 text-sm text-muted-foreground">Loading email type configurations...</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {templateTypes.map((type) => {
+                    const config = emailTypes.find(c => c.type === type.value)
+                    return (
+                      <div key={type.value} className="border rounded-lg p-4">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-lg">{type.icon}</span>
+                            <div>
+                              <Badge variant="outline" className="text-xs">
+                                {type.label}
+                              </Badge>
+                              <p className="text-xs text-muted-foreground mt-1">{type.description}</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => openEditType(type.value)}
+                            >
+                              <Edit className="h-3 w-3 mr-1" />
+                              Edit
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handlePreview(type.value)}
+                            >
+                              <Eye className="h-3 w-3 mr-1" />
+                              Preview
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        {config && (
+                          <div className="mt-3 space-y-2">
+                            <div className="text-xs">
+                              <span className="font-medium">Sections:</span> {config.sections.length}
+                            </div>
+                            <div className="text-xs">
+                              <span className="font-medium">Header Color:</span>
+                              <span 
+                                className="inline-block w-3 h-3 rounded ml-1 border" 
+                                style={{ backgroundColor: config.headerColor }}
+                              ></span>
+                              {config.headerColor}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              Updated: {new Date(config.updatedAt).toLocaleDateString()}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+
+      {/* Type Configuration Dialog */}
+      {selectedType && (
+        <Dialog open={!!selectedType} onOpenChange={() => { setSelectedType(null); setTypeFormData({}) }}>
+          <DialogContent className="max-w-6xl w-full max-h-[90vh] m-4 p-0 overflow-hidden flex flex-col gap-0">
+            <div className="p-6 border-b flex-shrink-0">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Settings className="h-5 w-5" />
+                  Configure {templateTypes.find(t => t.value === selectedType)?.label} Email
+                </DialogTitle>
+                <DialogDescription>
+                  Customize the content sections, colors, and text for this email type.
+                </DialogDescription>
+              </DialogHeader>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              {typeFormData && (
+                <>
+                  {/* Header Configuration */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-medium">Header Configuration</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="headerTitle">Header Title</Label>
+                        <Input
+                          id="headerTitle"
+                          value={typeFormData.headerTitle || ''}
+                          onChange={(e) => setTypeFormData({ ...typeFormData, headerTitle: e.target.value })}
+                          placeholder="{{systemName}}"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="headerSubtitle">Header Subtitle</Label>
+                        <Input
+                          id="headerSubtitle"
+                          value={typeFormData.headerSubtitle || ''}
+                          onChange={(e) => setTypeFormData({ ...typeFormData, headerSubtitle: e.target.value })}
+                          placeholder="Notification"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="headerColor">Header Color</Label>
+                        <Input
+                          id="headerColor"
+                          type="color"
+                          value={typeFormData.headerColor || '#2563eb'}
+                          onChange={(e) => setTypeFormData({ ...typeFormData, headerColor: e.target.value })}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <Separator />
+
+                  {/* Content Configuration */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-medium">Content Configuration</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="greeting">Greeting</Label>
+                        <Input
+                          id="greeting"
+                          value={typeFormData.greeting || ''}
+                          onChange={(e) => setTypeFormData({ ...typeFormData, greeting: e.target.value })}
+                          placeholder="Hello {{customerName}},"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="footerText">Footer Text</Label>
+                        <Textarea
+                          id="footerText"
+                          value={typeFormData.footerText || ''}
+                          onChange={(e) => setTypeFormData({ ...typeFormData, footerText: e.target.value })}
+                          placeholder="Best regards,<br>{{systemName}} Support Team"
+                          className="min-h-[60px]"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="introText">Introduction Text</Label>
+                      <Textarea
+                        id="introText"
+                        value={typeFormData.introText || ''}
+                        onChange={(e) => setTypeFormData({ ...typeFormData, introText: e.target.value })}
+                        placeholder="Introduction text for this email type..."
+                        className="min-h-[80px]"
+                      />
+                    </div>
+                  </div>
+
+                  <Separator />
+
+                  {/* Content Sections */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-medium">Content Sections</h4>
+                      <Button onClick={addSection} size="sm">
+                        <Plus className="h-4 w-4 mr-1" />
+                        Add Section
+                      </Button>
+                    </div>
+                    
+                    {typeFormData.sections && typeFormData.sections.length > 0 ? (
+                      <div className="space-y-4">
+                        {typeFormData.sections.map((section, index) => (
+                          <div key={index} className="border rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-3">
                               <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium">Section {index + 1}</span>
+                                <Select
+                                  value={section.style}
+                                  onValueChange={(value) => updateSection(index, 'style', value)}
+                                >
+                                  <SelectTrigger className="w-32 h-8">
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {sectionStyles.map(style => (
+                                      <SelectItem key={style.value} value={style.value}>
+                                        <div className="flex items-center gap-2">
+                                          <div 
+                                            className="w-3 h-3 rounded border" 
+                                            style={{ backgroundColor: style.color }}
+                                          ></div>
+                                          {style.label}
+                                        </div>
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="flex items-center gap-1">
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => handlePreview(template)}
+                                  onClick={() => moveSection(index, 'up')}
+                                  disabled={index === 0}
                                 >
-                                  <Eye className="mr-2 h-4 w-4" />
-                                  Preview
+                                  <ArrowUp className="h-3 w-3" />
                                 </Button>
-                                
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => handleDuplicate(template)}
+                                  onClick={() => moveSection(index, 'down')}
+                                  disabled={index === typeFormData.sections!.length - 1}
                                 >
-                                  <Copy className="mr-2 h-4 w-4" />
-                                  Duplicate
+                                  <ArrowDown className="h-3 w-3" />
                                 </Button>
-
-                                {!template.isDefault && (
-                                  <>
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() => openEditDialog(template)}
-                                    >
-                                      <Edit className="mr-2 h-4 w-4" />
-                                      Edit
-                                    </Button>
-
-                                    <AlertDialog>
-                                      <AlertDialogTrigger asChild>
-                                        <Button
-                                          variant="outline"
-                                          size="sm"
-                                        >
-                                          <Trash2 className="mr-2 h-4 w-4" />
-                                          Delete
-                                        </Button>
-                                      </AlertDialogTrigger>
-                                      <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                          <AlertDialogTitle>Delete Email Template</AlertDialogTitle>
-                                          <AlertDialogDescription>
-                                            Are you sure you want to delete the template &quot;{template.name}&quot;? 
-                                            This action cannot be undone.
-                                          </AlertDialogDescription>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                          <AlertDialogAction
-                                            onClick={() => handleDelete(template.id)}
-                                            className="bg-red-600 hover:bg-red-700 focus:ring-red-600 text-white"
-                                          >
-                                            Delete Template
-                                          </AlertDialogAction>
-                                        </AlertDialogFooter>
-                                      </AlertDialogContent>
-                                    </AlertDialog>
-                                  </>
-                                )}
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => removeSection(index)}
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                            
+                            <div className="space-y-3">
+                              <div>
+                                <Label htmlFor={`section-title-${index}`}>Section Title</Label>
+                                <Input
+                                  id={`section-title-${index}`}
+                                  value={section.title}
+                                  onChange={(e) => updateSection(index, 'title', e.target.value)}
+                                  placeholder="Section title"
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor={`section-content-${index}`}>Section Content</Label>
+                                <Textarea
+                                  id={`section-content-${index}`}
+                                  value={section.content}
+                                  onChange={(e) => updateSection(index, 'content', e.target.value)}
+                                  placeholder="Section content (HTML allowed)"
+                                  className="min-h-[100px] font-mono text-sm"
+                                />
                               </div>
                             </div>
                           </div>
                         ))}
                       </div>
+                    ) : (
+                      <div className="text-center py-8 border-2 border-dashed border-muted rounded-lg">
+                        <FileText className="mx-auto h-8 w-8 text-muted-foreground" />
+                        <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No sections configured</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Add content sections to customize this email type.
+                        </p>
+                        <Button onClick={addSection} className="mt-4" size="sm">
+                          <Plus className="h-4 w-4 mr-1" />
+                          Add First Section
+                        </Button>
+                      </div>
                     )}
                   </div>
-                )
-              })}
+                </>
+              )}
             </div>
-          )}
-        </CardContent>
-      </Card>
+
+            <div className="p-6 border-t flex-shrink-0">
+              <DialogFooter>
+                <Button variant="outline" onClick={() => { setSelectedType(null); setTypeFormData({}) }}>
+                  Cancel
+                </Button>
+                <Button onClick={handleSaveType} disabled={isLoading}>
+                  {isLoading ? 'Saving...' : 'Save Configuration'}
+                </Button>
+              </DialogFooter>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
 
       {/* Preview Dialog */}
       <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
@@ -636,7 +996,7 @@ export default function EmailTemplateManager() {
                 Email Template Preview
               </DialogTitle>
               <DialogDescription>
-                Preview how the email will look with sample data
+                Preview how the unified template renders for different email types
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -644,14 +1004,10 @@ export default function EmailTemplateManager() {
           <div className="flex-1 overflow-y-auto p-6">
             {previewData && (
               <Tabs defaultValue="html" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
+                <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="html" className="flex items-center gap-2">
                     <Globe className="h-4 w-4" />
                     HTML Preview
-                  </TabsTrigger>
-                  <TabsTrigger value="text" className="flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
-                    Plain Text
                   </TabsTrigger>
                   <TabsTrigger value="source" className="flex items-center gap-2">
                     <Code className="h-4 w-4" />
@@ -698,23 +1054,6 @@ export default function EmailTemplateManager() {
                         title="Email Preview"
                         sandbox="allow-same-origin"
                       />
-                    </div>
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="text" className="space-y-4">
-                  <div className="space-y-2">
-                    <Label>Subject:</Label>
-                    <div className="p-3 bg-muted rounded font-mono text-sm">
-                      {previewData.subject}
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Plain Text Content:</Label>
-                    <div className="border rounded p-4 bg-muted/30">
-                      <pre className="whitespace-pre-wrap text-sm">
-                        {previewData.textContent || 'No plain text content available'}
-                      </pre>
                     </div>
                   </div>
                 </TabsContent>
