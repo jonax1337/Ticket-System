@@ -39,6 +39,7 @@ interface EmailConfiguration {
   useSSL: boolean
   folder: string
   isActive: boolean
+  isOutbound: boolean
   lastSync: Date | null
   syncInterval: number
   emailAction: string

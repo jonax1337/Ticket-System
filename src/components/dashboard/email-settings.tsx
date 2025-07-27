@@ -50,6 +50,7 @@ interface EmailConfiguration {
   useSSL: boolean
   folder: string
   isActive: boolean
+  isOutbound: boolean
   lastSync: Date | null
   syncInterval: number
   emailAction: string
@@ -89,6 +90,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
     useSSL: true,
     folder: 'INBOX',
     isActive: true,
+    isOutbound: false,
     syncInterval: 300,
     emailAction: 'mark_read',
     moveToFolder: '',
@@ -110,6 +112,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
       useSSL: true,
       folder: 'INBOX',
       isActive: true,
+      isOutbound: false,
       syncInterval: 300,
       emailAction: 'mark_read',
       moveToFolder: '',
@@ -134,6 +137,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
         useSSL: config.useSSL,
         folder: config.folder,
         isActive: config.isActive,
+        isOutbound: config.isOutbound,
         syncInterval: config.syncInterval,
         emailAction: config.emailAction,
         moveToFolder: config.moveToFolder || '',
@@ -409,6 +413,14 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
+                          id="isOutbound"
+                          checked={formData.isOutbound}
+                          onCheckedChange={(checked) => setFormData({ ...formData, isOutbound: !!checked })}
+                        />
+                        <Label htmlFor="isOutbound">Outbound</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
                           id="enableAutoSync"
                           checked={formData.enableAutoSync}
                           onCheckedChange={(checked) => setFormData({ ...formData, enableAutoSync: !!checked })}
@@ -594,6 +606,12 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                             <Badge variant="secondary" className="text-xs">
                               <XCircle className="mr-1 h-3 w-3" />
                               Inactive
+                            </Badge>
+                          )}
+                          {config.isOutbound && (
+                            <Badge variant="outline" className="text-xs bg-blue-50 border-blue-200 text-blue-700">
+                              <Mail className="mr-1 h-3 w-3" />
+                              Outbound
                             </Badge>
                           )}
                           {config.enableAutoSync && (

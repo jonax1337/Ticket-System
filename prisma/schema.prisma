@@ -233,6 +233,7 @@ model EmailConfiguration {
   useSSL      Boolean  @default(true) // Use SSL/TLS
   folder      String   @default("INBOX") // IMAP folder to monitor
   isActive    Boolean  @default(true) // Enable/disable this email account
+  isOutbound  Boolean  @default(false) // Use this account for outbound emails
   lastSync    DateTime? // Last successful sync timestamp
   syncInterval Int     @default(300) // Sync interval in seconds (5 minutes default)
   
