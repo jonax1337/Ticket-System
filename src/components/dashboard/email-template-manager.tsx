@@ -40,7 +40,12 @@ interface BaseTemplateConfig {
   subjectPrefix: string
   htmlTemplate: string
   isActive: boolean
+  showLogo: boolean
+  hideAppName: boolean
+  hideSlogan: boolean
   systemName: string
+  logoUrl: string | null
+  slogan: string | null
   createdAt: string
   updatedAt: string
 }
@@ -151,7 +156,10 @@ export default function EmailTemplateManager() {
   const [baseFormData, setBaseFormData] = useState({
     subjectPrefix: '[Ticket {{ticketNumber}}]',
     htmlTemplate: '',
-    isActive: true
+    isActive: true,
+    showLogo: true,
+    hideAppName: false,
+    hideSlogan: false
   })
 
   // Type configuration form data
@@ -172,7 +180,10 @@ export default function EmailTemplateManager() {
         setBaseFormData({
           subjectPrefix: baseData.subjectPrefix,
           htmlTemplate: baseData.htmlTemplate,
-          isActive: baseData.isActive
+          isActive: baseData.isActive,
+          showLogo: baseData.showLogo ?? true,
+          hideAppName: baseData.hideAppName ?? false,
+          hideSlogan: baseData.hideSlogan ?? false
         })
       }
 
@@ -180,10 +191,10 @@ export default function EmailTemplateManager() {
       const typesResponse = await fetch('/api/admin/email-templates/types')
       if (typesResponse.ok) {
         const typesData = await typesResponse.json()
-        setEmailTypes(typesData.map((config: any) => ({
+        setEmailTypes(typesData.map((config: Record<string, unknown>) => ({
           ...config,
-          sections: JSON.parse(config.sections),
-          actionButton: config.actionButton ? JSON.parse(config.actionButton) : null
+          sections: JSON.parse(config.sections as string),
+          actionButton: config.actionButton ? JSON.parse(config.actionButton as string) : null
         })))
       }
     } catch (error) {
@@ -424,6 +435,68 @@ export default function EmailTemplateManager() {
 
                         <Separator />
 
+                        {/* Logo Configuration */}
+                        <div className="space-y-4">
+                          <h4 className="text-sm font-medium">Email Header Configuration</h4>
+                          
+                          {baseTemplate?.logoUrl && (
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id="showLogo"
+                                checked={baseFormData.showLogo}
+                                onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, showLogo: !!checked })}
+                              />
+                              <Label htmlFor="showLogo">Show logo in emails</Label>
+                            </div>
+                          )}
+                          
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="hideAppName"
+                              checked={baseFormData.hideAppName}
+                              onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, hideAppName: !!checked })}
+                            />
+                            <Label htmlFor="hideAppName">Hide application name in emails</Label>
+                          </div>
+
+                          {baseTemplate?.slogan && (
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id="hideSlogan"
+                                checked={baseFormData.hideSlogan}
+                                onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, hideSlogan: !!checked })}
+                              />
+                              <Label htmlFor="hideSlogan">Hide slogan in emails</Label>
+                            </div>
+                          )}
+
+                          {baseTemplate?.logoUrl && (
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">Current Logo</Label>
+                              <div className="flex items-center space-x-3 p-3 border rounded-lg bg-muted/50">
+                                <img 
+                                  src={baseTemplate.logoUrl} 
+                                  alt="Logo preview" 
+                                  className="h-12 w-auto max-w-[120px] object-contain"
+                                />
+                                <div className="text-xs text-muted-foreground">
+                                  Logo will appear in email headers when enabled
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {!baseTemplate?.logoUrl && (
+                            <div className="p-3 border border-dashed rounded-lg bg-muted/20">
+                              <div className="text-sm text-muted-foreground text-center">
+                                No logo configured. Set a logo URL in <strong>Admin Settings</strong> to enable logo options for emails.
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        <Separator />
+
                         {/* Template Content */}
                         <div className="space-y-4">
                           <h4 className="text-sm font-medium">Base HTML Template</h4>
@@ -562,6 +635,37 @@ export default function EmailTemplateManager() {
                         <Label className="text-sm font-medium">System Name</Label>
                         <div className="mt-1 p-2 bg-muted rounded text-sm">
                           {baseTemplate.systemName}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Logo Configuration Overview */}
+                    <div className="mb-4 space-y-3">
+                      <Label className="text-sm font-medium">Email Header Configuration</Label>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded text-sm">
+                          {baseTemplate.logoUrl && baseTemplate.showLogo ? (
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <XCircle className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span>Logo {baseTemplate.logoUrl && baseTemplate.showLogo ? 'Enabled' : 'Disabled'}</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded text-sm">
+                          {!baseTemplate.hideAppName ? (
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <XCircle className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span>App Name {!baseTemplate.hideAppName ? 'Shown' : 'Hidden'}</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded text-sm">
+                          {baseTemplate.slogan && !baseTemplate.hideSlogan ? (
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <XCircle className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span>Slogan {baseTemplate.slogan && !baseTemplate.hideSlogan ? 'Shown' : 'Hidden'}</span>
                         </div>
                       </div>
                     </div>

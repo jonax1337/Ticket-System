@@ -6,7 +6,8 @@ import {
   generateActionButton, 
   renderSections, 
   renderActionButton,
-  UnifiedEmailData 
+  UnifiedEmailData,
+  EmailContentSection
 } from './email-base-template'
 
 export type EmailTemplateType = 
@@ -200,6 +201,43 @@ export async function renderEmailTemplate(
 }
 
 /**
+ * Render email logo HTML if logo should be shown
+ */
+function renderEmailLogo(logoUrl: string | null, showLogo: boolean): string {
+  if (!showLogo || !logoUrl) {
+    return ''
+  }
+  
+  return `
+    <div class="logo">
+      <img src="${logoUrl}" alt="Logo" />
+    </div>
+  `
+}
+
+/**
+ * Render email app name HTML if not hidden
+ */
+function renderEmailAppName(appName: string, hideAppName: boolean): string {
+  if (hideAppName) {
+    return ''
+  }
+  
+  return `<div class="app-name"><h2 style="margin: 5px 0; font-size: 20px; font-weight: 600;">${appName}</h2></div>`
+}
+
+/**
+ * Render email slogan HTML if available and not hidden
+ */
+function renderEmailSlogan(slogan: string | null, hideSlogan: boolean): string {
+  if (hideSlogan || !slogan) {
+    return ''
+  }
+  
+  return `<div class="slogan"><p style="margin: 5px 0; font-size: 14px; opacity: 0.8;">${slogan}</p></div>`
+}
+
+/**
  * Render email using unified template system
  */
 async function renderUnifiedTemplate(
@@ -243,6 +281,21 @@ async function renderUnifiedTemplate(
     actionButton = generateActionButton(type, variables as Record<string, unknown>)
   }
   
+  // Get email logo configuration from system settings
+  const systemSettings = await prisma.systemSettings.findFirst()
+  const emailLogoHtml = renderEmailLogo(
+    systemSettings?.logoUrl || null,
+    systemSettings?.emailShowLogo ?? true
+  )
+  const emailAppNameHtml = renderEmailAppName(
+    systemSettings?.appName || 'Support Dashboard',
+    systemSettings?.emailHideAppName ?? false
+  )
+  const emailSloganHtml = renderEmailSlogan(
+    systemSettings?.slogan || null,
+    systemSettings?.emailHideSlogan ?? false
+  )
+  
   // Create unified email data
   const emailData: UnifiedEmailData = {
     headerTitle: baseConfig.headerTitle || '{{systemName}}',
@@ -269,7 +322,10 @@ async function renderUnifiedTemplate(
     introText: emailData.introText,
     footerText: emailData.footerText,
     disclaimerText: emailData.disclaimerText,
-    buttonColor: actionButton?.color || '#2563eb'
+    buttonColor: actionButton?.color || '#2563eb',
+    emailLogo: emailLogoHtml,
+    emailAppName: emailAppNameHtml,
+    emailSlogan: emailSloganHtml
   }
 
   // Replace main placeholders

@@ -195,6 +195,9 @@ model SystemSettings {
   emailSubjectPrefix String @default("[Ticket {{ticketNumber}}]") // Prefix for email subjects
   emailBaseTemplate String? @db.Text // Base HTML template for emails
   emailBaseTemplateActive Boolean @default(true) // Enable/disable base template
+  emailShowLogo Boolean @default(true) // Show logo in emails (if logoUrl is set)
+  emailHideAppName Boolean @default(false) // Hide app name in emails
+  emailHideSlogan Boolean @default(false) // Hide slogan in emails
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

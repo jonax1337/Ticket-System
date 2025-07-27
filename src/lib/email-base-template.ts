@@ -56,6 +56,15 @@ export const BASE_EMAIL_TEMPLATE = `
       padding: 20px; 
       text-align: center; 
     }
+    .header .logo {
+      margin-bottom: 15px;
+    }
+    .header .logo img {
+      max-height: 80px;
+      max-width: 300px;
+      height: auto;
+      width: auto;
+    }
     .header h1 { 
       margin: 0 0 5px 0; 
       font-size: 24px; 
@@ -160,6 +169,9 @@ export const BASE_EMAIL_TEMPLATE = `
 <body>
   <div class="container">
     <div class="header">
+      {{emailLogo}}
+      {{emailAppName}}
+      {{emailSlogan}}
       <h1>{{headerTitle}}</h1>
       <p>{{headerSubtitle}}</p>
     </div>

@@ -27,7 +27,10 @@ export async function GET() {
           appName: 'Support Dashboard',
           emailSubjectPrefix: '[Ticket {{ticketNumber}}]',
           emailBaseTemplate: BASE_EMAIL_TEMPLATE,
-          emailBaseTemplateActive: true
+          emailBaseTemplateActive: true,
+          emailShowLogo: true,
+          emailHideAppName: false,
+          emailHideSlogan: false
         }
       })
     } else if (!systemSettings.emailBaseTemplate) {
@@ -36,7 +39,10 @@ export async function GET() {
         where: { id: 'system' },
         data: {
           emailBaseTemplate: BASE_EMAIL_TEMPLATE,
-          emailBaseTemplateActive: true
+          emailBaseTemplateActive: true,
+          emailShowLogo: true,
+          emailHideAppName: false,
+          emailHideSlogan: false
         }
       })
     }
@@ -46,7 +52,12 @@ export async function GET() {
       subjectPrefix: systemSettings.emailSubjectPrefix,
       htmlTemplate: systemSettings.emailBaseTemplate,
       isActive: systemSettings.emailBaseTemplateActive,
+      showLogo: systemSettings.emailShowLogo ?? true,
+      hideAppName: systemSettings.emailHideAppName ?? false,
+      hideSlogan: systemSettings.emailHideSlogan ?? false,
       systemName: systemSettings.appName,
+      logoUrl: systemSettings.logoUrl,
+      slogan: systemSettings.slogan,
       createdAt: systemSettings.createdAt,
       updatedAt: systemSettings.updatedAt
     })
@@ -72,7 +83,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { subjectPrefix, htmlTemplate, isActive } = body
+    const { subjectPrefix, htmlTemplate, isActive, showLogo, hideAppName, hideSlogan } = body
 
     if (!subjectPrefix || !htmlTemplate) {
       return NextResponse.json(
@@ -88,6 +99,9 @@ export async function PUT(request: NextRequest) {
         emailSubjectPrefix: subjectPrefix,
         emailBaseTemplate: htmlTemplate,
         emailBaseTemplateActive: isActive !== undefined ? isActive : true,
+        emailShowLogo: showLogo !== undefined ? showLogo : true,
+        emailHideAppName: hideAppName !== undefined ? hideAppName : false,
+        emailHideSlogan: hideSlogan !== undefined ? hideSlogan : false,
         updatedAt: new Date()
       },
       create: {
@@ -95,7 +109,10 @@ export async function PUT(request: NextRequest) {
         appName: 'Support Dashboard',
         emailSubjectPrefix: subjectPrefix,
         emailBaseTemplate: htmlTemplate,
-        emailBaseTemplateActive: isActive !== undefined ? isActive : true
+        emailBaseTemplateActive: isActive !== undefined ? isActive : true,
+        emailShowLogo: showLogo !== undefined ? showLogo : true,
+        emailHideAppName: hideAppName !== undefined ? hideAppName : false,
+        emailHideSlogan: hideSlogan !== undefined ? hideSlogan : false
       }
     })
 
@@ -104,7 +121,12 @@ export async function PUT(request: NextRequest) {
       subjectPrefix: systemSettings.emailSubjectPrefix,
       htmlTemplate: systemSettings.emailBaseTemplate,
       isActive: systemSettings.emailBaseTemplateActive,
+      showLogo: systemSettings.emailShowLogo,
+      hideAppName: systemSettings.emailHideAppName,
+      hideSlogan: systemSettings.emailHideSlogan,
       systemName: systemSettings.appName,
+      logoUrl: systemSettings.logoUrl,
+      slogan: systemSettings.slogan,
       createdAt: systemSettings.createdAt,
       updatedAt: systemSettings.updatedAt
     })
