@@ -322,7 +322,22 @@ export default function CustomPriorityManager() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Clock className="h-5 w-5" />
+            Priority Configuration
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+            <p className="mt-2 text-sm text-muted-foreground">Loading priorities...</p>
+          </div>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
