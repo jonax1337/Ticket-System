@@ -164,16 +164,19 @@ export async function POST(
             // Get recipient info for better personalization
             let recipientName = recipientEmail
             
+            // Normalize email for database lookup
+            const normalizedRecipientEmail = recipientEmail.toLowerCase().trim()
+            
             // Try to get participant info from database
             const participant = await prisma.ticketParticipant.findFirst({
               where: {
                 ticketId: params.id,
-                email: recipientEmail
+                email: normalizedRecipientEmail
               }
             })
             
             // Fall back to ticket requester info if this is the original requester
-            if (!participant && recipientEmail.toLowerCase() === ticket.fromEmail.toLowerCase()) {
+            if (!participant && normalizedRecipientEmail === ticket.fromEmail.toLowerCase()) {
               recipientName = ticket.fromName || recipientEmail
             } else if (participant) {
               recipientName = participant.name || recipientEmail

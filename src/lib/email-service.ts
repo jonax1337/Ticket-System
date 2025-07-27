@@ -328,7 +328,7 @@ ${textBody}
       ticketNumber,
       subject: subject,
       description: ticketDescription,
-      fromEmail: fromAddress,
+      fromEmail: fromAddress.toLowerCase().trim(), // Normalize email for consistency
       fromName: fromName,
       htmlContent: htmlBody,
       priority: config.defaultPriority || 'Medium',
@@ -351,10 +351,10 @@ ${textBody}
   // Create ticket participants (creator + CC recipients)
   const participantsData = []
   
-  // Add creator (from email)
+  // Add creator (from email) - normalize email for storage
   participantsData.push({
     ticketId: ticket.id,
-    email: fromAddress,
+    email: fromAddress.toLowerCase().trim(),
     name: fromName,
     type: 'creator'
   })
@@ -365,11 +365,13 @@ ${textBody}
     for (const ccRecipient of ccArray) {
       if (ccRecipient.value && ccRecipient.value.length > 0) {
         for (const ccAddress of ccRecipient.value) {
-          // Don't add duplicates or the main sender
-          if (ccAddress.address && ccAddress.address !== fromAddress) {
+          // Don't add duplicates or the main sender - normalize emails for comparison
+          const normalizedCcEmail = ccAddress.address?.toLowerCase().trim()
+          const normalizedFromEmail = fromAddress.toLowerCase().trim()
+          if (normalizedCcEmail && normalizedCcEmail !== normalizedFromEmail) {
             participantsData.push({
               ticketId: ticket.id,
-              email: ccAddress.address,
+              email: normalizedCcEmail,
               name: ccAddress.name || ccAddress.address,
               type: 'cc'
             })
@@ -385,11 +387,13 @@ ${textBody}
     for (const bccRecipient of bccArray) {
       if (bccRecipient.value && bccRecipient.value.length > 0) {
         for (const bccAddress of bccRecipient.value) {
-          // Don't add duplicates or the main sender
-          if (bccAddress.address && bccAddress.address !== fromAddress) {
+          // Don't add duplicates or the main sender - normalize emails for comparison
+          const normalizedBccEmail = bccAddress.address?.toLowerCase().trim()
+          const normalizedFromEmail = fromAddress.toLowerCase().trim()
+          if (normalizedBccEmail && normalizedBccEmail !== normalizedFromEmail) {
             participantsData.push({
               ticketId: ticket.id,
-              email: bccAddress.address,
+              email: normalizedBccEmail,
               name: bccAddress.name || bccAddress.address,
               type: 'cc' // Treat BCC same as CC for participants
             })
@@ -654,11 +658,12 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
         if (participantEmail === options.to) continue
         
         try {
-          // Get participant info from database for name
+          // Get participant info from database for name - normalize email for lookup
+          const normalizedParticipantEmail = participantEmail.toLowerCase().trim()
           const participant = await prisma.ticketParticipant.findFirst({
             where: {
               ticketId: options.ticketId,
-              email: participantEmail
+              email: normalizedParticipantEmail
             }
           })
           
@@ -917,7 +922,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         if (!isSupportEmail && !existingParticipant) {
           participantsToAdd.push({
             ticketId: ticket.id,
-            email: fromAddress,
+            email: normalizedFromEmail, // Store normalized email
             name: fromName,
             type: 'added_via_reply'
           })
@@ -940,7 +945,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
                 if (!isSupport && !isOriginalRequester) {
                   participantsToAdd.push({
                     ticketId: ticket.id,
-                    email: ccAddress.address,
+                    email: normalizedCcEmail, // Store normalized email
                     name: ccAddress.name || ccAddress.address,
                     type: 'cc'
                   })
@@ -967,7 +972,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
                 if (!isSupport && !isOriginalRequester) {
                   participantsToAdd.push({
                     ticketId: ticket.id,
-                    email: bccAddress.address,
+                    email: normalizedBccEmail, // Store normalized email
                     name: bccAddress.name || bccAddress.address,
                     type: 'cc' // Treat BCC same as CC for participants
                   })
@@ -993,7 +998,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
                 if (!isSupport && !isOriginalRequester) {
                   participantsToAdd.push({
                     ticketId: ticket.id,
-                    email: toAddress.address,
+                    email: normalizedToEmail, // Store normalized email
                     name: toAddress.name || toAddress.address,
                     type: 'added_via_reply'
                   })
