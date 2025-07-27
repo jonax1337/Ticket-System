@@ -590,6 +590,7 @@ export async function checkTicketReminders() {
       where: {
         reminderDate: {
           lte: now,
+          gte: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), // Only within last 7 days
         },
         assignedToId: {
           not: null,
