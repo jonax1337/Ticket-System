@@ -910,10 +910,7 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         const existingParticipant = await prisma.ticketParticipant.findFirst({
           where: {
             ticketId: ticket.id,
-            email: {
-              equals: normalizedFromEmail,
-              mode: 'insensitive'
-            }
+            email: normalizedFromEmail
           }
         })
         

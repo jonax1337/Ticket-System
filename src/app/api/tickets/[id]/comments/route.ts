@@ -168,10 +168,7 @@ export async function POST(
             const participant = await prisma.ticketParticipant.findFirst({
               where: {
                 ticketId: params.id,
-                email: {
-                  equals: recipientEmail,
-                  mode: 'insensitive'
-                }
+                email: recipientEmail
               }
             })
             
