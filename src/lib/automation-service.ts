@@ -141,7 +141,7 @@ class TicketAutomationManager {
               ticket.id,
               ticket.assignedToId,
               this.config.daysUntilAutoClose - this.config.daysUntilWarning,
-              ticket.ticketNumber,
+              ticket.ticketNumber ?? undefined,
               ticket.subject
             )
           }
@@ -180,7 +180,7 @@ class TicketAutomationManager {
           await createAutoClosedNotification(
             ticket.id,
             ticket.assignedToId,
-            ticket.ticketNumber,
+            ticket.ticketNumber ?? undefined,
             ticket.subject
           )
         }
