@@ -53,7 +53,14 @@ export async function POST(
       ? JSON.parse(formData.get('selectedParticipants') as string) as string[]
       : []
     const statusChange = formData.get('statusChange')
-      ? JSON.parse(formData.get('statusChange') as string) as { from: string; to: string }
+      ? (() => {
+          try {
+            return JSON.parse(formData.get('statusChange') as string) as { from: string; to: string }
+          } catch (error) {
+            console.error('Invalid statusChange JSON:', error)
+            return null
+          }
+        })()
       : null
 
     if (!content || !content.trim()) {
