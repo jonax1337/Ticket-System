@@ -55,7 +55,7 @@ export function useEmailSyncStatus(initialConfigs: EmailConfiguration[] = []) {
         loading: false,
         error: error instanceof Error ? error.message : 'Unknown error'
       }))
-      return Array.isArray(data) ? data : []
+      return []
     }
   }, [])
 
