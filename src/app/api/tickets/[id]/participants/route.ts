@@ -89,9 +89,12 @@ export async function POST(
       )
     }
 
+    // Normalize email for consistent storage
+    const normalizedEmail = email.trim().toLowerCase()
+
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return NextResponse.json(
         { error: 'Invalid email address' },
         { status: 400 }
@@ -103,7 +106,7 @@ export async function POST(
       where: {
         ticketId_email: {
           ticketId: params.id,
-          email: email.trim()
+          email: normalizedEmail
         }
       }
     })
@@ -119,7 +122,7 @@ export async function POST(
     const participant = await prisma.ticketParticipant.create({
       data: {
         ticketId: params.id,
-        email: email.trim(),
+        email: normalizedEmail,
         name: name?.trim() || email.trim(),
         type: type || 'added_manually'
       }
@@ -129,18 +132,18 @@ export async function POST(
     try {
       await sendTemplatedEmail({
         templateType: 'participant_added',
-        to: email.trim(),
+        to: normalizedEmail,
         toName: name?.trim() || email.trim(),
         ticketId: params.id,
         variables: {
           participantName: name?.trim() || email.trim(),
-          participantEmail: email.trim(),
+          participantEmail: normalizedEmail,
           participantType: type || 'Added manually',
           actorName: session.user.name,
           actorEmail: session.user.email
         }
       })
-      console.log(`Participant notification sent to ${email.trim()}`)
+      console.log(`Participant notification sent to ${normalizedEmail}`)
     } catch (emailError) {
       console.error('Error sending participant notification:', emailError)
       // Don't fail the main request if email sending fails

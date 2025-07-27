@@ -68,12 +68,17 @@ interface Ticket {
   comments: {
     id: string
     content: string
+    fullEmailContent?: string | null // Full email content including history for email replies
+    sentToEmails?: string | null // Comma-separated emails this external comment was sent to
     createdAt: Date
     user: {
       id: string
       name: string
       email: string
-    }
+      avatarUrl?: string | null
+    } | null // Can be null for external email replies
+    fromName?: string | null // Name of external user for email replies
+    fromEmail?: string | null // Email of external user for email replies
     attachments?: {
       id: string
       filename: string

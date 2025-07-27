@@ -691,6 +691,11 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
                         }
                       </div>
                     )}
+                    {comment.fromEmail && (
+                      <div className="text-xs text-muted-foreground opacity-70">
+                        From: {comment.fromEmail}
+                      </div>
+                    )}
                   </div>
                   
                   {comment.user && currentUser.id === comment.user.id && (

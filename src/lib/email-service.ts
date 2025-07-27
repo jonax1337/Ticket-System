@@ -328,7 +328,7 @@ ${textBody}
       ticketNumber,
       subject: subject,
       description: ticketDescription,
-      fromEmail: fromAddress,
+      fromEmail: fromAddress.toLowerCase().trim(), // Normalize email for consistency
       fromName: fromName,
       htmlContent: htmlBody,
       priority: config.defaultPriority || 'Medium',
@@ -348,16 +348,8 @@ ${textBody}
     })
   }
 
-  // Create ticket participants (creator + CC recipients)
+  // Create ticket participants (CC/BCC recipients only - requester is already stored in ticket.fromEmail)
   const participantsData = []
-  
-  // Add creator (from email)
-  participantsData.push({
-    ticketId: ticket.id,
-    email: fromAddress,
-    name: fromName,
-    type: 'creator'
-  })
 
   // Add CC recipients if any
   if (email.cc) {
@@ -365,11 +357,13 @@ ${textBody}
     for (const ccRecipient of ccArray) {
       if (ccRecipient.value && ccRecipient.value.length > 0) {
         for (const ccAddress of ccRecipient.value) {
-          // Don't add duplicates or the main sender
-          if (ccAddress.address && ccAddress.address !== fromAddress) {
+          // Don't add duplicates or the main sender - normalize emails for comparison
+          const normalizedCcEmail = ccAddress.address?.toLowerCase().trim()
+          const normalizedFromEmail = fromAddress.toLowerCase().trim()
+          if (normalizedCcEmail && normalizedCcEmail !== normalizedFromEmail) {
             participantsData.push({
               ticketId: ticket.id,
-              email: ccAddress.address,
+              email: normalizedCcEmail,
               name: ccAddress.name || ccAddress.address,
               type: 'cc'
             })
@@ -385,11 +379,13 @@ ${textBody}
     for (const bccRecipient of bccArray) {
       if (bccRecipient.value && bccRecipient.value.length > 0) {
         for (const bccAddress of bccRecipient.value) {
-          // Don't add duplicates or the main sender
-          if (bccAddress.address && bccAddress.address !== fromAddress) {
+          // Don't add duplicates or the main sender - normalize emails for comparison
+          const normalizedBccEmail = bccAddress.address?.toLowerCase().trim()
+          const normalizedFromEmail = fromAddress.toLowerCase().trim()
+          if (normalizedBccEmail && normalizedBccEmail !== normalizedFromEmail) {
             participantsData.push({
               ticketId: ticket.id,
-              email: bccAddress.address,
+              email: normalizedBccEmail,
               name: bccAddress.name || bccAddress.address,
               type: 'cc' // Treat BCC same as CC for participants
             })
@@ -399,15 +395,27 @@ ${textBody}
     }
   }
 
-  // Create all participants
+  // Create all participants (with additional safety check to prevent requester duplication)
   if (participantsData.length > 0) {
-    await prisma.ticketParticipant.createMany({
-      data: participantsData,
-      skipDuplicates: true // In case same email appears multiple times
+    // Extra safety: filter out any participants that match the requester email
+    const filteredParticipants = participantsData.filter(participant => {
+      const normalizedParticipantEmail = participant.email.toLowerCase().trim()
+      const normalizedRequesterEmail = fromAddress.toLowerCase().trim()
+      return normalizedParticipantEmail !== normalizedRequesterEmail
     })
+    
+    if (filteredParticipants.length > 0) {
+      await prisma.ticketParticipant.createMany({
+        data: filteredParticipants,
+        skipDuplicates: true // In case same email appears multiple times
+      })
+      console.log(`Added ${filteredParticipants.length} participants to ticket: ${filteredParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
+    } else {
+      console.log('No participants to add after filtering out requester duplicates')
+    }
+  } else {
+    console.log('No participants to add from email')
   }
-
-  console.log(`Added ${participantsData.length} new participants from email reply: ${participantsData.map(p => `${p.email} (${p.type})`).join(', ')}`)
 
   // Send ticket creation notification to customer using template
   try {
@@ -431,6 +439,36 @@ ${textBody}
   } catch (emailError) {
     console.error('Failed to send ticket creation notification:', emailError)
     // Don't fail ticket creation if email notification fails
+  }
+
+  // Send participant notifications to CC/BCC recipients (exclude the original requester - they get ticket_created notification)
+  for (const participant of participantsData) {
+    try {
+      await sendTemplatedEmail({
+        templateType: 'participant_added',
+        to: participant.email,
+        toName: participant.name,
+        ticketId: ticket.id,
+        variables: {
+          ticketNumber,
+          ticketSubject: subject,
+          ticketDescription: textBody,
+          ticketStatus: config.defaultStatus || 'Open',
+          ticketPriority: config.defaultPriority || 'Medium',
+          ticketCreatedAt: receivedDate.toLocaleString(),
+          participantName: participant.name,
+          participantEmail: participant.email,
+          participantType: participant.type === 'cc' ? 'CC recipient' : 'Email participant',
+          actorName: 'Email System',
+          actorEmail: 'system',
+          ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`
+        }
+      })
+      console.log(`Participant notification sent to ${participant.email} (${participant.type})`)
+    } catch (participantEmailError) {
+      console.error(`Failed to send participant notification to ${participant.email}:`, participantEmailError)
+      // Continue with other participants even if one fails
+    }
   }
 
   return true
@@ -654,11 +692,12 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
         if (participantEmail === options.to) continue
         
         try {
-          // Get participant info from database for name
+          // Get participant info from database for name - normalize email for lookup
+          const normalizedParticipantEmail = participantEmail.toLowerCase().trim()
           const participant = await prisma.ticketParticipant.findFirst({
             where: {
               ticketId: options.ticketId,
-              email: participantEmail
+              email: normalizedParticipantEmail
             }
           })
           
@@ -781,18 +820,47 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     const subject = email.subject || ''
     const fromAddress = email.from?.value?.[0]?.address || ''
     
+    console.log('[EMAIL REPLY DEBUG] Processing email subject:', subject)
     
-    // Extract ticket number from subject - handle various formats like:
-    // [Ticket IT-B8LOD55I] 
-    // Re: [Ticket IT-B8LOD55I]
-    // Fwd: [Ticket IT-B8LOD55I]
-    const ticketMatch = subject.match(/\[Ticket\s+([^\]]+)\]/i)
-    if (!ticketMatch) {
+    // Extract ticket number from subject using flexible patterns:
+    // - [Ticket TICKETNUMBER] (original format)
+    // - TICKETNUMBER (any ticket number in subject)
+    // - Re: TICKETNUMBER, Fwd: TICKETNUMBER, AW: TICKETNUMBER, etc.
+    
+    let ticketNumber = null
+    
+    // First try the original [Ticket NUMBER] format for backward compatibility
+    let ticketMatch = subject.match(/\[Ticket\s+([^\]]+)\]/i)
+    if (ticketMatch) {
+      ticketNumber = ticketMatch[1]
+      console.log('[EMAIL REPLY DEBUG] Found ticket number in [Ticket] format:', ticketNumber)
+    } else {
+      // Enhanced regex to handle reply prefixes and various ticket number patterns
+      // Remove common reply prefixes first, then search for ticket numbers
+      const cleanSubject = subject.replace(/^(Re:|AW:|Fwd:|Fw:|Antwort:|Reply:)\s*/i, '').trim()
+      console.log('[EMAIL REPLY DEBUG] Cleaned subject (removed reply prefixes):', cleanSubject)
+      
+      // Try to find any ticket number pattern in the cleaned subject
+      // This handles patterns like: T-000001, IT-B8LOD55I, SUP-ABC123, SUPPORT-CASE-123 etc.
+      // Made more flexible to handle both single letter and multi-letter prefixes
+      ticketMatch = cleanSubject.match(/([A-Z][-_][A-Z0-9]+(?:[-_][A-Z0-9]+)*)/i)
+      if (ticketMatch) {
+        ticketNumber = ticketMatch[1]
+        console.log('[EMAIL REPLY DEBUG] Found ticket number pattern in cleaned subject:', ticketNumber)
+      } else {
+        // Also try the original subject in case the prefix is part of the ticket number
+        ticketMatch = subject.match(/([A-Z][-_][A-Z0-9]+(?:[-_][A-Z0-9]+)*)/i)
+        if (ticketMatch) {
+          ticketNumber = ticketMatch[1]
+          console.log('[EMAIL REPLY DEBUG] Found ticket number pattern in original subject:', ticketNumber)
+        }
+      }
+    }
+    
+    if (!ticketNumber) {
       console.log('[EMAIL REPLY DEBUG] No ticket number found in subject')
       return false // Not a reply to existing ticket
     }
-
-    const ticketNumber = ticketMatch[1]
   
     // Find existing ticket
     let ticket
@@ -808,13 +876,29 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     }
 
     if (!ticket) {
-      return false // Ticket not found
+      console.log('[EMAIL REPLY DEBUG] Ticket not found in database:', ticketNumber)
+      return false // Ticket not found, will create new ticket
     }
 
+    console.log('[EMAIL REPLY DEBUG] Found ticket:', {
+      id: ticket.id,
+      ticketNumber: ticket.ticketNumber,
+      status: ticket.status,
+      subject: ticket.subject
+    })
+
+    // Check if ticket is closed - if so, create a new ticket instead of adding comment
+    if (ticket.status?.toUpperCase() === 'CLOSED') {
+      console.log('[EMAIL REPLY DEBUG] Ticket is closed, will create new ticket instead of adding comment')
+      return false // Return false to trigger new ticket creation
+    }
+
+    console.log('[EMAIL REPLY DEBUG] Ticket is open, proceeding to add as comment')
 
     // Check for duplicate reply (based on email content and sender within last hour)
     let recentSimilarComment
     try {
+      console.log('[EMAIL REPLY DEBUG] Checking for recent duplicate comments...')
       recentSimilarComment = await prisma.comment.findFirst({
         where: {
           ticketId: ticket.id,
@@ -829,8 +913,9 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           createdAt: 'desc'
         }
       })
+      console.log('[EMAIL REPLY DEBUG] Duplicate check completed')
     } catch (dbError) {
-      console.error('Database error checking duplicates:', dbError)
+      console.error('[EMAIL REPLY DEBUG] Database error checking duplicates:', dbError)
       throw dbError
     }
 
@@ -840,20 +925,24 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
     if (recentSimilarComment && newContent) {
       const existingContent = recentSimilarComment.content.replace('[EMAIL REPLY] ', '')
       if (existingContent.trim() === newContent.trim()) {
+        console.log('[EMAIL REPLY DEBUG] Skipping duplicate content')
         return true // Skip duplicate, but return true to prevent new ticket creation
       }
     }
 
+    console.log('[EMAIL REPLY DEBUG] Proceeding to create comment...')
 
     // Create comment from email reply - extract only new content
     const fullTextBody = email.text || 'No text content'
     const newReplyContent = extractNewReplyContent(fullTextBody)
     const textBody = newReplyContent || fullTextBody // Fallback to full text if extraction fails
     
+    console.log('[EMAIL REPLY DEBUG] Text content extracted, length:', textBody.length)
     
     // Find or create a user for the email sender (simplified)
     let userId = null
     try {
+      console.log('[EMAIL REPLY DEBUG] Looking up user for email:', fromAddress)
       const existingUser = await prisma.user.findFirst({
         where: {
           email: fromAddress
@@ -862,54 +951,109 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
 
       if (existingUser) {
         userId = existingUser.id
+        console.log('[EMAIL REPLY DEBUG] Found existing user:', userId)
       } else {
         // External users can reply without being registered - this is normal for support systems
         userId = null
+        console.log('[EMAIL REPLY DEBUG] No existing user found, proceeding as external user')
       }
     } catch (dbError) {
-      console.error('Database error finding user:', dbError)
+      console.error('[EMAIL REPLY DEBUG] Database error finding user:', dbError)
       // Continue with null userId since external users are allowed
       userId = null
     }
 
     // Extract sender information
     const fromName = email.from?.value?.[0]?.name || fromAddress
+    console.log('[EMAIL REPLY DEBUG] Sender info - Name:', fromName, 'Email:', fromAddress)
 
     // Create comment
-    const comment = await prisma.comment.create({
-      data: {
-        content: `[EMAIL REPLY] ${textBody.trim()}`,
-        fullEmailContent: fullTextBody, // Store the complete email content including history
-        ticketId: ticket.id,
-        userId: userId, // This can be null for external users
-        fromName: fromName, // Store sender name for external users
-        fromEmail: fromAddress, // Store sender email for external users
-        type: 'external'
-      }
+    console.log('[EMAIL REPLY DEBUG] Creating comment in database...')
+    console.log('[EMAIL REPLY DEBUG] Comment data:', {
+      content: `[EMAIL REPLY] ${textBody.trim()}`,
+      ticketId: ticket.id,
+      userId: userId,
+      fromName: fromName,
+      fromEmail: fromAddress,
+      type: 'external'
     })
+    let comment
+    try {
+      comment = await prisma.comment.create({
+        data: {
+          content: `[EMAIL REPLY] ${textBody.trim()}`,
+          fullEmailContent: fullTextBody, // Store the complete email content including history
+          ticketId: ticket.id,
+          userId: userId, // This can be null for external users
+          fromName: fromName, // Store sender name for external users
+          fromEmail: fromAddress, // Store sender email for external users
+          type: 'external'
+        }
+      })
+      console.log('[EMAIL REPLY DEBUG] Comment created successfully with ID:', comment.id)
+      console.log('[EMAIL REPLY DEBUG] Comment details:', {
+        id: comment.id,
+        content: comment.content,
+        ticketId: comment.ticketId,
+        userId: comment.userId,
+        fromName: comment.fromName,
+        fromEmail: comment.fromEmail,
+        type: comment.type
+      })
+    } catch (commentError) {
+      console.error('[EMAIL REPLY DEBUG] Error creating comment:', commentError)
+      throw commentError
+    }
 
     // Process ALL recipients from email reply and add them as participants
     try {
+      console.log('[EMAIL REPLY DEBUG] Starting participant processing...')
       const participantsToAdd = []
       
       // Get all configured email addresses to exclude them from participants
+      console.log('[EMAIL REPLY DEBUG] Fetching email configurations...')
       const emailConfigurations = await prisma.emailConfiguration.findMany({
         select: { username: true }
       })
       const supportEmails = emailConfigurations.map(config => config.username.toLowerCase())
+      console.log('[EMAIL REPLY DEBUG] Support emails to exclude:', supportEmails)
       
       // Add the sender (FROM) as participant if not already the original requester and not a support email
-      if (fromAddress && fromAddress !== ticket.fromEmail) {
-        const isSupportEmail = supportEmails.includes(fromAddress.toLowerCase())
+      // Normalize email addresses for comparison to handle case differences and whitespace
+      console.log('[EMAIL REPLY DEBUG] Processing sender as potential participant...')
+      const normalizedFromEmail = fromAddress?.toLowerCase().trim()
+      const normalizedTicketFromEmail = ticket.fromEmail?.toLowerCase().trim()
+      console.log('[EMAIL REPLY DEBUG] Sender email (normalized):', normalizedFromEmail)
+      console.log('[EMAIL REPLY DEBUG] Original requester email (normalized):', normalizedTicketFromEmail)
+      
+      if (normalizedFromEmail && normalizedFromEmail !== normalizedTicketFromEmail) {
+        console.log('[EMAIL REPLY DEBUG] Sender is different from original requester, checking if support email...')
+        const isSupportEmail = supportEmails.includes(normalizedFromEmail)
+        console.log('[EMAIL REPLY DEBUG] Is sender a support email?', isSupportEmail)
         
-        if (!isSupportEmail) {
+        // Also check if this email is already in the participants list to avoid duplicates
+        console.log('[EMAIL REPLY DEBUG] Checking for existing participant...')
+        const existingParticipant = await prisma.ticketParticipant.findFirst({
+          where: {
+            ticketId: ticket.id,
+            email: normalizedFromEmail
+          }
+        })
+        console.log('[EMAIL REPLY DEBUG] Existing participant found?', !!existingParticipant)
+        
+        if (!isSupportEmail && !existingParticipant) {
+          console.log('[EMAIL REPLY DEBUG] Adding sender as participant')
           participantsToAdd.push({
             ticketId: ticket.id,
-            email: fromAddress,
+            email: normalizedFromEmail, // Store normalized email
             name: fromName,
             type: 'added_via_reply'
           })
+        } else {
+          console.log('[EMAIL REPLY DEBUG] Skipping sender - either support email or already participant')
         }
+      } else {
+        console.log('[EMAIL REPLY DEBUG] Sender is same as original requester, skipping')
       }
       
       // Add CC recipients if any
@@ -919,12 +1063,20 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           if (ccRecipient.value && ccRecipient.value.length > 0) {
             for (const ccAddress of ccRecipient.value) {
               if (ccAddress.address) {
-                participantsToAdd.push({
-                  ticketId: ticket.id,
-                  email: ccAddress.address,
-                  name: ccAddress.name || ccAddress.address,
-                  type: 'cc'
-                })
+                const normalizedCcEmail = ccAddress.address.toLowerCase().trim()
+                
+                // Skip if this is support email or already the original requester
+                const isSupport = supportEmails.includes(normalizedCcEmail)
+                const isOriginalRequester = normalizedCcEmail === normalizedTicketFromEmail
+                
+                if (!isSupport && !isOriginalRequester) {
+                  participantsToAdd.push({
+                    ticketId: ticket.id,
+                    email: normalizedCcEmail, // Store normalized email
+                    name: ccAddress.name || ccAddress.address,
+                    type: 'cc'
+                  })
+                }
               }
             }
           }
@@ -938,12 +1090,20 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
           if (bccRecipient.value && bccRecipient.value.length > 0) {
             for (const bccAddress of bccRecipient.value) {
               if (bccAddress.address) {
-                participantsToAdd.push({
-                  ticketId: ticket.id,
-                  email: bccAddress.address,
-                  name: bccAddress.name || bccAddress.address,
-                  type: 'cc'
-                })
+                const normalizedBccEmail = bccAddress.address.toLowerCase().trim()
+                
+                // Skip if this is support email or already the original requester
+                const isSupport = supportEmails.includes(normalizedBccEmail)
+                const isOriginalRequester = normalizedBccEmail === normalizedTicketFromEmail
+                
+                if (!isSupport && !isOriginalRequester) {
+                  participantsToAdd.push({
+                    ticketId: ticket.id,
+                    email: normalizedBccEmail, // Store normalized email
+                    name: bccAddress.name || bccAddress.address,
+                    type: 'cc' // Treat BCC same as CC for participants
+                  })
+                }
               }
             }
           }
@@ -958,12 +1118,14 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
             for (const toAddress of toRecipient.value) {
               // Skip our own support email addresses, but add any external TO addresses
               if (toAddress.address) {
-                const isSupport = supportEmails.includes(toAddress.address.toLowerCase())
+                const normalizedToEmail = toAddress.address.toLowerCase().trim()
+                const isSupport = supportEmails.includes(normalizedToEmail)
+                const isOriginalRequester = normalizedToEmail === normalizedTicketFromEmail
                 
-                if (!isSupport) {
+                if (!isSupport && !isOriginalRequester) {
                   participantsToAdd.push({
                     ticketId: ticket.id,
-                    email: toAddress.address,
+                    email: normalizedToEmail, // Store normalized email
                     name: toAddress.name || toAddress.address,
                     type: 'added_via_reply'
                   })
@@ -974,19 +1136,31 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         }
       }
 
-      // Create new participants (skipDuplicates will handle existing ones)
+      // Create new participants with extra safety check to prevent requester duplication
       if (participantsToAdd.length > 0) {
-        await prisma.ticketParticipant.createMany({
-          data: participantsToAdd,
-          skipDuplicates: true // Skip if participant already exists
+        console.log('[EMAIL REPLY DEBUG] Processing', participantsToAdd.length, 'participants to add...')
+        // Extra safety: double-check that none of these participants are the original requester
+        const safeParticipants = participantsToAdd.filter(participant => {
+          const normalizedParticipantEmail = participant.email.toLowerCase().trim()
+          const normalizedOriginalRequester = normalizedTicketFromEmail || ''
+          return normalizedParticipantEmail !== normalizedOriginalRequester
         })
         
-        console.log(`Added ${participantsToAdd.length} new participants from email reply: ${participantsToAdd.map(p => `${p.email} (${p.type})`).join(', ')}`)
+        if (safeParticipants.length > 0) {
+          console.log('[EMAIL REPLY DEBUG] Adding', safeParticipants.length, 'safe participants to database...')
+          await prisma.ticketParticipant.createMany({
+            data: safeParticipants,
+            skipDuplicates: true // Skip if participant already exists
+          })
+          console.log(`[EMAIL REPLY DEBUG] Added ${safeParticipants.length} new participants from email reply: ${safeParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
+        } else {
+          console.log('[EMAIL REPLY DEBUG] No participants to add from email reply after filtering out requester duplicates')
+        }
       } else {
-        console.log('No new participants to add from email reply')
+        console.log('[EMAIL REPLY DEBUG] No new participants to add from email reply')
       }
     } catch (participantError) {
-      console.error('Error processing participants from email reply:', participantError)
+      console.error('[EMAIL REPLY DEBUG] Error processing participants from email reply:', participantError)
       // Don't fail the main process if participant processing fails
     }
 
@@ -1034,12 +1208,13 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       }
     }
 
-    // Create notification for email reply - only for assigned user
+    // Create notifications and send emails for email reply
     try {
-      console.log('[NOTIFICATION DEBUG] Checking for ticket assignment...')
+      console.log('[EMAIL REPLY DEBUG] Starting notification and email processing...')
+      console.log('[EMAIL REPLY DEBUG] Checking for ticket assignment...')
       
-      // Get the ticket with assignment information
-      const ticketWithAssignment = await prisma.ticket.findUnique({
+      // Get the ticket with assignment information and participants
+      const ticketWithDetails = await prisma.ticket.findUnique({
         where: { id: ticket.id },
         include: {
           assignedTo: {
@@ -1048,47 +1223,131 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
               name: true,
             },
           },
+          participants: {
+            select: {
+              id: true,
+              email: true,
+              name: true,
+              type: true,
+            },
+          },
         },
       })
 
-      console.log('[NOTIFICATION DEBUG] Ticket assignment info:', {
+      console.log('[EMAIL REPLY DEBUG] Ticket details:', {
         ticketId: ticket.id,
-        assignedTo: ticketWithAssignment?.assignedTo,
-        assignedToId: ticketWithAssignment?.assignedToId
+        assignedTo: ticketWithDetails?.assignedTo,
+        participantCount: ticketWithDetails?.participants?.length || 0
       })
 
-      // Only create notification if ticket is assigned to someone
-      if (ticketWithAssignment?.assignedTo) {
-        const displayTicketNumber = ticketWithAssignment.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
-        
-        console.log('[NOTIFICATION DEBUG] Creating notification for user:', ticketWithAssignment.assignedTo.id)
+      const displayTicketNumber = ticketWithDetails?.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
+
+      // Create in-app notification for assigned user
+      if (ticketWithDetails?.assignedTo) {
+        console.log('[EMAIL REPLY DEBUG] Creating in-app notification for assignee:', ticketWithDetails.assignedTo.id)
         
         const notification = await prisma.notification.create({
           data: {
             type: 'comment_added',
             title: 'New Email Reply',
-            message: `${fromName} replied via email to ticket ${displayTicketNumber}: ${ticketWithAssignment.subject}`,
-            userId: ticketWithAssignment.assignedTo.id,
+            message: `${fromName} replied via email to ticket ${displayTicketNumber}: ${ticketWithDetails.subject}`,
+            userId: ticketWithDetails.assignedTo.id,
             actorId: userId, // This can be null for external users
             ticketId: ticket.id,
             commentId: comment.id,
           }
         })
         
-        console.log('[NOTIFICATION DEBUG] Notification created successfully:', notification.id)
+        console.log('[EMAIL REPLY DEBUG] In-app notification created successfully:', notification.id)
       } else {
-        console.log('[NOTIFICATION DEBUG] No assigned user found, skipping notification')
+        console.log('[EMAIL REPLY DEBUG] No assigned user found, skipping in-app notification')
       }
+
+      // Send email notifications to all participants and requester (excluding the sender)
+      console.log('[EMAIL REPLY DEBUG] Starting email notification process...')
+      
+      const emailRecipientsToNotify = []
+      
+      // Add the original requester (if they're not the sender)
+      const normalizedSenderEmail = fromAddress.toLowerCase().trim()
+      const normalizedRequesterEmail = ticket.fromEmail.toLowerCase().trim()
+      
+      if (normalizedSenderEmail !== normalizedRequesterEmail) {
+        emailRecipientsToNotify.push({
+          email: ticket.fromEmail,
+          name: ticket.fromName || ticket.fromEmail,
+          type: 'requester'
+        })
+        console.log('[EMAIL REPLY DEBUG] Added requester to email notifications:', ticket.fromEmail)
+      } else {
+        console.log('[EMAIL REPLY DEBUG] Skipping requester (is the sender):', ticket.fromEmail)
+      }
+      
+      // Add all participants (excluding the sender)
+      if (ticketWithDetails?.participants) {
+        for (const participant of ticketWithDetails.participants) {
+          const normalizedParticipantEmail = participant.email.toLowerCase().trim()
+          
+          if (normalizedParticipantEmail !== normalizedSenderEmail) {
+            emailRecipientsToNotify.push({
+              email: participant.email,
+              name: participant.name || participant.email,
+              type: 'participant'
+            })
+            console.log('[EMAIL REPLY DEBUG] Added participant to email notifications:', participant.email)
+          } else {
+            console.log('[EMAIL REPLY DEBUG] Skipping participant (is the sender):', participant.email)
+          }
+        }
+      }
+      
+      console.log('[EMAIL REPLY DEBUG] Total email recipients to notify:', emailRecipientsToNotify.length)
+      
+      // Send templated email notification to each recipient
+      for (const recipient of emailRecipientsToNotify) {
+        try {
+          console.log('[EMAIL REPLY DEBUG] Sending email notification to:', recipient.email)
+          
+          const emailSent = await sendTemplatedEmail({
+            templateType: 'comment_added',
+            to: recipient.email,
+            toName: recipient.name,
+            ticketId: ticket.id,
+            variables: {
+              commentContent: textBody,
+              commentAuthor: fromName,
+              commentCreatedAt: new Date().toLocaleString(),
+              actorName: fromName,
+              actorEmail: fromAddress,
+              ticketNumber: displayTicketNumber,
+              ticketSubject: ticket.subject,
+              ticketStatus: ticket.status,
+              ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`
+            }
+          })
+          
+          if (emailSent) {
+            console.log('[EMAIL REPLY DEBUG] Email notification sent successfully to:', recipient.email)
+          } else {
+            console.log('[EMAIL REPLY DEBUG] Failed to send email notification to:', recipient.email)
+          }
+        } catch (emailError) {
+          console.error('[EMAIL REPLY DEBUG] Error sending email notification to', recipient.email, ':', emailError)
+          // Continue with other recipients even if one fails
+        }
+      }
+      
     } catch (notificationError) {
-      console.error('[NOTIFICATION DEBUG] Error creating notifications for email reply:', notificationError)
+      console.error('[EMAIL REPLY DEBUG] Error creating notifications for email reply:', notificationError)
       // Don't fail the main process if notifications fail
     }
 
-    console.log(`Email reply processed successfully: ${subject} -> Comment ${comment.id}`)
+    console.log(`[EMAIL REPLY DEBUG] Email reply processed successfully: ${subject} -> Comment ${comment.id}`)
     return true
 
   } catch (error) {
-    console.error('Error processing email reply:', error)
+    console.error('[EMAIL REPLY DEBUG] Error processing email reply:', error)
+    console.error('[EMAIL REPLY DEBUG] Error stack:', error instanceof Error ? error.stack : 'No stack trace')
     // Return false to allow the email to be processed as a new ticket instead
     return false
   }
