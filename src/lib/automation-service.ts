@@ -290,7 +290,7 @@ class TicketAutomationManager {
     }
   }
 
-  private async sendCustomerWarningEmail(ticket: { 
+  private async sendCustomerWarningEmail(ticket: {
     id: string
     ticketNumber: string | null
     subject: string
@@ -303,18 +303,23 @@ class TicketAutomationManager {
         where: { ticketId: ticket.id }
       })
 
-      if (participants.length === 0) {
-        // Fallback to fromEmail if no participants
-        if (ticket.fromEmail) {
-          participants.push({
-            email: ticket.fromEmail,
-            name: ticket.fromName || ticket.fromEmail,
-            type: 'creator'
-          })
-        }
+      // Create a list of email recipients
+      const emailRecipients: Array<{ email: string; name: string | null; type: string }> = participants.map(p => ({
+        email: p.email,
+        name: p.name,
+        type: p.type
+      }))
+
+      // Fallback to fromEmail if no participants
+      if (emailRecipients.length === 0 && ticket.fromEmail) {
+        emailRecipients.push({
+          email: ticket.fromEmail,
+          name: ticket.fromName || ticket.fromEmail,
+          type: 'creator'
+        })
       }
 
-      for (const participant of participants) {
+      for (const participant of emailRecipients) {
         try {
           const warningEmailContent = `
 Dear ${participant.name || 'Customer'},
@@ -367,18 +372,23 @@ Support Team
         where: { ticketId: ticket.id }
       })
 
-      if (participants.length === 0) {
-        // Fallback to fromEmail if no participants
-        if (ticket.fromEmail) {
-          participants.push({
-            email: ticket.fromEmail,
-            name: ticket.fromName || ticket.fromEmail,
-            type: 'creator'
-          })
-        }
+      // Create a list of email recipients
+      const emailRecipients: Array<{ email: string; name: string | null; type: string }> = participants.map(p => ({
+        email: p.email,
+        name: p.name,
+        type: p.type
+      }))
+
+      // Fallback to fromEmail if no participants
+      if (emailRecipients.length === 0 && ticket.fromEmail) {
+        emailRecipients.push({
+          email: ticket.fromEmail,
+          name: ticket.fromName || ticket.fromEmail,
+          type: 'creator'
+        })
       }
 
-      for (const participant of participants) {
+      for (const participant of emailRecipients) {
         try {
           const autoCloseEmailContent = `
 Dear ${participant.name || 'Customer'},
