@@ -1,0 +1,291 @@
+[
+  {
+    "name": "dam",
+    "categories": [
+      "buildings",
+      "sustainability"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "water"
+    ]
+  },
+  {
+    "name": "flower-2",
+    "categories": [
+      "nature",
+      "sustainability",
+      "seasons"
+    ],
+    "tags": [
+      "sustainability",
+      "nature",
+      "plant"
+    ]
+  },
+  {
+    "name": "flower",
+    "categories": [
+      "nature",
+      "gaming",
+      "sustainability"
+    ],
+    "tags": [
+      "sustainability",
+      "nature",
+      "plant",
+      "spring"
+    ]
+  },
+  {
+    "name": "house-plug",
+    "categories": [
+      "buildings",
+      "home",
+      "sustainability"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture",
+      "autarky",
+      "energy"
+    ]
+  },
+  {
+    "name": "leaf",
+    "categories": [
+      "nature",
+      "sustainability",
+      "seasons"
+    ],
+    "tags": [
+      "sustainability",
+      "nature",
+      "energy",
+      "plant",
+      "autumn"
+    ]
+  },
+  {
+    "name": "leafy-green",
+    "categories": [
+      "food-beverage",
+      "emoji",
+      "sustainability"
+    ],
+    "tags": [
+      "salad",
+      "lettuce",
+      "vegetable",
+      "chard",
+      "cabbage",
+      "bok choy"
+    ]
+  },
+  {
+    "name": "recycle",
+    "categories": [
+      "sustainability"
+    ],
+    "tags": [
+      "sustainability",
+      "salvage",
+      "arrows"
+    ]
+  },
+  {
+    "name": "sprout",
+    "categories": [
+      "nature",
+      "gaming",
+      "sustainability"
+    ],
+    "tags": [
+      "leaf",
+      "nature",
+      "plant"
+    ]
+  },
+  {
+    "name": "sun",
+    "categories": [
+      "accessibility",
+      "weather",
+      "seasons",
+      "sustainability"
+    ],
+    "tags": [
+      "brightness",
+      "weather",
+      "light",
+      "summer"
+    ]
+  },
+  {
+    "name": "tent",
+    "categories": [
+      "travel",
+      "nature",
+      "sustainability"
+    ],
+    "tags": [
+      "tipi",
+      "teepee",
+      "wigwam",
+      "lodge",
+      "camping",
+      "campsite",
+      "holiday",
+      "retreat",
+      "nomadic",
+      "native american",
+      "indian",
+      "wilderness",
+      "outdoors"
+    ]
+  },
+  {
+    "name": "tractor",
+    "categories": [
+      "transportation",
+      "sustainability",
+      "food-beverage"
+    ],
+    "tags": [
+      "farming",
+      "farmer",
+      "ranch",
+      "harvest",
+      "equipment",
+      "vehicle"
+    ]
+  },
+  {
+    "name": "tree-deciduous",
+    "categories": [
+      "nature",
+      "sustainability"
+    ],
+    "tags": [
+      "tree",
+      "forest",
+      "park",
+      "nature"
+    ]
+  },
+  {
+    "name": "tree-palm",
+    "categories": [
+      "nature",
+      "sustainability"
+    ],
+    "tags": [
+      "vacation",
+      "leisure",
+      "island"
+    ]
+  },
+  {
+    "name": "tree-pine",
+    "categories": [
+      "nature",
+      "sustainability"
+    ],
+    "tags": [
+      "tree",
+      "pine",
+      "forest",
+      "park",
+      "nature"
+    ]
+  },
+  {
+    "name": "trees",
+    "categories": [
+      "nature",
+      "sustainability"
+    ],
+    "tags": [
+      "tree",
+      "forest",
+      "park",
+      "nature"
+    ]
+  },
+  {
+    "name": "utility-pole",
+    "categories": [
+      "buildings",
+      "home",
+      "sustainability"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "transmission line",
+      "telegraph pole",
+      "power lines",
+      "phone"
+    ]
+  },
+  {
+    "name": "vegan",
+    "categories": [
+      "food-beverage",
+      "sustainability"
+    ],
+    "tags": [
+      "vegetarian",
+      "fruitarian",
+      "herbivorous",
+      "animal rights",
+      "diet"
+    ]
+  },
+  {
+    "name": "waves",
+    "categories": [
+      "weather",
+      "navigation",
+      "multimedia",
+      "sustainability"
+    ],
+    "tags": [
+      "water",
+      "sea",
+      "sound",
+      "hertz",
+      "wavelength",
+      "vibrate"
+    ]
+  },
+  {
+    "name": "wind-arrow-down",
+    "categories": [
+      "weather",
+      "sustainability"
+    ],
+    "tags": [
+      "weather",
+      "air",
+      "pressure",
+      "blow"
+    ]
+  },
+  {
+    "name": "wind",
+    "categories": [
+      "weather",
+      "sustainability"
+    ],
+    "tags": [
+      "weather",
+      "air",
+      "blow"
+    ]
+  }
+]

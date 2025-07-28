@@ -32,7 +32,8 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
-import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, Upload, X, Image, ArrowRight, CheckCircle2, Zap, TrendingUp, Calendar, Bell, Inbox, Folder, Circle } from 'lucide-react'
+import { User, Mail, FileText, Plus, Upload, X, Image, Calendar, Bell } from 'lucide-react'
+import { getIconComponent } from '@/lib/icon-system'
 import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
@@ -56,22 +57,6 @@ interface CustomPriority {
   isDefault: boolean
 }
 
-const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-    AlertCircle,
-    ArrowRight,
-    CheckCircle2,
-    Clock,
-    Timer,
-    AlertTriangle,
-    Zap,
-    TrendingUp,
-    Inbox,
-    Folder,
-    Circle
-  }
-  return iconMap[iconName] || AlertCircle
-}
 
 export function CreateTicketDialog() {
   const router = useRouter()
@@ -329,7 +314,9 @@ export function CreateTicketDialog() {
                           return (
                             <SelectItem key={queue.id} value={queue.id}>
                               <span className="flex items-center gap-2">
-                                <IconComponent className="h-4 w-4" />
+                                <div style={{ color: queue.color }}>
+                                  <IconComponent className="h-4 w-4" />
+                                </div>
                                 <span>{queue.name}</span>
                               </span>
                             </SelectItem>

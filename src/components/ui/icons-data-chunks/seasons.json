@@ -1,0 +1,59 @@
+[
+  {
+    "name": "flower-2",
+    "categories": [
+      "nature",
+      "sustainability",
+      "seasons"
+    ],
+    "tags": [
+      "sustainability",
+      "nature",
+      "plant"
+    ]
+  },
+  {
+    "name": "leaf",
+    "categories": [
+      "nature",
+      "sustainability",
+      "seasons"
+    ],
+    "tags": [
+      "sustainability",
+      "nature",
+      "energy",
+      "plant",
+      "autumn"
+    ]
+  },
+  {
+    "name": "snowflake",
+    "categories": [
+      "weather",
+      "seasons"
+    ],
+    "tags": [
+      "cold",
+      "weather",
+      "freeze",
+      "snow",
+      "winter"
+    ]
+  },
+  {
+    "name": "sun",
+    "categories": [
+      "accessibility",
+      "weather",
+      "seasons",
+      "sustainability"
+    ],
+    "tags": [
+      "brightness",
+      "weather",
+      "light",
+      "summer"
+    ]
+  }
+]

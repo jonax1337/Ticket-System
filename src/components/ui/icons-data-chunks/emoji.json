@@ -1,0 +1,301 @@
+[
+  {
+    "name": "angry",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "emoji",
+      "anger",
+      "face",
+      "emotion"
+    ]
+  },
+  {
+    "name": "annoyed",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "emoji",
+      "nuisance",
+      "face",
+      "emotion"
+    ]
+  },
+  {
+    "name": "biceps-flexed",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "arm",
+      "muscle",
+      "strong",
+      "working out",
+      "athletic",
+      "toned",
+      "muscular",
+      "forelimb",
+      "curled"
+    ]
+  },
+  {
+    "name": "frown",
+    "categories": [
+      "emoji",
+      "account"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "bad",
+      "sad",
+      "emotion"
+    ]
+  },
+  {
+    "name": "hand-helping",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "agreement",
+      "help",
+      "proposal",
+      "charity",
+      "begging",
+      "terms"
+    ]
+  },
+  {
+    "name": "hand-metal",
+    "categories": [
+      "emoji",
+      "multimedia"
+    ],
+    "tags": [
+      "rock"
+    ]
+  },
+  {
+    "name": "heart-crack",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "heartbreak",
+      "sadness",
+      "emotion"
+    ]
+  },
+  {
+    "name": "heart-handshake",
+    "categories": [
+      "emoji",
+      "account",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "charity",
+      "help",
+      "deal",
+      "terms",
+      "emotion",
+      "together",
+      "handshake"
+    ]
+  },
+  {
+    "name": "heart",
+    "categories": [
+      "medical",
+      "social",
+      "multimedia",
+      "emoji",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "like",
+      "love",
+      "emotion",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "laugh",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "happy",
+      "good",
+      "emotion"
+    ]
+  },
+  {
+    "name": "leafy-green",
+    "categories": [
+      "food-beverage",
+      "emoji",
+      "sustainability"
+    ],
+    "tags": [
+      "salad",
+      "lettuce",
+      "vegetable",
+      "chard",
+      "cabbage",
+      "bok choy"
+    ]
+  },
+  {
+    "name": "meh",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "neutral",
+      "emotion"
+    ]
+  },
+  {
+    "name": "party-popper",
+    "categories": [
+      "emoji"
+    ],
+    "tags": [
+      "emoji",
+      "congratulations",
+      "celebration",
+      "party",
+      "tada",
+      "🎉",
+      "🎊",
+      "excitement",
+      "exciting",
+      "excites",
+      "confetti"
+    ]
+  },
+  {
+    "name": "ribbon",
+    "categories": [
+      "social",
+      "medical",
+      "emoji"
+    ],
+    "tags": [
+      "awareness",
+      "strip",
+      "band",
+      "tape",
+      "strap",
+      "cordon"
+    ]
+  },
+  {
+    "name": "salad",
+    "categories": [
+      "food-beverage",
+      "emoji"
+    ],
+    "tags": [
+      "food",
+      "vegetarian",
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "side",
+      "vegetables",
+      "health"
+    ]
+  },
+  {
+    "name": "smile-plus",
+    "categories": [
+      "emoji",
+      "social",
+      "notifications",
+      "communication"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "happy",
+      "good",
+      "emotion",
+      "react",
+      "reaction",
+      "add"
+    ]
+  },
+  {
+    "name": "smile",
+    "categories": [
+      "emoji",
+      "account"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "happy",
+      "good",
+      "emotion"
+    ]
+  },
+  {
+    "name": "star",
+    "categories": [
+      "account",
+      "social",
+      "shapes",
+      "multimedia",
+      "weather",
+      "emoji",
+      "gaming"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "thumbs-down",
+    "categories": [
+      "account",
+      "social",
+      "emoji"
+    ],
+    "tags": [
+      "dislike",
+      "bad",
+      "emotion"
+    ]
+  },
+  {
+    "name": "thumbs-up",
+    "categories": [
+      "account",
+      "social",
+      "emoji"
+    ],
+    "tags": [
+      "like",
+      "good",
+      "emotion"
+    ]
+  }
+]

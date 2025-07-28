@@ -1,0 +1,1260 @@
+[
+  {
+    "name": "airplay",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "brands"
+    ],
+    "tags": [
+      "stream",
+      "cast",
+      "mirroring",
+      "screen",
+      "monitor",
+      "macos",
+      "osx"
+    ]
+  },
+  {
+    "name": "battery-charging",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-full",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-low",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-medium",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-warning",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "battery",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "bluetooth-connected",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "paired"
+    ]
+  },
+  {
+    "name": "bluetooth-off",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "lost"
+    ]
+  },
+  {
+    "name": "bluetooth-searching",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "pairing"
+    ]
+  },
+  {
+    "name": "bluetooth",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "wireless"
+    ]
+  },
+  {
+    "name": "book-user",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "people",
+      "family",
+      "friends",
+      "acquaintances",
+      "contacts",
+      "details",
+      "addresses",
+      "phone numbers",
+      "directory",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "cable",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "cord",
+      "wire",
+      "connector",
+      "connection",
+      "link",
+      "signal",
+      "console",
+      "computer",
+      "equipment",
+      "electricity",
+      "energy",
+      "electronics",
+      "recharging",
+      "charger",
+      "power",
+      "supply",
+      "disconnected",
+      "unplugged",
+      "plugs",
+      "interface",
+      "input",
+      "output",
+      "audio video",
+      "av",
+      "rca",
+      "scart",
+      "tv",
+      "television",
+      "optical"
+    ]
+  },
+  {
+    "name": "cassette-tape",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia",
+      "communication",
+      "files"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "recording",
+      "play"
+    ]
+  },
+  {
+    "name": "cast",
+    "categories": [
+      "devices",
+      "connectivity"
+    ],
+    "tags": [
+      "chromecast",
+      "airplay",
+      "screen"
+    ]
+  },
+  {
+    "name": "cctv",
+    "categories": [
+      "security",
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "surveillance",
+      "recording",
+      "film",
+      "videotape",
+      "crime",
+      "watching"
+    ]
+  },
+  {
+    "name": "circle-power",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "device",
+      "switch",
+      "toggle",
+      "binary",
+      "boolean",
+      "reboot",
+      "restart",
+      "button",
+      "keyboard",
+      "troubleshoot"
+    ]
+  },
+  {
+    "name": "cloud-off",
+    "categories": [
+      "connectivity",
+      "weather"
+    ],
+    "tags": [
+      "disconnect"
+    ]
+  },
+  {
+    "name": "contact-round",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "contact",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "headphone-off",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "communication",
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "mute",
+      "off"
+    ]
+  },
+  {
+    "name": "headphones",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound"
+    ]
+  },
+  {
+    "name": "headset",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "gaming",
+      "headphones",
+      "headset",
+      "call",
+      "center",
+      "phone",
+      "telephone",
+      "voip",
+      "video"
+    ]
+  },
+  {
+    "name": "house-wifi",
+    "categories": [
+      "home",
+      "buildings",
+      "connectivity"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "wifi",
+      "connectivity"
+    ]
+  },
+  {
+    "name": "mic-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "mute",
+      "microphone"
+    ]
+  },
+  {
+    "name": "mic",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "listen",
+      "radio",
+      "podcast",
+      "microphone"
+    ]
+  },
+  {
+    "name": "monitor-check",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "running",
+      "active",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-cog",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "virtual machine",
+      "vm",
+      "executable",
+      "settings",
+      "cog",
+      "edit",
+      "gear",
+      "configuration",
+      "preferences",
+      "system",
+      "control panel",
+      "network",
+      "computing"
+    ]
+  },
+  {
+    "name": "monitor-dot",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "running",
+      "active",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-down",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "download"
+    ]
+  },
+  {
+    "name": "monitor-off",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "share"
+    ]
+  },
+  {
+    "name": "monitor-pause",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "suspend",
+      "hibernate",
+      "boot",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-play",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "running",
+      "start",
+      "boot",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-smartphone",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "smartphone",
+      "phone",
+      "cellphone",
+      "device",
+      "mobile",
+      "desktop",
+      "monitor",
+      "responsive",
+      "screens"
+    ]
+  },
+  {
+    "name": "monitor-speaker",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "devices",
+      "connect",
+      "cast"
+    ]
+  },
+  {
+    "name": "monitor-stop",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "stop",
+      "shutdown",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-up",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "upload",
+      "connect",
+      "remote",
+      "screen share"
+    ]
+  },
+  {
+    "name": "monitor-x",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "virtual machine",
+      "vm",
+      "close",
+      "stop",
+      "suspend",
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "monitor",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "phone-call",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "ring"
+    ]
+  },
+  {
+    "name": "phone-forwarded",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-incoming",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-missed",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call",
+      "mute"
+    ]
+  },
+  {
+    "name": "phone-outgoing",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone",
+    "categories": [
+      "text",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "power-off",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "device",
+      "switch"
+    ]
+  },
+  {
+    "name": "power",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "device",
+      "switch",
+      "toggle",
+      "binary",
+      "boolean",
+      "reboot",
+      "restart",
+      "button",
+      "keyboard",
+      "troubleshoot"
+    ]
+  },
+  {
+    "name": "router",
+    "categories": [
+      "development",
+      "devices",
+      "connectivity",
+      "home"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "cloud"
+    ]
+  },
+  {
+    "name": "satellite-dish",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "antenna",
+      "receiver",
+      "dish aerial",
+      "saucer"
+    ]
+  },
+  {
+    "name": "satellite",
+    "categories": [
+      "connectivity",
+      "science"
+    ],
+    "tags": [
+      "space station",
+      "orbit",
+      "transmitter"
+    ]
+  },
+  {
+    "name": "screen-share-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "desktop",
+      "disconnect",
+      "monitor"
+    ]
+  },
+  {
+    "name": "screen-share",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "host",
+      "desktop",
+      "monitor"
+    ]
+  },
+  {
+    "name": "send-horizontal",
+    "categories": [
+      "mail",
+      "communication",
+      "connectivity"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "mail",
+      "paper airplane",
+      "paper aeroplane",
+      "submit"
+    ]
+  },
+  {
+    "name": "send",
+    "categories": [
+      "mail",
+      "communication",
+      "connectivity"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "mail",
+      "paper airplane",
+      "paper aeroplane",
+      "submit"
+    ]
+  },
+  {
+    "name": "signal-high",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "connection",
+      "wireless",
+      "gsm",
+      "phone",
+      "2g",
+      "3g",
+      "4g",
+      "5g"
+    ]
+  },
+  {
+    "name": "signal-low",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "connection",
+      "wireless",
+      "gsm",
+      "phone",
+      "2g",
+      "3g",
+      "4g",
+      "5g"
+    ]
+  },
+  {
+    "name": "signal-medium",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "connection",
+      "wireless",
+      "gsm",
+      "phone",
+      "2g",
+      "3g",
+      "4g",
+      "5g"
+    ]
+  },
+  {
+    "name": "signal-zero",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "connection",
+      "wireless",
+      "gsm",
+      "phone",
+      "2g",
+      "3g",
+      "4g",
+      "5g",
+      "lost"
+    ]
+  },
+  {
+    "name": "signal",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "connection",
+      "wireless",
+      "gsm",
+      "phone",
+      "2g",
+      "3g",
+      "4g",
+      "5g"
+    ]
+  },
+  {
+    "name": "smartphone-charging",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "phone",
+      "cellphone",
+      "device",
+      "power",
+      "screen"
+    ]
+  },
+  {
+    "name": "smartphone",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "phone",
+      "cellphone",
+      "device",
+      "screen"
+    ]
+  },
+  {
+    "name": "square-power",
+    "categories": [
+      "connectivity"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "device",
+      "switch",
+      "toggle",
+      "binary",
+      "boolean",
+      "reboot",
+      "restart",
+      "button",
+      "keyboard",
+      "troubleshoot"
+    ]
+  },
+  {
+    "name": "vibrate-off",
+    "categories": [
+      "devices",
+      "connectivity",
+      "account"
+    ],
+    "tags": [
+      "smartphone",
+      "notification",
+      "rumble",
+      "haptic feedback",
+      "notifications",
+      "screen"
+    ]
+  },
+  {
+    "name": "vibrate",
+    "categories": [
+      "devices",
+      "connectivity",
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "smartphone",
+      "notification",
+      "rumble",
+      "haptic feedback",
+      "screen"
+    ]
+  },
+  {
+    "name": "video-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film"
+    ]
+  },
+  {
+    "name": "video",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "camcorder",
+      "reel"
+    ]
+  },
+  {
+    "name": "videotape",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography",
+      "files"
+    ],
+    "tags": [
+      "vhs",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "showreel",
+      "cassette"
+    ]
+  },
+  {
+    "name": "voicemail",
+    "categories": [
+      "connectivity",
+      "devices",
+      "social"
+    ],
+    "tags": [
+      "phone",
+      "cassette",
+      "tape",
+      "reel",
+      "recording",
+      "audio"
+    ]
+  },
+  {
+    "name": "volume-1",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-2",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-off",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-x",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "webcam",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "camera",
+      "security"
+    ]
+  },
+  {
+    "name": "wifi-high",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "wifi-low",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "wifi-off",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "disabled"
+    ]
+  },
+  {
+    "name": "wifi-zero",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "wifi",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "zap-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  },
+  {
+    "name": "zap",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  }
+]

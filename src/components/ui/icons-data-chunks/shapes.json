@@ -1,0 +1,737 @@
+[
+  {
+    "name": "badge",
+    "categories": [
+      "account",
+      "social",
+      "shapes"
+    ],
+    "tags": [
+      "check",
+      "verified",
+      "unverified"
+    ]
+  },
+  {
+    "name": "blocks",
+    "categories": [
+      "development",
+      "shapes"
+    ],
+    "tags": [
+      "addon",
+      "plugin",
+      "integration",
+      "extension",
+      "package",
+      "build",
+      "stack",
+      "toys",
+      "kids",
+      "children",
+      "learning"
+    ]
+  },
+  {
+    "name": "box",
+    "categories": [
+      "shapes",
+      "gaming",
+      "development",
+      "math"
+    ],
+    "tags": [
+      "cube",
+      "package",
+      "container",
+      "storage",
+      "geometry",
+      "3d",
+      "isometric"
+    ]
+  },
+  {
+    "name": "boxes",
+    "categories": [
+      "shapes",
+      "gaming",
+      "development"
+    ],
+    "tags": [
+      "cubes",
+      "packages",
+      "parts",
+      "group",
+      "units",
+      "collection",
+      "cluster",
+      "geometry"
+    ]
+  },
+  {
+    "name": "circle-dashed",
+    "categories": [
+      "development",
+      "shapes"
+    ],
+    "tags": [
+      "pending",
+      "dot",
+      "progress",
+      "issue",
+      "draft",
+      "code",
+      "coding",
+      "version control"
+    ]
+  },
+  {
+    "name": "circle-dot-dashed",
+    "categories": [
+      "development",
+      "shapes"
+    ],
+    "tags": [
+      "pending",
+      "dot",
+      "progress",
+      "issue",
+      "draft",
+      "code",
+      "coding",
+      "version control"
+    ]
+  },
+  {
+    "name": "circle-dot",
+    "categories": [
+      "development",
+      "shapes"
+    ],
+    "tags": [
+      "pending",
+      "dot",
+      "progress",
+      "issue",
+      "code",
+      "coding",
+      "version control",
+      "choices",
+      "multiple choice",
+      "choose"
+    ]
+  },
+  {
+    "name": "circle-off",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "diameter",
+      "zero",
+      "Ø",
+      "nothing",
+      "null",
+      "void",
+      "cancel",
+      "ban",
+      "no",
+      "stop",
+      "forbidden",
+      "prohibited",
+      "error",
+      "incorrect",
+      "mistake",
+      "wrong",
+      "failure"
+    ]
+  },
+  {
+    "name": "circle-slash-2",
+    "categories": [
+      "shapes",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "diameter",
+      "zero",
+      "Ø",
+      "nothing",
+      "null",
+      "void",
+      "ban",
+      "math",
+      "divide",
+      "division",
+      "half",
+      "split",
+      "/"
+    ]
+  },
+  {
+    "name": "circle-small",
+    "categories": [
+      "shapes",
+      "medical"
+    ],
+    "tags": [
+      "shape",
+      "bullet",
+      "gender",
+      "genderless"
+    ]
+  },
+  {
+    "name": "circle",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "off",
+      "zero",
+      "record",
+      "shape"
+    ]
+  },
+  {
+    "name": "club",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "shape",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "cone",
+    "categories": [
+      "shapes",
+      "math"
+    ],
+    "tags": [
+      "conical",
+      "triangle",
+      "triangular",
+      "geometry",
+      "filter",
+      "funnel",
+      "hopper",
+      "spotlight",
+      "searchlight"
+    ]
+  },
+  {
+    "name": "cross",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "healthcare",
+      "first aid"
+    ]
+  },
+  {
+    "name": "cuboid",
+    "categories": [
+      "shapes",
+      "math",
+      "buildings"
+    ],
+    "tags": [
+      "brick",
+      "block",
+      "container",
+      "storage",
+      "geometry",
+      "rectangular",
+      "hexahedron"
+    ]
+  },
+  {
+    "name": "cylinder",
+    "categories": [
+      "shapes",
+      "design",
+      "math"
+    ],
+    "tags": [
+      "shape",
+      "elliptical",
+      "geometry",
+      "container",
+      "storage",
+      "tin",
+      "pot"
+    ]
+  },
+  {
+    "name": "diameter",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "width",
+      "height",
+      "size",
+      "calculate",
+      "measure"
+    ]
+  },
+  {
+    "name": "diamond",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "square",
+      "rectangle",
+      "oblique",
+      "rhombus",
+      "shape",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "dot",
+    "categories": [
+      "shapes",
+      "text"
+    ],
+    "tags": [
+      "interpunct",
+      "interpoint",
+      "middot",
+      "step",
+      "punctuation",
+      "period",
+      "full stop",
+      "end",
+      "finish",
+      "final",
+      "characters",
+      "font",
+      "typography",
+      "type",
+      "center",
+      "."
+    ]
+  },
+  {
+    "name": "heart",
+    "categories": [
+      "medical",
+      "social",
+      "multimedia",
+      "emoji",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "like",
+      "love",
+      "emotion",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "hexagon",
+    "categories": [
+      "shapes",
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "shape",
+      "node.js",
+      "logo"
+    ]
+  },
+  {
+    "name": "octagon-alert",
+    "categories": [
+      "notifications",
+      "shapes"
+    ],
+    "tags": [
+      "warning",
+      "alert",
+      "danger",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "octagon-pause",
+    "categories": [
+      "multimedia",
+      "shapes"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "stop"
+    ]
+  },
+  {
+    "name": "octagon",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "stop",
+      "shape"
+    ]
+  },
+  {
+    "name": "pentagon",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "shape"
+    ]
+  },
+  {
+    "name": "pyramid",
+    "categories": [
+      "shapes",
+      "math",
+      "travel"
+    ],
+    "tags": [
+      "prism",
+      "triangle",
+      "triangular",
+      "hierarchy",
+      "structure",
+      "geometry",
+      "ancient",
+      "egyptian",
+      "landmark",
+      "tourism"
+    ]
+  },
+  {
+    "name": "radius",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "radii",
+      "calculate",
+      "measure",
+      "size"
+    ]
+  },
+  {
+    "name": "rectangle-horizontal",
+    "categories": [
+      "shapes",
+      "design"
+    ],
+    "tags": [
+      "rectangle",
+      "aspect ratio",
+      "16:9",
+      "horizontal",
+      "shape"
+    ]
+  },
+  {
+    "name": "rectangle-vertical",
+    "categories": [
+      "shapes",
+      "design"
+    ],
+    "tags": [
+      "rectangle",
+      "aspect ratio",
+      "9:16",
+      "vertical",
+      "shape"
+    ]
+  },
+  {
+    "name": "shapes",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "triangle",
+      "equilateral",
+      "square",
+      "circle",
+      "classification",
+      "different",
+      "collection",
+      "toy",
+      "blocks",
+      "learning"
+    ]
+  },
+  {
+    "name": "shield",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "find",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "bravery",
+      "knight",
+      "foot soldier",
+      "infantry",
+      "trooper",
+      "pawn",
+      "battle",
+      "war",
+      "military",
+      "army",
+      "cadet",
+      "scout"
+    ]
+  },
+  {
+    "name": "spade",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "shape",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "sparkle",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "star",
+      "effect",
+      "filter",
+      "night",
+      "magic",
+      "shiny",
+      "glitter",
+      "twinkle",
+      "celebration"
+    ]
+  },
+  {
+    "name": "square",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "rectangle",
+      "aspect ratio",
+      "1:1",
+      "shape"
+    ]
+  },
+  {
+    "name": "squircle",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "shape"
+    ]
+  },
+  {
+    "name": "star",
+    "categories": [
+      "account",
+      "social",
+      "shapes",
+      "multimedia",
+      "weather",
+      "emoji",
+      "gaming"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "tangent",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "tangential",
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "bezier curve"
+    ]
+  },
+  {
+    "name": "torus",
+    "categories": [
+      "shapes",
+      "design",
+      "tools",
+      "food-beverage"
+    ],
+    "tags": [
+      "donut",
+      "doughnut",
+      "ring",
+      "hollow",
+      "3d",
+      "fast food",
+      "junk food",
+      "snack",
+      "treat",
+      "sweet",
+      "sugar",
+      "dessert"
+    ]
+  },
+  {
+    "name": "triangle-alert",
+    "categories": [
+      "notifications",
+      "shapes",
+      "development"
+    ],
+    "tags": [
+      "warning",
+      "alert",
+      "danger",
+      "exclamation mark",
+      "linter"
+    ]
+  },
+  {
+    "name": "triangle-dashed",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "equilateral",
+      "delta",
+      "shape",
+      "pyramid",
+      "hierarchy",
+      "dashed"
+    ]
+  },
+  {
+    "name": "triangle-right",
+    "categories": [
+      "shapes",
+      "math"
+    ],
+    "tags": [
+      "volume",
+      "controls",
+      "controller",
+      "tv remote",
+      "geometry",
+      "delta",
+      "ramp",
+      "slope",
+      "incline",
+      "increase"
+    ]
+  },
+  {
+    "name": "triangle",
+    "categories": [
+      "shapes"
+    ],
+    "tags": [
+      "equilateral",
+      "delta",
+      "shape",
+      "pyramid",
+      "hierarchy"
+    ]
+  },
+  {
+    "name": "ungroup",
+    "categories": [
+      "shapes",
+      "files"
+    ],
+    "tags": [
+      "cubes",
+      "packages",
+      "parts",
+      "units",
+      "collection",
+      "cluster",
+      "separate"
+    ]
+  }
+]

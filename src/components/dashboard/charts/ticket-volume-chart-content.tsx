@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/select'
 import { DatePicker } from '@/components/ui/date-picker'
 import { Download, Settings } from 'lucide-react'
+import { getIconComponent } from '@/lib/icon-system'
 import { format, subDays } from 'date-fns'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useCache } from '@/lib/cache-context'
@@ -39,6 +40,7 @@ interface Queue {
   id: string
   name: string
   color: string
+  icon: string
 }
 
 // Status-based color mapping
@@ -222,7 +224,7 @@ export function TicketVolumeChartContent() {
   return (
     <div className="space-y-4">
       {/* Controls */}
-      <div className="flex flex-col items-stretch space-y-0 border-b pb-4 sm:flex-row">
+      <div className="flex flex-col items-stretch space-y-0 pb-4 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1">
           <p className="text-sm text-muted-foreground">
             Compare ticket volumes across selected statuses over time
@@ -245,16 +247,28 @@ export function TicketVolumeChartContent() {
             </Select>
             
             <Select value={selectedQueue} onValueChange={setSelectedQueue}>
-              <SelectTrigger className="w-auto min-w-[120px]">
+              <SelectTrigger className={`w-auto min-w-[120px] ${selectedQueue !== 'all' ? queues.find(q => q.id === selectedQueue)?.color || '' : ''}`}>
                 <SelectValue placeholder="All queues" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All queues</SelectItem>
-                {queues.map(queue => (
-                  <SelectItem key={queue.id} value={queue.id}>
-                    {queue.name}
-                  </SelectItem>
-                ))}
+                <SelectItem value="all">
+                  <span className="flex items-center gap-2">
+                    <span>All queues</span>
+                  </span>
+                </SelectItem>
+                {queues.map(queue => {
+                  const IconComponent = getIconComponent(queue.icon)
+                  return (
+                    <SelectItem key={queue.id} value={queue.id}>
+                      <span className="flex items-center gap-2">
+                        <div style={{ color: queue.color }}>
+                          <IconComponent className="h-4 w-4" />
+                        </div>
+                        <span>{queue.name}</span>
+                      </span>
+                    </SelectItem>
+                  )
+                })}
               </SelectContent>
             </Select>
             
@@ -389,7 +403,7 @@ export function TicketVolumeChartContent() {
       )}
 
       {/* Footer */}
-      <div className="pt-2 border-t">
+      <div className="flex items-center justify-between pt-4">
         <div className="text-sm text-muted-foreground">
           {getDateRangeLabel()} • Comparing {selectedStatuses.join(', ')}
         </div>

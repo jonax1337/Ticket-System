@@ -1,0 +1,4268 @@
+[
+  {
+    "name": "a-arrow-down",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "letter",
+      "font size",
+      "text",
+      "formatting",
+      "smaller"
+    ]
+  },
+  {
+    "name": "a-arrow-up",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "letter",
+      "font size",
+      "text",
+      "formatting",
+      "larger",
+      "bigger"
+    ]
+  },
+  {
+    "name": "a-large-small",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "letter",
+      "font size",
+      "text",
+      "formatting"
+    ]
+  },
+  {
+    "name": "align-center",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "alignment",
+      "center"
+    ]
+  },
+  {
+    "name": "align-justify",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "alignment",
+      "justified",
+      "menu",
+      "list"
+    ]
+  },
+  {
+    "name": "align-left",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "alignment",
+      "left",
+      "list"
+    ]
+  },
+  {
+    "name": "align-right",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "alignment",
+      "right"
+    ]
+  },
+  {
+    "name": "ampersand",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "and",
+      "typography",
+      "operator",
+      "join",
+      "concatenate",
+      "code",
+      "&"
+    ]
+  },
+  {
+    "name": "ampersands",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "and",
+      "operator",
+      "then",
+      "code",
+      "&&"
+    ]
+  },
+  {
+    "name": "anchor",
+    "categories": [
+      "transportation",
+      "text"
+    ],
+    "tags": [
+      "ship"
+    ]
+  },
+  {
+    "name": "arrow-big-up-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "caps lock",
+      "capitals",
+      "keyboard",
+      "button",
+      "mac",
+      "forward",
+      "direction",
+      "north",
+      "faster",
+      "speed",
+      "boost"
+    ]
+  },
+  {
+    "name": "arrow-big-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "shift",
+      "keyboard",
+      "button",
+      "mac",
+      "capitalize",
+      "capitalise",
+      "forward",
+      "direction",
+      "north"
+    ]
+  },
+  {
+    "name": "arrow-down-0-1",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-down-1-0",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-down-a-z",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical"
+    ]
+  },
+  {
+    "name": "arrow-down-narrow-wide",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-down-wide-narrow",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-down-z-a",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical",
+      "reverse"
+    ]
+  },
+  {
+    "name": "arrow-up-0-1",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-up-1-0",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-up-a-z",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical"
+    ]
+  },
+  {
+    "name": "arrow-up-narrow-wide",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-up-wide-narrow",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-up-z-a",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical",
+      "reverse"
+    ]
+  },
+  {
+    "name": "asterisk",
+    "categories": [
+      "text",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "reference",
+      "times",
+      "multiply",
+      "multiplication",
+      "operator",
+      "code",
+      "glob pattern",
+      "wildcard",
+      "*"
+    ]
+  },
+  {
+    "name": "at-sign",
+    "categories": [
+      "text",
+      "account"
+    ],
+    "tags": [
+      "mention",
+      "at",
+      "email",
+      "message",
+      "@"
+    ]
+  },
+  {
+    "name": "baseline",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "format",
+      "color"
+    ]
+  },
+  {
+    "name": "binary",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "code",
+      "digits",
+      "computer",
+      "zero",
+      "one",
+      "boolean"
+    ]
+  },
+  {
+    "name": "bold",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "strong",
+      "format"
+    ]
+  },
+  {
+    "name": "book-a",
+    "categories": [
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "dictionary",
+      "define",
+      "definition",
+      "thesaurus",
+      "encyclopedia",
+      "encyclopaedia",
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "language",
+      "translate",
+      "alphabetical",
+      "a-z",
+      "ordered"
+    ]
+  },
+  {
+    "name": "book-audio",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "audiobook",
+      "reading",
+      "listening",
+      "sound",
+      "story",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "student",
+      "study",
+      "learning",
+      "research"
+    ]
+  },
+  {
+    "name": "book-check",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "read",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "library",
+      "written",
+      "authored",
+      "published",
+      "informed",
+      "knowledgeable",
+      "educated",
+      "schooled",
+      "homework",
+      "examined",
+      "tested",
+      "marked",
+      "passed",
+      "graduated",
+      "studied",
+      "learned",
+      "lesson",
+      "researched",
+      "documented",
+      "revealed",
+      "blank",
+      "plain language",
+      "true",
+      "truth",
+      "verified",
+      "corrected",
+      "task",
+      "todo",
+      "done",
+      "completed",
+      "finished",
+      "ticked"
+    ]
+  },
+  {
+    "name": "book-copy",
+    "categories": [
+      "development",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "clone",
+      "fork",
+      "duplicate",
+      "multiple",
+      "books",
+      "library",
+      "copies",
+      "copied",
+      "plagiarism",
+      "plagiarised",
+      "plagiarized",
+      "reading list",
+      "information",
+      "informed",
+      "knowledge",
+      "knowledgeable",
+      "knowledgable",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "research",
+      "smart",
+      "intelligent",
+      "intellectual"
+    ]
+  },
+  {
+    "name": "book-headphones",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "audiobook",
+      "reading",
+      "listening",
+      "sound",
+      "story",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "student",
+      "study",
+      "learning",
+      "research"
+    ]
+  },
+  {
+    "name": "book-heart",
+    "categories": [
+      "social",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "diary",
+      "romance",
+      "novel",
+      "journal",
+      "entry",
+      "entries",
+      "personal",
+      "private",
+      "secret",
+      "crush",
+      "like",
+      "love",
+      "emotion",
+      "feminine",
+      "girls",
+      "teens",
+      "teenager",
+      "therapy",
+      "theraputic",
+      "therapist",
+      "planner",
+      "organizer",
+      "organiser",
+      "notes",
+      "notepad",
+      "stationery",
+      "sketchbook",
+      "writing",
+      "written",
+      "reading",
+      "favorite",
+      "favourite",
+      "high school"
+    ]
+  },
+  {
+    "name": "book-image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files",
+      "social",
+      "shopping",
+      "travel"
+    ],
+    "tags": [
+      "images",
+      "pictures",
+      "photos",
+      "album",
+      "collection",
+      "event",
+      "magazine",
+      "catalog",
+      "catalogue",
+      "brochure",
+      "browse",
+      "gallery"
+    ]
+  },
+  {
+    "name": "book-marked",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "dictionary",
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation",
+      "saved",
+      "later",
+      "future",
+      "reference",
+      "index",
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository"
+    ]
+  },
+  {
+    "name": "book-minus",
+    "categories": [
+      "development",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "remove",
+      "delete",
+      "censor",
+      "cancel",
+      "forbid",
+      "prohibit",
+      "ban",
+      "uneducated",
+      "re-educate",
+      "unlearn",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "book-open-check",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "read",
+      "pages",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "library",
+      "written",
+      "authored",
+      "published",
+      "informed",
+      "knowledgeable",
+      "educated",
+      "schooled",
+      "homework",
+      "examined",
+      "tested",
+      "marked",
+      "passed",
+      "graduated",
+      "studied",
+      "learned",
+      "lesson",
+      "researched",
+      "documented",
+      "revealed",
+      "blank",
+      "plain language",
+      "true",
+      "truth",
+      "verified",
+      "corrected",
+      "task",
+      "todo",
+      "done",
+      "completed",
+      "finished",
+      "ticked"
+    ]
+  },
+  {
+    "name": "book-open-text",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "reading",
+      "pages",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation",
+      "revealed"
+    ]
+  },
+  {
+    "name": "book-open",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "reading",
+      "pages",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "screenplay",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation",
+      "revealed",
+      "blank",
+      "plain"
+    ]
+  },
+  {
+    "name": "book-plus",
+    "categories": [
+      "development",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "remove",
+      "delete",
+      "read",
+      "write",
+      "author",
+      "publish",
+      "inform",
+      "graduate",
+      "re-educate",
+      "study",
+      "learn",
+      "research",
+      "knowledge",
+      "improve",
+      "upgrade",
+      "level up"
+    ]
+  },
+  {
+    "name": "book-text",
+    "categories": [
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation"
+    ]
+  },
+  {
+    "name": "book-type",
+    "categories": [
+      "text",
+      "design",
+      "gaming"
+    ],
+    "tags": [
+      "thesaurus",
+      "synonym",
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "language",
+      "translate",
+      "typography",
+      "fonts",
+      "collection"
+    ]
+  },
+  {
+    "name": "book-x",
+    "categories": [
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "remove",
+      "delete",
+      "reading",
+      "misinformation",
+      "disinformation",
+      "misinformed",
+      "charlatan",
+      "sophistry",
+      "false",
+      "lies",
+      "untruth",
+      "propaganda",
+      "censored",
+      "cancelled",
+      "forbidden",
+      "prohibited",
+      "banned",
+      "uneducated",
+      "re-education",
+      "unlearn"
+    ]
+  },
+  {
+    "name": "book",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "reading",
+      "paperback",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation"
+    ]
+  },
+  {
+    "name": "brush",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "draw",
+      "paint",
+      "color",
+      "artist"
+    ]
+  },
+  {
+    "name": "case-lower",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "letters",
+      "characters",
+      "font",
+      "typography"
+    ]
+  },
+  {
+    "name": "case-sensitive",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "letters",
+      "characters",
+      "font",
+      "typography"
+    ]
+  },
+  {
+    "name": "case-upper",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "letters",
+      "characters",
+      "font",
+      "typography"
+    ]
+  },
+  {
+    "name": "circle-help",
+    "categories": [
+      "accessibility",
+      "text",
+      "notifications"
+    ],
+    "tags": [
+      "question mark"
+    ]
+  },
+  {
+    "name": "clipboard-check",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "copied",
+      "pasted",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "clipboard-copy",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "copy",
+      "paste"
+    ]
+  },
+  {
+    "name": "clipboard-list",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "copy",
+      "paste",
+      "tasks"
+    ]
+  },
+  {
+    "name": "clipboard-minus",
+    "categories": [
+      "text",
+      "medical"
+    ],
+    "tags": [
+      "copy",
+      "delete",
+      "remove",
+      "erase",
+      "document",
+      "medical",
+      "report",
+      "doctor"
+    ]
+  },
+  {
+    "name": "clipboard-paste",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "copy",
+      "paste"
+    ]
+  },
+  {
+    "name": "clipboard-pen-line",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "paste"
+    ]
+  },
+  {
+    "name": "clipboard-pen",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "paste",
+      "signature"
+    ]
+  },
+  {
+    "name": "clipboard-plus",
+    "categories": [
+      "text",
+      "medical"
+    ],
+    "tags": [
+      "copy",
+      "paste",
+      "add",
+      "create",
+      "new",
+      "document",
+      "medical",
+      "report",
+      "doctor"
+    ]
+  },
+  {
+    "name": "clipboard-type",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "paste",
+      "format",
+      "text"
+    ]
+  },
+  {
+    "name": "clipboard-x",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "copy",
+      "paste",
+      "discard",
+      "remove"
+    ]
+  },
+  {
+    "name": "clipboard",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "copy",
+      "paste"
+    ]
+  },
+  {
+    "name": "code-xml",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "source",
+      "programming",
+      "html",
+      "xml"
+    ]
+  },
+  {
+    "name": "code",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "source",
+      "programming",
+      "html",
+      "xml"
+    ]
+  },
+  {
+    "name": "columns-2",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "panel",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "sidebar",
+      "drawer",
+      "gutter",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages"
+    ]
+  },
+  {
+    "name": "columns-3",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "thirds",
+      "triple",
+      "center",
+      "middle",
+      "alignment",
+      "even",
+      "sidebars",
+      "drawers",
+      "gutters",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages"
+    ]
+  },
+  {
+    "name": "columns-4",
+    "categories": [
+      "layout",
+      "design",
+      "text",
+      "security"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "thirds",
+      "triple",
+      "center",
+      "middle",
+      "alignment",
+      "even",
+      "sidebars",
+      "drawers",
+      "gutters",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages",
+      "prison",
+      "jail",
+      "bars",
+      "sentence",
+      "police",
+      "cops",
+      "cell",
+      "crime",
+      "criminal",
+      "justice",
+      "law",
+      "enforcement",
+      "grill"
+    ]
+  },
+  {
+    "name": "copy-check",
+    "categories": [
+      "text",
+      "notifications"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "done",
+      "multiple"
+    ]
+  },
+  {
+    "name": "copy-minus",
+    "categories": [
+      "text",
+      "math"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "remove",
+      "delete",
+      "collapse",
+      "subtract",
+      "multiple",
+      "-"
+    ]
+  },
+  {
+    "name": "copy-plus",
+    "categories": [
+      "text",
+      "math"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "add",
+      "multiple",
+      "expand",
+      "+"
+    ]
+  },
+  {
+    "name": "copy-slash",
+    "categories": [
+      "text",
+      "development",
+      "math"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "cancel",
+      "ban",
+      "no",
+      "stop",
+      "forbidden",
+      "prohibited",
+      "error",
+      "multiple",
+      "divide",
+      "division",
+      "split",
+      "or",
+      "/"
+    ]
+  },
+  {
+    "name": "copy",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "multiple"
+    ]
+  },
+  {
+    "name": "corner-down-right",
+    "categories": [
+      "arrows",
+      "text",
+      "development"
+    ],
+    "tags": [
+      "arrow",
+      "indent",
+      "tab"
+    ]
+  },
+  {
+    "name": "delete",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "backspace",
+      "remove"
+    ]
+  },
+  {
+    "name": "dot",
+    "categories": [
+      "shapes",
+      "text"
+    ],
+    "tags": [
+      "interpunct",
+      "interpoint",
+      "middot",
+      "step",
+      "punctuation",
+      "period",
+      "full stop",
+      "end",
+      "finish",
+      "final",
+      "characters",
+      "font",
+      "typography",
+      "type",
+      "center",
+      "."
+    ]
+  },
+  {
+    "name": "eraser",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "pencil",
+      "drawing",
+      "undo",
+      "delete",
+      "clear"
+    ]
+  },
+  {
+    "name": "expand",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "scale",
+      "fullscreen",
+      "maximize",
+      "minimize",
+      "contract"
+    ]
+  },
+  {
+    "name": "external-link",
+    "categories": [
+      "arrows",
+      "text",
+      "social"
+    ],
+    "tags": [
+      "outbound",
+      "open",
+      "share"
+    ]
+  },
+  {
+    "name": "file-text",
+    "categories": [
+      "files",
+      "text"
+    ],
+    "tags": [
+      "data",
+      "txt",
+      "pdf",
+      "document"
+    ]
+  },
+  {
+    "name": "file-type-2",
+    "categories": [
+      "files",
+      "text"
+    ],
+    "tags": [
+      "font",
+      "text",
+      "typography",
+      "type"
+    ]
+  },
+  {
+    "name": "file-type",
+    "categories": [
+      "files",
+      "text"
+    ],
+    "tags": [
+      "font",
+      "text",
+      "typography",
+      "type"
+    ]
+  },
+  {
+    "name": "grid-2x2-check",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "data",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2-plus",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "data",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2-x",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "data",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2",
+    "categories": [
+      "text",
+      "layout",
+      "design",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre",
+      "window",
+      "skylight"
+    ]
+  },
+  {
+    "name": "grid-3x3",
+    "categories": [
+      "text",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns"
+    ]
+  },
+  {
+    "name": "hash",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "hashtag",
+      "number",
+      "pound"
+    ]
+  },
+  {
+    "name": "heading-1",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "h1",
+      "html",
+      "markup",
+      "markdown"
+    ]
+  },
+  {
+    "name": "heading-2",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "h2",
+      "html",
+      "markup",
+      "markdown"
+    ]
+  },
+  {
+    "name": "heading-3",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "h3",
+      "html",
+      "markup",
+      "markdown"
+    ]
+  },
+  {
+    "name": "heading-4",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "h4",
+      "html",
+      "markup",
+      "markdown"
+    ]
+  },
+  {
+    "name": "heading-5",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "h5",
+      "html",
+      "markup",
+      "markdown"
+    ]
+  },
+  {
+    "name": "heading-6",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "h6",
+      "html",
+      "markup",
+      "markdown"
+    ]
+  },
+  {
+    "name": "heading",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "h1",
+      "html",
+      "markup",
+      "markdown"
+    ]
+  },
+  {
+    "name": "highlighter",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "mark",
+      "text"
+    ]
+  },
+  {
+    "name": "image-down",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "download",
+      "save",
+      "export"
+    ]
+  },
+  {
+    "name": "image-play",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "gif",
+      "photo"
+    ]
+  },
+  {
+    "name": "image-up",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "upload",
+      "import"
+    ]
+  },
+  {
+    "name": "image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo"
+    ]
+  },
+  {
+    "name": "images",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "multiple",
+      "copy",
+      "gallery",
+      "album",
+      "collection",
+      "slideshow",
+      "showcase"
+    ]
+  },
+  {
+    "name": "indent-decrease",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "text",
+      "tab"
+    ]
+  },
+  {
+    "name": "indent-increase",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "text",
+      "tab"
+    ]
+  },
+  {
+    "name": "italic",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "oblique",
+      "text",
+      "format"
+    ]
+  },
+  {
+    "name": "keyboard-off",
+    "categories": [
+      "devices",
+      "text",
+      "development"
+    ],
+    "tags": [
+      "unkeys",
+      "layout",
+      "spell",
+      "settings",
+      "mouse"
+    ]
+  },
+  {
+    "name": "keyboard",
+    "categories": [
+      "text",
+      "devices",
+      "development"
+    ],
+    "tags": [
+      "layout",
+      "spell",
+      "settings",
+      "mouse"
+    ]
+  },
+  {
+    "name": "languages",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "translate"
+    ]
+  },
+  {
+    "name": "layout-list",
+    "categories": [
+      "design",
+      "layout",
+      "photography",
+      "text"
+    ],
+    "tags": [
+      "todo",
+      "tasks",
+      "items",
+      "pending",
+      "image",
+      "photo"
+    ]
+  },
+  {
+    "name": "letter-text",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "drop cap",
+      "text",
+      "format",
+      "typography",
+      "letter",
+      "font size"
+    ]
+  },
+  {
+    "name": "library-big",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "ligature",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "font",
+      "typography",
+      "alternates",
+      "alternatives"
+    ]
+  },
+  {
+    "name": "link-2-off",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "unchain",
+      "chain"
+    ]
+  },
+  {
+    "name": "link-2",
+    "categories": [
+      "text",
+      "account"
+    ],
+    "tags": [
+      "chain",
+      "url"
+    ]
+  },
+  {
+    "name": "link",
+    "categories": [
+      "text",
+      "account"
+    ],
+    "tags": [
+      "chain",
+      "url"
+    ]
+  },
+  {
+    "name": "list-check",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "done",
+      "check",
+      "tick",
+      "complete",
+      "list",
+      "to-do",
+      "bom"
+    ]
+  },
+  {
+    "name": "list-checks",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "todo",
+      "done",
+      "check",
+      "tick",
+      "complete",
+      "tasks",
+      "items",
+      "pending"
+    ]
+  },
+  {
+    "name": "list-collapse",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "items",
+      "collapse",
+      "expand",
+      "details",
+      "disclosure",
+      "show",
+      "hide",
+      "toggle",
+      "accordion",
+      "more",
+      "less",
+      "fold",
+      "unfold"
+    ]
+  },
+  {
+    "name": "list-end",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "queue",
+      "bottom",
+      "end",
+      "playlist"
+    ]
+  },
+  {
+    "name": "list-filter-plus",
+    "categories": [
+      "text",
+      "layout"
+    ],
+    "tags": [
+      "filter",
+      "plus",
+      "options",
+      "add"
+    ]
+  },
+  {
+    "name": "list-filter",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "options"
+    ]
+  },
+  {
+    "name": "list-minus",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "playlist",
+      "remove",
+      "song",
+      "subtract",
+      "delete",
+      "unqueue"
+    ]
+  },
+  {
+    "name": "list-ordered",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "number",
+      "order",
+      "queue"
+    ]
+  },
+  {
+    "name": "list-plus",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "playlist",
+      "add",
+      "song",
+      "track",
+      "new"
+    ]
+  },
+  {
+    "name": "list-restart",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "reset",
+      "refresh",
+      "reload",
+      "playlist",
+      "replay"
+    ]
+  },
+  {
+    "name": "list-start",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "queue",
+      "top",
+      "start",
+      "next",
+      "playlist"
+    ]
+  },
+  {
+    "name": "list-todo",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "todo",
+      "done",
+      "check",
+      "tick",
+      "complete",
+      "tasks",
+      "items",
+      "pending"
+    ]
+  },
+  {
+    "name": "list-tree",
+    "categories": [
+      "files",
+      "text",
+      "layout"
+    ],
+    "tags": [
+      "tree",
+      "browser"
+    ]
+  },
+  {
+    "name": "list-x",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "playlist",
+      "subtract",
+      "remove",
+      "delete",
+      "unqueue"
+    ]
+  },
+  {
+    "name": "list",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "options"
+    ]
+  },
+  {
+    "name": "logs",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "options",
+      "list",
+      "menu",
+      "order",
+      "queue",
+      "tasks",
+      "logs"
+    ]
+  },
+  {
+    "name": "mail",
+    "categories": [
+      "text",
+      "account",
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "unread"
+    ]
+  },
+  {
+    "name": "map",
+    "categories": [
+      "text",
+      "navigation"
+    ],
+    "tags": [
+      "location",
+      "navigation",
+      "travel"
+    ]
+  },
+  {
+    "name": "message-square-quote",
+    "categories": [
+      "social",
+      "text"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "blockquote",
+      "quotation",
+      "indent",
+      "reply",
+      "response"
+    ]
+  },
+  {
+    "name": "minus",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "tools"
+    ],
+    "tags": [
+      "subtract",
+      "remove",
+      "decrease",
+      "decrement",
+      "reduce",
+      "negative",
+      "calculate",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "notebook-pen",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "pencil",
+      "notepad",
+      "notes",
+      "noted",
+      "stationery",
+      "sketchbook",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "research",
+      "homework",
+      "eraser",
+      "rubber"
+    ]
+  },
+  {
+    "name": "notebook-text",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "pages",
+      "paper",
+      "stationery",
+      "sketchbook",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "research",
+      "homework",
+      "lines",
+      "opened"
+    ]
+  },
+  {
+    "name": "notebook",
+    "categories": [
+      "text",
+      "communication",
+      "social",
+      "design"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "stationery",
+      "sketchbook",
+      "moleskine",
+      "closure",
+      "strap",
+      "band",
+      "elastic",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "written",
+      "writer",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "homework",
+      "research"
+    ]
+  },
+  {
+    "name": "notepad-text-dashed",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "notebook",
+      "notes",
+      "pages",
+      "paper",
+      "stationery",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "draft",
+      "template",
+      "lines"
+    ]
+  },
+  {
+    "name": "notepad-text",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "notebook",
+      "notes",
+      "pages",
+      "paper",
+      "stationery",
+      "sketchbook",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "homework",
+      "research",
+      "lines",
+      "opened"
+    ]
+  },
+  {
+    "name": "omega",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "science"
+    ],
+    "tags": [
+      "greek",
+      "symbol",
+      "mathematics",
+      "education",
+      "physics",
+      "engineering",
+      "ohms",
+      "electrical resistance",
+      "angular frequency",
+      "dynamical systems",
+      "astronomy",
+      "constellations",
+      "philosophy"
+    ]
+  },
+  {
+    "name": "paint-roller",
+    "categories": [
+      "text",
+      "design",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "paintbrush-vertical",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "paintbrush",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "palette",
+    "categories": [
+      "text",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "colors",
+      "colours",
+      "theme",
+      "scheme",
+      "paint",
+      "watercolor",
+      "watercolour",
+      "artist"
+    ]
+  },
+  {
+    "name": "paperclip",
+    "categories": [
+      "text",
+      "design",
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "attachment",
+      "file"
+    ]
+  },
+  {
+    "name": "pen-line",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pen-off",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "disabled",
+      "inactive",
+      "non-editable",
+      "locked",
+      "read-only",
+      "unmodifiable",
+      "frozen",
+      "restricted",
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pen-tool",
+    "categories": [
+      "text",
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "vector",
+      "drawing",
+      "path"
+    ]
+  },
+  {
+    "name": "pen",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pencil-line",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pencil-off",
+    "categories": [
+      "design",
+      "cursors",
+      "tools",
+      "text"
+    ],
+    "tags": [
+      "disabled",
+      "inactive",
+      "non-editable",
+      "locked",
+      "read-only",
+      "unmodifiable",
+      "frozen",
+      "restricted",
+      "rubber",
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pencil-ruler",
+    "categories": [
+      "tools",
+      "design",
+      "layout",
+      "text"
+    ],
+    "tags": [
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist",
+      "measurements",
+      "centimeters",
+      "cm",
+      "millimeters",
+      "mm",
+      "metre",
+      "foot",
+      "feet",
+      "inches",
+      "units",
+      "size",
+      "length",
+      "width",
+      "height",
+      "dimensions",
+      "depth",
+      "breadth",
+      "extent"
+    ]
+  },
+  {
+    "name": "pencil",
+    "categories": [
+      "design",
+      "cursors",
+      "tools",
+      "text"
+    ],
+    "tags": [
+      "rubber",
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "phone",
+    "categories": [
+      "text",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "pilcrow-left",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "direction",
+      "paragraph",
+      "mark",
+      "paraph",
+      "blind",
+      "typography",
+      "type",
+      "text",
+      "prose",
+      "symbol"
+    ]
+  },
+  {
+    "name": "pilcrow-right",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "direction",
+      "paragraph",
+      "mark",
+      "paraph",
+      "blind",
+      "typography",
+      "type",
+      "text",
+      "prose",
+      "symbol"
+    ]
+  },
+  {
+    "name": "pilcrow",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "paragraph",
+      "mark",
+      "paraph",
+      "blind",
+      "typography",
+      "type",
+      "text",
+      "prose",
+      "symbol"
+    ]
+  },
+  {
+    "name": "pipette",
+    "categories": [
+      "text",
+      "design",
+      "science"
+    ],
+    "tags": [
+      "eye dropper",
+      "color picker",
+      "lab",
+      "chemistry"
+    ]
+  },
+  {
+    "name": "plus",
+    "categories": [
+      "math",
+      "tools",
+      "development",
+      "text",
+      "cursors",
+      "gaming"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "toolbar",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "quote",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "quotation"
+    ]
+  },
+  {
+    "name": "rectangle-ellipsis",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "login",
+      "password",
+      "authenticate",
+      "2fa",
+      "field",
+      "fill",
+      "ellipsis",
+      "et cetera",
+      "etc",
+      "loader",
+      "loading",
+      "progress",
+      "pending",
+      "throbber",
+      "menu",
+      "options",
+      "operator",
+      "code",
+      "spread",
+      "rest",
+      "more",
+      "further",
+      "extra",
+      "overflow",
+      "dots",
+      "…",
+      "..."
+    ]
+  },
+  {
+    "name": "redo-2",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "undo",
+      "rerun",
+      "history"
+    ]
+  },
+  {
+    "name": "redo-dot",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "history",
+      "step",
+      "over",
+      "forward"
+    ]
+  },
+  {
+    "name": "redo",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "undo",
+      "rerun",
+      "history"
+    ]
+  },
+  {
+    "name": "regex",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "search",
+      "text",
+      "code"
+    ]
+  },
+  {
+    "name": "remove-formatting",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "font",
+      "typography",
+      "format",
+      "x",
+      "remove",
+      "delete",
+      "times",
+      "clear"
+    ]
+  },
+  {
+    "name": "replace-all",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "search",
+      "substitute",
+      "swap",
+      "change"
+    ]
+  },
+  {
+    "name": "replace",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "search",
+      "substitute",
+      "swap",
+      "change"
+    ]
+  },
+  {
+    "name": "rows-2",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "panel",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawer"
+    ]
+  },
+  {
+    "name": "rows-3",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawers"
+    ]
+  },
+  {
+    "name": "rows-4",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawers",
+      "grill"
+    ]
+  },
+  {
+    "name": "save-all",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "floppy disks",
+      "copy"
+    ]
+  },
+  {
+    "name": "save-off",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "floppy disk",
+      "unsalvageable"
+    ]
+  },
+  {
+    "name": "save",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "floppy disk"
+    ]
+  },
+  {
+    "name": "scan-text",
+    "categories": [
+      "text",
+      "devices"
+    ],
+    "tags": [
+      "recognition",
+      "read",
+      "translate",
+      "copy",
+      "lines"
+    ]
+  },
+  {
+    "name": "scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "cut",
+      "snip",
+      "chop",
+      "stationery",
+      "crafts"
+    ]
+  },
+  {
+    "name": "scroll-text",
+    "categories": [
+      "gaming",
+      "development",
+      "text"
+    ],
+    "tags": [
+      "paper",
+      "log",
+      "scripture",
+      "document",
+      "notes",
+      "parchment",
+      "list",
+      "long",
+      "script",
+      "story",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "scroll",
+    "categories": [
+      "gaming",
+      "development",
+      "text"
+    ],
+    "tags": [
+      "paper",
+      "log",
+      "scripture",
+      "document",
+      "notes",
+      "parchment",
+      "list",
+      "long",
+      "script",
+      "story",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "search-check",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "found",
+      "correct",
+      "complete",
+      "tick"
+    ]
+  },
+  {
+    "name": "search-code",
+    "categories": [
+      "text",
+      "social",
+      "development"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "grep",
+      "chevrons",
+      "<>"
+    ]
+  },
+  {
+    "name": "search-slash",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "stop",
+      "clear",
+      "cancel",
+      "abort",
+      "/"
+    ]
+  },
+  {
+    "name": "search-x",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "stop",
+      "clear",
+      "cancel",
+      "abort"
+    ]
+  },
+  {
+    "name": "search",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass"
+    ]
+  },
+  {
+    "name": "section",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "mark",
+      "typography",
+      "punctuation",
+      "legal",
+      "type",
+      "text",
+      "prose",
+      "symbol"
+    ]
+  },
+  {
+    "name": "separator-horizontal",
+    "categories": [
+      "text",
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "move",
+      "split"
+    ]
+  },
+  {
+    "name": "separator-vertical",
+    "categories": [
+      "text",
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "move",
+      "split"
+    ]
+  },
+  {
+    "name": "sheet",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheets",
+      "table",
+      "excel"
+    ]
+  },
+  {
+    "name": "sigma",
+    "categories": [
+      "text",
+      "math",
+      "science"
+    ],
+    "tags": [
+      "sum",
+      "calculate",
+      "formula",
+      "math",
+      "enumeration",
+      "enumerate"
+    ]
+  },
+  {
+    "name": "signature",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "format",
+      "input",
+      "contract",
+      "autograph",
+      "handwriting",
+      "sign",
+      "cursive",
+      "ink",
+      "scribble",
+      "authorize",
+      "personal",
+      "agreement",
+      "legal",
+      "document",
+      "identity",
+      "authentic",
+      "approval",
+      "verification",
+      "unique"
+    ]
+  },
+  {
+    "name": "space",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "selection",
+      "letters",
+      "characters",
+      "font",
+      "typography"
+    ]
+  },
+  {
+    "name": "spell-check-2",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "spelling",
+      "error",
+      "mistake",
+      "oversight",
+      "typo",
+      "correction",
+      "code",
+      "linter",
+      "a"
+    ]
+  },
+  {
+    "name": "spell-check",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "spelling",
+      "error",
+      "mistake",
+      "oversight",
+      "typo",
+      "correction",
+      "code",
+      "linter",
+      "a"
+    ]
+  },
+  {
+    "name": "square-asterisk",
+    "categories": [
+      "text",
+      "security",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "password",
+      "secret",
+      "access",
+      "key",
+      "multiply",
+      "multiplication",
+      "glob pattern",
+      "wildcard",
+      "*"
+    ]
+  },
+  {
+    "name": "square-bottom-dashed-scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "cut",
+      "snippet",
+      "chop",
+      "stationery",
+      "crafts"
+    ]
+  },
+  {
+    "name": "square-code",
+    "categories": [
+      "text",
+      "development"
+    ],
+    "tags": [
+      "gist",
+      "source",
+      "programming",
+      "html",
+      "xml",
+      "coding"
+    ]
+  },
+  {
+    "name": "square-dashed",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "selection",
+      "square",
+      "rectangular",
+      "marquee",
+      "tool",
+      "dashed",
+      "box"
+    ]
+  },
+  {
+    "name": "square-library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "square-minus",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "calculator",
+      "button",
+      "keyboard",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "square-pen",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "square-pilcrow",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "paragraph",
+      "mark",
+      "paraph",
+      "blind",
+      "typography",
+      "type",
+      "text",
+      "prose",
+      "symbol"
+    ]
+  },
+  {
+    "name": "square-plus",
+    "categories": [
+      "math",
+      "tools",
+      "development",
+      "text"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "calculator",
+      "button",
+      "keyboard",
+      "toolbar",
+      "maximum",
+      "upgrade",
+      "extra",
+      "operator",
+      "join",
+      "concatenate",
+      "code",
+      "coding",
+      "+"
+    ]
+  },
+  {
+    "name": "square-scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "cut",
+      "snippet",
+      "chop",
+      "stationery",
+      "crafts",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "square-sigma",
+    "categories": [
+      "text",
+      "math"
+    ],
+    "tags": [
+      "sum",
+      "calculate",
+      "formula",
+      "math",
+      "enumeration",
+      "enumerate"
+    ]
+  },
+  {
+    "name": "square-stack",
+    "categories": [
+      "text",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "versions",
+      "clone",
+      "copy",
+      "duplicate",
+      "multiple",
+      "revisions",
+      "version control",
+      "backup",
+      "history"
+    ]
+  },
+  {
+    "name": "sticky-note",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "post-it",
+      "comment",
+      "annotation",
+      "reaction",
+      "memo",
+      "reminder",
+      "todo",
+      "task",
+      "idea",
+      "brainstorm",
+      "document",
+      "page",
+      "paper",
+      "sheet",
+      "stationary",
+      "office"
+    ]
+  },
+  {
+    "name": "strikethrough",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "cross out",
+      "delete",
+      "remove",
+      "format"
+    ]
+  },
+  {
+    "name": "subscript",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text"
+    ]
+  },
+  {
+    "name": "superscript",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "exponent"
+    ]
+  },
+  {
+    "name": "table-2",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid"
+    ]
+  },
+  {
+    "name": "table-cells-merge",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "row"
+    ]
+  },
+  {
+    "name": "table-cells-split",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "row"
+    ]
+  },
+  {
+    "name": "table-columns-split",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "cut",
+      "break",
+      "divide",
+      "separate",
+      "segment"
+    ]
+  },
+  {
+    "name": "table-of-contents",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "toc",
+      "outline",
+      "navigation",
+      "document structure",
+      "index",
+      "overview",
+      "sections",
+      "chapters",
+      "content",
+      "documentation",
+      "manual",
+      "knowledge base",
+      "faq"
+    ]
+  },
+  {
+    "name": "table-properties",
+    "categories": [
+      "text",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "property list",
+      "plist",
+      "spreadsheet",
+      "grid",
+      "dictionary",
+      "object",
+      "hash"
+    ]
+  },
+  {
+    "name": "table-rows-split",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "cut",
+      "break",
+      "divide",
+      "separate",
+      "segment"
+    ]
+  },
+  {
+    "name": "table",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid"
+    ]
+  },
+  {
+    "name": "text-cursor-input",
+    "categories": [
+      "text",
+      "layout"
+    ],
+    "tags": [
+      "select"
+    ]
+  },
+  {
+    "name": "text-cursor",
+    "categories": [
+      "text",
+      "cursors"
+    ],
+    "tags": [
+      "select"
+    ]
+  },
+  {
+    "name": "text-quote",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "blockquote",
+      "quotation",
+      "indent",
+      "reply",
+      "response"
+    ]
+  },
+  {
+    "name": "text-search",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "find",
+      "data",
+      "copy",
+      "txt",
+      "pdf",
+      "document",
+      "scan",
+      "magnifier",
+      "magnifying glass"
+    ]
+  },
+  {
+    "name": "text-select",
+    "categories": [
+      "text",
+      "cursors"
+    ],
+    "tags": [
+      "find",
+      "search",
+      "selection",
+      "dashed"
+    ]
+  },
+  {
+    "name": "text",
+    "categories": [
+      "text",
+      "files",
+      "cursors"
+    ],
+    "tags": [
+      "find",
+      "search",
+      "data",
+      "txt",
+      "pdf",
+      "document"
+    ]
+  },
+  {
+    "name": "type-outline",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "font",
+      "typography",
+      "silhouette",
+      "profile",
+      "contour",
+      "stroke",
+      "line"
+    ]
+  },
+  {
+    "name": "type",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "font",
+      "typography"
+    ]
+  },
+  {
+    "name": "underline",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "format"
+    ]
+  },
+  {
+    "name": "undo-2",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "rerun",
+      "history",
+      "back",
+      "return",
+      "reverse",
+      "revert",
+      "direction",
+      "u-turn"
+    ]
+  },
+  {
+    "name": "undo-dot",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "history",
+      "step",
+      "back"
+    ]
+  },
+  {
+    "name": "undo",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "rerun",
+      "history"
+    ]
+  },
+  {
+    "name": "unlink-2",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "url",
+      "unchain"
+    ]
+  },
+  {
+    "name": "unlink",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "url",
+      "unchain"
+    ]
+  },
+  {
+    "name": "whole-word",
+    "categories": [
+      "text"
+    ],
+    "tags": [
+      "text",
+      "selection",
+      "letters",
+      "characters",
+      "font",
+      "typography"
+    ]
+  },
+  {
+    "name": "wrap-text",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "words",
+      "lines",
+      "break",
+      "paragraph"
+    ]
+  },
+  {
+    "name": "zoom-in",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  },
+  {
+    "name": "zoom-out",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  }
+]

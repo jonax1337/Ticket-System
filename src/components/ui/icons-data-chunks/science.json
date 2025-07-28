@@ -1,0 +1,585 @@
+[
+  {
+    "name": "activity",
+    "categories": [
+      "medical",
+      "account",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "atom",
+    "categories": [
+      "science"
+    ],
+    "tags": [
+      "atomic",
+      "nuclear",
+      "physics",
+      "particle",
+      "element",
+      "molecule",
+      "electricity",
+      "energy",
+      "chemistry"
+    ]
+  },
+  {
+    "name": "beaker",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "cup",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "binoculars",
+    "categories": [
+      "navigation",
+      "nature",
+      "photography",
+      "science",
+      "travel",
+      "development"
+    ],
+    "tags": [
+      "field glasses",
+      "lorgnette",
+      "pince-nez",
+      "observation",
+      "sightseeing",
+      "nature",
+      "wildlife",
+      "birdwatching",
+      "scouting",
+      "surveillance",
+      "search",
+      "discovery",
+      "monitoring",
+      "lookout",
+      "viewpoint",
+      "travel",
+      "tourism",
+      "research"
+    ]
+  },
+  {
+    "name": "biohazard",
+    "categories": [
+      "science"
+    ],
+    "tags": [
+      "fallout",
+      "waste",
+      "biology",
+      "chemistry",
+      "chemical",
+      "element"
+    ]
+  },
+  {
+    "name": "brain-circuit",
+    "categories": [
+      "science",
+      "development"
+    ],
+    "tags": [
+      "mind",
+      "intellect",
+      "artificial intelligence",
+      "ai",
+      "deep learning",
+      "machine learning",
+      "computing"
+    ]
+  },
+  {
+    "name": "brain-cog",
+    "categories": [
+      "science",
+      "development"
+    ],
+    "tags": [
+      "mind",
+      "intellect",
+      "artificial intelligence",
+      "ai",
+      "deep learning",
+      "machine learning",
+      "computing"
+    ]
+  },
+  {
+    "name": "brain",
+    "categories": [
+      "medical",
+      "science"
+    ],
+    "tags": [
+      "medical",
+      "mind",
+      "intellect",
+      "cerebral",
+      "consciousness",
+      "genius",
+      "artificial intelligence",
+      "ai"
+    ]
+  },
+  {
+    "name": "circle-gauge",
+    "categories": [
+      "transportation",
+      "sports",
+      "science"
+    ],
+    "tags": [
+      "dashboard",
+      "dial",
+      "meter",
+      "speed",
+      "pressure",
+      "measure",
+      "level"
+    ]
+  },
+  {
+    "name": "circuit-board",
+    "categories": [
+      "science",
+      "development"
+    ],
+    "tags": [
+      "computing",
+      "electricity",
+      "electronics"
+    ]
+  },
+  {
+    "name": "eclipse",
+    "categories": [
+      "science",
+      "design",
+      "development",
+      "accessibility",
+      "photography"
+    ],
+    "tags": [
+      "lunar",
+      "solar",
+      "crescent moon",
+      "sun",
+      "earth",
+      "day",
+      "night",
+      "planet",
+      "space",
+      "mode",
+      "dark",
+      "light",
+      "toggle",
+      "switch",
+      "color",
+      "css",
+      "styles",
+      "display",
+      "accessibility",
+      "contrast",
+      "brightness",
+      "blend",
+      "shade"
+    ]
+  },
+  {
+    "name": "flask-conical-off",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "beaker",
+      "erlenmeyer",
+      "non toxic",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "flask-conical",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "beaker",
+      "erlenmeyer",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "flask-round",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "beaker",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "gauge",
+    "categories": [
+      "transportation",
+      "sports",
+      "science"
+    ],
+    "tags": [
+      "dashboard",
+      "dial",
+      "meter",
+      "speed",
+      "pressure",
+      "measure",
+      "level"
+    ]
+  },
+  {
+    "name": "microscope",
+    "categories": [
+      "science",
+      "medical"
+    ],
+    "tags": [
+      "medical",
+      "education",
+      "science",
+      "imaging",
+      "research"
+    ]
+  },
+  {
+    "name": "omega",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "science"
+    ],
+    "tags": [
+      "greek",
+      "symbol",
+      "mathematics",
+      "education",
+      "physics",
+      "engineering",
+      "ohms",
+      "electrical resistance",
+      "angular frequency",
+      "dynamical systems",
+      "astronomy",
+      "constellations",
+      "philosophy"
+    ]
+  },
+  {
+    "name": "orbit",
+    "categories": [
+      "science"
+    ],
+    "tags": [
+      "planet",
+      "space",
+      "physics",
+      "satellites",
+      "moons"
+    ]
+  },
+  {
+    "name": "pipette",
+    "categories": [
+      "text",
+      "design",
+      "science"
+    ],
+    "tags": [
+      "eye dropper",
+      "color picker",
+      "lab",
+      "chemistry"
+    ]
+  },
+  {
+    "name": "radiation",
+    "categories": [
+      "science"
+    ],
+    "tags": [
+      "radioactive",
+      "nuclear",
+      "fallout",
+      "waste",
+      "atomic",
+      "physics",
+      "particle",
+      "element",
+      "molecule"
+    ]
+  },
+  {
+    "name": "satellite",
+    "categories": [
+      "connectivity",
+      "science"
+    ],
+    "tags": [
+      "space station",
+      "orbit",
+      "transmitter"
+    ]
+  },
+  {
+    "name": "shell",
+    "categories": [
+      "animals",
+      "development",
+      "nature",
+      "science",
+      "travel",
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "beach",
+      "sand",
+      "holiday",
+      "sealife",
+      "fossil",
+      "ammonite",
+      "biology",
+      "ocean",
+      "terminal",
+      "command line",
+      "session",
+      "bash",
+      "zsh",
+      "roll",
+      "wrap",
+      "chewing gum",
+      "bubble gum",
+      "sweet",
+      "sugar",
+      "hosepipe",
+      "carpet",
+      "string",
+      "spiral",
+      "spinner",
+      "hypnotise",
+      "hypnosis"
+    ]
+  },
+  {
+    "name": "sigma",
+    "categories": [
+      "text",
+      "math",
+      "science"
+    ],
+    "tags": [
+      "sum",
+      "calculate",
+      "formula",
+      "math",
+      "enumeration",
+      "enumerate"
+    ]
+  },
+  {
+    "name": "square-activity",
+    "categories": [
+      "medical",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "stethoscope",
+    "categories": [
+      "science",
+      "medical"
+    ],
+    "tags": [
+      "phonendoscope",
+      "medical",
+      "heart",
+      "lungs",
+      "sound"
+    ]
+  },
+  {
+    "name": "syringe",
+    "categories": [
+      "science",
+      "medical"
+    ],
+    "tags": [
+      "medicine",
+      "medical",
+      "needle",
+      "pump",
+      "plunger",
+      "nozzle",
+      "blood"
+    ]
+  },
+  {
+    "name": "telescope",
+    "categories": [
+      "science",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "astronomy",
+      "space",
+      "discovery",
+      "exploration",
+      "explore",
+      "vision",
+      "perspective",
+      "focus",
+      "stargazing",
+      "observe",
+      "view"
+    ]
+  },
+  {
+    "name": "test-tube-diagonal",
+    "categories": [
+      "science"
+    ],
+    "tags": [
+      "tube",
+      "vial",
+      "phial",
+      "flask",
+      "ampoule",
+      "ampule",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "test-tube",
+    "categories": [
+      "science"
+    ],
+    "tags": [
+      "tube",
+      "vial",
+      "phial",
+      "flask",
+      "ampoule",
+      "ampule",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "test-tubes",
+    "categories": [
+      "science"
+    ],
+    "tags": [
+      "tubes",
+      "vials",
+      "phials",
+      "flasks",
+      "ampoules",
+      "ampules",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  }
+]

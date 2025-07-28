@@ -1,0 +1,490 @@
+[
+  {
+    "name": "circle-plus",
+    "categories": [
+      "math",
+      "development",
+      "cursors",
+      "gaming"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "operator",
+      "join",
+      "concatenate",
+      "code",
+      "coding",
+      "+"
+    ]
+  },
+  {
+    "name": "grab",
+    "categories": [
+      "cursors",
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "hand"
+    ]
+  },
+  {
+    "name": "hand",
+    "categories": [
+      "cursors",
+      "accessibility"
+    ],
+    "tags": [
+      "wave",
+      "move",
+      "mouse",
+      "grab"
+    ]
+  },
+  {
+    "name": "lasso-select",
+    "categories": [
+      "arrows",
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "select",
+      "cursor"
+    ]
+  },
+  {
+    "name": "lasso",
+    "categories": [
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "select",
+      "cursor"
+    ]
+  },
+  {
+    "name": "loader-circle",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "layout"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "spinner",
+      "spinning",
+      "throbber",
+      "circle"
+    ]
+  },
+  {
+    "name": "loader-pinwheel",
+    "categories": [
+      "cursors",
+      "design"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "throbber",
+      "spinner",
+      "spinning",
+      "beach ball",
+      "frozen",
+      "freeze"
+    ]
+  },
+  {
+    "name": "loader",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "spinner",
+      "spinning",
+      "throbber"
+    ]
+  },
+  {
+    "name": "mouse-pointer-2",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "click",
+      "select"
+    ]
+  },
+  {
+    "name": "mouse-pointer-ban",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "wait",
+      "busy",
+      "loading",
+      "blocked",
+      "frozen",
+      "freeze"
+    ]
+  },
+  {
+    "name": "mouse-pointer-click",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "click",
+      "select"
+    ]
+  },
+  {
+    "name": "mouse-pointer",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "click",
+      "select"
+    ]
+  },
+  {
+    "name": "move-diagonal-2",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move-diagonal",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move-horizontal",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move-vertical",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "arrows"
+    ]
+  },
+  {
+    "name": "pen-tool",
+    "categories": [
+      "text",
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "vector",
+      "drawing",
+      "path"
+    ]
+  },
+  {
+    "name": "pencil-off",
+    "categories": [
+      "design",
+      "cursors",
+      "tools",
+      "text"
+    ],
+    "tags": [
+      "disabled",
+      "inactive",
+      "non-editable",
+      "locked",
+      "read-only",
+      "unmodifiable",
+      "frozen",
+      "restricted",
+      "rubber",
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pencil",
+    "categories": [
+      "design",
+      "cursors",
+      "tools",
+      "text"
+    ],
+    "tags": [
+      "rubber",
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "plus",
+    "categories": [
+      "math",
+      "tools",
+      "development",
+      "text",
+      "cursors",
+      "gaming"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "toolbar",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "pointer-off",
+    "categories": [
+      "cursors"
+    ],
+    "tags": [
+      "mouse"
+    ]
+  },
+  {
+    "name": "pointer",
+    "categories": [
+      "cursors"
+    ],
+    "tags": [
+      "mouse"
+    ]
+  },
+  {
+    "name": "sparkles",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "gaming",
+      "weather"
+    ],
+    "tags": [
+      "stars",
+      "effect",
+      "filter",
+      "night",
+      "magic"
+    ]
+  },
+  {
+    "name": "square-dashed-mouse-pointer",
+    "categories": [
+      "arrows",
+      "cursors",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "inspector",
+      "element",
+      "mouse",
+      "click",
+      "pointer",
+      "box",
+      "browser",
+      "selector",
+      "target",
+      "dom",
+      "node"
+    ]
+  },
+  {
+    "name": "square-mouse-pointer",
+    "categories": [
+      "arrows",
+      "cursors",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "inspector",
+      "element",
+      "mouse",
+      "click",
+      "pointer",
+      "box",
+      "browser",
+      "selector",
+      "target",
+      "dom",
+      "node"
+    ]
+  },
+  {
+    "name": "stamp",
+    "categories": [
+      "design",
+      "cursors",
+      "tools"
+    ],
+    "tags": [
+      "mark",
+      "print",
+      "clone",
+      "loyalty",
+      "library"
+    ]
+  },
+  {
+    "name": "text-cursor",
+    "categories": [
+      "text",
+      "cursors"
+    ],
+    "tags": [
+      "select"
+    ]
+  },
+  {
+    "name": "text-select",
+    "categories": [
+      "text",
+      "cursors"
+    ],
+    "tags": [
+      "find",
+      "search",
+      "selection",
+      "dashed"
+    ]
+  },
+  {
+    "name": "text",
+    "categories": [
+      "text",
+      "files",
+      "cursors"
+    ],
+    "tags": [
+      "find",
+      "search",
+      "data",
+      "txt",
+      "pdf",
+      "document"
+    ]
+  },
+  {
+    "name": "wand-sparkles",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "wizard",
+      "magician"
+    ]
+  },
+  {
+    "name": "wand",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "selection"
+    ]
+  }
+]

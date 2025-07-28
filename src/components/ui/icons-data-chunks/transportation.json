@@ -1,0 +1,863 @@
+[
+  {
+    "name": "ambulance",
+    "categories": [
+      "medical",
+      "transportation"
+    ],
+    "tags": [
+      "ambulance",
+      "emergency",
+      "medical",
+      "vehicle",
+      "siren",
+      "healthcare",
+      "transportation",
+      "rescue",
+      "urgent",
+      "first aid"
+    ]
+  },
+  {
+    "name": "anchor",
+    "categories": [
+      "transportation",
+      "text"
+    ],
+    "tags": [
+      "ship"
+    ]
+  },
+  {
+    "name": "arrows-up-from-line",
+    "categories": [
+      "arrows",
+      "transportation",
+      "mail"
+    ],
+    "tags": [
+      "direction",
+      "orientation",
+      "this way up",
+      "vertical",
+      "package",
+      "box",
+      "fragile",
+      "postage",
+      "shipping"
+    ]
+  },
+  {
+    "name": "baggage-claim",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "baggage",
+      "luggage",
+      "travel",
+      "cart",
+      "trolley",
+      "suitcase"
+    ]
+  },
+  {
+    "name": "bike",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "bicycle",
+      "transport",
+      "trip"
+    ]
+  },
+  {
+    "name": "briefcase-business",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "work",
+      "bag",
+      "baggage",
+      "folder",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "briefcase-conveyor-belt",
+    "categories": [
+      "travel",
+      "transportation"
+    ],
+    "tags": [
+      "baggage",
+      "luggage",
+      "travel",
+      "suitcase",
+      "conveyor",
+      "carousel"
+    ]
+  },
+  {
+    "name": "briefcase-medical",
+    "categories": [
+      "medical",
+      "transportation"
+    ],
+    "tags": [
+      "doctor",
+      "medicine",
+      "first aid"
+    ]
+  },
+  {
+    "name": "briefcase",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "work",
+      "bag",
+      "baggage",
+      "folder"
+    ]
+  },
+  {
+    "name": "bus-front",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "coach",
+      "vehicle",
+      "trip",
+      "road"
+    ]
+  },
+  {
+    "name": "bus",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "bus",
+      "vehicle",
+      "transport",
+      "trip"
+    ]
+  },
+  {
+    "name": "cable-car",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "ski lift",
+      "winter holiday",
+      "alpine",
+      "resort",
+      "mountains"
+    ]
+  },
+  {
+    "name": "car-front",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "vehicle",
+      "drive",
+      "trip",
+      "journey"
+    ]
+  },
+  {
+    "name": "car-taxi-front",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "cab",
+      "vehicle",
+      "drive",
+      "trip",
+      "journey"
+    ]
+  },
+  {
+    "name": "car",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "vehicle",
+      "drive",
+      "trip",
+      "journey"
+    ]
+  },
+  {
+    "name": "caravan",
+    "categories": [
+      "transportation",
+      "travel",
+      "nature"
+    ],
+    "tags": [
+      "trailer",
+      "tow",
+      "camping",
+      "campsite",
+      "mobile home",
+      "holiday",
+      "nomadic",
+      "wilderness",
+      "outdoors"
+    ]
+  },
+  {
+    "name": "cigarette-off",
+    "categories": [
+      "travel",
+      "transportation",
+      "medical"
+    ],
+    "tags": [
+      "smoking",
+      "no-smoking"
+    ]
+  },
+  {
+    "name": "cigarette",
+    "categories": [
+      "travel",
+      "transportation",
+      "medical"
+    ],
+    "tags": [
+      "smoking"
+    ]
+  },
+  {
+    "name": "circle-gauge",
+    "categories": [
+      "transportation",
+      "sports",
+      "science"
+    ],
+    "tags": [
+      "dashboard",
+      "dial",
+      "meter",
+      "speed",
+      "pressure",
+      "measure",
+      "level"
+    ]
+  },
+  {
+    "name": "circle-parking-off",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park",
+      "no parking"
+    ]
+  },
+  {
+    "name": "circle-parking",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park"
+    ]
+  },
+  {
+    "name": "container",
+    "categories": [
+      "development",
+      "transportation",
+      "mail"
+    ],
+    "tags": [
+      "storage",
+      "shipping",
+      "freight",
+      "supply chain",
+      "docker",
+      "environment",
+      "devops",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "forklift",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "vehicle",
+      "transport",
+      "logistics"
+    ]
+  },
+  {
+    "name": "fuel",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "filling-station",
+      "gas",
+      "petrol",
+      "tank"
+    ]
+  },
+  {
+    "name": "gauge",
+    "categories": [
+      "transportation",
+      "sports",
+      "science"
+    ],
+    "tags": [
+      "dashboard",
+      "dial",
+      "meter",
+      "speed",
+      "pressure",
+      "measure",
+      "level"
+    ]
+  },
+  {
+    "name": "luggage",
+    "categories": [
+      "travel",
+      "transportation"
+    ],
+    "tags": [
+      "baggage",
+      "luggage",
+      "travel",
+      "suitcase"
+    ]
+  },
+  {
+    "name": "octagon-minus",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "stop",
+      "forbidden",
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "-",
+      "traffic",
+      "halt",
+      "restricted"
+    ]
+  },
+  {
+    "name": "parking-meter",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "driving",
+      "car park",
+      "pay",
+      "sidewalk",
+      "pavement"
+    ]
+  },
+  {
+    "name": "plane-landing",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "arrival",
+      "plane",
+      "trip",
+      "airplane",
+      "landing"
+    ]
+  },
+  {
+    "name": "plane-takeoff",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "departure",
+      "plane",
+      "trip",
+      "airplane",
+      "takeoff"
+    ]
+  },
+  {
+    "name": "plane",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "plane",
+      "trip",
+      "airplane"
+    ]
+  },
+  {
+    "name": "rail-symbol",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "railway",
+      "train",
+      "track",
+      "line"
+    ]
+  },
+  {
+    "name": "sailboat",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "ship",
+      "boat",
+      "harbor",
+      "harbour",
+      "dock"
+    ]
+  },
+  {
+    "name": "ship-wheel",
+    "categories": [
+      "transportation",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "steering",
+      "rudder",
+      "boat",
+      "knots",
+      "nautical mile",
+      "maritime",
+      "sailing",
+      "yacht",
+      "cruise",
+      "ocean liner",
+      "tanker",
+      "vessel",
+      "navy",
+      "trip"
+    ]
+  },
+  {
+    "name": "ship",
+    "categories": [
+      "transportation",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "boat",
+      "knots",
+      "nautical mile",
+      "maritime",
+      "sailing",
+      "yacht",
+      "cruise",
+      "ocean liner",
+      "tanker",
+      "vessel",
+      "navy",
+      "trip"
+    ]
+  },
+  {
+    "name": "square-m",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "metro",
+      "subway",
+      "underground",
+      "track",
+      "line"
+    ]
+  },
+  {
+    "name": "square-parking-off",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park",
+      "no parking"
+    ]
+  },
+  {
+    "name": "square-parking",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park"
+    ]
+  },
+  {
+    "name": "ticket-check",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "entry",
+      "pass",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "booked",
+      "purchased",
+      "receipt",
+      "redeemed",
+      "validated",
+      "verified",
+      "certified",
+      "checked",
+      "used"
+    ]
+  },
+  {
+    "name": "ticket-minus",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "entry",
+      "pass",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "remove",
+      "cancel",
+      "unbook",
+      "subtract",
+      "decrease",
+      "-"
+    ]
+  },
+  {
+    "name": "ticket-percent",
+    "categories": [
+      "transportation",
+      "shopping"
+    ],
+    "tags": [
+      "discount",
+      "reduced",
+      "offer",
+      "voucher",
+      "entry",
+      "pass",
+      "event",
+      "concert",
+      "show",
+      "book",
+      "purchase",
+      "%"
+    ]
+  },
+  {
+    "name": "ticket-plus",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "entry",
+      "pass",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "book",
+      "purchase",
+      "add",
+      "+"
+    ]
+  },
+  {
+    "name": "ticket-slash",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "entry",
+      "pass",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "redeemed",
+      "used",
+      "marked",
+      "checked",
+      "verified",
+      "spoiled",
+      "invalidated",
+      "void",
+      "denied",
+      "refused",
+      "banned",
+      "barred",
+      "forbidden",
+      "prohibited",
+      "cancelled",
+      "cancellation",
+      "refunded",
+      "delete",
+      "remove",
+      "clear",
+      "error"
+    ]
+  },
+  {
+    "name": "ticket-x",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "entry",
+      "pass",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "cancelled",
+      "cancellation",
+      "refunded",
+      "used",
+      "void",
+      "invalidated",
+      "spoiled",
+      "denied",
+      "refused",
+      "banned",
+      "barred",
+      "forbidden",
+      "prohibited",
+      "delete",
+      "remove",
+      "clear",
+      "error",
+      "x"
+    ]
+  },
+  {
+    "name": "ticket",
+    "categories": [
+      "account",
+      "transportation"
+    ],
+    "tags": [
+      "entry",
+      "pass",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "perforated",
+      "dashed"
+    ]
+  },
+  {
+    "name": "tickets-plane",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "plane",
+      "trip",
+      "airplane",
+      "flight",
+      "travel",
+      "fly",
+      "takeoff",
+      "vacation",
+      "passenger",
+      "pass",
+      "check-in",
+      "airport"
+    ]
+  },
+  {
+    "name": "tickets",
+    "categories": [
+      "travel",
+      "account",
+      "transportation"
+    ],
+    "tags": [
+      "trip",
+      "travel",
+      "pass",
+      "entry",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "perforated",
+      "dashed"
+    ]
+  },
+  {
+    "name": "tower-control",
+    "categories": [
+      "travel",
+      "transportation"
+    ],
+    "tags": [
+      "airport",
+      "travel",
+      "tower",
+      "transportation",
+      "lighthouse"
+    ]
+  },
+  {
+    "name": "tractor",
+    "categories": [
+      "transportation",
+      "sustainability",
+      "food-beverage"
+    ],
+    "tags": [
+      "farming",
+      "farmer",
+      "ranch",
+      "harvest",
+      "equipment",
+      "vehicle"
+    ]
+  },
+  {
+    "name": "traffic-cone",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "roadworks",
+      "tarmac",
+      "safety",
+      "block"
+    ]
+  },
+  {
+    "name": "train-front-tunnel",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "railway",
+      "metro",
+      "subway",
+      "underground",
+      "speed",
+      "bullet",
+      "fast",
+      "track",
+      "line"
+    ]
+  },
+  {
+    "name": "train-front",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "railway",
+      "metro",
+      "subway",
+      "underground",
+      "high-speed",
+      "bullet",
+      "fast",
+      "track",
+      "line"
+    ]
+  },
+  {
+    "name": "train-track",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "railway",
+      "line"
+    ]
+  },
+  {
+    "name": "tram-front",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "railway",
+      "metro",
+      "subway",
+      "underground",
+      "track",
+      "line",
+      "tourism"
+    ]
+  },
+  {
+    "name": "truck",
+    "categories": [
+      "transportation"
+    ],
+    "tags": [
+      "delivery",
+      "van",
+      "shipping",
+      "haulage",
+      "lorry"
+    ]
+  }
+]

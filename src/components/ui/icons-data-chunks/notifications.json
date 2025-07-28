@@ -1,0 +1,630 @@
+[
+  {
+    "name": "alarm-clock-check",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "alarm-clock-minus",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "remove"
+    ]
+  },
+  {
+    "name": "alarm-clock-off",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "morning",
+      "turn-off"
+    ]
+  },
+  {
+    "name": "alarm-clock-plus",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "add"
+    ]
+  },
+  {
+    "name": "alarm-clock",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "morning"
+    ]
+  },
+  {
+    "name": "bell-dot",
+    "categories": [
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "alarm",
+      "notification",
+      "sound",
+      "reminder",
+      "unread"
+    ]
+  },
+  {
+    "name": "bell-electric",
+    "categories": [
+      "devices",
+      "notifications",
+      "home"
+    ],
+    "tags": [
+      "fire alarm",
+      "flames",
+      "smoke",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency",
+      "alert",
+      "safety",
+      "school bell",
+      "period break",
+      "recess",
+      "doorbell",
+      "entrance",
+      "entry",
+      "ring",
+      "reception"
+    ]
+  },
+  {
+    "name": "bell-minus",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "alarm",
+      "notification",
+      "silent",
+      "reminder",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "bell-off",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "alarm",
+      "notification",
+      "silent",
+      "reminder"
+    ]
+  },
+  {
+    "name": "bell-plus",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "notification",
+      "silent",
+      "reminder",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "bell-ring",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "alarm",
+      "notification",
+      "sound",
+      "reminder"
+    ]
+  },
+  {
+    "name": "bell",
+    "categories": [
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "alarm",
+      "notification",
+      "sound",
+      "reminder"
+    ]
+  },
+  {
+    "name": "check-check",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "done",
+      "received",
+      "double",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "check",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "circle-alert",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "warning",
+      "alert",
+      "danger",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "circle-check-big",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "circle-check",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "circle-help",
+    "categories": [
+      "accessibility",
+      "text",
+      "notifications"
+    ],
+    "tags": [
+      "question mark"
+    ]
+  },
+  {
+    "name": "copy-check",
+    "categories": [
+      "text",
+      "notifications"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "done",
+      "multiple"
+    ]
+  },
+  {
+    "name": "copy-x",
+    "categories": [
+      "notifications",
+      "math"
+    ],
+    "tags": [
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "clear",
+      "multiple",
+      "multiply",
+      "multiplication",
+      "times"
+    ]
+  },
+  {
+    "name": "file-warning",
+    "categories": [
+      "files",
+      "notifications"
+    ],
+    "tags": [
+      "hidden",
+      "warning",
+      "alert",
+      "danger",
+      "protected",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "info",
+    "categories": [
+      "accessibility",
+      "notifications"
+    ],
+    "tags": [
+      "help"
+    ]
+  },
+  {
+    "name": "laptop-minimal-check",
+    "categories": [
+      "devices",
+      "notifications"
+    ],
+    "tags": [
+      "computer",
+      "screen",
+      "remote",
+      "success",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "megaphone-off",
+    "categories": [
+      "multimedia",
+      "notifications"
+    ],
+    "tags": [
+      "advertisement",
+      "attention",
+      "alert",
+      "notification",
+      "disable",
+      "silent"
+    ]
+  },
+  {
+    "name": "megaphone",
+    "categories": [
+      "multimedia",
+      "notifications"
+    ],
+    "tags": [
+      "advertisement",
+      "attention",
+      "alert",
+      "notification"
+    ]
+  },
+  {
+    "name": "message-circle-warning",
+    "categories": [
+      "social",
+      "notifications"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "report",
+      "abuse",
+      "offense",
+      "alert",
+      "danger",
+      "caution",
+      "protected",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "message-square-dot",
+    "categories": [
+      "social",
+      "notifications"
+    ],
+    "tags": [
+      "unread",
+      "unresolved",
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble"
+    ]
+  },
+  {
+    "name": "message-square-warning",
+    "categories": [
+      "social",
+      "notifications"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "report",
+      "abuse",
+      "offense",
+      "alert",
+      "danger",
+      "caution",
+      "protected",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "octagon-alert",
+    "categories": [
+      "notifications",
+      "shapes"
+    ],
+    "tags": [
+      "warning",
+      "alert",
+      "danger",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "octagon-x",
+    "categories": [
+      "math",
+      "notifications"
+    ],
+    "tags": [
+      "delete",
+      "stop",
+      "alert",
+      "warning",
+      "times",
+      "clear",
+      "math"
+    ]
+  },
+  {
+    "name": "shield-alert",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "notifications",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "warning",
+      "emergency",
+      "attention",
+      "urgent",
+      "alarm",
+      "crest",
+      "bravery",
+      "strength",
+      "tough",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "disabled",
+      "inactive",
+      "error",
+      "exclamation mark",
+      "!"
+    ]
+  },
+  {
+    "name": "smile-plus",
+    "categories": [
+      "emoji",
+      "social",
+      "notifications",
+      "communication"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "happy",
+      "good",
+      "emotion",
+      "react",
+      "reaction",
+      "add"
+    ]
+  },
+  {
+    "name": "square-check-big",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "square-check",
+    "categories": [
+      "notifications"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "square-x",
+    "categories": [
+      "math",
+      "notifications"
+    ],
+    "tags": [
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "times",
+      "clear",
+      "math",
+      "multiply",
+      "multiplication"
+    ]
+  },
+  {
+    "name": "triangle-alert",
+    "categories": [
+      "notifications",
+      "shapes",
+      "development"
+    ],
+    "tags": [
+      "warning",
+      "alert",
+      "danger",
+      "exclamation mark",
+      "linter"
+    ]
+  },
+  {
+    "name": "vibrate",
+    "categories": [
+      "devices",
+      "connectivity",
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "smartphone",
+      "notification",
+      "rumble",
+      "haptic feedback",
+      "screen"
+    ]
+  },
+  {
+    "name": "x",
+    "categories": [
+      "notifications",
+      "math"
+    ],
+    "tags": [
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "times",
+      "clear",
+      "math",
+      "multiply",
+      "multiplication"
+    ]
+  }
+]

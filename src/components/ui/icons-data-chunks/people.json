@@ -1,0 +1,46 @@
+[
+  {
+    "name": "baby",
+    "categories": [
+      "accessibility",
+      "people"
+    ],
+    "tags": [
+      "child",
+      "childproof",
+      "children"
+    ]
+  },
+  {
+    "name": "hand-platter",
+    "categories": [
+      "food-beverage",
+      "people"
+    ],
+    "tags": [
+      "waiter",
+      "waitress",
+      "restaurant",
+      "table service",
+      "served",
+      "dinner",
+      "dining",
+      "meal",
+      "course",
+      "luxury"
+    ]
+  },
+  {
+    "name": "person-standing",
+    "categories": [
+      "accessibility",
+      "people"
+    ],
+    "tags": [
+      "people",
+      "human",
+      "accessibility",
+      "stick figure"
+    ]
+  }
+]

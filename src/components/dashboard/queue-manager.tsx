@@ -11,7 +11,7 @@ import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Trash2, Edit, Plus, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw, Search, Shield, User as UserIcon, Check, ChevronDown, UserCheck } from 'lucide-react'
+import { Trash2, Edit, Plus, X, GripVertical, RefreshCw, Search, Shield, User as UserIcon, Check, ChevronDown, UserCheck, Inbox } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import {
   AlertDialog,
@@ -46,6 +46,8 @@ import {
 import {
   CSS,
 } from '@dnd-kit/utilities'
+import { IconPicker } from '@/components/ui/enhanced-icon-picker'
+import { getIconComponent } from '@/lib/icon-system'
 
 interface Queue {
   id: string
@@ -76,14 +78,6 @@ interface UserQueue {
   user: User
   queue: Queue
 }
-
-const ICON_OPTIONS = [
-  { value: 'Inbox', label: 'Inbox', Icon: Inbox },
-  { value: 'Folder', label: 'Folder', Icon: Folder },
-  { value: 'Circle', label: 'Circle', Icon: Circle },
-  { value: 'Users', label: 'Users', Icon: Users },
-  { value: 'Settings', label: 'Settings', Icon: Settings },
-]
 
 const roleColors = {
   ADMIN: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
@@ -377,7 +371,7 @@ export default function QueueManager() {
       transition,
     }
 
-    const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
+    const IconComponent = getIconComponent(queue.icon)
 
     return (
       <TableRow ref={setNodeRef} style={style} {...attributes}>
@@ -386,10 +380,9 @@ export default function QueueManager() {
             <div {...listeners} className="cursor-grab hover:cursor-grabbing">
               <GripVertical className="h-4 w-4 text-muted-foreground" />
             </div>
-            <IconComponent 
-              className="h-4 w-4" 
-              style={{ color: queue.color }}
-            />
+            <div style={{ color: queue.color }}>
+              <IconComponent className="h-4 w-4" />
+            </div>
             <span className="font-medium">{queue.name}</span>
           </div>
         </TableCell>
@@ -532,7 +525,10 @@ export default function QueueManager() {
                     </DialogDescription>
                   </DialogHeader>
                   
-                  <div className="space-y-4">
+                  <form onSubmit={(e) => {
+                    e.preventDefault()
+                    editingQueue ? handleUpdateQueue() : handleCreateQueue()
+                  }} className="space-y-4">
                     <div>
                       <Label htmlFor="name">Queue Name</Label>
                       <Input
@@ -540,6 +536,7 @@ export default function QueueManager() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g., Technical Support"
+                        required
                       />
                     </div>
                     
@@ -556,24 +553,12 @@ export default function QueueManager() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="icon">Icon</Label>
-                        <Select
+                        <IconPicker
                           value={formData.icon}
                           onValueChange={(value) => setFormData({ ...formData, icon: value })}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {ICON_OPTIONS.map((option) => (
-                              <SelectItem key={option.value} value={option.value}>
-                                <div className="flex items-center gap-2">
-                                  <option.Icon className="h-4 w-4" />
-                                  {option.label}
-                                </div>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                          placeholder="Select an icon"
+                          showCategories={true}
+                        />
                       </div>
                       
                       <div>
@@ -610,16 +595,20 @@ export default function QueueManager() {
                       />
                       <Label htmlFor="isDefault">Set as default queue</Label>
                     </div>
-                  </div>
-                  
-                  <DialogFooter>
-                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button onClick={editingQueue ? handleUpdateQueue : handleCreateQueue}>
-                      {editingQueue ? 'Update' : 'Create'}
-                    </Button>
-                  </DialogFooter>
+
+                    <div className="flex justify-end gap-2">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={() => setIsDialogOpen(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <Button type="submit">
+                        {editingQueue ? 'Update' : 'Create'}
+                      </Button>
+                    </div>
+                  </form>
                 </DialogContent>
               </Dialog>
             </div>
@@ -781,7 +770,7 @@ export default function QueueManager() {
                                 <CommandList>
                                   <CommandGroup>
                                     {availableQueues.map((queue) => {
-                                      const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
+                                      const IconComponent = getIconComponent(queue.icon)
                                       const isAlreadyAssigned = assignedQueues.some(aq => aq.queueId === queue.id)
                                       const isDefault = queue.isDefault
                                       
@@ -800,10 +789,12 @@ export default function QueueManager() {
                                           disabled={isDefault}
                                         >
                                           <div className="flex items-center gap-2 flex-1">
-                                            {isAlreadyAssigned && (
+                                            {(isAlreadyAssigned || isDefault) && (
                                               <Check className="h-4 w-4 text-primary" />
                                             )}
-                                            <IconComponent className="h-4 w-4" style={{ color: queue.color }} />
+                                            <div style={{ color: queue.color }}>
+                                              <IconComponent className="h-4 w-4" />
+                                            </div>
                                             <div className="flex-1">
                                               <span>{queue.name}</span>
                                             </div>

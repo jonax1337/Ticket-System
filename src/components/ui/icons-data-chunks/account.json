@@ -1,0 +1,2348 @@
+[
+  {
+    "name": "activity",
+    "categories": [
+      "medical",
+      "account",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "at-sign",
+    "categories": [
+      "text",
+      "account"
+    ],
+    "tags": [
+      "mention",
+      "at",
+      "email",
+      "message",
+      "@"
+    ]
+  },
+  {
+    "name": "award",
+    "categories": [
+      "account",
+      "sports",
+      "gaming"
+    ],
+    "tags": [
+      "achievement",
+      "badge",
+      "rosette",
+      "prize",
+      "winner"
+    ]
+  },
+  {
+    "name": "badge-alert",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "check",
+      "verified",
+      "unverified",
+      "security",
+      "safety",
+      "issue"
+    ]
+  },
+  {
+    "name": "badge-info",
+    "categories": [
+      "account",
+      "accessibility",
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "help"
+    ]
+  },
+  {
+    "name": "badge",
+    "categories": [
+      "account",
+      "social",
+      "shapes"
+    ],
+    "tags": [
+      "check",
+      "verified",
+      "unverified"
+    ]
+  },
+  {
+    "name": "ban",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "cancel",
+      "no",
+      "stop",
+      "forbidden",
+      "prohibited",
+      "error",
+      "incorrect",
+      "mistake",
+      "wrong",
+      "failure",
+      "circle",
+      "slash",
+      "null",
+      "void"
+    ]
+  },
+  {
+    "name": "bell-dot",
+    "categories": [
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "alarm",
+      "notification",
+      "sound",
+      "reminder",
+      "unread"
+    ]
+  },
+  {
+    "name": "bell",
+    "categories": [
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "alarm",
+      "notification",
+      "sound",
+      "reminder"
+    ]
+  },
+  {
+    "name": "book-user",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "people",
+      "family",
+      "friends",
+      "acquaintances",
+      "contacts",
+      "details",
+      "addresses",
+      "phone numbers",
+      "directory",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "bookmark-check",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "read",
+      "finished",
+      "complete",
+      "clip",
+      "marker",
+      "tag",
+      "task",
+      "todo"
+    ]
+  },
+  {
+    "name": "bookmark-minus",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "delete",
+      "remove"
+    ]
+  },
+  {
+    "name": "bookmark-plus",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "add"
+    ]
+  },
+  {
+    "name": "bookmark-x",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "read",
+      "clip",
+      "marker",
+      "tag",
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "clear"
+    ]
+  },
+  {
+    "name": "bookmark",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "read",
+      "clip",
+      "marker",
+      "tag"
+    ]
+  },
+  {
+    "name": "building-2",
+    "categories": [
+      "account",
+      "buildings"
+    ],
+    "tags": [
+      "business",
+      "company",
+      "enterprise",
+      "skyscraper",
+      "organisation",
+      "organization",
+      "city"
+    ]
+  },
+  {
+    "name": "building",
+    "categories": [
+      "account",
+      "buildings"
+    ],
+    "tags": [
+      "organisation",
+      "organization"
+    ]
+  },
+  {
+    "name": "cake",
+    "categories": [
+      "food-beverage",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "birthday",
+      "birthdate",
+      "celebration",
+      "party",
+      "surprise",
+      "gateaux",
+      "dessert",
+      "fondant",
+      "icing sugar",
+      "sweet",
+      "baking"
+    ]
+  },
+  {
+    "name": "circle-user-round",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact"
+    ]
+  },
+  {
+    "name": "circle-user",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact"
+    ]
+  },
+  {
+    "name": "cog",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "computing",
+      "settings",
+      "cog",
+      "edit",
+      "gear",
+      "preferences",
+      "controls",
+      "configuration",
+      "fixed",
+      "build",
+      "construction",
+      "parts"
+    ]
+  },
+  {
+    "name": "contact-round",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "contact",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "cookie",
+    "categories": [
+      "account",
+      "food-beverage"
+    ],
+    "tags": [
+      "biscuit",
+      "privacy",
+      "legal",
+      "food"
+    ]
+  },
+  {
+    "name": "credit-card",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "bank",
+      "purchase",
+      "payment",
+      "cc"
+    ]
+  },
+  {
+    "name": "file-user",
+    "categories": [
+      "account",
+      "files"
+    ],
+    "tags": [
+      "person",
+      "personal information",
+      "people",
+      "listing",
+      "networking",
+      "document",
+      "contact",
+      "cover letter",
+      "resume",
+      "cv",
+      "curriculum vitae",
+      "application form"
+    ]
+  },
+  {
+    "name": "fingerprint",
+    "categories": [
+      "account",
+      "security",
+      "medical",
+      "devices"
+    ],
+    "tags": [
+      "2fa",
+      "authentication",
+      "biometric",
+      "identity",
+      "security"
+    ]
+  },
+  {
+    "name": "flag-off",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "unflag"
+    ]
+  },
+  {
+    "name": "flag",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "report"
+    ]
+  },
+  {
+    "name": "frown",
+    "categories": [
+      "emoji",
+      "account"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "bad",
+      "sad",
+      "emotion"
+    ]
+  },
+  {
+    "name": "gift",
+    "categories": [
+      "gaming",
+      "account"
+    ],
+    "tags": [
+      "present",
+      "box",
+      "birthday",
+      "party"
+    ]
+  },
+  {
+    "name": "hand-coins",
+    "categories": [
+      "finance",
+      "account"
+    ],
+    "tags": [
+      "savings",
+      "banking",
+      "money",
+      "finance",
+      "offers",
+      "mortgage",
+      "payment",
+      "received",
+      "wage",
+      "payroll",
+      "allowance",
+      "pocket money",
+      "handout",
+      "pennies"
+    ]
+  },
+  {
+    "name": "handshake",
+    "categories": [
+      "account",
+      "social",
+      "communication",
+      "finance",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "partnership",
+      "deal",
+      "business",
+      "assistance",
+      "cooperation",
+      "friendship",
+      "union",
+      "terms"
+    ]
+  },
+  {
+    "name": "heart-handshake",
+    "categories": [
+      "emoji",
+      "account",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "charity",
+      "help",
+      "deal",
+      "terms",
+      "emotion",
+      "together",
+      "handshake"
+    ]
+  },
+  {
+    "name": "id-card",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "card",
+      "badge",
+      "identity",
+      "authentication",
+      "secure"
+    ]
+  },
+  {
+    "name": "inbox",
+    "categories": [
+      "account",
+      "mail"
+    ],
+    "tags": [
+      "email"
+    ]
+  },
+  {
+    "name": "key-round",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "password",
+      "login",
+      "authentication",
+      "secure",
+      "unlock"
+    ]
+  },
+  {
+    "name": "key-square",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "password",
+      "login",
+      "authentication",
+      "secure",
+      "unlock",
+      "car key"
+    ]
+  },
+  {
+    "name": "key",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "password",
+      "login",
+      "authentication",
+      "secure",
+      "unlock",
+      "keychain",
+      "key ring",
+      "fob"
+    ]
+  },
+  {
+    "name": "link-2",
+    "categories": [
+      "text",
+      "account"
+    ],
+    "tags": [
+      "chain",
+      "url"
+    ]
+  },
+  {
+    "name": "link",
+    "categories": [
+      "text",
+      "account"
+    ],
+    "tags": [
+      "chain",
+      "url"
+    ]
+  },
+  {
+    "name": "log-in",
+    "categories": [
+      "arrows",
+      "account"
+    ],
+    "tags": [
+      "sign in",
+      "arrow",
+      "enter",
+      "auth"
+    ]
+  },
+  {
+    "name": "log-out",
+    "categories": [
+      "arrows",
+      "account"
+    ],
+    "tags": [
+      "sign out",
+      "arrow",
+      "exit",
+      "auth"
+    ]
+  },
+  {
+    "name": "mail",
+    "categories": [
+      "text",
+      "account",
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "unread"
+    ]
+  },
+  {
+    "name": "map-pin-check-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "done",
+      "tick",
+      "complete",
+      "task",
+      "added"
+    ]
+  },
+  {
+    "name": "map-pin-check",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "done",
+      "tick",
+      "complete",
+      "task",
+      "added"
+    ]
+  },
+  {
+    "name": "map-pin-house",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture",
+      "address",
+      "poi",
+      "real estate",
+      "property",
+      "navigation",
+      "destination",
+      "geolocation",
+      "place",
+      "landmark"
+    ]
+  },
+  {
+    "name": "map-pin-minus-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-minus",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-plus-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "map-pin-plus",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "map-pin-x-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-x",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop"
+    ]
+  },
+  {
+    "name": "map-pinned",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop"
+    ]
+  },
+  {
+    "name": "menu",
+    "categories": [
+      "layout",
+      "account"
+    ],
+    "tags": [
+      "bars",
+      "navigation",
+      "hamburger",
+      "options"
+    ]
+  },
+  {
+    "name": "message-circle-x",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "clear",
+      "close",
+      "delete",
+      "remove",
+      "cancel",
+      "silence",
+      "mute",
+      "moderate"
+    ]
+  },
+  {
+    "name": "notebook-tabs",
+    "categories": [
+      "account",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "people",
+      "family",
+      "friends",
+      "acquaintances",
+      "contacts",
+      "details",
+      "addresses",
+      "phone numbers",
+      "directory",
+      "listing",
+      "networking",
+      "alphabetical",
+      "a-z",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "stationery"
+    ]
+  },
+  {
+    "name": "pin",
+    "categories": [
+      "navigation",
+      "account"
+    ],
+    "tags": [
+      "save",
+      "map",
+      "lock",
+      "fix"
+    ]
+  },
+  {
+    "name": "scan-eye",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility",
+      "security",
+      "devices",
+      "account"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "camera",
+      "watch",
+      "surveillance",
+      "retina",
+      "focus",
+      "lens",
+      "biometric",
+      "identification",
+      "authentication",
+      "access",
+      "login"
+    ]
+  },
+  {
+    "name": "scan-face",
+    "categories": [
+      "account",
+      "security",
+      "devices",
+      "social"
+    ],
+    "tags": [
+      "face",
+      "biometric",
+      "identification",
+      "authentication",
+      "2fa",
+      "access",
+      "login",
+      "dashed"
+    ]
+  },
+  {
+    "name": "scan-qr-code",
+    "categories": [
+      "account",
+      "shopping",
+      "devices",
+      "security"
+    ],
+    "tags": [
+      "barcode",
+      "scan",
+      "qrcode",
+      "url",
+      "information",
+      "digital",
+      "scanner"
+    ]
+  },
+  {
+    "name": "settings-2",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "cog",
+      "edit",
+      "gear",
+      "preferences"
+    ]
+  },
+  {
+    "name": "settings",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "cog",
+      "edit",
+      "gear",
+      "preferences"
+    ]
+  },
+  {
+    "name": "share-2",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "network",
+      "connections"
+    ]
+  },
+  {
+    "name": "share",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "network",
+      "connections"
+    ]
+  },
+  {
+    "name": "shield-alert",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "notifications",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "warning",
+      "emergency",
+      "attention",
+      "urgent",
+      "alarm",
+      "crest",
+      "bravery",
+      "strength",
+      "tough",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "disabled",
+      "inactive",
+      "error",
+      "exclamation mark",
+      "!"
+    ]
+  },
+  {
+    "name": "shield-ban",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "cancel",
+      "error",
+      "crest",
+      "bravery",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "eliminated",
+      "disabled",
+      "inactive",
+      "/"
+    ]
+  },
+  {
+    "name": "shield-check",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secured",
+      "safety",
+      "protection",
+      "protected",
+      "guardian",
+      "guarded",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defended",
+      "blocked",
+      "threat",
+      "prevention",
+      "prevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "active",
+      "activated",
+      "enabled",
+      "detection",
+      "scanned",
+      "found",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audited",
+      "admin",
+      "verification",
+      "verified",
+      "certification",
+      "certified",
+      "tested",
+      "passed",
+      "qualified",
+      "cleared",
+      "cleaned",
+      "disinfected",
+      "uninfected",
+      "task",
+      "completed",
+      "todo",
+      "done",
+      "ticked",
+      "checked",
+      "crest",
+      "bravery"
+    ]
+  },
+  {
+    "name": "shield-ellipsis",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "securing",
+      "protecting",
+      "guarding",
+      "armoring",
+      "armouring",
+      "defending",
+      "blocking",
+      "preventing",
+      "antivirus",
+      "detecting",
+      "scanning",
+      "finding",
+      "auditing",
+      "admin",
+      "verifying",
+      "crest",
+      "upgrading",
+      "loader",
+      "loading",
+      "throbber",
+      "progress",
+      "dots",
+      "more",
+      "etc",
+      "...",
+      "…"
+    ]
+  },
+  {
+    "name": "shield-half",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "logo",
+      "sigil",
+      "flag",
+      "team",
+      "faction",
+      "fraternity",
+      "university",
+      "college",
+      "academy",
+      "school",
+      "education",
+      "uniform",
+      "bravery",
+      "knight",
+      "foot soldier",
+      "infantry",
+      "trooper",
+      "pawn",
+      "battle",
+      "war",
+      "military",
+      "ranking",
+      "army",
+      "cadet",
+      "scout"
+    ]
+  },
+  {
+    "name": "shield-minus",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshield",
+      "cybersecurity",
+      "unsecure",
+      "unguard",
+      "unblock",
+      "antivirus",
+      "clean",
+      "clear",
+      "disinfect",
+      "patch",
+      "fix",
+      "stop",
+      "cancel",
+      "remove",
+      "relax",
+      "admin",
+      "crest",
+      "bravery",
+      "weakened",
+      "damaged",
+      "hit",
+      "unarm",
+      "disable",
+      "deactivate",
+      "decommission",
+      "downgraded",
+      "minimum",
+      "-"
+    ]
+  },
+  {
+    "name": "shield-off",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "interception",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "detection",
+      "undetected",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infected",
+      "infection",
+      "comprimised",
+      "data leak",
+      "unaudited",
+      "admin",
+      "verification",
+      "unverified",
+      "inactive",
+      "cancelled",
+      "error",
+      "crest",
+      "bravery",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "eliminated"
+    ]
+  },
+  {
+    "name": "shield-plus",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "medical"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "extra",
+      "added",
+      "professional",
+      "enterprise",
+      "full",
+      "maximum",
+      "upgraded",
+      "ultra",
+      "activate",
+      "enable",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "medic",
+      "+"
+    ]
+  },
+  {
+    "name": "shield-question",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "undetected",
+      "scan",
+      "find",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "comprimised",
+      "data leak",
+      "audit",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "uncertain",
+      "unknown",
+      "inactive",
+      "crest",
+      "question mark",
+      "?"
+    ]
+  },
+  {
+    "name": "shield-x",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "prevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "inactive",
+      "cancel",
+      "error",
+      "wrong",
+      "false",
+      "crest",
+      "bravery",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "dead",
+      "deceased",
+      "expired",
+      "eliminated",
+      "exterminated"
+    ]
+  },
+  {
+    "name": "shield",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "find",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "bravery",
+      "knight",
+      "foot soldier",
+      "infantry",
+      "trooper",
+      "pawn",
+      "battle",
+      "war",
+      "military",
+      "army",
+      "cadet",
+      "scout"
+    ]
+  },
+  {
+    "name": "slack",
+    "categories": [
+      "account",
+      "social",
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo"
+    ]
+  },
+  {
+    "name": "sliders-horizontal",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "settings",
+      "filters",
+      "controls"
+    ]
+  },
+  {
+    "name": "sliders-vertical",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "settings",
+      "controls"
+    ]
+  },
+  {
+    "name": "smile",
+    "categories": [
+      "emoji",
+      "account"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "happy",
+      "good",
+      "emotion"
+    ]
+  },
+  {
+    "name": "square-user-round",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact"
+    ]
+  },
+  {
+    "name": "square-user",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact"
+    ]
+  },
+  {
+    "name": "star",
+    "categories": [
+      "account",
+      "social",
+      "shapes",
+      "multimedia",
+      "weather",
+      "emoji",
+      "gaming"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "tag",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "label",
+      "badge",
+      "ticket",
+      "mark"
+    ]
+  },
+  {
+    "name": "tags",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "labels",
+      "badges",
+      "tickets",
+      "marks",
+      "copy",
+      "multiple"
+    ]
+  },
+  {
+    "name": "thumbs-down",
+    "categories": [
+      "account",
+      "social",
+      "emoji"
+    ],
+    "tags": [
+      "dislike",
+      "bad",
+      "emotion"
+    ]
+  },
+  {
+    "name": "thumbs-up",
+    "categories": [
+      "account",
+      "social",
+      "emoji"
+    ],
+    "tags": [
+      "like",
+      "good",
+      "emotion"
+    ]
+  },
+  {
+    "name": "ticket",
+    "categories": [
+      "account",
+      "transportation"
+    ],
+    "tags": [
+      "entry",
+      "pass",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "perforated",
+      "dashed"
+    ]
+  },
+  {
+    "name": "tickets",
+    "categories": [
+      "travel",
+      "account",
+      "transportation"
+    ],
+    "tags": [
+      "trip",
+      "travel",
+      "pass",
+      "entry",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "perforated",
+      "dashed"
+    ]
+  },
+  {
+    "name": "toggle-left",
+    "categories": [
+      "layout",
+      "account",
+      "development"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "switch",
+      "boolean"
+    ]
+  },
+  {
+    "name": "toggle-right",
+    "categories": [
+      "layout",
+      "account",
+      "development"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "switch",
+      "boolean"
+    ]
+  },
+  {
+    "name": "trello",
+    "categories": [
+      "account",
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo",
+      "brand"
+    ]
+  },
+  {
+    "name": "twitch",
+    "categories": [
+      "brands",
+      "social",
+      "account",
+      "gaming"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "twitter",
+    "categories": [
+      "brands",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "user-check",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "followed",
+      "subscribed",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "user-cog",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "settings",
+      "edit",
+      "cog",
+      "gear"
+    ]
+  },
+  {
+    "name": "user-minus",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "delete",
+      "remove",
+      "unfollow",
+      "unsubscribe"
+    ]
+  },
+  {
+    "name": "user-pen",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact",
+      "profile",
+      "edit",
+      "change"
+    ]
+  },
+  {
+    "name": "user-plus",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "new",
+      "add",
+      "create",
+      "follow",
+      "subscribe"
+    ]
+  },
+  {
+    "name": "user-round-check",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "followed",
+      "subscribed",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "user-round-cog",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "settings",
+      "edit",
+      "cog",
+      "gear"
+    ]
+  },
+  {
+    "name": "user-round-minus",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "delete",
+      "remove",
+      "unfollow",
+      "unsubscribe"
+    ]
+  },
+  {
+    "name": "user-round-pen",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact",
+      "profile",
+      "edit",
+      "change"
+    ]
+  },
+  {
+    "name": "user-round-plus",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "new",
+      "add",
+      "create",
+      "follow",
+      "subscribe"
+    ]
+  },
+  {
+    "name": "user-round-search",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact",
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass"
+    ]
+  },
+  {
+    "name": "user-round-x",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "delete",
+      "remove",
+      "unfollow",
+      "unsubscribe",
+      "unavailable"
+    ]
+  },
+  {
+    "name": "user-round",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact"
+    ]
+  },
+  {
+    "name": "user-search",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact",
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass"
+    ]
+  },
+  {
+    "name": "user-x",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "delete",
+      "remove",
+      "unfollow",
+      "unsubscribe",
+      "unavailable"
+    ]
+  },
+  {
+    "name": "user",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact"
+    ]
+  },
+  {
+    "name": "users-round",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "group",
+      "people"
+    ]
+  },
+  {
+    "name": "users",
+    "categories": [
+      "account"
+    ],
+    "tags": [
+      "group",
+      "people"
+    ]
+  },
+  {
+    "name": "venetian-mask",
+    "categories": [
+      "account",
+      "gaming"
+    ],
+    "tags": [
+      "mask",
+      "masquerade",
+      "impersonate",
+      "secret",
+      "incognito"
+    ]
+  },
+  {
+    "name": "vibrate-off",
+    "categories": [
+      "devices",
+      "connectivity",
+      "account"
+    ],
+    "tags": [
+      "smartphone",
+      "notification",
+      "rumble",
+      "haptic feedback",
+      "notifications",
+      "screen"
+    ]
+  },
+  {
+    "name": "vibrate",
+    "categories": [
+      "devices",
+      "connectivity",
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "smartphone",
+      "notification",
+      "rumble",
+      "haptic feedback",
+      "screen"
+    ]
+  },
+  {
+    "name": "wallet-cards",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "money",
+      "finance",
+      "pocket",
+      "credit",
+      "purchase",
+      "payment",
+      "shopping",
+      "retail",
+      "consumer",
+      "cc"
+    ]
+  },
+  {
+    "name": "wallet-minimal",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "finance",
+      "pocket"
+    ]
+  },
+  {
+    "name": "wallet",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "money",
+      "finance",
+      "pocket"
+    ]
+  },
+  {
+    "name": "wallpaper",
+    "categories": [
+      "account",
+      "devices"
+    ],
+    "tags": [
+      "cover",
+      "lock screen"
+    ]
+  },
+  {
+    "name": "waypoints",
+    "categories": [
+      "security",
+      "account",
+      "navigation",
+      "development",
+      "social"
+    ],
+    "tags": [
+      "indirection",
+      "vpn",
+      "virtual private network",
+      "proxy",
+      "connections",
+      "bounce",
+      "reroute",
+      "path",
+      "journey",
+      "planner",
+      "stops",
+      "stations",
+      "shared",
+      "spread",
+      "viral"
+    ]
+  },
+  {
+    "name": "webhook-off",
+    "categories": [
+      "development",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "push api",
+      "interface",
+      "callback"
+    ]
+  },
+  {
+    "name": "webhook",
+    "categories": [
+      "development",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "push api",
+      "interface",
+      "callback"
+    ]
+  },
+  {
+    "name": "wrench",
+    "categories": [
+      "account",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "account",
+      "settings",
+      "spanner",
+      "diy",
+      "toolbox",
+      "build",
+      "construction"
+    ]
+  }
+]

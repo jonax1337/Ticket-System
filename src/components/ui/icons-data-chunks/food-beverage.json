@@ -1,0 +1,1021 @@
+[
+  {
+    "name": "amphora",
+    "categories": [
+      "food-beverage",
+      "gaming"
+    ],
+    "tags": [
+      "pottery",
+      "artifact",
+      "artefact",
+      "vase",
+      "ceramics",
+      "clay",
+      "archaeology",
+      "museum",
+      "wine",
+      "oil"
+    ]
+  },
+  {
+    "name": "apple",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "fruit",
+      "food"
+    ]
+  },
+  {
+    "name": "banana",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "fruit",
+      "food"
+    ]
+  },
+  {
+    "name": "bean-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "soy free",
+      "legume",
+      "soy",
+      "food",
+      "seed",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "bean",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "legume",
+      "soy",
+      "food",
+      "seed"
+    ]
+  },
+  {
+    "name": "beef",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "food",
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "meat",
+      "bbq",
+      "steak"
+    ]
+  },
+  {
+    "name": "beer-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "alcohol",
+      "bar",
+      "beverage",
+      "brewery",
+      "drink"
+    ]
+  },
+  {
+    "name": "beer",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "alcohol",
+      "bar",
+      "beverage",
+      "brewery",
+      "drink"
+    ]
+  },
+  {
+    "name": "cake-slice",
+    "categories": [
+      "food-beverage",
+      "social"
+    ],
+    "tags": [
+      "birthday",
+      "birthdate",
+      "celebration",
+      "party",
+      "surprise",
+      "gateaux",
+      "dessert",
+      "candles",
+      "wish",
+      "fondant",
+      "icing sugar",
+      "sweet",
+      "baking"
+    ]
+  },
+  {
+    "name": "cake",
+    "categories": [
+      "food-beverage",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "birthday",
+      "birthdate",
+      "celebration",
+      "party",
+      "surprise",
+      "gateaux",
+      "dessert",
+      "fondant",
+      "icing sugar",
+      "sweet",
+      "baking"
+    ]
+  },
+  {
+    "name": "candy-cane",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "sugar",
+      "food",
+      "sweet",
+      "christmas",
+      "xmas"
+    ]
+  },
+  {
+    "name": "candy-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "sugar free",
+      "food",
+      "sweet",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "candy",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "sugar",
+      "food",
+      "sweet"
+    ]
+  },
+  {
+    "name": "carrot",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "vegetable",
+      "food",
+      "eat"
+    ]
+  },
+  {
+    "name": "chef-hat",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "cooking",
+      "food",
+      "kitchen",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "cherry",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "fruit",
+      "food"
+    ]
+  },
+  {
+    "name": "citrus",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "lemon",
+      "orange",
+      "grapefruit",
+      "fruit"
+    ]
+  },
+  {
+    "name": "coffee",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "drink",
+      "cup",
+      "mug",
+      "tea",
+      "cafe",
+      "hot",
+      "beverage"
+    ]
+  },
+  {
+    "name": "cookie",
+    "categories": [
+      "account",
+      "food-beverage"
+    ],
+    "tags": [
+      "biscuit",
+      "privacy",
+      "legal",
+      "food"
+    ]
+  },
+  {
+    "name": "cooking-pot",
+    "categories": [
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "pod",
+      "cooking",
+      "recipe",
+      "food",
+      "kitchen",
+      "chef",
+      "restaurant",
+      "dinner",
+      "lunch",
+      "breakfast",
+      "meal",
+      "eat"
+    ]
+  },
+  {
+    "name": "croissant",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "bakery",
+      "cooking",
+      "food",
+      "pastry"
+    ]
+  },
+  {
+    "name": "cup-soda",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "beverage",
+      "cup",
+      "drink",
+      "soda",
+      "straw",
+      "water"
+    ]
+  },
+  {
+    "name": "dessert",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "pudding",
+      "christmas",
+      "xmas",
+      "custard",
+      "iced bun",
+      "icing",
+      "fondant",
+      "cake",
+      "ice cream",
+      "gelato",
+      "sundae",
+      "scoop",
+      "dollop",
+      "sugar",
+      "food",
+      "sweet"
+    ]
+  },
+  {
+    "name": "dna-off",
+    "categories": [
+      "medical",
+      "food-beverage"
+    ],
+    "tags": [
+      "gene",
+      "gmo free",
+      "helix",
+      "heredity",
+      "chromosome",
+      "nucleic acid"
+    ]
+  },
+  {
+    "name": "donut",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "doughnut",
+      "sprinkles",
+      "topping",
+      "fast food",
+      "junk food",
+      "snack",
+      "treat",
+      "sweet",
+      "sugar",
+      "dessert",
+      "hollow",
+      "ring"
+    ]
+  },
+  {
+    "name": "drumstick",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "food",
+      "chicken",
+      "meat"
+    ]
+  },
+  {
+    "name": "egg-fried",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "food",
+      "breakfast"
+    ]
+  },
+  {
+    "name": "egg-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "egg free",
+      "vegan",
+      "hatched",
+      "bad egg"
+    ]
+  },
+  {
+    "name": "egg",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "bird",
+      "chicken",
+      "nest",
+      "hatch",
+      "shell",
+      "incubate",
+      "soft boiled",
+      "hard",
+      "breakfast",
+      "brunch",
+      "morning",
+      "easter"
+    ]
+  },
+  {
+    "name": "fish-off",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "food",
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "seafood",
+      "animal",
+      "pet",
+      "sea",
+      "marine",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "fish-symbol",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "seafood",
+      "pet",
+      "sea",
+      "marine"
+    ]
+  },
+  {
+    "name": "fish",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "seafood",
+      "pet",
+      "sea",
+      "marine"
+    ]
+  },
+  {
+    "name": "glass-water",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "beverage",
+      "drink",
+      "glass",
+      "water"
+    ]
+  },
+  {
+    "name": "grape",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "fruit",
+      "wine",
+      "food"
+    ]
+  },
+  {
+    "name": "ham",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "food",
+      "pork",
+      "pig",
+      "meat",
+      "bone",
+      "hock",
+      "knuckle",
+      "gammon",
+      "cured"
+    ]
+  },
+  {
+    "name": "hand-platter",
+    "categories": [
+      "food-beverage",
+      "people"
+    ],
+    "tags": [
+      "waiter",
+      "waitress",
+      "restaurant",
+      "table service",
+      "served",
+      "dinner",
+      "dining",
+      "meal",
+      "course",
+      "luxury"
+    ]
+  },
+  {
+    "name": "hop-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "beer",
+      "brewery",
+      "drink",
+      "hop free",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "hop",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "beer",
+      "brewery",
+      "drink"
+    ]
+  },
+  {
+    "name": "ice-cream-bowl",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "gelato",
+      "food",
+      "dessert",
+      "dish",
+      "restaurant",
+      "course",
+      "meal"
+    ]
+  },
+  {
+    "name": "ice-cream-cone",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "gelato",
+      "food"
+    ]
+  },
+  {
+    "name": "leafy-green",
+    "categories": [
+      "food-beverage",
+      "emoji",
+      "sustainability"
+    ],
+    "tags": [
+      "salad",
+      "lettuce",
+      "vegetable",
+      "chard",
+      "cabbage",
+      "bok choy"
+    ]
+  },
+  {
+    "name": "lollipop",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "lolly",
+      "candy",
+      "sugar",
+      "food",
+      "sweet",
+      "dessert",
+      "spiral"
+    ]
+  },
+  {
+    "name": "martini",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "cocktail",
+      "alcohol",
+      "beverage",
+      "bar",
+      "drink",
+      "glass"
+    ]
+  },
+  {
+    "name": "microwave",
+    "categories": [
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "oven",
+      "cooker",
+      "toaster oven",
+      "bake"
+    ]
+  },
+  {
+    "name": "milk-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "lactose free",
+      "bottle",
+      "beverage",
+      "drink",
+      "water",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "milk",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "lactose",
+      "bottle",
+      "beverage",
+      "drink",
+      "water",
+      "diet"
+    ]
+  },
+  {
+    "name": "nut-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "hazelnut",
+      "acorn",
+      "food",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "nut",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "hazelnut",
+      "acorn",
+      "food",
+      "diet"
+    ]
+  },
+  {
+    "name": "pizza",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "pie",
+      "quiche",
+      "food"
+    ]
+  },
+  {
+    "name": "popcorn",
+    "categories": [
+      "food-beverage",
+      "multimedia"
+    ],
+    "tags": [
+      "cinema",
+      "movies",
+      "films",
+      "salted",
+      "sweet",
+      "sugar",
+      "candy",
+      "snack"
+    ]
+  },
+  {
+    "name": "popsicle",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "ice lolly",
+      "ice cream",
+      "sweet",
+      "food"
+    ]
+  },
+  {
+    "name": "refrigerator",
+    "categories": [
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "frigerator",
+      "fridge",
+      "freezer",
+      "cooler",
+      "icebox",
+      "chiller",
+      "cold storage"
+    ]
+  },
+  {
+    "name": "salad",
+    "categories": [
+      "food-beverage",
+      "emoji"
+    ],
+    "tags": [
+      "food",
+      "vegetarian",
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "side",
+      "vegetables",
+      "health"
+    ]
+  },
+  {
+    "name": "sandwich",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "food",
+      "snack",
+      "dish",
+      "restaurant",
+      "lunch",
+      "meal"
+    ]
+  },
+  {
+    "name": "shell",
+    "categories": [
+      "animals",
+      "development",
+      "nature",
+      "science",
+      "travel",
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "beach",
+      "sand",
+      "holiday",
+      "sealife",
+      "fossil",
+      "ammonite",
+      "biology",
+      "ocean",
+      "terminal",
+      "command line",
+      "session",
+      "bash",
+      "zsh",
+      "roll",
+      "wrap",
+      "chewing gum",
+      "bubble gum",
+      "sweet",
+      "sugar",
+      "hosepipe",
+      "carpet",
+      "string",
+      "spiral",
+      "spinner",
+      "hypnotise",
+      "hypnosis"
+    ]
+  },
+  {
+    "name": "snail",
+    "categories": [
+      "animals",
+      "food-beverage"
+    ],
+    "tags": [
+      "animal",
+      "insect",
+      "slow",
+      "speed",
+      "delicacy",
+      "spiral"
+    ]
+  },
+  {
+    "name": "soup",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "food",
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "bowl",
+      "starter"
+    ]
+  },
+  {
+    "name": "torus",
+    "categories": [
+      "shapes",
+      "design",
+      "tools",
+      "food-beverage"
+    ],
+    "tags": [
+      "donut",
+      "doughnut",
+      "ring",
+      "hollow",
+      "3d",
+      "fast food",
+      "junk food",
+      "snack",
+      "treat",
+      "sweet",
+      "sugar",
+      "dessert"
+    ]
+  },
+  {
+    "name": "tractor",
+    "categories": [
+      "transportation",
+      "sustainability",
+      "food-beverage"
+    ],
+    "tags": [
+      "farming",
+      "farmer",
+      "ranch",
+      "harvest",
+      "equipment",
+      "vehicle"
+    ]
+  },
+  {
+    "name": "utensils-crossed",
+    "categories": [
+      "food-beverage",
+      "travel",
+      "navigation"
+    ],
+    "tags": [
+      "fork",
+      "knife",
+      "cutlery",
+      "flatware",
+      "tableware",
+      "silverware",
+      "food",
+      "restaurant",
+      "meal",
+      "breakfast",
+      "dinner",
+      "supper"
+    ]
+  },
+  {
+    "name": "utensils",
+    "categories": [
+      "food-beverage",
+      "travel",
+      "navigation"
+    ],
+    "tags": [
+      "fork",
+      "knife",
+      "cutlery",
+      "flatware",
+      "tableware",
+      "silverware",
+      "food",
+      "restaurant",
+      "meal",
+      "breakfast",
+      "dinner",
+      "supper"
+    ]
+  },
+  {
+    "name": "vegan",
+    "categories": [
+      "food-beverage",
+      "sustainability"
+    ],
+    "tags": [
+      "vegetarian",
+      "fruitarian",
+      "herbivorous",
+      "animal rights",
+      "diet"
+    ]
+  },
+  {
+    "name": "wheat-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "corn",
+      "cereal",
+      "grain",
+      "gluten free",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "wheat",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "corn",
+      "cereal",
+      "grain",
+      "gluten"
+    ]
+  },
+  {
+    "name": "wine-off",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "alcohol",
+      "beverage",
+      "drink",
+      "glass",
+      "alcohol free",
+      "abstinence",
+      "abstaining",
+      "teetotalism",
+      "allergy",
+      "intolerance"
+    ]
+  },
+  {
+    "name": "wine",
+    "categories": [
+      "food-beverage"
+    ],
+    "tags": [
+      "alcohol",
+      "beverage",
+      "bar",
+      "drink",
+      "glass",
+      "sommelier",
+      "vineyard",
+      "winery"
+    ]
+  }
+]

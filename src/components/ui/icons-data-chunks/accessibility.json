@@ -1,0 +1,451 @@
+[
+  {
+    "name": "accessibility",
+    "categories": [
+      "accessibility",
+      "medical"
+    ],
+    "tags": [
+      "disability",
+      "disabled",
+      "dda",
+      "wheelchair"
+    ]
+  },
+  {
+    "name": "baby",
+    "categories": [
+      "accessibility",
+      "people"
+    ],
+    "tags": [
+      "child",
+      "childproof",
+      "children"
+    ]
+  },
+  {
+    "name": "badge-help",
+    "categories": [
+      "accessibility",
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "help"
+    ]
+  },
+  {
+    "name": "badge-info",
+    "categories": [
+      "account",
+      "accessibility",
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "help"
+    ]
+  },
+  {
+    "name": "circle-help",
+    "categories": [
+      "accessibility",
+      "text",
+      "notifications"
+    ],
+    "tags": [
+      "question mark"
+    ]
+  },
+  {
+    "name": "contrast",
+    "categories": [
+      "photography",
+      "accessibility",
+      "design"
+    ],
+    "tags": [
+      "display",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "ear-off",
+    "categories": [
+      "medical",
+      "accessibility"
+    ],
+    "tags": [
+      "hearing",
+      "hard of hearing",
+      "hearing loss",
+      "deafness",
+      "noise",
+      "silence",
+      "audio",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "ear",
+    "categories": [
+      "medical",
+      "accessibility"
+    ],
+    "tags": [
+      "hearing",
+      "noise",
+      "audio",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "eclipse",
+    "categories": [
+      "science",
+      "design",
+      "development",
+      "accessibility",
+      "photography"
+    ],
+    "tags": [
+      "lunar",
+      "solar",
+      "crescent moon",
+      "sun",
+      "earth",
+      "day",
+      "night",
+      "planet",
+      "space",
+      "mode",
+      "dark",
+      "light",
+      "toggle",
+      "switch",
+      "color",
+      "css",
+      "styles",
+      "display",
+      "accessibility",
+      "contrast",
+      "brightness",
+      "blend",
+      "shade"
+    ]
+  },
+  {
+    "name": "eye-closed",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye-off",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "show",
+      "expose",
+      "reveal",
+      "display",
+      "visible",
+      "visibility",
+      "vision",
+      "preview",
+      "read"
+    ]
+  },
+  {
+    "name": "glasses",
+    "categories": [
+      "accessibility"
+    ],
+    "tags": [
+      "glasses",
+      "spectacles"
+    ]
+  },
+  {
+    "name": "hand",
+    "categories": [
+      "cursors",
+      "accessibility"
+    ],
+    "tags": [
+      "wave",
+      "move",
+      "mouse",
+      "grab"
+    ]
+  },
+  {
+    "name": "info",
+    "categories": [
+      "accessibility",
+      "notifications"
+    ],
+    "tags": [
+      "help"
+    ]
+  },
+  {
+    "name": "life-buoy",
+    "categories": [
+      "accessibility",
+      "medical"
+    ],
+    "tags": [
+      "preserver",
+      "life belt",
+      "lifesaver",
+      "help",
+      "rescue",
+      "ship",
+      "ring",
+      "raft",
+      "inflatable",
+      "wheel",
+      "donut"
+    ]
+  },
+  {
+    "name": "moon-star",
+    "categories": [
+      "accessibility",
+      "weather"
+    ],
+    "tags": [
+      "dark",
+      "night",
+      "star"
+    ]
+  },
+  {
+    "name": "moon",
+    "categories": [
+      "accessibility"
+    ],
+    "tags": [
+      "dark",
+      "night"
+    ]
+  },
+  {
+    "name": "person-standing",
+    "categories": [
+      "accessibility",
+      "people"
+    ],
+    "tags": [
+      "people",
+      "human",
+      "accessibility",
+      "stick figure"
+    ]
+  },
+  {
+    "name": "scan-eye",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility",
+      "security",
+      "devices",
+      "account"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "camera",
+      "watch",
+      "surveillance",
+      "retina",
+      "focus",
+      "lens",
+      "biometric",
+      "identification",
+      "authentication",
+      "access",
+      "login"
+    ]
+  },
+  {
+    "name": "scan-search",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "focus",
+      "lens"
+    ]
+  },
+  {
+    "name": "speech",
+    "categories": [
+      "accessibility",
+      "communication"
+    ],
+    "tags": [
+      "disability",
+      "disabled",
+      "dda",
+      "human",
+      "accessibility",
+      "people",
+      "sound"
+    ]
+  },
+  {
+    "name": "sun-dim",
+    "categories": [
+      "accessibility",
+      "weather"
+    ],
+    "tags": [
+      "brightness",
+      "dim",
+      "low",
+      "brightness low"
+    ]
+  },
+  {
+    "name": "sun-medium",
+    "categories": [
+      "accessibility",
+      "weather"
+    ],
+    "tags": [
+      "brightness",
+      "medium"
+    ]
+  },
+  {
+    "name": "sun-moon",
+    "categories": [
+      "accessibility"
+    ],
+    "tags": [
+      "night",
+      "dark",
+      "light",
+      "moon",
+      "sun",
+      "brightness",
+      "theme",
+      "auto theme",
+      "system theme",
+      "appearance"
+    ]
+  },
+  {
+    "name": "sun",
+    "categories": [
+      "accessibility",
+      "weather",
+      "seasons",
+      "sustainability"
+    ],
+    "tags": [
+      "brightness",
+      "weather",
+      "light",
+      "summer"
+    ]
+  },
+  {
+    "name": "transgender",
+    "categories": [
+      "medical",
+      "accessibility"
+    ],
+    "tags": [
+      "gender",
+      "inclusive"
+    ]
+  },
+  {
+    "name": "zoom-in",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  },
+  {
+    "name": "zoom-out",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  }
+]

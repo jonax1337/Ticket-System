@@ -1,0 +1,2935 @@
+[
+  {
+    "name": "arrow-big-down-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming",
+      "files"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slow",
+      "direction",
+      "south",
+      "download"
+    ]
+  },
+  {
+    "name": "arrow-big-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south"
+    ]
+  },
+  {
+    "name": "arrow-big-left-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "arrow-big-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "indicate turn"
+    ]
+  },
+  {
+    "name": "arrow-big-right-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "arrow-big-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "indicate turn"
+    ]
+  },
+  {
+    "name": "arrow-big-up-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "caps lock",
+      "capitals",
+      "keyboard",
+      "button",
+      "mac",
+      "forward",
+      "direction",
+      "north",
+      "faster",
+      "speed",
+      "boost"
+    ]
+  },
+  {
+    "name": "arrow-big-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "shift",
+      "keyboard",
+      "button",
+      "mac",
+      "capitalize",
+      "capitalise",
+      "forward",
+      "direction",
+      "north"
+    ]
+  },
+  {
+    "name": "arrow-down-0-1",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-down-1-0",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-down-a-z",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical"
+    ]
+  },
+  {
+    "name": "arrow-down-from-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "download",
+      "expand",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-down-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "south-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-down-narrow-wide",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-down-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "south-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-down-to-dot",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "south",
+      "waypoint",
+      "location",
+      "step",
+      "into"
+    ]
+  },
+  {
+    "name": "arrow-down-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "behind",
+      "direction",
+      "south",
+      "download",
+      "save",
+      "git",
+      "version control",
+      "pull",
+      "collapse",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-down-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "network",
+      "traffic",
+      "flow",
+      "mobile data",
+      "internet",
+      "sort",
+      "reorder",
+      "move"
+    ]
+  },
+  {
+    "name": "arrow-down-wide-narrow",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-down-z-a",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical",
+      "reverse"
+    ]
+  },
+  {
+    "name": "arrow-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south"
+    ]
+  },
+  {
+    "name": "arrow-left-from-line",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "expand",
+      "fold",
+      "horizontal",
+      "<-|"
+    ]
+  },
+  {
+    "name": "arrow-left-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "transaction",
+      "reorder",
+      "move",
+      "<-",
+      "->"
+    ]
+  },
+  {
+    "name": "arrow-left-to-line",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "collapse",
+      "fold",
+      "horizontal",
+      "|<-"
+    ]
+  },
+  {
+    "name": "arrow-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "<-"
+    ]
+  },
+  {
+    "name": "arrow-right-from-line",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "export",
+      "expand",
+      "fold",
+      "horizontal",
+      "|->"
+    ]
+  },
+  {
+    "name": "arrow-right-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "transaction",
+      "reorder",
+      "move",
+      "<-",
+      "->"
+    ]
+  },
+  {
+    "name": "arrow-right-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "tab",
+      "keyboard",
+      "mac",
+      "indent",
+      "collapse",
+      "fold",
+      "horizontal",
+      "->|"
+    ]
+  },
+  {
+    "name": "arrow-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "forward",
+      "next",
+      "direction",
+      "east",
+      "->"
+    ]
+  },
+  {
+    "name": "arrow-up-0-1",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-up-1-0",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-up-a-z",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical"
+    ]
+  },
+  {
+    "name": "arrow-up-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "network",
+      "mobile data",
+      "internet",
+      "sort",
+      "reorder",
+      "move"
+    ]
+  },
+  {
+    "name": "arrow-up-from-dot",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north",
+      "step",
+      "out"
+    ]
+  },
+  {
+    "name": "arrow-up-from-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "upload",
+      "git",
+      "version control",
+      "push",
+      "expand",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-up-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-up-narrow-wide",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-up-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-up-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "upload",
+      "collapse",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-up-wide-narrow",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-up-z-a",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical",
+      "reverse"
+    ]
+  },
+  {
+    "name": "arrow-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north"
+    ]
+  },
+  {
+    "name": "arrows-up-from-line",
+    "categories": [
+      "arrows",
+      "transportation",
+      "mail"
+    ],
+    "tags": [
+      "direction",
+      "orientation",
+      "this way up",
+      "vertical",
+      "package",
+      "box",
+      "fragile",
+      "postage",
+      "shipping"
+    ]
+  },
+  {
+    "name": "calendar-sync",
+    "categories": [
+      "arrows",
+      "time"
+    ],
+    "tags": [
+      "repeat",
+      "refresh",
+      "reconnect",
+      "transfer",
+      "backup",
+      "date",
+      "month",
+      "year",
+      "event",
+      "subscribe",
+      "recurring",
+      "schedule",
+      "reminder",
+      "automatic",
+      "auto"
+    ]
+  },
+  {
+    "name": "chevron-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slow",
+      "dropdown"
+    ]
+  },
+  {
+    "name": "chevron-first",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "previous",
+      "music"
+    ]
+  },
+  {
+    "name": "chevron-last",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "skip",
+      "next",
+      "music"
+    ]
+  },
+  {
+    "name": "chevron-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "previous",
+      "less than",
+      "fewer",
+      "menu",
+      "<"
+    ]
+  },
+  {
+    "name": "chevron-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "next",
+      "more than",
+      "greater",
+      "menu",
+      "code",
+      "coding",
+      "command line",
+      "terminal",
+      "prompt",
+      "shell",
+      ">"
+    ]
+  },
+  {
+    "name": "chevron-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "caret",
+      "keyboard",
+      "mac",
+      "control",
+      "ctrl",
+      "superscript",
+      "exponential",
+      "power",
+      "ahead",
+      "fast",
+      "^",
+      "dropdown"
+    ]
+  },
+  {
+    "name": "chevrons-down-up",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "collapse",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "chevrons-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slower"
+    ]
+  },
+  {
+    "name": "chevrons-left-right",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "expand",
+      "horizontal",
+      "unfold"
+    ]
+  },
+  {
+    "name": "chevrons-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "chevrons-right-left",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "collapse",
+      "fold",
+      "horizontal"
+    ]
+  },
+  {
+    "name": "chevrons-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "chevrons-up-down",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "expand",
+      "unfold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "chevrons-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "forward",
+      "ahead",
+      "faster",
+      "speed",
+      "boost"
+    ]
+  },
+  {
+    "name": "circle-arrow-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "sign",
+      "button"
+    ]
+  },
+  {
+    "name": "circle-arrow-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "sign",
+      "turn",
+      "button",
+      "<-"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-down-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-down-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-up-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-west",
+      "diagonal",
+      "keyboard",
+      "button",
+      "escape"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-up-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "circle-arrow-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "sign",
+      "turn",
+      "button",
+      "->"
+    ]
+  },
+  {
+    "name": "circle-arrow-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "sign",
+      "button"
+    ]
+  },
+  {
+    "name": "circle-chevron-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "menu"
+    ]
+  },
+  {
+    "name": "circle-chevron-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "previous",
+      "less than",
+      "fewer",
+      "menu",
+      "<"
+    ]
+  },
+  {
+    "name": "circle-chevron-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "more than",
+      "greater",
+      "menu",
+      ">"
+    ]
+  },
+  {
+    "name": "circle-chevron-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "caret",
+      "ahead",
+      "menu",
+      "^"
+    ]
+  },
+  {
+    "name": "circle-fading-arrow-up",
+    "categories": [
+      "arrows",
+      "development"
+    ],
+    "tags": [
+      "north",
+      "up",
+      "upgrade",
+      "improve",
+      "circle",
+      "button"
+    ]
+  },
+  {
+    "name": "clipboard-copy",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "copy",
+      "paste"
+    ]
+  },
+  {
+    "name": "clipboard-paste",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "copy",
+      "paste"
+    ]
+  },
+  {
+    "name": "cloud-download",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "import"
+    ]
+  },
+  {
+    "name": "cloud-upload",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "file"
+    ]
+  },
+  {
+    "name": "corner-down-left",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "return"
+    ]
+  },
+  {
+    "name": "corner-down-right",
+    "categories": [
+      "arrows",
+      "text",
+      "development"
+    ],
+    "tags": [
+      "arrow",
+      "indent",
+      "tab"
+    ]
+  },
+  {
+    "name": "corner-left-down",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow"
+    ]
+  },
+  {
+    "name": "corner-left-up",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow"
+    ]
+  },
+  {
+    "name": "corner-right-down",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow"
+    ]
+  },
+  {
+    "name": "corner-right-up",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow"
+    ]
+  },
+  {
+    "name": "corner-up-left",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow"
+    ]
+  },
+  {
+    "name": "corner-up-right",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow"
+    ]
+  },
+  {
+    "name": "database-backup",
+    "categories": [
+      "devices",
+      "arrows",
+      "design",
+      "development",
+      "photography"
+    ],
+    "tags": [
+      "storage",
+      "memory",
+      "bytes",
+      "servers",
+      "backup",
+      "timemachine",
+      "rotate",
+      "arrow",
+      "left"
+    ]
+  },
+  {
+    "name": "delete",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "backspace",
+      "remove"
+    ]
+  },
+  {
+    "name": "download",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "import",
+      "export",
+      "save"
+    ]
+  },
+  {
+    "name": "expand",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "scale",
+      "fullscreen",
+      "maximize",
+      "minimize",
+      "contract"
+    ]
+  },
+  {
+    "name": "external-link",
+    "categories": [
+      "arrows",
+      "text",
+      "social"
+    ],
+    "tags": [
+      "outbound",
+      "open",
+      "share"
+    ]
+  },
+  {
+    "name": "fast-forward",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "music"
+    ]
+  },
+  {
+    "name": "file-down",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "download",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "file-input",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "document"
+    ]
+  },
+  {
+    "name": "file-output",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "document"
+    ]
+  },
+  {
+    "name": "file-up",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "upload",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "fold-horizontal",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "collapse",
+      "fold",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "fold-vertical",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "collapse",
+      "fold",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "folder-down",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "download",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "folder-input",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "folder-output",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "folder-sync",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "synchronize",
+      "synchronise",
+      "refresh",
+      "reconnect",
+      "transfer",
+      "backup"
+    ]
+  },
+  {
+    "name": "folder-up",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "upload",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "git-compare-arrows",
+    "categories": [
+      "development",
+      "arrows"
+    ],
+    "tags": [
+      "code",
+      "version control",
+      "diff"
+    ]
+  },
+  {
+    "name": "git-pull-request-arrow",
+    "categories": [
+      "development",
+      "arrows"
+    ],
+    "tags": [
+      "code",
+      "version control",
+      "open"
+    ]
+  },
+  {
+    "name": "git-pull-request-create-arrow",
+    "categories": [
+      "development",
+      "arrows"
+    ],
+    "tags": [
+      "code",
+      "version control",
+      "open",
+      "plus",
+      "add",
+      "+"
+    ]
+  },
+  {
+    "name": "hard-drive-download",
+    "categories": [
+      "development",
+      "devices",
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "memory",
+      "data",
+      "ssd",
+      "disk",
+      "hard disk",
+      "save"
+    ]
+  },
+  {
+    "name": "hard-drive-upload",
+    "categories": [
+      "development",
+      "devices",
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "memory",
+      "data",
+      "ssd",
+      "disk",
+      "hard disk",
+      "save"
+    ]
+  },
+  {
+    "name": "history",
+    "categories": [
+      "arrows",
+      "time"
+    ],
+    "tags": [
+      "time",
+      "redo",
+      "undo",
+      "rewind",
+      "timeline",
+      "version",
+      "time machine",
+      "backup",
+      "rotate",
+      "ccw"
+    ]
+  },
+  {
+    "name": "import",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "save"
+    ]
+  },
+  {
+    "name": "iteration-ccw",
+    "categories": [
+      "arrows",
+      "design"
+    ],
+    "tags": [
+      "arrow",
+      "right"
+    ]
+  },
+  {
+    "name": "iteration-cw",
+    "categories": [
+      "arrows",
+      "design"
+    ],
+    "tags": [
+      "arrow",
+      "left"
+    ]
+  },
+  {
+    "name": "lasso-select",
+    "categories": [
+      "arrows",
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "select",
+      "cursor"
+    ]
+  },
+  {
+    "name": "log-in",
+    "categories": [
+      "arrows",
+      "account"
+    ],
+    "tags": [
+      "sign in",
+      "arrow",
+      "enter",
+      "auth"
+    ]
+  },
+  {
+    "name": "log-out",
+    "categories": [
+      "arrows",
+      "account"
+    ],
+    "tags": [
+      "sign out",
+      "arrow",
+      "exit",
+      "auth"
+    ]
+  },
+  {
+    "name": "maximize-2",
+    "categories": [
+      "arrows",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "fullscreen",
+      "arrows",
+      "expand"
+    ]
+  },
+  {
+    "name": "merge",
+    "categories": [
+      "development",
+      "arrows"
+    ],
+    "tags": [
+      "combine",
+      "join",
+      "unite"
+    ]
+  },
+  {
+    "name": "milestone",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "signpost",
+      "direction",
+      "right",
+      "east",
+      "forward",
+      "version control",
+      "waypoint"
+    ]
+  },
+  {
+    "name": "minimize-2",
+    "categories": [
+      "arrows",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "exit fullscreen",
+      "arrows",
+      "close",
+      "shrink"
+    ]
+  },
+  {
+    "name": "mouse-pointer-2",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "click",
+      "select"
+    ]
+  },
+  {
+    "name": "mouse-pointer-ban",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "wait",
+      "busy",
+      "loading",
+      "blocked",
+      "frozen",
+      "freeze"
+    ]
+  },
+  {
+    "name": "mouse-pointer-click",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "click",
+      "select"
+    ]
+  },
+  {
+    "name": "mouse-pointer",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "click",
+      "select"
+    ]
+  },
+  {
+    "name": "move-diagonal-2",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move-diagonal",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move-down-left",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction"
+    ]
+  },
+  {
+    "name": "move-down-right",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction"
+    ]
+  },
+  {
+    "name": "move-down",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction",
+      "downwards",
+      "south"
+    ]
+  },
+  {
+    "name": "move-horizontal",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move-left",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction",
+      "back",
+      "west"
+    ]
+  },
+  {
+    "name": "move-right",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction",
+      "trend flat",
+      "east"
+    ]
+  },
+  {
+    "name": "move-up-left",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction"
+    ]
+  },
+  {
+    "name": "move-up-right",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction"
+    ]
+  },
+  {
+    "name": "move-up",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "direction",
+      "upwards",
+      "north"
+    ]
+  },
+  {
+    "name": "move-vertical",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "double",
+      "arrow"
+    ]
+  },
+  {
+    "name": "move",
+    "categories": [
+      "arrows",
+      "cursors"
+    ],
+    "tags": [
+      "arrows"
+    ]
+  },
+  {
+    "name": "panel-bottom-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "drawer",
+      "dock",
+      "hide",
+      "chevron",
+      "down"
+    ]
+  },
+  {
+    "name": "panel-bottom-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "drawer",
+      "dock",
+      "show",
+      "reveal",
+      "chevron",
+      "up"
+    ]
+  },
+  {
+    "name": "panel-left-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "primary",
+      "drawer",
+      "hide",
+      "chevron",
+      "<"
+    ]
+  },
+  {
+    "name": "panel-left-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "primary",
+      "drawer",
+      "show",
+      "reveal",
+      "chevron",
+      "right",
+      ">"
+    ]
+  },
+  {
+    "name": "panel-right-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "sidebar",
+      "secondary",
+      "drawer",
+      "hide",
+      "chevron",
+      ">"
+    ]
+  },
+  {
+    "name": "panel-right-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "sidebar",
+      "secondary",
+      "drawer",
+      "show",
+      "reveal",
+      "chevron",
+      "left",
+      "<"
+    ]
+  },
+  {
+    "name": "panel-top-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "menu bar",
+      "drawer",
+      "hide",
+      "chevron",
+      "up"
+    ]
+  },
+  {
+    "name": "panel-top-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "menu bar",
+      "drawer",
+      "show",
+      "reveal",
+      "chevron",
+      "down"
+    ]
+  },
+  {
+    "name": "phone-forwarded",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-incoming",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-outgoing",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "play",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "video",
+      "start",
+      "run"
+    ]
+  },
+  {
+    "name": "redo-2",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "undo",
+      "rerun",
+      "history"
+    ]
+  },
+  {
+    "name": "redo-dot",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "history",
+      "step",
+      "over",
+      "forward"
+    ]
+  },
+  {
+    "name": "redo",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "undo",
+      "rerun",
+      "history"
+    ]
+  },
+  {
+    "name": "refresh-ccw-dot",
+    "categories": [
+      "arrows",
+      "development"
+    ],
+    "tags": [
+      "arrows",
+      "rotate",
+      "reload",
+      "synchronise",
+      "synchronize",
+      "circular",
+      "cycle",
+      "issue",
+      "code",
+      "coding",
+      "version control"
+    ]
+  },
+  {
+    "name": "refresh-ccw",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "arrows",
+      "rotate",
+      "reload",
+      "rerun",
+      "synchronise",
+      "synchronize",
+      "circular",
+      "cycle"
+    ]
+  },
+  {
+    "name": "refresh-cw-off",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "rotate",
+      "reload",
+      "rerun",
+      "synchronise",
+      "synchronize",
+      "arrows",
+      "circular",
+      "cycle",
+      "cancel",
+      "no",
+      "stop",
+      "error",
+      "disconnect",
+      "ignore"
+    ]
+  },
+  {
+    "name": "refresh-cw",
+    "categories": [
+      "arrows"
+    ],
+    "tags": [
+      "rotate",
+      "reload",
+      "rerun",
+      "synchronise",
+      "synchronize",
+      "arrows",
+      "circular",
+      "cycle"
+    ]
+  },
+  {
+    "name": "repeat-2",
+    "categories": [
+      "arrows",
+      "social",
+      "multimedia"
+    ],
+    "tags": [
+      "arrows",
+      "retweet",
+      "repost",
+      "share",
+      "repeat",
+      "loop"
+    ]
+  },
+  {
+    "name": "repeat",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "loop",
+      "arrows"
+    ]
+  },
+  {
+    "name": "rewind",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "music"
+    ]
+  },
+  {
+    "name": "rotate-ccw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "left",
+      "counter-clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rotate-ccw",
+    "categories": [
+      "arrows",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "arrow",
+      "left",
+      "counter-clockwise",
+      "restart",
+      "reload",
+      "rerun",
+      "refresh",
+      "backup",
+      "undo",
+      "replay",
+      "redo",
+      "retry",
+      "rewind",
+      "reverse"
+    ]
+  },
+  {
+    "name": "rotate-cw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "right",
+      "clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rotate-cw",
+    "categories": [
+      "arrows",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "arrow",
+      "right",
+      "clockwise",
+      "refresh",
+      "reload",
+      "rerun",
+      "redo"
+    ]
+  },
+  {
+    "name": "separator-horizontal",
+    "categories": [
+      "text",
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "move",
+      "split"
+    ]
+  },
+  {
+    "name": "separator-vertical",
+    "categories": [
+      "text",
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "move",
+      "split"
+    ]
+  },
+  {
+    "name": "shrink",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "scale",
+      "fullscreen"
+    ]
+  },
+  {
+    "name": "shuffle",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "music",
+      "random",
+      "reorder"
+    ]
+  },
+  {
+    "name": "signpost-big",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "bidirectional",
+      "left",
+      "right",
+      "east",
+      "west"
+    ]
+  },
+  {
+    "name": "signpost",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "bidirectional",
+      "left",
+      "right",
+      "east",
+      "west"
+    ]
+  },
+  {
+    "name": "skip-back",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "previous",
+      "music"
+    ]
+  },
+  {
+    "name": "skip-forward",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "skip",
+      "next",
+      "music"
+    ]
+  },
+  {
+    "name": "split",
+    "categories": [
+      "development",
+      "arrows"
+    ],
+    "tags": [
+      "break",
+      "disband",
+      "divide",
+      "separate",
+      "branch",
+      "disunite"
+    ]
+  },
+  {
+    "name": "square-arrow-down-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "direction",
+      "south-west",
+      "diagonal",
+      "sign",
+      "turn",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-down-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "direction",
+      "south-east",
+      "diagonal",
+      "sign",
+      "turn",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "sign",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "sign",
+      "keyboard",
+      "button",
+      "<-"
+    ]
+  },
+  {
+    "name": "square-arrow-out-down-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "square-arrow-out-down-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "square-arrow-out-up-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "square-arrow-out-up-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "social"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-east",
+      "diagonal",
+      "share",
+      "open",
+      "external",
+      "link"
+    ]
+  },
+  {
+    "name": "square-arrow-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "west",
+      "sign",
+      "keyboard",
+      "button",
+      "->"
+    ]
+  },
+  {
+    "name": "square-arrow-up-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north-west",
+      "diagonal",
+      "sign",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-up-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "social"
+    ],
+    "tags": [
+      "direction",
+      "north-east",
+      "diagonal",
+      "sign",
+      "keyboard",
+      "button",
+      "share"
+    ]
+  },
+  {
+    "name": "square-arrow-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "sign",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-chevron-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "menu",
+      "panel"
+    ]
+  },
+  {
+    "name": "square-chevron-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "previous",
+      "less than",
+      "fewer",
+      "menu",
+      "panel",
+      "button",
+      "keyboard",
+      "<"
+    ]
+  },
+  {
+    "name": "square-chevron-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "next",
+      "more than",
+      "greater",
+      "menu",
+      "panel",
+      "code",
+      "coding",
+      "command line",
+      "terminal",
+      "prompt",
+      "shell",
+      "console",
+      ">"
+    ]
+  },
+  {
+    "name": "square-chevron-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math"
+    ],
+    "tags": [
+      "caret",
+      "keyboard",
+      "button",
+      "mac",
+      "control",
+      "ctrl",
+      "superscript",
+      "exponential",
+      "power",
+      "ahead",
+      "menu",
+      "panel",
+      "^"
+    ]
+  },
+  {
+    "name": "square-dashed-mouse-pointer",
+    "categories": [
+      "arrows",
+      "cursors",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "inspector",
+      "element",
+      "mouse",
+      "click",
+      "pointer",
+      "box",
+      "browser",
+      "selector",
+      "target",
+      "dom",
+      "node"
+    ]
+  },
+  {
+    "name": "square-mouse-pointer",
+    "categories": [
+      "arrows",
+      "cursors",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "inspector",
+      "element",
+      "mouse",
+      "click",
+      "pointer",
+      "box",
+      "browser",
+      "selector",
+      "target",
+      "dom",
+      "node"
+    ]
+  },
+  {
+    "name": "square-play",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "video",
+      "start",
+      "run"
+    ]
+  },
+  {
+    "name": "step-back",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "previous",
+      "music",
+      "left",
+      "reverse"
+    ]
+  },
+  {
+    "name": "step-forward",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "next",
+      "music",
+      "right",
+      "continue"
+    ]
+  },
+  {
+    "name": "sunrise",
+    "categories": [
+      "arrows",
+      "weather",
+      "time"
+    ],
+    "tags": [
+      "weather",
+      "time",
+      "morning",
+      "day"
+    ]
+  },
+  {
+    "name": "sunset",
+    "categories": [
+      "arrows",
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "time",
+      "evening",
+      "night"
+    ]
+  },
+  {
+    "name": "trending-down",
+    "categories": [
+      "charts",
+      "arrows"
+    ],
+    "tags": [
+      "statistics"
+    ]
+  },
+  {
+    "name": "trending-up-down",
+    "categories": [
+      "charts",
+      "arrows"
+    ],
+    "tags": [
+      "arrows",
+      "estimated",
+      "indeterminate",
+      "data fluctuation",
+      "uncertain",
+      "forecast",
+      "variable",
+      "prediction",
+      "dynamic",
+      "volatile"
+    ]
+  },
+  {
+    "name": "trending-up",
+    "categories": [
+      "charts",
+      "arrows"
+    ],
+    "tags": [
+      "statistics"
+    ]
+  },
+  {
+    "name": "undo-2",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "rerun",
+      "history",
+      "back",
+      "return",
+      "reverse",
+      "revert",
+      "direction",
+      "u-turn"
+    ]
+  },
+  {
+    "name": "undo-dot",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "history",
+      "step",
+      "back"
+    ]
+  },
+  {
+    "name": "undo",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "redo",
+      "rerun",
+      "history"
+    ]
+  },
+  {
+    "name": "unfold-horizontal",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "collapse",
+      "fold",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "unfold-vertical",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "expand",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "upload",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "file"
+    ]
+  },
+  {
+    "name": "wrap-text",
+    "categories": [
+      "text",
+      "arrows"
+    ],
+    "tags": [
+      "words",
+      "lines",
+      "break",
+      "paragraph"
+    ]
+  }
+]

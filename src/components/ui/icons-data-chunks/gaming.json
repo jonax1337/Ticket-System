@@ -1,0 +1,3011 @@
+[
+  {
+    "name": "amphora",
+    "categories": [
+      "food-beverage",
+      "gaming"
+    ],
+    "tags": [
+      "pottery",
+      "artifact",
+      "artefact",
+      "vase",
+      "ceramics",
+      "clay",
+      "archaeology",
+      "museum",
+      "wine",
+      "oil"
+    ]
+  },
+  {
+    "name": "anvil",
+    "categories": [
+      "buildings",
+      "tools",
+      "gaming"
+    ],
+    "tags": [
+      "metal",
+      "iron",
+      "alloy",
+      "materials",
+      "heavy",
+      "weight",
+      "blacksmith",
+      "forge",
+      "acme"
+    ]
+  },
+  {
+    "name": "arrow-big-down-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming",
+      "files"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slow",
+      "direction",
+      "south",
+      "download"
+    ]
+  },
+  {
+    "name": "arrow-big-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south"
+    ]
+  },
+  {
+    "name": "arrow-big-left-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "arrow-big-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "indicate turn"
+    ]
+  },
+  {
+    "name": "arrow-big-right-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "arrow-big-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "indicate turn"
+    ]
+  },
+  {
+    "name": "arrow-big-up-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "caps lock",
+      "capitals",
+      "keyboard",
+      "button",
+      "mac",
+      "forward",
+      "direction",
+      "north",
+      "faster",
+      "speed",
+      "boost"
+    ]
+  },
+  {
+    "name": "arrow-big-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "shift",
+      "keyboard",
+      "button",
+      "mac",
+      "capitalize",
+      "capitalise",
+      "forward",
+      "direction",
+      "north"
+    ]
+  },
+  {
+    "name": "award",
+    "categories": [
+      "account",
+      "sports",
+      "gaming"
+    ],
+    "tags": [
+      "achievement",
+      "badge",
+      "rosette",
+      "prize",
+      "winner"
+    ]
+  },
+  {
+    "name": "axe",
+    "categories": [
+      "tools",
+      "gaming"
+    ],
+    "tags": [
+      "hatchet",
+      "weapon",
+      "chop",
+      "sharp",
+      "equipment",
+      "fireman",
+      "firefighter",
+      "brigade",
+      "lumberjack",
+      "woodcutter",
+      "logger",
+      "forestry"
+    ]
+  },
+  {
+    "name": "backpack",
+    "categories": [
+      "gaming",
+      "photography",
+      "travel"
+    ],
+    "tags": [
+      "bag",
+      "hiking",
+      "travel",
+      "camping",
+      "school",
+      "childhood"
+    ]
+  },
+  {
+    "name": "beaker",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "cup",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "bone",
+    "categories": [
+      "animals",
+      "medical",
+      "gaming"
+    ],
+    "tags": [
+      "health",
+      "skeleton",
+      "skull",
+      "death",
+      "pets",
+      "dog"
+    ]
+  },
+  {
+    "name": "book-a",
+    "categories": [
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "dictionary",
+      "define",
+      "definition",
+      "thesaurus",
+      "encyclopedia",
+      "encyclopaedia",
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "language",
+      "translate",
+      "alphabetical",
+      "a-z",
+      "ordered"
+    ]
+  },
+  {
+    "name": "book-check",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "read",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "library",
+      "written",
+      "authored",
+      "published",
+      "informed",
+      "knowledgeable",
+      "educated",
+      "schooled",
+      "homework",
+      "examined",
+      "tested",
+      "marked",
+      "passed",
+      "graduated",
+      "studied",
+      "learned",
+      "lesson",
+      "researched",
+      "documented",
+      "revealed",
+      "blank",
+      "plain language",
+      "true",
+      "truth",
+      "verified",
+      "corrected",
+      "task",
+      "todo",
+      "done",
+      "completed",
+      "finished",
+      "ticked"
+    ]
+  },
+  {
+    "name": "book-copy",
+    "categories": [
+      "development",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "clone",
+      "fork",
+      "duplicate",
+      "multiple",
+      "books",
+      "library",
+      "copies",
+      "copied",
+      "plagiarism",
+      "plagiarised",
+      "plagiarized",
+      "reading list",
+      "information",
+      "informed",
+      "knowledge",
+      "knowledgeable",
+      "knowledgable",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "research",
+      "smart",
+      "intelligent",
+      "intellectual"
+    ]
+  },
+  {
+    "name": "book-heart",
+    "categories": [
+      "social",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "diary",
+      "romance",
+      "novel",
+      "journal",
+      "entry",
+      "entries",
+      "personal",
+      "private",
+      "secret",
+      "crush",
+      "like",
+      "love",
+      "emotion",
+      "feminine",
+      "girls",
+      "teens",
+      "teenager",
+      "therapy",
+      "theraputic",
+      "therapist",
+      "planner",
+      "organizer",
+      "organiser",
+      "notes",
+      "notepad",
+      "stationery",
+      "sketchbook",
+      "writing",
+      "written",
+      "reading",
+      "favorite",
+      "favourite",
+      "high school"
+    ]
+  },
+  {
+    "name": "book-key",
+    "categories": [
+      "development",
+      "security",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "private",
+      "public",
+      "secret",
+      "unlocked",
+      "hidden",
+      "revealed",
+      "knowledge",
+      "learning"
+    ]
+  },
+  {
+    "name": "book-lock",
+    "categories": [
+      "development",
+      "security",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "private",
+      "secret",
+      "hidden",
+      "knowledge"
+    ]
+  },
+  {
+    "name": "book-marked",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "dictionary",
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation",
+      "saved",
+      "later",
+      "future",
+      "reference",
+      "index",
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository"
+    ]
+  },
+  {
+    "name": "book-minus",
+    "categories": [
+      "development",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "remove",
+      "delete",
+      "censor",
+      "cancel",
+      "forbid",
+      "prohibit",
+      "ban",
+      "uneducated",
+      "re-educate",
+      "unlearn",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "book-open-check",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "read",
+      "pages",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "library",
+      "written",
+      "authored",
+      "published",
+      "informed",
+      "knowledgeable",
+      "educated",
+      "schooled",
+      "homework",
+      "examined",
+      "tested",
+      "marked",
+      "passed",
+      "graduated",
+      "studied",
+      "learned",
+      "lesson",
+      "researched",
+      "documented",
+      "revealed",
+      "blank",
+      "plain language",
+      "true",
+      "truth",
+      "verified",
+      "corrected",
+      "task",
+      "todo",
+      "done",
+      "completed",
+      "finished",
+      "ticked"
+    ]
+  },
+  {
+    "name": "book-open",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "reading",
+      "pages",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "screenplay",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation",
+      "revealed",
+      "blank",
+      "plain"
+    ]
+  },
+  {
+    "name": "book-plus",
+    "categories": [
+      "development",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "remove",
+      "delete",
+      "read",
+      "write",
+      "author",
+      "publish",
+      "inform",
+      "graduate",
+      "re-educate",
+      "study",
+      "learn",
+      "research",
+      "knowledge",
+      "improve",
+      "upgrade",
+      "level up"
+    ]
+  },
+  {
+    "name": "book-text",
+    "categories": [
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation"
+    ]
+  },
+  {
+    "name": "book-type",
+    "categories": [
+      "text",
+      "design",
+      "gaming"
+    ],
+    "tags": [
+      "thesaurus",
+      "synonym",
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "language",
+      "translate",
+      "typography",
+      "fonts",
+      "collection"
+    ]
+  },
+  {
+    "name": "book-x",
+    "categories": [
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "remove",
+      "delete",
+      "reading",
+      "misinformation",
+      "disinformation",
+      "misinformed",
+      "charlatan",
+      "sophistry",
+      "false",
+      "lies",
+      "untruth",
+      "propaganda",
+      "censored",
+      "cancelled",
+      "forbidden",
+      "prohibited",
+      "banned",
+      "uneducated",
+      "re-education",
+      "unlearn"
+    ]
+  },
+  {
+    "name": "book",
+    "categories": [
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "reading",
+      "paperback",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "documentation"
+    ]
+  },
+  {
+    "name": "box",
+    "categories": [
+      "shapes",
+      "gaming",
+      "development",
+      "math"
+    ],
+    "tags": [
+      "cube",
+      "package",
+      "container",
+      "storage",
+      "geometry",
+      "3d",
+      "isometric"
+    ]
+  },
+  {
+    "name": "boxes",
+    "categories": [
+      "shapes",
+      "gaming",
+      "development"
+    ],
+    "tags": [
+      "cubes",
+      "packages",
+      "parts",
+      "group",
+      "units",
+      "collection",
+      "cluster",
+      "geometry"
+    ]
+  },
+  {
+    "name": "castle",
+    "categories": [
+      "buildings",
+      "gaming"
+    ],
+    "tags": [
+      "fortress",
+      "stronghold",
+      "palace",
+      "chateau",
+      "building"
+    ]
+  },
+  {
+    "name": "chevron-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slow",
+      "dropdown"
+    ]
+  },
+  {
+    "name": "chevron-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "caret",
+      "keyboard",
+      "mac",
+      "control",
+      "ctrl",
+      "superscript",
+      "exponential",
+      "power",
+      "ahead",
+      "fast",
+      "^",
+      "dropdown"
+    ]
+  },
+  {
+    "name": "chevrons-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slower"
+    ]
+  },
+  {
+    "name": "chevrons-left-right-ellipsis",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "chevrons-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "chevrons-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "chevrons-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "forward",
+      "ahead",
+      "faster",
+      "speed",
+      "boost"
+    ]
+  },
+  {
+    "name": "circle-arrow-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "sign",
+      "button"
+    ]
+  },
+  {
+    "name": "circle-arrow-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "sign",
+      "turn",
+      "button",
+      "<-"
+    ]
+  },
+  {
+    "name": "circle-arrow-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "sign",
+      "turn",
+      "button",
+      "->"
+    ]
+  },
+  {
+    "name": "circle-arrow-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "sign",
+      "button"
+    ]
+  },
+  {
+    "name": "circle-plus",
+    "categories": [
+      "math",
+      "development",
+      "cursors",
+      "gaming"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "operator",
+      "join",
+      "concatenate",
+      "code",
+      "coding",
+      "+"
+    ]
+  },
+  {
+    "name": "clover",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "leaf",
+      "luck",
+      "plant"
+    ]
+  },
+  {
+    "name": "club",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "shape",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "coins",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "money",
+      "cash",
+      "finance",
+      "gamble"
+    ]
+  },
+  {
+    "name": "computer",
+    "categories": [
+      "devices",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "pc",
+      "chassis",
+      "codespaces",
+      "github"
+    ]
+  },
+  {
+    "name": "crown",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "diadem",
+      "tiara",
+      "circlet",
+      "corona",
+      "king",
+      "ruler",
+      "winner",
+      "favourite"
+    ]
+  },
+  {
+    "name": "diamond",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "square",
+      "rectangle",
+      "oblique",
+      "rhombus",
+      "shape",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "dice-1",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "dice",
+      "random",
+      "tabletop",
+      "1",
+      "board",
+      "game"
+    ]
+  },
+  {
+    "name": "dice-2",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "dice",
+      "random",
+      "tabletop",
+      "2",
+      "board",
+      "game"
+    ]
+  },
+  {
+    "name": "dice-3",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "dice",
+      "random",
+      "tabletop",
+      "3",
+      "board",
+      "game"
+    ]
+  },
+  {
+    "name": "dice-4",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "dice",
+      "random",
+      "tabletop",
+      "4",
+      "board",
+      "game"
+    ]
+  },
+  {
+    "name": "dice-5",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "dice",
+      "random",
+      "tabletop",
+      "5",
+      "board",
+      "game"
+    ]
+  },
+  {
+    "name": "dice-6",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "dice",
+      "random",
+      "tabletop",
+      "6",
+      "board",
+      "game"
+    ]
+  },
+  {
+    "name": "dices",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "dice",
+      "random",
+      "tabletop",
+      "board",
+      "game"
+    ]
+  },
+  {
+    "name": "droplet-off",
+    "categories": [
+      "weather",
+      "gaming"
+    ],
+    "tags": [
+      "water",
+      "weather",
+      "liquid",
+      "fluid",
+      "wet",
+      "moisture",
+      "damp",
+      "bead",
+      "globule"
+    ]
+  },
+  {
+    "name": "droplet",
+    "categories": [
+      "weather",
+      "gaming"
+    ],
+    "tags": [
+      "water",
+      "weather",
+      "liquid",
+      "fluid",
+      "wet",
+      "moisture",
+      "damp",
+      "bead",
+      "globule"
+    ]
+  },
+  {
+    "name": "ethernet-port",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "feather",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "logo"
+    ]
+  },
+  {
+    "name": "flame-kindling",
+    "categories": [
+      "nature",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "campfire",
+      "camping",
+      "wilderness",
+      "outdoors",
+      "lit",
+      "warmth",
+      "wood",
+      "twigs",
+      "sticks"
+    ]
+  },
+  {
+    "name": "flame",
+    "categories": [
+      "weather",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "fire",
+      "lit",
+      "burning",
+      "spark",
+      "embers",
+      "smoke",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency"
+    ]
+  },
+  {
+    "name": "flask-conical-off",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "beaker",
+      "erlenmeyer",
+      "non toxic",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "flask-conical",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "beaker",
+      "erlenmeyer",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "flask-round",
+    "categories": [
+      "science",
+      "gaming"
+    ],
+    "tags": [
+      "beaker",
+      "lab",
+      "chemistry",
+      "experiment",
+      "test"
+    ]
+  },
+  {
+    "name": "flower",
+    "categories": [
+      "nature",
+      "gaming",
+      "sustainability"
+    ],
+    "tags": [
+      "sustainability",
+      "nature",
+      "plant",
+      "spring"
+    ]
+  },
+  {
+    "name": "gamepad-2",
+    "categories": [
+      "gaming",
+      "devices"
+    ],
+    "tags": [
+      "console"
+    ]
+  },
+  {
+    "name": "gamepad",
+    "categories": [
+      "gaming",
+      "devices"
+    ],
+    "tags": [
+      "console"
+    ]
+  },
+  {
+    "name": "gem",
+    "categories": [
+      "gaming",
+      "development",
+      "finance"
+    ],
+    "tags": [
+      "diamond",
+      "crystal",
+      "ruby",
+      "jewellery",
+      "price",
+      "special",
+      "present",
+      "gift",
+      "ring",
+      "wedding",
+      "proposal",
+      "marriage",
+      "rubygems"
+    ]
+  },
+  {
+    "name": "ghost",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "pac-man",
+      "spooky"
+    ]
+  },
+  {
+    "name": "gift",
+    "categories": [
+      "gaming",
+      "account"
+    ],
+    "tags": [
+      "present",
+      "box",
+      "birthday",
+      "party"
+    ]
+  },
+  {
+    "name": "goal",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "flag",
+      "bullseye"
+    ]
+  },
+  {
+    "name": "hdmi-port",
+    "categories": [
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "audio",
+      "video",
+      "visual",
+      "av",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "headphone-off",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "communication",
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "mute",
+      "off"
+    ]
+  },
+  {
+    "name": "headphones",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound"
+    ]
+  },
+  {
+    "name": "headset",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "gaming",
+      "headphones",
+      "headset",
+      "call",
+      "center",
+      "phone",
+      "telephone",
+      "voip",
+      "video"
+    ]
+  },
+  {
+    "name": "heart",
+    "categories": [
+      "medical",
+      "social",
+      "multimedia",
+      "emoji",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "like",
+      "love",
+      "emotion",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "hourglass",
+    "categories": [
+      "time",
+      "gaming"
+    ],
+    "tags": [
+      "timer",
+      "time",
+      "sandglass"
+    ]
+  },
+  {
+    "name": "joystick",
+    "categories": [
+      "gaming",
+      "devices"
+    ],
+    "tags": [
+      "game",
+      "console",
+      "control stick"
+    ]
+  },
+  {
+    "name": "land-plot",
+    "categories": [
+      "design",
+      "tools",
+      "math",
+      "sports",
+      "gaming"
+    ],
+    "tags": [
+      "area",
+      "surface",
+      "square metres",
+      "allotment",
+      "parcel",
+      "property",
+      "plane",
+      "acres",
+      "measure",
+      "distance",
+      "isometric",
+      "flag",
+      "golf course",
+      "hole"
+    ]
+  },
+  {
+    "name": "medal",
+    "categories": [
+      "sports",
+      "gaming"
+    ],
+    "tags": [
+      "prize",
+      "sports",
+      "winner",
+      "trophy",
+      "award",
+      "achievement"
+    ]
+  },
+  {
+    "name": "memory-stick",
+    "categories": [
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "ram",
+      "random access",
+      "technology",
+      "computer",
+      "chip",
+      "circuit",
+      "specs",
+      "capacity",
+      "gigabytes",
+      "gb"
+    ]
+  },
+  {
+    "name": "milestone",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "signpost",
+      "direction",
+      "right",
+      "east",
+      "forward",
+      "version control",
+      "waypoint"
+    ]
+  },
+  {
+    "name": "mountain",
+    "categories": [
+      "nature",
+      "gaming"
+    ],
+    "tags": [
+      "climb",
+      "hike",
+      "rock"
+    ]
+  },
+  {
+    "name": "pc-case",
+    "categories": [
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "computer",
+      "chassis"
+    ]
+  },
+  {
+    "name": "pickaxe",
+    "categories": [
+      "tools",
+      "gaming"
+    ],
+    "tags": [
+      "mining",
+      "mine",
+      "land worker",
+      "extraction",
+      "labor",
+      "construction",
+      "progress",
+      "advancement",
+      "crafting",
+      "building",
+      "creation"
+    ]
+  },
+  {
+    "name": "plus",
+    "categories": [
+      "math",
+      "tools",
+      "development",
+      "text",
+      "cursors",
+      "gaming"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "toolbar",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "puzzle",
+    "categories": [
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "component",
+      "module",
+      "part",
+      "piece"
+    ]
+  },
+  {
+    "name": "rocket",
+    "categories": [
+      "gaming",
+      "development"
+    ],
+    "tags": [
+      "release",
+      "boost",
+      "launch",
+      "space",
+      "version"
+    ]
+  },
+  {
+    "name": "scan",
+    "categories": [
+      "devices",
+      "shopping",
+      "security",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "qr-code",
+      "barcode",
+      "checkout",
+      "augmented reality",
+      "ar",
+      "target",
+      "surveillance",
+      "camera",
+      "lens",
+      "focus",
+      "frame",
+      "select",
+      "box",
+      "boundary",
+      "bounds",
+      "area",
+      "square",
+      "dashed"
+    ]
+  },
+  {
+    "name": "scroll-text",
+    "categories": [
+      "gaming",
+      "development",
+      "text"
+    ],
+    "tags": [
+      "paper",
+      "log",
+      "scripture",
+      "document",
+      "notes",
+      "parchment",
+      "list",
+      "long",
+      "script",
+      "story",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "scroll",
+    "categories": [
+      "gaming",
+      "development",
+      "text"
+    ],
+    "tags": [
+      "paper",
+      "log",
+      "scripture",
+      "document",
+      "notes",
+      "parchment",
+      "list",
+      "long",
+      "script",
+      "story",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "shapes",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "triangle",
+      "equilateral",
+      "square",
+      "circle",
+      "classification",
+      "different",
+      "collection",
+      "toy",
+      "blocks",
+      "learning"
+    ]
+  },
+  {
+    "name": "shield-alert",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "notifications",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "warning",
+      "emergency",
+      "attention",
+      "urgent",
+      "alarm",
+      "crest",
+      "bravery",
+      "strength",
+      "tough",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "disabled",
+      "inactive",
+      "error",
+      "exclamation mark",
+      "!"
+    ]
+  },
+  {
+    "name": "shield-ban",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "cancel",
+      "error",
+      "crest",
+      "bravery",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "eliminated",
+      "disabled",
+      "inactive",
+      "/"
+    ]
+  },
+  {
+    "name": "shield-check",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secured",
+      "safety",
+      "protection",
+      "protected",
+      "guardian",
+      "guarded",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defended",
+      "blocked",
+      "threat",
+      "prevention",
+      "prevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "active",
+      "activated",
+      "enabled",
+      "detection",
+      "scanned",
+      "found",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audited",
+      "admin",
+      "verification",
+      "verified",
+      "certification",
+      "certified",
+      "tested",
+      "passed",
+      "qualified",
+      "cleared",
+      "cleaned",
+      "disinfected",
+      "uninfected",
+      "task",
+      "completed",
+      "todo",
+      "done",
+      "ticked",
+      "checked",
+      "crest",
+      "bravery"
+    ]
+  },
+  {
+    "name": "shield-ellipsis",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "securing",
+      "protecting",
+      "guarding",
+      "armoring",
+      "armouring",
+      "defending",
+      "blocking",
+      "preventing",
+      "antivirus",
+      "detecting",
+      "scanning",
+      "finding",
+      "auditing",
+      "admin",
+      "verifying",
+      "crest",
+      "upgrading",
+      "loader",
+      "loading",
+      "throbber",
+      "progress",
+      "dots",
+      "more",
+      "etc",
+      "...",
+      "…"
+    ]
+  },
+  {
+    "name": "shield-half",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "logo",
+      "sigil",
+      "flag",
+      "team",
+      "faction",
+      "fraternity",
+      "university",
+      "college",
+      "academy",
+      "school",
+      "education",
+      "uniform",
+      "bravery",
+      "knight",
+      "foot soldier",
+      "infantry",
+      "trooper",
+      "pawn",
+      "battle",
+      "war",
+      "military",
+      "ranking",
+      "army",
+      "cadet",
+      "scout"
+    ]
+  },
+  {
+    "name": "shield-minus",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshield",
+      "cybersecurity",
+      "unsecure",
+      "unguard",
+      "unblock",
+      "antivirus",
+      "clean",
+      "clear",
+      "disinfect",
+      "patch",
+      "fix",
+      "stop",
+      "cancel",
+      "remove",
+      "relax",
+      "admin",
+      "crest",
+      "bravery",
+      "weakened",
+      "damaged",
+      "hit",
+      "unarm",
+      "disable",
+      "deactivate",
+      "decommission",
+      "downgraded",
+      "minimum",
+      "-"
+    ]
+  },
+  {
+    "name": "shield-off",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "interception",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "detection",
+      "undetected",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infected",
+      "infection",
+      "comprimised",
+      "data leak",
+      "unaudited",
+      "admin",
+      "verification",
+      "unverified",
+      "inactive",
+      "cancelled",
+      "error",
+      "crest",
+      "bravery",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "eliminated"
+    ]
+  },
+  {
+    "name": "shield-plus",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "medical"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "extra",
+      "added",
+      "professional",
+      "enterprise",
+      "full",
+      "maximum",
+      "upgraded",
+      "ultra",
+      "activate",
+      "enable",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "medic",
+      "+"
+    ]
+  },
+  {
+    "name": "shield-question",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "undetected",
+      "scan",
+      "find",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "comprimised",
+      "data leak",
+      "audit",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "uncertain",
+      "unknown",
+      "inactive",
+      "crest",
+      "question mark",
+      "?"
+    ]
+  },
+  {
+    "name": "shield-x",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "prevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "inactive",
+      "cancel",
+      "error",
+      "wrong",
+      "false",
+      "crest",
+      "bravery",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "dead",
+      "deceased",
+      "expired",
+      "eliminated",
+      "exterminated"
+    ]
+  },
+  {
+    "name": "shield",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "find",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "bravery",
+      "knight",
+      "foot soldier",
+      "infantry",
+      "trooper",
+      "pawn",
+      "battle",
+      "war",
+      "military",
+      "army",
+      "cadet",
+      "scout"
+    ]
+  },
+  {
+    "name": "shovel",
+    "categories": [
+      "nature",
+      "tools",
+      "gaming"
+    ],
+    "tags": [
+      "dig",
+      "spade",
+      "treasure"
+    ]
+  },
+  {
+    "name": "signpost-big",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "bidirectional",
+      "left",
+      "right",
+      "east",
+      "west"
+    ]
+  },
+  {
+    "name": "signpost",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "bidirectional",
+      "left",
+      "right",
+      "east",
+      "west"
+    ]
+  },
+  {
+    "name": "skull",
+    "categories": [
+      "gaming"
+    ],
+    "tags": [
+      "death",
+      "danger",
+      "bone"
+    ]
+  },
+  {
+    "name": "spade",
+    "categories": [
+      "shapes",
+      "gaming"
+    ],
+    "tags": [
+      "shape",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "sparkles",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "gaming",
+      "weather"
+    ],
+    "tags": [
+      "stars",
+      "effect",
+      "filter",
+      "night",
+      "magic"
+    ]
+  },
+  {
+    "name": "sprout",
+    "categories": [
+      "nature",
+      "gaming",
+      "sustainability"
+    ],
+    "tags": [
+      "leaf",
+      "nature",
+      "plant"
+    ]
+  },
+  {
+    "name": "square-arrow-down-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "direction",
+      "south-west",
+      "diagonal",
+      "sign",
+      "turn",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-down-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "direction",
+      "south-east",
+      "diagonal",
+      "sign",
+      "turn",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "sign",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "star",
+    "categories": [
+      "account",
+      "social",
+      "shapes",
+      "multimedia",
+      "weather",
+      "emoji",
+      "gaming"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "sword",
+    "categories": [
+      "gaming",
+      "tools"
+    ],
+    "tags": [
+      "battle",
+      "challenge",
+      "game",
+      "war",
+      "weapon"
+    ]
+  },
+  {
+    "name": "swords",
+    "categories": [
+      "gaming",
+      "tools"
+    ],
+    "tags": [
+      "battle",
+      "challenge",
+      "game",
+      "war",
+      "weapon"
+    ]
+  },
+  {
+    "name": "tally-1",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "one",
+      "1",
+      "first",
+      "bar",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-2",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "two",
+      "2",
+      "second",
+      "double",
+      "bars",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-3",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "three",
+      "3",
+      "third",
+      "triple",
+      "bars",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-4",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "4",
+      "fourth",
+      "quadruple",
+      "bars",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-5",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "five",
+      "5",
+      "fifth",
+      "bars",
+      "prison",
+      "cell",
+      "sentence",
+      "slash",
+      "/"
+    ]
+  },
+  {
+    "name": "target",
+    "categories": [
+      "brands",
+      "gaming"
+    ],
+    "tags": [
+      "logo",
+      "bullseye",
+      "deadline",
+      "projects",
+      "overview",
+      "work",
+      "productivity"
+    ]
+  },
+  {
+    "name": "toy-brick",
+    "categories": [
+      "gaming",
+      "development"
+    ],
+    "tags": [
+      "lego",
+      "block",
+      "addon",
+      "plugin",
+      "integration"
+    ]
+  },
+  {
+    "name": "trophy",
+    "categories": [
+      "sports",
+      "gaming"
+    ],
+    "tags": [
+      "prize",
+      "sports",
+      "winner",
+      "achievement",
+      "award",
+      "champion",
+      "celebration",
+      "victory"
+    ]
+  },
+  {
+    "name": "twitch",
+    "categories": [
+      "brands",
+      "social",
+      "account",
+      "gaming"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "venetian-mask",
+    "categories": [
+      "account",
+      "gaming"
+    ],
+    "tags": [
+      "mask",
+      "masquerade",
+      "impersonate",
+      "secret",
+      "incognito"
+    ]
+  },
+  {
+    "name": "volleyball",
+    "categories": [
+      "sports",
+      "gaming",
+      "travel"
+    ],
+    "tags": [
+      "beach",
+      "sand",
+      "net",
+      "holiday",
+      "vacation",
+      "summer",
+      "soccer",
+      "football",
+      "futbol",
+      "kick",
+      "pitch",
+      "goal",
+      "score",
+      "bounce",
+      "leather",
+      "wool",
+      "yarn",
+      "knitting",
+      "sewing",
+      "thread",
+      "embroidery",
+      "textile"
+    ]
+  },
+  {
+    "name": "wand-sparkles",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "wizard",
+      "magician"
+    ]
+  },
+  {
+    "name": "wand",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "selection"
+    ]
+  }
+]

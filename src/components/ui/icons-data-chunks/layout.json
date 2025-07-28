@@ -1,0 +1,2176 @@
+[
+  {
+    "name": "align-center-horizontal",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-center-vertical",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-end-horizontal",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "bottom",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-end-vertical",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "right",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-horizontal-distribute-center",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "flex",
+      "justify",
+      "space",
+      "evenly",
+      "around"
+    ]
+  },
+  {
+    "name": "align-horizontal-distribute-end",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "right",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-horizontal-distribute-start",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "left",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-horizontal-justify-center",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "center",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-horizontal-justify-end",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "right",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-horizontal-justify-start",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "left",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-horizontal-space-around",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "center",
+      "items",
+      "flex",
+      "justify",
+      "distribute",
+      "between"
+    ]
+  },
+  {
+    "name": "align-horizontal-space-between",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "around",
+      "items",
+      "bottom",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-start-horizontal",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "top",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-start-vertical",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "left",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-vertical-distribute-center",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "flex",
+      "justify",
+      "space",
+      "evenly",
+      "around"
+    ]
+  },
+  {
+    "name": "align-vertical-distribute-end",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "bottom",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-vertical-distribute-start",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "top",
+      "items",
+      "flex",
+      "justify"
+    ]
+  },
+  {
+    "name": "align-vertical-justify-center",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "center",
+      "items",
+      "flex",
+      "justify",
+      "distribute",
+      "between"
+    ]
+  },
+  {
+    "name": "align-vertical-justify-end",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "bottom",
+      "items",
+      "flex",
+      "justify",
+      "distribute",
+      "between"
+    ]
+  },
+  {
+    "name": "align-vertical-justify-start",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "top",
+      "items",
+      "flex",
+      "justify",
+      "distribute",
+      "between"
+    ]
+  },
+  {
+    "name": "align-vertical-space-around",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "center",
+      "items",
+      "flex",
+      "justify",
+      "distribute",
+      "between"
+    ]
+  },
+  {
+    "name": "align-vertical-space-between",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "center",
+      "items",
+      "flex",
+      "justify",
+      "distribute",
+      "between"
+    ]
+  },
+  {
+    "name": "app-window-mac",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "application",
+      "menu bar",
+      "pane",
+      "preferences",
+      "macos",
+      "osx",
+      "executable"
+    ]
+  },
+  {
+    "name": "app-window",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "application",
+      "menu bar",
+      "pane",
+      "executable"
+    ]
+  },
+  {
+    "name": "arrow-down-0-1",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-down-1-0",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-down-a-z",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical"
+    ]
+  },
+  {
+    "name": "arrow-down-narrow-wide",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-down-wide-narrow",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-down-z-a",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical",
+      "reverse"
+    ]
+  },
+  {
+    "name": "arrow-up-0-1",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-up-1-0",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "numerical"
+    ]
+  },
+  {
+    "name": "arrow-up-a-z",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical"
+    ]
+  },
+  {
+    "name": "arrow-up-narrow-wide",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-up-wide-narrow",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "arrow-up-z-a",
+    "categories": [
+      "text",
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "filter",
+      "sort",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling",
+      "alphabetical",
+      "reverse"
+    ]
+  },
+  {
+    "name": "between-horizontal-end",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "left",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "rows",
+      "cells",
+      "excel",
+      "spreadsheet",
+      "accountancy",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "between-horizontal-start",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "right",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "rows",
+      "cells",
+      "excel",
+      "spreadsheet",
+      "accountancy",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "between-vertical-end",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "top",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "columns",
+      "cells",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "between-vertical-start",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "bottom",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "columns",
+      "cells",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "bring-to-front",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "bring",
+      "send",
+      "move",
+      "over",
+      "forward",
+      "front",
+      "overlap",
+      "layer",
+      "order"
+    ]
+  },
+  {
+    "name": "circle-ellipsis",
+    "categories": [
+      "layout",
+      "development"
+    ],
+    "tags": [
+      "ellipsis",
+      "et cetera",
+      "etc",
+      "loader",
+      "loading",
+      "progress",
+      "pending",
+      "throbber",
+      "menu",
+      "options",
+      "operator",
+      "code",
+      "spread",
+      "rest",
+      "more",
+      "further",
+      "extra",
+      "overflow",
+      "dots",
+      "…",
+      "..."
+    ]
+  },
+  {
+    "name": "columns-2",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "panel",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "sidebar",
+      "drawer",
+      "gutter",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages"
+    ]
+  },
+  {
+    "name": "columns-3",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "thirds",
+      "triple",
+      "center",
+      "middle",
+      "alignment",
+      "even",
+      "sidebars",
+      "drawers",
+      "gutters",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages"
+    ]
+  },
+  {
+    "name": "columns-4",
+    "categories": [
+      "layout",
+      "design",
+      "text",
+      "security"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "thirds",
+      "triple",
+      "center",
+      "middle",
+      "alignment",
+      "even",
+      "sidebars",
+      "drawers",
+      "gutters",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages",
+      "prison",
+      "jail",
+      "bars",
+      "sentence",
+      "police",
+      "cops",
+      "cell",
+      "crime",
+      "criminal",
+      "justice",
+      "law",
+      "enforcement",
+      "grill"
+    ]
+  },
+  {
+    "name": "dock",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "desktop",
+      "applications",
+      "launch",
+      "home",
+      "menu bar",
+      "bottom",
+      "line",
+      "macos",
+      "osx"
+    ]
+  },
+  {
+    "name": "ellipsis-vertical",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "menu",
+      "options",
+      "spread",
+      "more",
+      "further",
+      "extra",
+      "overflow",
+      "dots",
+      "…",
+      "..."
+    ]
+  },
+  {
+    "name": "ellipsis",
+    "categories": [
+      "layout",
+      "development"
+    ],
+    "tags": [
+      "et cetera",
+      "etc",
+      "loader",
+      "loading",
+      "progress",
+      "pending",
+      "throbber",
+      "menu",
+      "options",
+      "operator",
+      "code",
+      "coding",
+      "spread",
+      "rest",
+      "more",
+      "further",
+      "extra",
+      "overflow",
+      "dots",
+      "…",
+      "..."
+    ]
+  },
+  {
+    "name": "filter-x",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "funnel",
+      "hopper"
+    ]
+  },
+  {
+    "name": "filter",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "funnel",
+      "hopper"
+    ]
+  },
+  {
+    "name": "fold-horizontal",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "collapse",
+      "fold",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "fold-vertical",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "collapse",
+      "fold",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "fullscreen",
+    "categories": [
+      "layout",
+      "multimedia",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "expand",
+      "zoom",
+      "preview",
+      "focus",
+      "camera",
+      "lens",
+      "image"
+    ]
+  },
+  {
+    "name": "gallery-horizontal-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-horizontal",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "gallery-thumbnails",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "album",
+      "portfolio",
+      "preview"
+    ]
+  },
+  {
+    "name": "gallery-vertical-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-vertical",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "grab",
+    "categories": [
+      "cursors",
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "hand"
+    ]
+  },
+  {
+    "name": "grid-2x2-check",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "data",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2-plus",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "data",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2-x",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "data",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2",
+    "categories": [
+      "text",
+      "layout",
+      "design",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre",
+      "window",
+      "skylight"
+    ]
+  },
+  {
+    "name": "grid-3x3",
+    "categories": [
+      "text",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns"
+    ]
+  },
+  {
+    "name": "grip-horizontal",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "grab",
+      "dots",
+      "handle",
+      "move",
+      "drag"
+    ]
+  },
+  {
+    "name": "grip-vertical",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "grab",
+      "dots",
+      "handle",
+      "move",
+      "drag"
+    ]
+  },
+  {
+    "name": "grip",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "grab",
+      "dots",
+      "handle",
+      "move",
+      "drag"
+    ]
+  },
+  {
+    "name": "layers-2",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "stack",
+      "pile",
+      "pages",
+      "sheets",
+      "paperwork",
+      "copies",
+      "copy",
+      "duplicate",
+      "double",
+      "shortcuts"
+    ]
+  },
+  {
+    "name": "layers",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "stack",
+      "pile",
+      "pages",
+      "sheets",
+      "paperwork",
+      "copies",
+      "copy"
+    ]
+  },
+  {
+    "name": "layout-dashboard",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "masonry",
+      "brick"
+    ]
+  },
+  {
+    "name": "layout-grid",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "app",
+      "home",
+      "start"
+    ]
+  },
+  {
+    "name": "layout-list",
+    "categories": [
+      "design",
+      "layout",
+      "photography",
+      "text"
+    ],
+    "tags": [
+      "todo",
+      "tasks",
+      "items",
+      "pending",
+      "image",
+      "photo"
+    ]
+  },
+  {
+    "name": "layout-panel-left",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "app",
+      "home",
+      "start",
+      "grid"
+    ]
+  },
+  {
+    "name": "layout-panel-top",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "window",
+      "webpage",
+      "block",
+      "section",
+      "grid",
+      "template",
+      "structure"
+    ]
+  },
+  {
+    "name": "layout-template",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "window",
+      "webpage",
+      "block",
+      "section"
+    ]
+  },
+  {
+    "name": "list-filter-plus",
+    "categories": [
+      "text",
+      "layout"
+    ],
+    "tags": [
+      "filter",
+      "plus",
+      "options",
+      "add"
+    ]
+  },
+  {
+    "name": "list-tree",
+    "categories": [
+      "files",
+      "text",
+      "layout"
+    ],
+    "tags": [
+      "tree",
+      "browser"
+    ]
+  },
+  {
+    "name": "loader-circle",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "layout"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "spinner",
+      "spinning",
+      "throbber",
+      "circle"
+    ]
+  },
+  {
+    "name": "loader",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "spinner",
+      "spinning",
+      "throbber"
+    ]
+  },
+  {
+    "name": "maximize-2",
+    "categories": [
+      "arrows",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "fullscreen",
+      "arrows",
+      "expand"
+    ]
+  },
+  {
+    "name": "maximize",
+    "categories": [
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "fullscreen",
+      "expand",
+      "dashed"
+    ]
+  },
+  {
+    "name": "menu",
+    "categories": [
+      "layout",
+      "account"
+    ],
+    "tags": [
+      "bars",
+      "navigation",
+      "hamburger",
+      "options"
+    ]
+  },
+  {
+    "name": "minimize-2",
+    "categories": [
+      "arrows",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "exit fullscreen",
+      "arrows",
+      "close",
+      "shrink"
+    ]
+  },
+  {
+    "name": "minimize",
+    "categories": [
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "exit fullscreen",
+      "close",
+      "shrink"
+    ]
+  },
+  {
+    "name": "panel-bottom-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "drawer",
+      "dock",
+      "hide",
+      "chevron",
+      "down"
+    ]
+  },
+  {
+    "name": "panel-bottom-dashed",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "drawer",
+      "dock",
+      "show",
+      "reveal"
+    ]
+  },
+  {
+    "name": "panel-bottom-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "drawer",
+      "dock",
+      "show",
+      "reveal",
+      "chevron",
+      "up"
+    ]
+  },
+  {
+    "name": "panel-bottom",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "drawer",
+      "dock"
+    ]
+  },
+  {
+    "name": "panel-left-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "primary",
+      "drawer",
+      "hide",
+      "chevron",
+      "<"
+    ]
+  },
+  {
+    "name": "panel-left-dashed",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "sidebar",
+      "primary",
+      "drawer",
+      "show",
+      "reveal"
+    ]
+  },
+  {
+    "name": "panel-left-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "primary",
+      "drawer",
+      "show",
+      "reveal",
+      "chevron",
+      "right",
+      ">"
+    ]
+  },
+  {
+    "name": "panel-left",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "primary",
+      "drawer"
+    ]
+  },
+  {
+    "name": "panel-right-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "sidebar",
+      "secondary",
+      "drawer",
+      "hide",
+      "chevron",
+      ">"
+    ]
+  },
+  {
+    "name": "panel-right-dashed",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "sidebar",
+      "secondary",
+      "drawer",
+      "show",
+      "reveal"
+    ]
+  },
+  {
+    "name": "panel-right-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "sidebar",
+      "secondary",
+      "drawer",
+      "show",
+      "reveal",
+      "chevron",
+      "left",
+      "<"
+    ]
+  },
+  {
+    "name": "panel-right",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "sidebar",
+      "secondary",
+      "drawer"
+    ]
+  },
+  {
+    "name": "panel-top-close",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "menu bar",
+      "drawer",
+      "hide",
+      "chevron",
+      "up"
+    ]
+  },
+  {
+    "name": "panel-top-dashed",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "menu bar",
+      "drawer",
+      "show",
+      "reveal"
+    ]
+  },
+  {
+    "name": "panel-top-open",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "menu bar",
+      "drawer",
+      "show",
+      "reveal",
+      "chevron",
+      "down"
+    ]
+  },
+  {
+    "name": "panel-top",
+    "categories": [
+      "layout",
+      "design",
+      "development"
+    ],
+    "tags": [
+      "drawer",
+      "browser",
+      "webpage"
+    ]
+  },
+  {
+    "name": "panels-left-bottom",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "drawers",
+      "sidebar",
+      "primary"
+    ]
+  },
+  {
+    "name": "panels-right-bottom",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "drawers",
+      "sidebar",
+      "secondary"
+    ]
+  },
+  {
+    "name": "panels-top-left",
+    "categories": [
+      "layout",
+      "design",
+      "development"
+    ],
+    "tags": [
+      "menu bar",
+      "sidebar",
+      "primary",
+      "drawers",
+      "window",
+      "webpage",
+      "projects",
+      "overview"
+    ]
+  },
+  {
+    "name": "pencil-ruler",
+    "categories": [
+      "tools",
+      "design",
+      "layout",
+      "text"
+    ],
+    "tags": [
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist",
+      "measurements",
+      "centimeters",
+      "cm",
+      "millimeters",
+      "mm",
+      "metre",
+      "foot",
+      "feet",
+      "inches",
+      "units",
+      "size",
+      "length",
+      "width",
+      "height",
+      "dimensions",
+      "depth",
+      "breadth",
+      "extent"
+    ]
+  },
+  {
+    "name": "proportions",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "screens",
+      "sizes",
+      "rotate",
+      "rotation",
+      "adjust",
+      "aspect ratio",
+      "16:9",
+      "widescreen",
+      "4:3",
+      "resolution",
+      "responsive",
+      "mobile",
+      "desktop",
+      "dimensions",
+      "monitor",
+      "orientation",
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "name": "ratio",
+    "categories": [
+      "layout",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "screens",
+      "sizes",
+      "rotate",
+      "rotation",
+      "adjust",
+      "aspect ratio",
+      "proportions",
+      "16:9",
+      "widescreen",
+      "4:3",
+      "resolution",
+      "responsive",
+      "mobile",
+      "desktop",
+      "dimensions",
+      "monitor",
+      "orientation",
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "name": "rotate-ccw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "left",
+      "counter-clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rotate-cw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "right",
+      "clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rows-2",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "panel",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawer"
+    ]
+  },
+  {
+    "name": "rows-3",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawers"
+    ]
+  },
+  {
+    "name": "rows-4",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawers",
+      "grill"
+    ]
+  },
+  {
+    "name": "ruler",
+    "categories": [
+      "tools",
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "measurements",
+      "centimeters",
+      "cm",
+      "millimeters",
+      "mm",
+      "metre",
+      "foot",
+      "feet",
+      "inches",
+      "units",
+      "size",
+      "length",
+      "width",
+      "height",
+      "dimensions",
+      "depth",
+      "breadth",
+      "extent",
+      "stationery"
+    ]
+  },
+  {
+    "name": "send-to-back",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "bring",
+      "send",
+      "move",
+      "under",
+      "back",
+      "backwards",
+      "overlap",
+      "layer",
+      "order"
+    ]
+  },
+  {
+    "name": "separator-horizontal",
+    "categories": [
+      "text",
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "move",
+      "split"
+    ]
+  },
+  {
+    "name": "separator-vertical",
+    "categories": [
+      "text",
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "move",
+      "split"
+    ]
+  },
+  {
+    "name": "shrink",
+    "categories": [
+      "layout",
+      "arrows"
+    ],
+    "tags": [
+      "scale",
+      "fullscreen"
+    ]
+  },
+  {
+    "name": "square-menu",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "bars",
+      "navigation",
+      "hamburger",
+      "options",
+      "menu bar",
+      "panel"
+    ]
+  },
+  {
+    "name": "square-split-horizontal",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "split",
+      "divide"
+    ]
+  },
+  {
+    "name": "square-split-vertical",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "split",
+      "divide"
+    ]
+  },
+  {
+    "name": "square-square",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "float",
+      "center",
+      "rectangle"
+    ]
+  },
+  {
+    "name": "stretch-horizontal",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "flex",
+      "justify",
+      "distribute"
+    ]
+  },
+  {
+    "name": "stretch-vertical",
+    "categories": [
+      "layout"
+    ],
+    "tags": [
+      "items",
+      "flex",
+      "justify",
+      "distribute"
+    ]
+  },
+  {
+    "name": "text-cursor-input",
+    "categories": [
+      "text",
+      "layout"
+    ],
+    "tags": [
+      "select"
+    ]
+  },
+  {
+    "name": "toggle-left",
+    "categories": [
+      "layout",
+      "account",
+      "development"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "switch",
+      "boolean"
+    ]
+  },
+  {
+    "name": "toggle-right",
+    "categories": [
+      "layout",
+      "account",
+      "development"
+    ],
+    "tags": [
+      "on",
+      "off",
+      "switch",
+      "boolean"
+    ]
+  },
+  {
+    "name": "unfold-horizontal",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "collapse",
+      "fold",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "unfold-vertical",
+    "categories": [
+      "arrows",
+      "layout"
+    ],
+    "tags": [
+      "arrow",
+      "expand",
+      "vertical",
+      "dashed"
+    ]
+  },
+  {
+    "name": "zoom-in",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  },
+  {
+    "name": "zoom-out",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  }
+]

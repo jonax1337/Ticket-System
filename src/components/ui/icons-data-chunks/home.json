@@ -1,0 +1,761 @@
+[
+  {
+    "name": "air-vent",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "air conditioner",
+      "ac",
+      "central air",
+      "cooling",
+      "climate-control"
+    ]
+  },
+  {
+    "name": "alarm-smoke",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "fire",
+      "alert",
+      "warning",
+      "detector",
+      "carbon monoxide",
+      "safety",
+      "equipment",
+      "amenities"
+    ]
+  },
+  {
+    "name": "armchair",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "sofa",
+      "furniture",
+      "leisure",
+      "lounge",
+      "loveseat",
+      "couch"
+    ]
+  },
+  {
+    "name": "bed-double",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "sleep",
+      "hotel",
+      "furniture"
+    ]
+  },
+  {
+    "name": "bed-single",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "sleep",
+      "hotel",
+      "furniture"
+    ]
+  },
+  {
+    "name": "bed",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "sleep",
+      "hotel",
+      "furniture"
+    ]
+  },
+  {
+    "name": "bell-electric",
+    "categories": [
+      "devices",
+      "notifications",
+      "home"
+    ],
+    "tags": [
+      "fire alarm",
+      "flames",
+      "smoke",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency",
+      "alert",
+      "safety",
+      "school bell",
+      "period break",
+      "recess",
+      "doorbell",
+      "entrance",
+      "entry",
+      "ring",
+      "reception"
+    ]
+  },
+  {
+    "name": "blinds",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "shades",
+      "screen",
+      "curtain",
+      "shutter",
+      "roller blind",
+      "window",
+      "lighting",
+      "household",
+      "home"
+    ]
+  },
+  {
+    "name": "bolt",
+    "categories": [
+      "tools",
+      "home"
+    ],
+    "tags": [
+      "nut",
+      "screw",
+      "settings",
+      "preferences",
+      "configuration",
+      "controls",
+      "edit",
+      "diy",
+      "fixed",
+      "build",
+      "construction",
+      "parts"
+    ]
+  },
+  {
+    "name": "brick-wall",
+    "categories": [
+      "buildings",
+      "home"
+    ],
+    "tags": [
+      "bricks",
+      "mortar",
+      "cement",
+      "materials",
+      "construction",
+      "builder",
+      "labourer",
+      "quantity surveyor",
+      "blocks",
+      "stone"
+    ]
+  },
+  {
+    "name": "cooking-pot",
+    "categories": [
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "pod",
+      "cooking",
+      "recipe",
+      "food",
+      "kitchen",
+      "chef",
+      "restaurant",
+      "dinner",
+      "lunch",
+      "breakfast",
+      "meal",
+      "eat"
+    ]
+  },
+  {
+    "name": "door-closed",
+    "categories": [
+      "home",
+      "travel",
+      "security"
+    ],
+    "tags": [
+      "entrance",
+      "entry",
+      "exit",
+      "ingress",
+      "egress",
+      "gate",
+      "gateway",
+      "emergency exit"
+    ]
+  },
+  {
+    "name": "door-open",
+    "categories": [
+      "home",
+      "travel",
+      "security"
+    ],
+    "tags": [
+      "entrance",
+      "entry",
+      "exit",
+      "ingress",
+      "egress",
+      "gate",
+      "gateway",
+      "emergency exit"
+    ]
+  },
+  {
+    "name": "drill",
+    "categories": [
+      "tools",
+      "home",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "bit",
+      "head",
+      "hole",
+      "diy",
+      "toolbox",
+      "build",
+      "construction"
+    ]
+  },
+  {
+    "name": "fan",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "air",
+      "cooler",
+      "ventilation",
+      "ventilator",
+      "blower"
+    ]
+  },
+  {
+    "name": "fence",
+    "categories": [
+      "home",
+      "buildings"
+    ],
+    "tags": [
+      "picket",
+      "panels",
+      "woodwork",
+      "diy",
+      "materials",
+      "suburban",
+      "garden",
+      "property",
+      "territory"
+    ]
+  },
+  {
+    "name": "fire-extinguisher",
+    "categories": [
+      "home",
+      "tools",
+      "travel"
+    ],
+    "tags": [
+      "flames",
+      "smoke",
+      "foam",
+      "water",
+      "spray",
+      "hose",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency",
+      "suppress",
+      "compressed",
+      "tank",
+      "cylinder",
+      "safety",
+      "equipment",
+      "amenities"
+    ]
+  },
+  {
+    "name": "hammer",
+    "categories": [
+      "tools",
+      "home"
+    ],
+    "tags": [
+      "mallet",
+      "nails",
+      "diy",
+      "toolbox",
+      "build",
+      "construction"
+    ]
+  },
+  {
+    "name": "heater",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "heating",
+      "warmth",
+      "comfort",
+      "fire",
+      "stove",
+      "electric",
+      "electronics",
+      "amenities"
+    ]
+  },
+  {
+    "name": "house-plug",
+    "categories": [
+      "buildings",
+      "home",
+      "sustainability"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture",
+      "autarky",
+      "energy"
+    ]
+  },
+  {
+    "name": "house-wifi",
+    "categories": [
+      "home",
+      "buildings",
+      "connectivity"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "wifi",
+      "connectivity"
+    ]
+  },
+  {
+    "name": "house",
+    "categories": [
+      "buildings",
+      "home"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture"
+    ]
+  },
+  {
+    "name": "lamp-ceiling",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "lighting",
+      "household",
+      "home",
+      "furniture"
+    ]
+  },
+  {
+    "name": "lamp-desk",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "lighting",
+      "household",
+      "office",
+      "desk",
+      "home",
+      "furniture"
+    ]
+  },
+  {
+    "name": "lamp-floor",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "lighting",
+      "household",
+      "floor",
+      "home",
+      "furniture"
+    ]
+  },
+  {
+    "name": "lamp-wall-down",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "lighting",
+      "household",
+      "wall",
+      "home",
+      "furniture"
+    ]
+  },
+  {
+    "name": "lamp-wall-up",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "lighting",
+      "household",
+      "wall",
+      "home",
+      "furniture"
+    ]
+  },
+  {
+    "name": "lamp",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "lighting",
+      "household",
+      "home",
+      "furniture"
+    ]
+  },
+  {
+    "name": "microwave",
+    "categories": [
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "oven",
+      "cooker",
+      "toaster oven",
+      "bake"
+    ]
+  },
+  {
+    "name": "paint-roller",
+    "categories": [
+      "text",
+      "design",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "paintbrush-vertical",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "paintbrush",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "refrigerator",
+    "categories": [
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "frigerator",
+      "fridge",
+      "freezer",
+      "cooler",
+      "icebox",
+      "chiller",
+      "cold storage"
+    ]
+  },
+  {
+    "name": "rocking-chair",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "chair",
+      "furniture",
+      "seat"
+    ]
+  },
+  {
+    "name": "router",
+    "categories": [
+      "development",
+      "devices",
+      "connectivity",
+      "home"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "cloud"
+    ]
+  },
+  {
+    "name": "shell",
+    "categories": [
+      "animals",
+      "development",
+      "nature",
+      "science",
+      "travel",
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "beach",
+      "sand",
+      "holiday",
+      "sealife",
+      "fossil",
+      "ammonite",
+      "biology",
+      "ocean",
+      "terminal",
+      "command line",
+      "session",
+      "bash",
+      "zsh",
+      "roll",
+      "wrap",
+      "chewing gum",
+      "bubble gum",
+      "sweet",
+      "sugar",
+      "hosepipe",
+      "carpet",
+      "string",
+      "spiral",
+      "spinner",
+      "hypnotise",
+      "hypnosis"
+    ]
+  },
+  {
+    "name": "shower-head",
+    "categories": [
+      "home",
+      "travel"
+    ],
+    "tags": [
+      "shower",
+      "bath",
+      "bathroom",
+      "amenities",
+      "services"
+    ]
+  },
+  {
+    "name": "sofa",
+    "categories": [
+      "home"
+    ],
+    "tags": [
+      "armchair",
+      "furniture",
+      "leisure",
+      "lounge",
+      "loveseat",
+      "couch"
+    ]
+  },
+  {
+    "name": "swatch-book",
+    "categories": [
+      "design",
+      "home",
+      "photography"
+    ],
+    "tags": [
+      "colors",
+      "colours",
+      "swatches",
+      "pantone",
+      "shades",
+      "tint",
+      "hue",
+      "saturation",
+      "brightness",
+      "theme",
+      "scheme",
+      "palette",
+      "samples",
+      "textile",
+      "carpet"
+    ]
+  },
+  {
+    "name": "toilet",
+    "categories": [
+      "devices",
+      "home"
+    ],
+    "tags": [
+      "toilet",
+      "potty",
+      "bathroom",
+      "washroom"
+    ]
+  },
+  {
+    "name": "usb",
+    "categories": [
+      "devices",
+      "multimedia",
+      "home"
+    ],
+    "tags": [
+      "universal",
+      "serial",
+      "bus",
+      "controller",
+      "connector",
+      "interface"
+    ]
+  },
+  {
+    "name": "utility-pole",
+    "categories": [
+      "buildings",
+      "home",
+      "sustainability"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "transmission line",
+      "telegraph pole",
+      "power lines",
+      "phone"
+    ]
+  },
+  {
+    "name": "vault",
+    "categories": [
+      "security",
+      "travel",
+      "home"
+    ],
+    "tags": [
+      "safe",
+      "lockbox",
+      "deposit",
+      "locker",
+      "coffer",
+      "strongbox",
+      "safety",
+      "secure",
+      "storage",
+      "valuables",
+      "bank"
+    ]
+  },
+  {
+    "name": "washing-machine",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "tumble dryer",
+      "amenities",
+      "electronics",
+      "cycle",
+      "clothes",
+      "rinse",
+      "spin",
+      "drum"
+    ]
+  },
+  {
+    "name": "waves-ladder",
+    "categories": [
+      "sports",
+      "home"
+    ],
+    "tags": [
+      "swimming",
+      "water",
+      "pool",
+      "lifeguard",
+      "ocean",
+      "🌊",
+      "🏊‍♂️",
+      "🏊‍♀️",
+      "🏊",
+      "🥽"
+    ]
+  }
+]

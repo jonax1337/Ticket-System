@@ -15,7 +15,8 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { Button } from '@/components/ui/button'
-import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp, Inbox, Folder, Search } from 'lucide-react'
+import { X, User, UserX, Users, Search } from 'lucide-react'
+import { getIconComponent } from '@/lib/icon-system'
 
 interface CustomStatus {
   id: string
@@ -44,22 +45,6 @@ interface Queue {
   isDefault: boolean
 }
 
-const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-    AlertCircle,
-    ArrowRight,
-    CheckCircle2,
-    Clock,
-    Timer,
-    AlertTriangle,
-    Circle,
-    Zap,
-    TrendingUp,
-    Inbox,
-    Folder
-  }
-  return iconMap[iconName] || AlertCircle
-}
 
 interface User {
   id: string
@@ -420,7 +405,9 @@ export default function TicketFilters() {
               return (
                 <SelectItem key={queue.id} value={queue.id}>
                   <span className="flex items-center gap-2">
-                    <IconComponent className="h-4 w-4" />
+                    <div style={{ color: queue.color }}>
+                      <IconComponent className="h-4 w-4" />
+                    </div>
                     <span>{queue.name}</span>
                   </span>
                 </SelectItem>

@@ -1,0 +1,683 @@
+[
+  {
+    "name": "accessibility",
+    "categories": [
+      "accessibility",
+      "medical"
+    ],
+    "tags": [
+      "disability",
+      "disabled",
+      "dda",
+      "wheelchair"
+    ]
+  },
+  {
+    "name": "activity",
+    "categories": [
+      "medical",
+      "account",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "ambulance",
+    "categories": [
+      "medical",
+      "transportation"
+    ],
+    "tags": [
+      "ambulance",
+      "emergency",
+      "medical",
+      "vehicle",
+      "siren",
+      "healthcare",
+      "transportation",
+      "rescue",
+      "urgent",
+      "first aid"
+    ]
+  },
+  {
+    "name": "bandage",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "plaster",
+      "band-aid",
+      "first aid",
+      "medical",
+      "health",
+      "wound",
+      "injury",
+      "care",
+      "treatment",
+      "healing",
+      "protection",
+      "emergency",
+      "aid",
+      "safety"
+    ]
+  },
+  {
+    "name": "bone",
+    "categories": [
+      "animals",
+      "medical",
+      "gaming"
+    ],
+    "tags": [
+      "health",
+      "skeleton",
+      "skull",
+      "death",
+      "pets",
+      "dog"
+    ]
+  },
+  {
+    "name": "brain",
+    "categories": [
+      "medical",
+      "science"
+    ],
+    "tags": [
+      "medical",
+      "mind",
+      "intellect",
+      "cerebral",
+      "consciousness",
+      "genius",
+      "artificial intelligence",
+      "ai"
+    ]
+  },
+  {
+    "name": "briefcase-medical",
+    "categories": [
+      "medical",
+      "transportation"
+    ],
+    "tags": [
+      "doctor",
+      "medicine",
+      "first aid"
+    ]
+  },
+  {
+    "name": "cigarette-off",
+    "categories": [
+      "travel",
+      "transportation",
+      "medical"
+    ],
+    "tags": [
+      "smoking",
+      "no-smoking"
+    ]
+  },
+  {
+    "name": "cigarette",
+    "categories": [
+      "travel",
+      "transportation",
+      "medical"
+    ],
+    "tags": [
+      "smoking"
+    ]
+  },
+  {
+    "name": "circle-small",
+    "categories": [
+      "shapes",
+      "medical"
+    ],
+    "tags": [
+      "shape",
+      "bullet",
+      "gender",
+      "genderless"
+    ]
+  },
+  {
+    "name": "clipboard-minus",
+    "categories": [
+      "text",
+      "medical"
+    ],
+    "tags": [
+      "copy",
+      "delete",
+      "remove",
+      "erase",
+      "document",
+      "medical",
+      "report",
+      "doctor"
+    ]
+  },
+  {
+    "name": "clipboard-plus",
+    "categories": [
+      "text",
+      "medical"
+    ],
+    "tags": [
+      "copy",
+      "paste",
+      "add",
+      "create",
+      "new",
+      "document",
+      "medical",
+      "report",
+      "doctor"
+    ]
+  },
+  {
+    "name": "dna-off",
+    "categories": [
+      "medical",
+      "food-beverage"
+    ],
+    "tags": [
+      "gene",
+      "gmo free",
+      "helix",
+      "heredity",
+      "chromosome",
+      "nucleic acid"
+    ]
+  },
+  {
+    "name": "dna",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "gene",
+      "gmo",
+      "helix",
+      "heredity",
+      "chromosome",
+      "nucleic acid"
+    ]
+  },
+  {
+    "name": "ear-off",
+    "categories": [
+      "medical",
+      "accessibility"
+    ],
+    "tags": [
+      "hearing",
+      "hard of hearing",
+      "hearing loss",
+      "deafness",
+      "noise",
+      "silence",
+      "audio",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "ear",
+    "categories": [
+      "medical",
+      "accessibility"
+    ],
+    "tags": [
+      "hearing",
+      "noise",
+      "audio",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "fingerprint",
+    "categories": [
+      "account",
+      "security",
+      "medical",
+      "devices"
+    ],
+    "tags": [
+      "2fa",
+      "authentication",
+      "biometric",
+      "identity",
+      "security"
+    ]
+  },
+  {
+    "name": "heart-pulse",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "heartbeat",
+      "pulse",
+      "health",
+      "medical",
+      "blood pressure",
+      "cardiac",
+      "systole",
+      "diastole"
+    ]
+  },
+  {
+    "name": "heart",
+    "categories": [
+      "medical",
+      "social",
+      "multimedia",
+      "emoji",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "like",
+      "love",
+      "emotion",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "hospital",
+    "categories": [
+      "medical",
+      "buildings",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "infirmary",
+      "sanatorium",
+      "healthcare",
+      "doctor",
+      "hospice",
+      "clinic",
+      "emergency room",
+      "ward",
+      "building",
+      "medical",
+      "vet"
+    ]
+  },
+  {
+    "name": "house-plus",
+    "categories": [
+      "buildings",
+      "medical"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "medical",
+      "new",
+      "addition",
+      "building",
+      "residence",
+      "architecture"
+    ]
+  },
+  {
+    "name": "life-buoy",
+    "categories": [
+      "accessibility",
+      "medical"
+    ],
+    "tags": [
+      "preserver",
+      "life belt",
+      "lifesaver",
+      "help",
+      "rescue",
+      "ship",
+      "ring",
+      "raft",
+      "inflatable",
+      "wheel",
+      "donut"
+    ]
+  },
+  {
+    "name": "mars-stroke",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "gender",
+      "androgyne",
+      "transgender"
+    ]
+  },
+  {
+    "name": "mars",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "gender",
+      "sex",
+      "male",
+      "masculine",
+      "man",
+      "boy"
+    ]
+  },
+  {
+    "name": "microscope",
+    "categories": [
+      "science",
+      "medical"
+    ],
+    "tags": [
+      "medical",
+      "education",
+      "science",
+      "imaging",
+      "research"
+    ]
+  },
+  {
+    "name": "non-binary",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "gender",
+      "nonbinary",
+      "enby"
+    ]
+  },
+  {
+    "name": "pill-bottle",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "medicine",
+      "medication",
+      "prescription",
+      "drug",
+      "supplement",
+      "vitamin",
+      "capsule",
+      "jar",
+      "container",
+      "healthcare",
+      "pharmaceutical",
+      "tablet"
+    ]
+  },
+  {
+    "name": "pill",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "medicine",
+      "medication",
+      "drug",
+      "prescription",
+      "tablet",
+      "pharmacy"
+    ]
+  },
+  {
+    "name": "ribbon",
+    "categories": [
+      "social",
+      "medical",
+      "emoji"
+    ],
+    "tags": [
+      "awareness",
+      "strip",
+      "band",
+      "tape",
+      "strap",
+      "cordon"
+    ]
+  },
+  {
+    "name": "scan-heart",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "health",
+      "heart rate",
+      "pulse",
+      "monitoring",
+      "healthiness",
+      "screening",
+      "dashed"
+    ]
+  },
+  {
+    "name": "shield-plus",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "medical"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "extra",
+      "added",
+      "professional",
+      "enterprise",
+      "full",
+      "maximum",
+      "upgraded",
+      "ultra",
+      "activate",
+      "enable",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "medic",
+      "+"
+    ]
+  },
+  {
+    "name": "siren",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "police",
+      "ambulance",
+      "emergency",
+      "security",
+      "alert",
+      "alarm",
+      "light"
+    ]
+  },
+  {
+    "name": "square-activity",
+    "categories": [
+      "medical",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "stethoscope",
+    "categories": [
+      "science",
+      "medical"
+    ],
+    "tags": [
+      "phonendoscope",
+      "medical",
+      "heart",
+      "lungs",
+      "sound"
+    ]
+  },
+  {
+    "name": "syringe",
+    "categories": [
+      "science",
+      "medical"
+    ],
+    "tags": [
+      "medicine",
+      "medical",
+      "needle",
+      "pump",
+      "plunger",
+      "nozzle",
+      "blood"
+    ]
+  },
+  {
+    "name": "tablets",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "medicine",
+      "medication",
+      "drug",
+      "prescription",
+      "pills",
+      "pharmacy"
+    ]
+  },
+  {
+    "name": "transgender",
+    "categories": [
+      "medical",
+      "accessibility"
+    ],
+    "tags": [
+      "gender",
+      "inclusive"
+    ]
+  },
+  {
+    "name": "venus-and-mars",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "gender",
+      "sex",
+      "intersex",
+      "androgynous",
+      "hermaphrodite"
+    ]
+  },
+  {
+    "name": "venus",
+    "categories": [
+      "medical"
+    ],
+    "tags": [
+      "gender",
+      "sex",
+      "female",
+      "feminine",
+      "woman",
+      "girl"
+    ]
+  }
+]

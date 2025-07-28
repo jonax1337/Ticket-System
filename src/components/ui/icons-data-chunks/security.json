@@ -1,0 +1,1323 @@
+[
+  {
+    "name": "book-key",
+    "categories": [
+      "development",
+      "security",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "private",
+      "public",
+      "secret",
+      "unlocked",
+      "hidden",
+      "revealed",
+      "knowledge",
+      "learning"
+    ]
+  },
+  {
+    "name": "book-lock",
+    "categories": [
+      "development",
+      "security",
+      "gaming"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "version control",
+      "git",
+      "repository",
+      "private",
+      "secret",
+      "hidden",
+      "knowledge"
+    ]
+  },
+  {
+    "name": "cctv",
+    "categories": [
+      "security",
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "surveillance",
+      "recording",
+      "film",
+      "videotape",
+      "crime",
+      "watching"
+    ]
+  },
+  {
+    "name": "columns-4",
+    "categories": [
+      "layout",
+      "design",
+      "text",
+      "security"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "thirds",
+      "triple",
+      "center",
+      "middle",
+      "alignment",
+      "even",
+      "sidebars",
+      "drawers",
+      "gutters",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages",
+      "prison",
+      "jail",
+      "bars",
+      "sentence",
+      "police",
+      "cops",
+      "cell",
+      "crime",
+      "criminal",
+      "justice",
+      "law",
+      "enforcement",
+      "grill"
+    ]
+  },
+  {
+    "name": "door-closed",
+    "categories": [
+      "home",
+      "travel",
+      "security"
+    ],
+    "tags": [
+      "entrance",
+      "entry",
+      "exit",
+      "ingress",
+      "egress",
+      "gate",
+      "gateway",
+      "emergency exit"
+    ]
+  },
+  {
+    "name": "door-open",
+    "categories": [
+      "home",
+      "travel",
+      "security"
+    ],
+    "tags": [
+      "entrance",
+      "entry",
+      "exit",
+      "ingress",
+      "egress",
+      "gate",
+      "gateway",
+      "emergency exit"
+    ]
+  },
+  {
+    "name": "earth-lock",
+    "categories": [
+      "security",
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "vpn",
+      "private",
+      "privacy",
+      "network",
+      "world",
+      "browser",
+      "security",
+      "encryption",
+      "protection",
+      "connection"
+    ]
+  },
+  {
+    "name": "eye-closed",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye-off",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "show",
+      "expose",
+      "reveal",
+      "display",
+      "visible",
+      "visibility",
+      "vision",
+      "preview",
+      "read"
+    ]
+  },
+  {
+    "name": "file-key-2",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "key",
+      "private",
+      "public",
+      "security"
+    ]
+  },
+  {
+    "name": "file-key",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "key",
+      "private",
+      "public",
+      "security"
+    ]
+  },
+  {
+    "name": "file-lock-2",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "lock",
+      "password",
+      "security"
+    ]
+  },
+  {
+    "name": "file-lock",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "lock",
+      "password",
+      "security"
+    ]
+  },
+  {
+    "name": "fingerprint",
+    "categories": [
+      "account",
+      "security",
+      "medical",
+      "devices"
+    ],
+    "tags": [
+      "2fa",
+      "authentication",
+      "biometric",
+      "identity",
+      "security"
+    ]
+  },
+  {
+    "name": "folder-key",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "directory",
+      "key",
+      "private",
+      "security",
+      "protected"
+    ]
+  },
+  {
+    "name": "folder-lock",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "directory",
+      "lock",
+      "private",
+      "security",
+      "protected"
+    ]
+  },
+  {
+    "name": "globe-lock",
+    "categories": [
+      "security",
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "vpn",
+      "private",
+      "privacy",
+      "network",
+      "world",
+      "browser",
+      "security",
+      "encryption",
+      "protection",
+      "connection"
+    ]
+  },
+  {
+    "name": "handshake",
+    "categories": [
+      "account",
+      "social",
+      "communication",
+      "finance",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "partnership",
+      "deal",
+      "business",
+      "assistance",
+      "cooperation",
+      "friendship",
+      "union",
+      "terms"
+    ]
+  },
+  {
+    "name": "heart-handshake",
+    "categories": [
+      "emoji",
+      "account",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "charity",
+      "help",
+      "deal",
+      "terms",
+      "emotion",
+      "together",
+      "handshake"
+    ]
+  },
+  {
+    "name": "id-card",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "card",
+      "badge",
+      "identity",
+      "authentication",
+      "secure"
+    ]
+  },
+  {
+    "name": "key-round",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "password",
+      "login",
+      "authentication",
+      "secure",
+      "unlock"
+    ]
+  },
+  {
+    "name": "key-square",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "password",
+      "login",
+      "authentication",
+      "secure",
+      "unlock",
+      "car key"
+    ]
+  },
+  {
+    "name": "key",
+    "categories": [
+      "security",
+      "account"
+    ],
+    "tags": [
+      "password",
+      "login",
+      "authentication",
+      "secure",
+      "unlock",
+      "keychain",
+      "key ring",
+      "fob"
+    ]
+  },
+  {
+    "name": "lock-keyhole-open",
+    "categories": [
+      "security"
+    ],
+    "tags": [
+      "security"
+    ]
+  },
+  {
+    "name": "lock-keyhole",
+    "categories": [
+      "security"
+    ],
+    "tags": [
+      "security",
+      "password",
+      "secure",
+      "admin"
+    ]
+  },
+  {
+    "name": "lock-open",
+    "categories": [
+      "security"
+    ],
+    "tags": [
+      "security"
+    ]
+  },
+  {
+    "name": "lock",
+    "categories": [
+      "security"
+    ],
+    "tags": [
+      "security",
+      "password",
+      "secure",
+      "admin"
+    ]
+  },
+  {
+    "name": "radar",
+    "categories": [
+      "navigation",
+      "security",
+      "communication"
+    ],
+    "tags": [
+      "scan",
+      "sonar",
+      "detect",
+      "find",
+      "locate"
+    ]
+  },
+  {
+    "name": "scan-eye",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility",
+      "security",
+      "devices",
+      "account"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "camera",
+      "watch",
+      "surveillance",
+      "retina",
+      "focus",
+      "lens",
+      "biometric",
+      "identification",
+      "authentication",
+      "access",
+      "login"
+    ]
+  },
+  {
+    "name": "scan-face",
+    "categories": [
+      "account",
+      "security",
+      "devices",
+      "social"
+    ],
+    "tags": [
+      "face",
+      "biometric",
+      "identification",
+      "authentication",
+      "2fa",
+      "access",
+      "login",
+      "dashed"
+    ]
+  },
+  {
+    "name": "scan-qr-code",
+    "categories": [
+      "account",
+      "shopping",
+      "devices",
+      "security"
+    ],
+    "tags": [
+      "barcode",
+      "scan",
+      "qrcode",
+      "url",
+      "information",
+      "digital",
+      "scanner"
+    ]
+  },
+  {
+    "name": "scan",
+    "categories": [
+      "devices",
+      "shopping",
+      "security",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "qr-code",
+      "barcode",
+      "checkout",
+      "augmented reality",
+      "ar",
+      "target",
+      "surveillance",
+      "camera",
+      "lens",
+      "focus",
+      "frame",
+      "select",
+      "box",
+      "boundary",
+      "bounds",
+      "area",
+      "square",
+      "dashed"
+    ]
+  },
+  {
+    "name": "shield-alert",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "notifications",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "warning",
+      "emergency",
+      "attention",
+      "urgent",
+      "alarm",
+      "crest",
+      "bravery",
+      "strength",
+      "tough",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "disabled",
+      "inactive",
+      "error",
+      "exclamation mark",
+      "!"
+    ]
+  },
+  {
+    "name": "shield-ban",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "cancel",
+      "error",
+      "crest",
+      "bravery",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "eliminated",
+      "disabled",
+      "inactive",
+      "/"
+    ]
+  },
+  {
+    "name": "shield-check",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secured",
+      "safety",
+      "protection",
+      "protected",
+      "guardian",
+      "guarded",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defended",
+      "blocked",
+      "threat",
+      "prevention",
+      "prevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "active",
+      "activated",
+      "enabled",
+      "detection",
+      "scanned",
+      "found",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audited",
+      "admin",
+      "verification",
+      "verified",
+      "certification",
+      "certified",
+      "tested",
+      "passed",
+      "qualified",
+      "cleared",
+      "cleaned",
+      "disinfected",
+      "uninfected",
+      "task",
+      "completed",
+      "todo",
+      "done",
+      "ticked",
+      "checked",
+      "crest",
+      "bravery"
+    ]
+  },
+  {
+    "name": "shield-ellipsis",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "securing",
+      "protecting",
+      "guarding",
+      "armoring",
+      "armouring",
+      "defending",
+      "blocking",
+      "preventing",
+      "antivirus",
+      "detecting",
+      "scanning",
+      "finding",
+      "auditing",
+      "admin",
+      "verifying",
+      "crest",
+      "upgrading",
+      "loader",
+      "loading",
+      "throbber",
+      "progress",
+      "dots",
+      "more",
+      "etc",
+      "...",
+      "…"
+    ]
+  },
+  {
+    "name": "shield-half",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "logo",
+      "sigil",
+      "flag",
+      "team",
+      "faction",
+      "fraternity",
+      "university",
+      "college",
+      "academy",
+      "school",
+      "education",
+      "uniform",
+      "bravery",
+      "knight",
+      "foot soldier",
+      "infantry",
+      "trooper",
+      "pawn",
+      "battle",
+      "war",
+      "military",
+      "ranking",
+      "army",
+      "cadet",
+      "scout"
+    ]
+  },
+  {
+    "name": "shield-minus",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshield",
+      "cybersecurity",
+      "unsecure",
+      "unguard",
+      "unblock",
+      "antivirus",
+      "clean",
+      "clear",
+      "disinfect",
+      "patch",
+      "fix",
+      "stop",
+      "cancel",
+      "remove",
+      "relax",
+      "admin",
+      "crest",
+      "bravery",
+      "weakened",
+      "damaged",
+      "hit",
+      "unarm",
+      "disable",
+      "deactivate",
+      "decommission",
+      "downgraded",
+      "minimum",
+      "-"
+    ]
+  },
+  {
+    "name": "shield-off",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "interception",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "detection",
+      "undetected",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infected",
+      "infection",
+      "comprimised",
+      "data leak",
+      "unaudited",
+      "admin",
+      "verification",
+      "unverified",
+      "inactive",
+      "cancelled",
+      "error",
+      "crest",
+      "bravery",
+      "damaged",
+      "injured",
+      "hit",
+      "expired",
+      "eliminated"
+    ]
+  },
+  {
+    "name": "shield-plus",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "medical"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "extra",
+      "added",
+      "professional",
+      "enterprise",
+      "full",
+      "maximum",
+      "upgraded",
+      "ultra",
+      "activate",
+      "enable",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "medic",
+      "+"
+    ]
+  },
+  {
+    "name": "shield-question",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "threat",
+      "prevention",
+      "unprevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "undetected",
+      "scan",
+      "find",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "comprimised",
+      "data leak",
+      "audit",
+      "admin",
+      "verification",
+      "unverified",
+      "uncertified",
+      "uncertain",
+      "unknown",
+      "inactive",
+      "crest",
+      "question mark",
+      "?"
+    ]
+  },
+  {
+    "name": "shield-x",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "unshielded",
+      "cybersecurity",
+      "insecure",
+      "unsecured",
+      "safety",
+      "unsafe",
+      "protection",
+      "unprotected",
+      "guardian",
+      "unguarded",
+      "unarmored",
+      "unarmoured",
+      "defenseless",
+      "defenceless",
+      "undefended",
+      "defender",
+      "blocked",
+      "stopped",
+      "intercepted",
+      "interception",
+      "saved",
+      "thwarted",
+      "threat",
+      "prevention",
+      "prevented",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "detected",
+      "scanned",
+      "found",
+      "exploit",
+      "vulnerability",
+      "vulnerable",
+      "weakness",
+      "infection",
+      "infected",
+      "comprimised",
+      "data leak",
+      "audited",
+      "admin",
+      "verification",
+      "unverified",
+      "inactive",
+      "cancel",
+      "error",
+      "wrong",
+      "false",
+      "crest",
+      "bravery",
+      "attacked",
+      "damaged",
+      "injured",
+      "hit",
+      "dead",
+      "deceased",
+      "expired",
+      "eliminated",
+      "exterminated"
+    ]
+  },
+  {
+    "name": "shield",
+    "categories": [
+      "account",
+      "security",
+      "development",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "cybersecurity",
+      "secure",
+      "safety",
+      "protection",
+      "guardian",
+      "armored",
+      "armoured",
+      "defense",
+      "defence",
+      "defender",
+      "block",
+      "threat",
+      "prevention",
+      "antivirus",
+      "vigilance",
+      "vigilant",
+      "detection",
+      "scan",
+      "find",
+      "strength",
+      "strong",
+      "tough",
+      "invincible",
+      "invincibility",
+      "invulnerable",
+      "undamaged",
+      "audit",
+      "admin",
+      "verification",
+      "crest",
+      "bravery",
+      "knight",
+      "foot soldier",
+      "infantry",
+      "trooper",
+      "pawn",
+      "battle",
+      "war",
+      "military",
+      "army",
+      "cadet",
+      "scout"
+    ]
+  },
+  {
+    "name": "square-asterisk",
+    "categories": [
+      "text",
+      "security",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "password",
+      "secret",
+      "access",
+      "key",
+      "multiply",
+      "multiplication",
+      "glob pattern",
+      "wildcard",
+      "*"
+    ]
+  },
+  {
+    "name": "vault",
+    "categories": [
+      "security",
+      "travel",
+      "home"
+    ],
+    "tags": [
+      "safe",
+      "lockbox",
+      "deposit",
+      "locker",
+      "coffer",
+      "strongbox",
+      "safety",
+      "secure",
+      "storage",
+      "valuables",
+      "bank"
+    ]
+  },
+  {
+    "name": "waypoints",
+    "categories": [
+      "security",
+      "account",
+      "navigation",
+      "development",
+      "social"
+    ],
+    "tags": [
+      "indirection",
+      "vpn",
+      "virtual private network",
+      "proxy",
+      "connections",
+      "bounce",
+      "reroute",
+      "path",
+      "journey",
+      "planner",
+      "stops",
+      "stations",
+      "shared",
+      "spread",
+      "viral"
+    ]
+  },
+  {
+    "name": "worm",
+    "categories": [
+      "animals",
+      "security"
+    ],
+    "tags": [
+      "invertebrate",
+      "grub",
+      "larva",
+      "snake",
+      "crawl",
+      "wiggle",
+      "slither",
+      "pest control",
+      "computer virus",
+      "malware"
+    ]
+  }
+]
