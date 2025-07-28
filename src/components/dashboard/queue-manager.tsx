@@ -46,7 +46,7 @@ import {
 import {
   CSS,
 } from '@dnd-kit/utilities'
-import { IconPicker, IconDisplay } from '@/components/ui/enhanced-icon-picker'
+import { IconPicker } from '@/components/ui/enhanced-icon-picker'
 import { getIconComponent } from '@/lib/icon-system'
 
 interface Queue {

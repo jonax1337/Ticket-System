@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Plus, Edit, Trash2, Clock, Timer, AlertCircle, AlertTriangle, Zap, TrendingUp, GripVertical, RefreshCw } from 'lucide-react'
+import { Plus, Edit, Trash2, Clock, GripVertical, RefreshCw } from 'lucide-react'
 import { IconPicker } from '@/components/ui/enhanced-icon-picker'
 import { getIconComponent } from '@/lib/icon-system'
 import { toast } from 'sonner'

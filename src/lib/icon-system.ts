@@ -77,7 +77,6 @@ import {
   Video,
   Camera,
   Mic,
-  MicOff,
   Headphones,
   Speaker,
   Monitor,
