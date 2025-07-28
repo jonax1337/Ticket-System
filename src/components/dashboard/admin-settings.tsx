@@ -197,7 +197,7 @@ export default function AdminSettings({ settings, tabMode = 'full' }: AdminSetti
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
               <Label htmlFor="ticketPrefix">Ticket Prefix</Label>
               <Input
@@ -227,25 +227,25 @@ export default function AdminSettings({ settings, tabMode = 'full' }: AdminSetti
                 Choose between sequential numbers or random alphanumeric codes
               </p>
             </div>
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="ticketNumberLength">Number Length</Label>
-            <Select value={ticketNumberLength.toString()} onValueChange={(value) => setTicketNumberLength(parseInt(value))}>
-              <SelectTrigger className="w-auto min-w-[100px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="4">4 digits</SelectItem>
-                <SelectItem value="5">5 digits</SelectItem>
-                <SelectItem value="6">6 digits</SelectItem>
-                <SelectItem value="7">7 digits</SelectItem>
-                <SelectItem value="8">8 digits</SelectItem>
-              </SelectContent>
-            </Select>
-            <p className="text-sm text-muted-foreground">
-              Length of the number/code part
-            </p>
+
+            <div className="space-y-2">
+              <Label htmlFor="ticketNumberLength">Number Length</Label>
+              <Select value={ticketNumberLength.toString()} onValueChange={(value) => setTicketNumberLength(parseInt(value))}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="4">4 digits</SelectItem>
+                  <SelectItem value="5">5 digits</SelectItem>
+                  <SelectItem value="6">6 digits</SelectItem>
+                  <SelectItem value="7">7 digits</SelectItem>
+                  <SelectItem value="8">8 digits</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-sm text-muted-foreground">
+                Length of the number/code part
+              </p>
+            </div>
           </div>
           
           <div className="bg-muted/50 rounded-lg p-4">
