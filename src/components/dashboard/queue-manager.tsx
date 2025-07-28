@@ -443,7 +443,7 @@ export default function QueueManager() {
                   <AlertDialogDescription>
                     Are you sure you want to delete the queue <strong>&ldquo;{queue.name}&rdquo;</strong>?
                     {queue._count.tickets > 0 && (
-                      <><br /><br />This queue contains <strong>{queue._count.tickets}</strong> ticket{queue._count.tickets !== 1 ? 's' : ''}. All tickets will be moved to &ldquo;No Queue&rdquo;.</>
+                      <><br /><br />This queue contains <strong>{queue._count.tickets}</strong> ticket{queue._count.tickets !== 1 ? 's' : ''}. All tickets will be moved to &ldquo;Default&rdquo;.</>
                     )}
                     {queue._count.userQueues > 0 && (
                       <><br /><br /><strong>{queue._count.userQueues}</strong> user{queue._count.userQueues !== 1 ? 's are' : ' is'} assigned to this queue and will lose access.</>
