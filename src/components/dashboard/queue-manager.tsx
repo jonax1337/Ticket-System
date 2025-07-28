@@ -8,10 +8,30 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Trash2, Edit, Plus, Save, X, Inbox, Folder, Circle, Users, Settings } from 'lucide-react'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Trash2, Edit, Plus, Save, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core'
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from '@dnd-kit/sortable'
+import {
+  CSS,
+} from '@dnd-kit/utilities'
 
 interface Queue {
   id: string
@@ -77,9 +97,55 @@ export default function QueueManager() {
     order: 0
   })
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
   useEffect(() => {
     fetchData()
   }, [])
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event
+
+    if (active.id !== over?.id) {
+      const oldIndex = queues.findIndex((queue) => queue.id === active.id)
+      const newIndex = queues.findIndex((queue) => queue.id === over?.id)
+
+      const newQueues = arrayMove(queues, oldIndex, newIndex)
+      setQueues(newQueues)
+
+      // Update order in database
+      try {
+        await Promise.all(
+          newQueues.map((queue, index) =>
+            fetch(`/api/queues/${queue.id}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                name: queue.name,
+                description: queue.description,
+                color: queue.color,
+                icon: queue.icon,
+                isDefault: queue.isDefault,
+                order: index + 1,
+              }),
+            })
+          )
+        )
+      } catch (error) {
+        console.error('Error updating queue order:', error)
+        toast.error('Failed to update queue order')
+        // Revert the change on error
+        fetchData()
+      }
+    }
+  }
 
   const fetchData = async () => {
     try {
@@ -92,8 +158,8 @@ export default function QueueManager() {
         setQueues(queuesData)
       }
 
-      // Fetch users
-      const usersResponse = await fetch('/api/admin/users')
+      // Fetch users - Fix: use correct API endpoint
+      const usersResponse = await fetch('/api/users')
       if (usersResponse.ok) {
         const usersData = await usersResponse.json()
         setUsers(usersData)
@@ -258,8 +324,104 @@ export default function QueueManager() {
     return userQueues.filter(uq => uq.queueId === queueId)
   }
 
+  // Sortable Queue Row Component
+  const SortableQueueRow = ({ queue }: { queue: Queue }) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+    } = useSortable({ id: queue.id })
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+    }
+
+    const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
+
+    return (
+      <TableRow ref={setNodeRef} style={style} {...attributes}>
+        <TableCell>
+          <div className="flex items-center gap-2">
+            <div {...listeners} className="cursor-grab hover:cursor-grabbing">
+              <GripVertical className="h-4 w-4 text-muted-foreground" />
+            </div>
+            <IconComponent 
+              className="h-4 w-4" 
+              style={{ color: queue.color }}
+            />
+            <span className="font-medium">{queue.name}</span>
+          </div>
+        </TableCell>
+        <TableCell>
+          {queue.description && (
+            <span className="text-sm text-muted-foreground">{queue.description}</span>
+          )}
+        </TableCell>
+        <TableCell>
+          <div className="flex gap-4 text-xs text-muted-foreground">
+            <span>{queue._count.tickets} tickets</span>
+            <span>{queue._count.userQueues} users</span>
+          </div>
+        </TableCell>
+        <TableCell>
+          {queue.isDefault ? (
+            <Badge variant="secondary">Default</Badge>
+          ) : (
+            <Badge variant="outline">Custom</Badge>
+          )}
+        </TableCell>
+        <TableCell className="text-right">
+          <div className="flex items-center justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleEditQueue(queue)}
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => handleDeleteQueue(queue.id)}
+              disabled={queue._count.tickets > 0}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        </TableCell>
+      </TableRow>
+    )
+  }
+
   if (loading) {
-    return <div>Loading queue management...</div>
+    return (
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Inbox className="h-5 w-5" />
+                  Queue Management
+                </CardTitle>
+                <CardDescription>
+                  Create and manage support queues for organizing tickets. Drag to reorder.
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+              <p className="mt-2 text-sm text-muted-foreground">Loading queue management...</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (
@@ -269,9 +431,12 @@ export default function QueueManager() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Queue Management</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Inbox className="h-5 w-5" />
+                Queue Management
+              </CardTitle>
               <CardDescription>
-                Create and manage support queues for organizing tickets
+                Create and manage support queues for organizing tickets.<br />Drag to reorder.
               </CardDescription>
             </div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -397,53 +562,55 @@ export default function QueueManager() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
-            {queues.map((queue) => {
-              const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
-              return (
-                <div key={queue.id} className="flex items-center justify-between p-4 border rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <IconComponent 
-                      className="h-5 w-5" 
-                      style={{ color: queue.color }}
-                    />
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{queue.name}</span>
-                        {queue.isDefault && (
-                          <Badge variant="secondary" className="text-xs">Default</Badge>
-                        )}
-                      </div>
-                      {queue.description && (
-                        <p className="text-sm text-muted-foreground">{queue.description}</p>
-                      )}
-                      <div className="flex gap-4 text-xs text-muted-foreground mt-1">
-                        <span>{queue._count.tickets} tickets</span>
-                        <span>{queue._count.userQueues} users</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleEditQueue(queue)}
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDeleteQueue(queue.id)}
-                      disabled={queue._count.tickets > 0}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          {/* Silent loading indicator */}
+          {loading && queues.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+              <RefreshCw className="h-3 w-3 animate-spin" />
+              <span>Updating queues...</span>
+            </div>
+          )}
+          
+          {queues.length === 0 ? (
+            <div className="text-center py-8">
+              {loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                  <p className="mt-2 text-sm text-muted-foreground">Loading queues...</p>
+                </>
+              ) : (
+                <>
+                  <Inbox className="h-12 w-12 text-muted-foreground/50 mx-auto mb-3" />
+                  <h4 className="text-sm font-medium text-muted-foreground mb-1">No queues configured</h4>
+                  <p className="text-xs text-muted-foreground">Add your first queue to get started</p>
+                </>
+              )}
+            </div>
+          ) : (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Queue</TableHead>
+                    <TableHead>Description</TableHead>
+                    <TableHead>Statistics</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <SortableContext items={queues.map(q => q.id)} strategy={verticalListSortingStrategy}>
+                    {queues.map((queue) => (
+                      <SortableQueueRow key={queue.id} queue={queue} />
+                    ))}
+                  </SortableContext>
+                </TableBody>
+              </Table>
+            </DndContext>
+          )}
         </CardContent>
       </Card>
 

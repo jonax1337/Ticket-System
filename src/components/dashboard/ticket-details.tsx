@@ -137,16 +137,14 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const router = useRouter()
   const { statuses, priorities, isLoading: cacheLoading } = useCache()
 
-  // Load queues
+  // Load ALL queues for ticket assignment (not just user's assigned queues)
   useEffect(() => {
     const fetchQueues = async () => {
       try {
-        const response = await fetch('/api/users/queues') // Get user's assigned queues instead of all queues
+        const response = await fetch('/api/queues') // Get ALL queues for assignment
         if (response.ok) {
-          const userQueueData = await response.json()
-          // Extract just the queue data from user queue assignments
-          const queueData = userQueueData.map((uq: { queue: {id: string, name: string, color: string, icon: string} }) => uq.queue)
-          setQueues(queueData)
+          const allQueues = await response.json()
+          setQueues(allQueues)
         }
       } catch (error) {
         console.error('Failed to fetch queues:', error)
