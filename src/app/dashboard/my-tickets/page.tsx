@@ -53,7 +53,7 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
     
     // If user has no access to any queues, they see no tickets
     if (userQueueIds.length === 0) {
-      userQueueIds = ['no-access'] // This will match no tickets
+      userQueueIds = ['__NO_ACCESS__'] // Explicit non-UUID identifier
     }
   }
 
