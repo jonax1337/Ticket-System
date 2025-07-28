@@ -297,7 +297,7 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
                       (() => {
                         const IconComponent = getIconComponent(ticket.queue.icon)
                         return (
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs" style={{ color: ticket.queue.color, borderColor: ticket.queue.color }}>
                             <IconComponent className="h-3 w-3 mr-1" />
                             {ticket.queue.name}
                           </Badge>

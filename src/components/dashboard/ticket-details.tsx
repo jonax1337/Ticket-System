@@ -516,7 +516,9 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
                     return (
                       <SelectItem key={queue.id} value={queue.id}>
                         <span className="flex items-center gap-2">
-                          <IconComponent className="h-4 w-4" />
+                          <div style={{ color: queue.color }}>
+                            <IconComponent className="h-4 w-4" />
+                          </div>
                           <span>{queue.name}</span>
                         </span>
                       </SelectItem>

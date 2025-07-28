@@ -792,7 +792,9 @@ export default function QueueManager() {
                                             {isAlreadyAssigned && (
                                               <Check className="h-4 w-4 text-primary" />
                                             )}
-                                            <IconComponent className="h-4 w-4" />
+                                            <div style={{ color: queue.color }}>
+                                              <IconComponent className="h-4 w-4" />
+                                            </div>
                                             <div className="flex-1">
                                               <span style={{ color: queue.color }}>{queue.name}</span>
                                             </div>
