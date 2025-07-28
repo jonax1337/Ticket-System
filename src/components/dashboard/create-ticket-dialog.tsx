@@ -82,7 +82,7 @@ export function CreateTicketDialog() {
   const [queues, setQueues] = useState<Array<{id: string, name: string, color: string, icon: string}>>([])
   const [priority, setPriority] = useState<string>('Medium')
   const [assignedTo, setAssignedTo] = useState<string>('')
-  const [selectedQueue, setSelectedQueue] = useState<string>('')
+  const [selectedQueue, setSelectedQueue] = useState<string>('no-queue')
   const [attachments, setAttachments] = useState<File[]>([])
   const [dueDate, setDueDate] = useState<Date | undefined>(undefined)
   const [reminderDate, setReminderDate] = useState<Date | undefined>(undefined)
@@ -193,7 +193,7 @@ export function CreateTicketDialog() {
           fromEmail: formData.get('fromEmail') || 'internal@support.com',
           fromName: formData.get('fromName') || 'Internal Support',
           priority: priority,
-          queueId: selectedQueue || null,
+          queueId: selectedQueue && selectedQueue !== 'no-queue' ? selectedQueue : null,
           assignedTo: assignedTo || null,
           attachments: uploadedFiles,
           dueDate: dueDate ? normalizeDateToMidnight(dueDate)?.toISOString() : null,
@@ -214,7 +214,7 @@ export function CreateTicketDialog() {
       const defaultPriority = priorities.find(p => p.name === 'Medium') || priorities[0]
       setPriority(defaultPriority?.name || 'Medium')
       setAssignedTo('')
-      setSelectedQueue('')
+      setSelectedQueue('no-queue')
       setAttachments([])
       setDueDate(undefined)
       setReminderDate(undefined)
@@ -319,7 +319,7 @@ export function CreateTicketDialog() {
                         <SelectValue placeholder="Select queue" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">
+                        <SelectItem value="no-queue">
                           <span className="flex items-center gap-2">
                             <span>No Queue</span>
                           </span>
