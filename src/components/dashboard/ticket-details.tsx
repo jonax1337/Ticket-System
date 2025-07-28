@@ -226,12 +226,12 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
 
   const handleQueueChange = async (queueId: string) => {
     setIsLoading(true)
-    const previousQueueId = ticket.queueId
+    const previousQueue = ticket.queue
     const newQueueId = queueId === 'NONE' ? null : queueId
     const newQueue = queueId === 'NONE' ? null : queues.find(q => q.id === queueId) || null
     
     // Optimistic update
-    setTicket(prev => ({ ...prev, queueId: newQueueId, queue: newQueue }))
+    setTicket(prev => ({ ...prev, queue: newQueue }))
     
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
@@ -244,15 +244,13 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
 
       if (!response.ok) {
         // Revert optimistic update on error
-        const previousQueue = queues.find(q => q.id === previousQueueId) || null
-        setTicket(prev => ({ ...prev, queueId: previousQueueId, queue: previousQueue }))
+        setTicket(prev => ({ ...prev, queue: previousQueue }))
         throw new Error('Failed to update queue')
       }
     } catch (error) {
       console.error('Failed to update queue:', error)
       // Revert optimistic update
-      const previousQueue = queues.find(q => q.id === previousQueueId) || null
-      setTicket(prev => ({ ...prev, queueId: previousQueueId, queue: previousQueue }))
+      setTicket(prev => ({ ...prev, queue: previousQueue }))
     } finally {
       setIsLoading(false)
     }

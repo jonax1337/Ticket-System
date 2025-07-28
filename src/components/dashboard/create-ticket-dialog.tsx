@@ -97,39 +97,6 @@ export function CreateTicketDialog() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }
 
-  useEffect(() => {
-    // Load users and queues (priorities come from cache)
-    const fetchData = async () => {
-      try {
-        const [usersResponse, queuesResponse] = await Promise.all([
-          fetch('/api/users'),
-          fetch('/api/users/queues') // Get user's assigned queues + default queues
-        ])
-        
-        if (usersResponse.ok) {
-          const userData = await usersResponse.json()
-          setUsers(userData)
-        }
-
-        if (queuesResponse.ok) {
-          const userQueueData = await queuesResponse.json()
-          // Extract just the queue data from user queue assignments
-          const queueData = userQueueData.map((uq: { queue: {id: string, name: string, color: string, icon: string} }) => uq.queue)
-          setQueues(queueData)
-          // Set default queue if available
-          const defaultQueue = queueData.find((q: {id: string, name: string, color: string, icon: string, isDefault: boolean}) => q.isDefault)
-          if (defaultQueue) {
-            setSelectedQueue(defaultQueue.id)
-          }
-        }
-      } catch (error) {
-        console.error('Failed to fetch data:', error)
-      }
-    }
-
-    fetchData()
-  }, [])
-
   // Set default priority when priorities are available from cache
   useEffect(() => {
     if (priorities.length > 0 && priority === 'Medium') {
@@ -139,7 +106,36 @@ export function CreateTicketDialog() {
   }, [priorities, priority])
 
   useEffect(() => {
+    // Load users and queues when dialog opens
     if (open) {
+      const fetchData = async () => {
+        try {
+          const [usersResponse, queuesResponse] = await Promise.all([
+            fetch('/api/users'),
+            fetch('/api/users/queues') // Get user's assigned queues + default queues
+          ])
+          
+          if (usersResponse.ok) {
+            const userData = await usersResponse.json()
+            setUsers(userData)
+          }
+
+          if (queuesResponse.ok) {
+            const userQueueData = await queuesResponse.json()
+            // Extract just the queue data from user queue assignments
+            const queueData = userQueueData.map((uq: { queue: {id: string, name: string, color: string, icon: string} }) => uq.queue)
+            setQueues(queueData)
+            // Set default queue if available
+            const defaultQueue = queueData.find((q: {id: string, name: string, color: string, icon: string, isDefault: boolean}) => q.isDefault)
+            if (defaultQueue) {
+              setSelectedQueue(defaultQueue.id)
+            }
+          }
+        } catch (error) {
+          console.error('Failed to fetch data:', error)
+        }
+      }
+
       fetchData()
     }
   }, [open])
