@@ -117,6 +117,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                 <Briefcase className="h-4 w-4" />
                 My Tickets
               </Link>
+
               {user.role === 'ADMIN' && (
                 <>
                   <Link

@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import TicketsList from '@/components/dashboard/tickets-list'
 import TicketFilters from '@/components/dashboard/ticket-filters'
 import { CreateTicketDialog } from '@/components/dashboard/create-ticket-dialog'
+import { TicketVolumeChart } from '@/components/dashboard/charts/ticket-volume-chart'
 // Removed enum imports - now using dynamic string values
 import {
   Card,
@@ -14,6 +15,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { CollapsibleAnalytics } from '@/components/dashboard/collapsible-analytics'
 
 interface DashboardPageProps {
   searchParams: Promise<{
@@ -214,6 +216,9 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           </CardContent>
         </Card>
       </div>
+
+      {/* Collapsible Analytics */}
+      <CollapsibleAnalytics />
 
       <div className="space-y-4">
         <TicketFilters />
