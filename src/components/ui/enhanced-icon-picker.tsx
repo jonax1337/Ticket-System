@@ -133,40 +133,44 @@ export function IconPicker({
           )}
 
           {/* Icons Grid */}
-          <div className="flex-1 min-h-0">
-            <ScrollArea className="h-48">
-              <div className="p-2">
-                {filteredIcons.length === 0 ? (
-                  <div className="text-center text-sm text-muted-foreground py-4">
-                    No icons found
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-7 gap-1 pb-2">
-                    {filteredIcons.map((iconName) => {
-                      const IconComponent = getIconComponent(iconName)
-                      const isSelected = value === iconName
-                      
-                      return (
-                        <Button
-                          key={iconName}
-                          variant={isSelected ? 'default' : 'ghost'}
-                          size="sm"
-                          className={cn(
-                            'h-8 w-8 p-0',
-                            isSelected && 'ring-1 ring-ring'
-                          )}
-                          onClick={() => handleIconSelect(iconName)}
-                          title={iconName}
-                        >
-                          <IconComponent className="h-3.5 w-3.5" />
-                        </Button>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-            </ScrollArea>
-          </div>
+          <ScrollArea 
+            className="h-48"
+            onWheel={(e) => {
+              // Fix mouse wheel scrolling in dialogs/popovers
+              e.stopPropagation()
+            }}
+          >
+            <div className="p-2">
+              {filteredIcons.length === 0 ? (
+                <div className="text-center text-sm text-muted-foreground py-4">
+                  No icons found
+                </div>
+              ) : (
+                <div className="grid grid-cols-7 gap-1 pb-2">
+                  {filteredIcons.map((iconName) => {
+                    const IconComponent = getIconComponent(iconName)
+                    const isSelected = value === iconName
+                    
+                    return (
+                      <Button
+                        key={iconName}
+                        variant={isSelected ? 'default' : 'ghost'}
+                        size="sm"
+                        className={cn(
+                          'h-8 w-8 p-0',
+                          isSelected && 'ring-1 ring-ring'
+                        )}
+                        onClick={() => handleIconSelect(iconName)}
+                        title={iconName}
+                      >
+                        <IconComponent className="h-3.5 w-3.5" />
+                      </Button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          </ScrollArea>
 
           {/* Selected Icon Info */}
           {value && (
