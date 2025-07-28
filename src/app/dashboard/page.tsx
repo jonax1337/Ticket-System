@@ -21,20 +21,56 @@ interface DashboardPageProps {
     priority?: string
     search?: string
     assigned?: string
+    queue?: string
   }>
 }
 
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
   const params = await searchParams
-  const { status, priority, search } = params
+  const { status, priority, search, queue } = params
   const assigned = params.assigned || 'UNASSIGNED'
   
   // Get session to check if user is admin
   const session = await getServerSession(authOptions)
 
+  // Get user's assigned queues + default queues for access control
+  let userQueueIds: string[] = []
+  if (session?.user?.role !== 'ADMIN') {
+    // Get explicitly assigned queues
+    const userQueues = await prisma.userQueue.findMany({
+      where: { userId: session?.user?.id },
+      select: { queueId: true }
+    })
+    const assignedQueueIds = userQueues.map(uq => uq.queueId)
+    
+    // Get all default queues (automatically accessible to all users)
+    const defaultQueues = await prisma.queue.findMany({
+      where: { isDefault: true },
+      select: { id: true }
+    })
+    const defaultQueueIds = defaultQueues.map(q => q.id)
+    
+    // Combine assigned and default queues
+    userQueueIds = [...new Set([...assignedQueueIds, ...defaultQueueIds])]
+    
+    // If user has no access to any queues, they see no tickets
+    if (userQueueIds.length === 0) {
+      userQueueIds = ['__NO_ACCESS__'] // Semantic identifier that will never match real queue IDs
+    }
+  }
+
   const where = {
     ...(status && { status }),
     ...(priority && { priority }),
+    ...(queue && { queueId: queue }),
+    // Add queue access control for non-admin users
+    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' && {
+      queueId: { in: userQueueIds } // Remove null queue access for non-admin users
+    }),
+    // If user has no queue access, show nothing
+    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access' && {
+      id: 'no-access'
+    }),
     ...(search && (() => {
       const words = search.trim().split(/\s+/).filter(word => word.length > 0)
       
@@ -80,6 +116,14 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           avatarUrl: true,
         },
       },
+      queue: {
+        select: {
+          id: true,
+          name: true,
+          color: true,
+          icon: true,
+        },
+      },
       comments: {
         select: {
           id: true,
@@ -92,11 +136,18 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     ],
   })
 
+  // Calculate stats with queue access control
+  const statsWhere = session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' 
+    ? { queueId: { in: userQueueIds } } // Remove null queue access from stats too
+    : session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access'
+    ? { id: 'no-access' }
+    : {}
+
   const stats = {
-    total: await prisma.ticket.count(),
-    open: await prisma.ticket.count({ where: { status: 'OPEN' } }),
-    inProgress: await prisma.ticket.count({ where: { status: 'IN_PROGRESS' } }),
-    closed: await prisma.ticket.count({ where: { status: 'CLOSED' } }),
+    total: await prisma.ticket.count({ where: statsWhere }),
+    open: await prisma.ticket.count({ where: { ...statsWhere, status: 'OPEN' } }),
+    inProgress: await prisma.ticket.count({ where: { ...statsWhere, status: 'IN_PROGRESS' } }),
+    closed: await prisma.ticket.count({ where: { ...statsWhere, status: 'CLOSED' } }),
   }
 
   return (

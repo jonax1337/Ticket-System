@@ -885,7 +885,7 @@ export default function EmailTemplateManager() {
                                   value={section.style}
                                   onValueChange={(value) => updateSection(index, 'style', value)}
                                 >
-                                  <SelectTrigger className="w-32 h-8">
+                                  <SelectTrigger className="w-auto min-w-[100px] h-8">
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>

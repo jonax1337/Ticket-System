@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, ArrowRight, Zap, TrendingUp } from 'lucide-react'
+import { CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, ArrowRight, Zap, TrendingUp, Inbox, Folder } from 'lucide-react'
 
 interface CustomStatus {
   id: string
@@ -24,6 +24,15 @@ interface CustomPriority {
   isDefault: boolean
 }
 
+interface Queue {
+  id: string
+  name: string
+  color: string
+  icon: string
+  order: number
+  isDefault: boolean
+}
+
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
@@ -34,7 +43,9 @@ const getIconComponent = (iconName: string) => {
     AlertTriangle,
     Circle,
     Zap,
-    TrendingUp
+    TrendingUp,
+    Inbox,
+    Folder
   }
   return iconMap[iconName] || AlertCircle
 }
@@ -44,17 +55,33 @@ export default function MyTicketFilters() {
   const searchParams = useSearchParams()
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
-  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '')
-  const currentStatus = searchParams.get('status') || 'ALL'
-  const currentPriority = searchParams.get('priority') || 'ALL'
+  const [queues, setQueues] = useState<Queue[]>([])
+  
+  // Get filter values from URL params first, then fallback to localStorage
+  const getFilterValue = (key: string, defaultValue: string) => {
+    const urlValue = searchParams.get(key)
+    if (urlValue) return urlValue
+    
+    if (typeof window !== 'undefined') {
+      const savedValue = localStorage.getItem(`my-tickets-filter-${key}`)
+      return savedValue || defaultValue
+    }
+    return defaultValue
+  }
+  
+  const [searchValue, setSearchValue] = useState(() => getFilterValue('search', ''))
+  const currentStatus = getFilterValue('status', 'ALL')
+  const currentPriority = getFilterValue('priority', 'ALL')
+  const currentQueue = getFilterValue('queue', 'ALL')
 
   useEffect(() => {
-    // Load custom statuses and priorities
+    // Load custom statuses, priorities, and queues
     const fetchData = async () => {
       try {
-        const [statusesResponse, prioritiesResponse] = await Promise.all([
+        const [statusesResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/statuses'),
-          fetch('/api/priorities')
+          fetch('/api/priorities'),
+          fetch('/api/users/queues') // Get user's assigned queues + default queues
         ])
         
         if (statusesResponse.ok) {
@@ -65,6 +92,13 @@ export default function MyTicketFilters() {
         if (prioritiesResponse.ok) {
           const priorityData = await prioritiesResponse.json()
           setPriorities(priorityData)
+        }
+
+        if (queuesResponse.ok) {
+          const userQueueData = await queuesResponse.json()
+          // Extract just the queue data from user queue assignments
+          const queueData = userQueueData.map((uq: { queue: Queue }) => uq.queue)
+          setQueues(queueData)
         }
       } catch (error) {
         console.error('Failed to fetch data:', error)
@@ -77,8 +111,16 @@ export default function MyTicketFilters() {
     const params = new URLSearchParams(searchParams.toString())
     if (value && value !== 'ALL') {
       params.set(key, value)
+      // Save to localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(`my-tickets-filter-${key}`, value)
+      }
     } else {
       params.delete(key)
+      // Remove from localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(`my-tickets-filter-${key}`)
+      }
     }
     router.push(`/dashboard/my-tickets?${params.toString()}`)
   }
@@ -88,8 +130,16 @@ export default function MyTicketFilters() {
       const params = new URLSearchParams(searchParams.toString())
       if (searchTerm.trim()) {
         params.set('search', searchTerm.trim())
+        // Save to localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('my-tickets-filter-search', searchTerm.trim())
+        }
       } else {
         params.delete('search')
+        // Remove from localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('my-tickets-filter-search')
+        }
       }
       router.push(`/dashboard/my-tickets?${params.toString()}`)
     }, 500),
@@ -129,7 +179,7 @@ export default function MyTicketFilters() {
           defaultValue={currentStatus}
           onValueChange={(value) => handleFilterChange('status', value)}
         >
-          <SelectTrigger className={`w-[140px] ${currentStatus !== 'ALL' ? statuses.find(s => s.name === currentStatus)?.color || '' : ''}`}>
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentStatus !== 'ALL' ? statuses.find(s => s.name === currentStatus)?.color || '' : ''}`}>
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
@@ -155,7 +205,7 @@ export default function MyTicketFilters() {
           defaultValue={currentPriority}
           onValueChange={(value) => handleFilterChange('priority', value)}
         >
-          <SelectTrigger className={`w-[140px] ${currentPriority !== 'ALL' ? priorities.find(p => p.name === currentPriority)?.color || '' : ''}`}>
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentPriority !== 'ALL' ? priorities.find(p => p.name === currentPriority)?.color || '' : ''}`}>
             <SelectValue placeholder="All Priority" />
           </SelectTrigger>
           <SelectContent>
@@ -171,6 +221,32 @@ export default function MyTicketFilters() {
                   <span className="flex items-center gap-2">
                     <IconComponent className="h-4 w-4" />
                     <span>{priority.name}</span>
+                  </span>
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
+        <Select
+          defaultValue={currentQueue}
+          onValueChange={(value) => handleFilterChange('queue', value)}
+        >
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentQueue !== 'ALL' ? queues.find(q => q.id === currentQueue)?.color || '' : ''}`}>
+            <SelectValue placeholder="All Queues" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="ALL">
+              <span className="flex items-center gap-2">
+                <span>All Queues</span>
+              </span>
+            </SelectItem>
+            {queues.map((queue) => {
+              const IconComponent = getIconComponent(queue.icon)
+              return (
+                <SelectItem key={queue.id} value={queue.id}>
+                  <span className="flex items-center gap-2">
+                    <IconComponent className="h-4 w-4" />
+                    <span>{queue.name}</span>
                   </span>
                 </SelectItem>
               )

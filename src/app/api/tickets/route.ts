@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     // Parse request body
     const body = await req.json()
-    const { subject, description, fromEmail, fromName, priority, htmlContent, attachments, dueDate, reminderDate } = body
+    const { subject, description, fromEmail, fromName, priority, htmlContent, attachments, dueDate, reminderDate, queueId } = body
 
     // Validate required fields
     if (!subject || !description) {
@@ -23,6 +23,15 @@ export async function POST(req: NextRequest) {
         { error: 'Subject and description are required' },
         { status: 400 }
       )
+    }
+
+    // If no queue specified, try to get default queue
+    let finalQueueId = queueId
+    if (!finalQueueId) {
+      const defaultQueue = await prisma.queue.findFirst({
+        where: { isDefault: true }
+      })
+      finalQueueId = defaultQueue?.id || null
     }
 
     // Generate unique ticket number
@@ -40,6 +49,7 @@ export async function POST(req: NextRequest) {
         fromName: fromName || 'Internal Support',
         priority: priority || 'Medium',
         status: 'Open',
+        queueId: finalQueueId,
         dueDate: normalizeDateToMidnight(dueDate),
         reminderDate: reminderDate ? new Date(reminderDate) : null,
       },

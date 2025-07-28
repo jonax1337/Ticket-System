@@ -15,7 +15,7 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { Button } from '@/components/ui/button'
-import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp } from 'lucide-react'
+import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp, Inbox, Folder } from 'lucide-react'
 
 interface CustomStatus {
   id: string
@@ -35,6 +35,15 @@ interface CustomPriority {
   isDefault: boolean
 }
 
+interface Queue {
+  id: string
+  name: string
+  color: string
+  icon: string
+  order: number
+  isDefault: boolean
+}
+
 const getIconComponent = (iconName: string) => {
   const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
     AlertCircle,
@@ -45,7 +54,9 @@ const getIconComponent = (iconName: string) => {
     AlertTriangle,
     Circle,
     Zap,
-    TrendingUp
+    TrendingUp,
+    Inbox,
+    Folder
   }
   return iconMap[iconName] || AlertCircle
 }
@@ -62,19 +73,95 @@ export default function TicketFilters() {
   const [users, setUsers] = useState<User[]>([])
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
-  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '')
-  const currentStatus = searchParams.get('status') || 'ALL'
-  const currentPriority = searchParams.get('priority') || 'ALL'
-  const currentAssigned = searchParams.get('assigned') || 'UNASSIGNED'
+  const [queues, setQueues] = useState<Queue[]>([])
+  
+  
+  const [mounted, setMounted] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const [currentStatus, setCurrentStatus] = useState('ALL')
+  const [currentPriority, setCurrentPriority] = useState('ALL')
+  const [currentAssigned, setCurrentAssigned] = useState('UNASSIGNED')
+  const [currentQueue, setCurrentQueue] = useState('ALL')
 
   useEffect(() => {
-    // Load users, statuses, and priorities
+    setMounted(true)
+    
+    // On first load, if no URL params, restore from localStorage and update URL
+    if (typeof window !== 'undefined' && !window.location.search) {
+      const savedSearch = localStorage.getItem('dashboard-filter-search')
+      const savedStatus = localStorage.getItem('dashboard-filter-status')
+      const savedPriority = localStorage.getItem('dashboard-filter-priority')
+      const savedAssigned = localStorage.getItem('dashboard-filter-assigned')
+      const savedQueue = localStorage.getItem('dashboard-filter-queue')
+      
+      // Build URL params from localStorage
+      const params = new URLSearchParams()
+      if (savedSearch) params.set('search', savedSearch)
+      if (savedStatus && savedStatus !== 'ALL') params.set('status', savedStatus)
+      if (savedPriority && savedPriority !== 'ALL') params.set('priority', savedPriority)
+      if (savedAssigned && savedAssigned !== 'UNASSIGNED') params.set('assigned', savedAssigned)
+      if (savedQueue && savedQueue !== 'ALL') params.set('queue', savedQueue)
+      
+      // If we have saved filters, update URL
+      if (params.toString()) {
+        router.replace(`/dashboard?${params.toString()}`)
+      }
+      
+      // Set state from localStorage
+      setSearchValue(savedSearch || '')
+      setCurrentStatus(savedStatus || 'ALL')
+      setCurrentPriority(savedPriority || 'ALL')
+      setCurrentAssigned(savedAssigned || 'UNASSIGNED')
+      setCurrentQueue(savedQueue || 'ALL')
+    } else {
+      // If URL params exist, use them and update localStorage
+      const urlSearch = searchParams.get('search')
+      const urlStatus = searchParams.get('status')
+      const urlPriority = searchParams.get('priority')
+      const urlAssigned = searchParams.get('assigned')
+      const urlQueue = searchParams.get('queue')
+      
+      const search = urlSearch || ''
+      const status = urlStatus || 'ALL'
+      const priority = urlPriority || 'ALL'
+      const assigned = urlAssigned || 'UNASSIGNED'
+      const queue = urlQueue || 'ALL'
+      
+      setSearchValue(search)
+      setCurrentStatus(status)
+      setCurrentPriority(priority)
+      setCurrentAssigned(assigned)
+      setCurrentQueue(queue)
+      
+      // Update localStorage to match URL
+      if (typeof window !== 'undefined') {
+        if (search) localStorage.setItem('dashboard-filter-search', search)
+        else localStorage.removeItem('dashboard-filter-search')
+        
+        if (status !== 'ALL') localStorage.setItem('dashboard-filter-status', status)
+        else localStorage.removeItem('dashboard-filter-status')
+        
+        if (priority !== 'ALL') localStorage.setItem('dashboard-filter-priority', priority)
+        else localStorage.removeItem('dashboard-filter-priority')
+        
+        if (assigned !== 'UNASSIGNED') localStorage.setItem('dashboard-filter-assigned', assigned)
+        else localStorage.removeItem('dashboard-filter-assigned')
+        
+        if (queue !== 'ALL') localStorage.setItem('dashboard-filter-queue', queue)
+        else localStorage.removeItem('dashboard-filter-queue')
+      }
+    }
+  }, [searchParams, router])
+
+  useEffect(() => {
+    // Load users, statuses, priorities, and queues
     const fetchData = async () => {
       try {
-        const [usersResponse, statusesResponse, prioritiesResponse] = await Promise.all([
+        const [usersResponse, statusesResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/users'),
           fetch('/api/statuses'),
-          fetch('/api/priorities')
+          fetch('/api/priorities'),
+          fetch('/api/users/queues') // Get user's assigned queues + default queues
         ])
         
         if (usersResponse.ok) {
@@ -91,6 +178,13 @@ export default function TicketFilters() {
           const priorityData = await prioritiesResponse.json()
           setPriorities(priorityData)
         }
+
+        if (queuesResponse.ok) {
+          const userQueueData = await queuesResponse.json()
+          // Extract just the queue data from user queue assignments
+          const queueData = userQueueData.map((uq: { queue: Queue }) => uq.queue)
+          setQueues(queueData)
+        }
       } catch (error) {
         console.error('Failed to fetch data:', error)
       }
@@ -102,9 +196,23 @@ export default function TicketFilters() {
     const params = new URLSearchParams(searchParams.toString())
     if (value && value !== 'ALL') {
       params.set(key, value)
+      // Save to localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(`dashboard-filter-${key}`, value)
+      }
     } else {
       params.delete(key)
+      // Remove from localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(`dashboard-filter-${key}`)
+      }
     }
+    
+    // Update local state
+    if (key === 'status') setCurrentStatus(value)
+    if (key === 'priority') setCurrentPriority(value)
+    if (key === 'queue') setCurrentQueue(value)
+    
     router.push(`/dashboard?${params.toString()}`)
   }
 
@@ -113,8 +221,16 @@ export default function TicketFilters() {
       const params = new URLSearchParams(searchParams.toString())
       if (searchTerm.trim()) {
         params.set('search', searchTerm.trim())
+        // Save to localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('dashboard-filter-search', searchTerm.trim())
+        }
       } else {
         params.delete('search')
+        // Remove from localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('dashboard-filter-search')
+        }
       }
       router.push(`/dashboard?${params.toString()}`)
     }, 500),
@@ -142,6 +258,11 @@ export default function TicketFilters() {
   const handleAssignedChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set('assigned', value)
+    // Save to localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('dashboard-filter-assigned', value)
+    }
+    setCurrentAssigned(value)
     router.push(`/dashboard?${params.toString()}`)
   }
 
@@ -158,10 +279,10 @@ export default function TicketFilters() {
       </div>
       <div className="flex gap-2">
         <Select
-          defaultValue={currentStatus}
+          value={currentStatus}
           onValueChange={(value) => handleFilterChange('status', value)}
         >
-          <SelectTrigger className={`w-[140px] ${currentStatus !== 'ALL' ? statuses.find(s => s.name === currentStatus)?.color || '' : ''}`}>
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentStatus !== 'ALL' ? statuses.find(s => s.name === currentStatus)?.color || '' : ''}`}>
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
@@ -184,10 +305,10 @@ export default function TicketFilters() {
           </SelectContent>
         </Select>
         <Select
-          defaultValue={currentPriority}
+          value={currentPriority}
           onValueChange={(value) => handleFilterChange('priority', value)}
         >
-          <SelectTrigger className={`w-[140px] ${currentPriority !== 'ALL' ? priorities.find(p => p.name === currentPriority)?.color || '' : ''}`}>
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentPriority !== 'ALL' ? priorities.find(p => p.name === currentPriority)?.color || '' : ''}`}>
             <SelectValue placeholder="All Priority" />
           </SelectTrigger>
           <SelectContent>
@@ -219,11 +340,13 @@ export default function TicketFilters() {
             }))
           ]}
           type="assignee"
-          defaultValue={currentAssigned}
+          value={currentAssigned}
           onValueChange={handleAssignedChange}
         >
-          <ComboboxTrigger className="w-[180px]">
-            {currentAssigned === 'ALL' ? (
+          <ComboboxTrigger className="w-auto min-w-[120px]">
+            {!mounted ? (
+              'Select user'
+            ) : currentAssigned === 'ALL' ? (
               <span className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
                 All Tickets
@@ -244,27 +367,30 @@ export default function TicketFilters() {
               )
             )}
           </ComboboxTrigger>
-          <ComboboxContent className="p-0">
-            <ComboboxInput placeholder="Search users..." />
+          <ComboboxContent className="p-0 min-w-[180px]">
+            <ComboboxInput 
+              placeholder="Search users..." 
+              className="w-full"
+            />
             <ComboboxEmpty>No users found</ComboboxEmpty>
             <ComboboxList>
               <ComboboxGroup>
                 <ComboboxItem value="ALL">
-                  <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4" />
+                  <div className="flex items-center gap-2 whitespace-nowrap">
+                    <Users className="h-4 w-4 flex-shrink-0" />
                     <span>All Tickets</span>
                   </div>
                 </ComboboxItem>
                 <ComboboxItem value="UNASSIGNED">
-                  <div className="flex items-center gap-2">
-                    <UserX className="h-4 w-4" />
+                  <div className="flex items-center gap-2 whitespace-nowrap">
+                    <UserX className="h-4 w-4 flex-shrink-0" />
                     <span>Unassigned</span>
                   </div>
                 </ComboboxItem>
                 {users.map((user) => (
                   <ComboboxItem key={user.id} value={user.id}>
-                    <div className="flex items-center gap-2">
-                      <User className="h-4 w-4" />
+                    <div className="flex items-center gap-2 whitespace-nowrap">
+                      <User className="h-4 w-4 flex-shrink-0" />
                       <span>{user.name}</span>
                     </div>
                   </ComboboxItem>
@@ -273,6 +399,32 @@ export default function TicketFilters() {
             </ComboboxList>
           </ComboboxContent>
         </Combobox>
+        <Select
+          value={currentQueue}
+          onValueChange={(value) => handleFilterChange('queue', value)}
+        >
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentQueue !== 'ALL' ? queues.find(q => q.id === currentQueue)?.color || '' : ''}`}>
+            <SelectValue placeholder="All Queues" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="ALL">
+              <span className="flex items-center gap-2">
+                <span>All Queues</span>
+              </span>
+            </SelectItem>
+            {queues.map((queue) => {
+              const IconComponent = getIconComponent(queue.icon)
+              return (
+                <SelectItem key={queue.id} value={queue.id}>
+                  <span className="flex items-center gap-2">
+                    <IconComponent className="h-4 w-4" />
+                    <span>{queue.name}</span>
+                  </span>
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   )

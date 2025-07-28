@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Settings, Palette, Mail, Workflow, FileText, Bot } from 'lucide-react'
+import { Settings, Palette, Mail, Workflow, FileText, Bot, Inbox } from 'lucide-react'
 import AdminSettings from '@/components/dashboard/admin-settings'
 import EmailSettings from '@/components/dashboard/email-settings'
 import EmailTemplateManager from '@/components/dashboard/email-template-manager'
 import CustomStatusManager from '@/components/dashboard/custom-status-manager'
 import CustomPriorityManager from '@/components/dashboard/custom-priority-manager'
 import AutomationSettings from '@/components/dashboard/automation-settings'
+import QueueManager from '@/components/dashboard/queue-manager'
 
 interface SystemSettings {
   id: string
@@ -67,7 +68,7 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-6">
+      <TabsList className="grid w-full grid-cols-7">
         <TabsTrigger value="general" className="flex items-center gap-2">
           <Settings className="h-4 w-4" />
           General
@@ -75,6 +76,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
         <TabsTrigger value="customize" className="flex items-center gap-2">
           <Palette className="h-4 w-4" />
           Customize
+        </TabsTrigger>
+        <TabsTrigger value="queues" className="flex items-center gap-2">
+          <Inbox className="h-4 w-4" />
+          Queues
         </TabsTrigger>
         <TabsTrigger value="email" className="flex items-center gap-2">
           <Mail className="h-4 w-4" />
@@ -100,6 +105,10 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
       
       <TabsContent value="customize" className="space-y-6 mt-6">
         <CustomizeSettings settings={settings} />
+      </TabsContent>
+      
+      <TabsContent value="queues" className="space-y-6 mt-6">
+        <QueueManager />
       </TabsContent>
       
       <TabsContent value="email" className="space-y-6 mt-6">

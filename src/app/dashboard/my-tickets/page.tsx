@@ -11,6 +11,7 @@ interface SearchParams {
   search?: string
   status?: string
   priority?: string
+  queue?: string
   page?: string
 }
 
@@ -22,13 +23,51 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
   const search = searchParams.search || ''
   const status = searchParams.status || 'ALL'
   const priority = searchParams.priority || 'ALL'
+  const queue = searchParams.queue || 'ALL'
   const page = parseInt(searchParams.page || '1')
   const limit = 10
   const offset = (page - 1) * limit
 
+  // Get user's session to check role
+  const session = await getServerSession(authOptions)
+  
+  // Get user's assigned queues + default queues for access control
+  let userQueueIds: string[] = []
+  if (session?.user?.role !== 'ADMIN') {
+    // Get explicitly assigned queues
+    const userQueues = await prisma.userQueue.findMany({
+      where: { userId },
+      select: { queueId: true }
+    })
+    const assignedQueueIds = userQueues.map(uq => uq.queueId)
+    
+    // Get all default queues (automatically accessible to all users)
+    const defaultQueues = await prisma.queue.findMany({
+      where: { isDefault: true },
+      select: { id: true }
+    })
+    const defaultQueueIds = defaultQueues.map(q => q.id)
+    
+    // Combine assigned and default queues
+    userQueueIds = [...new Set([...assignedQueueIds, ...defaultQueueIds])]
+    
+    // If user has no access to any queues, they see no tickets
+    if (userQueueIds.length === 0) {
+      userQueueIds = ['__NO_ACCESS__'] // Explicit non-UUID identifier
+    }
+  }
+
   // Build where clause
   const where: Record<string, unknown> = {
-    assignedToId: userId // Only tickets assigned to current user
+    assignedToId: userId, // Only tickets assigned to current user
+    // Add queue access control for non-admin users
+    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' && {
+      queueId: { in: userQueueIds } // Remove null queue access for non-admin users
+    }),
+    // If user has no queue access, show nothing
+    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access' && {
+      id: 'no-access'
+    }),
   }
 
   // Add search filter
@@ -65,6 +104,11 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
     where.priority = priority
   }
 
+  // Add queue filter
+  if (queue !== 'ALL') {
+    where.queueId = queue
+  }
+
   const [tickets, totalCount] = await Promise.all([
     prisma.ticket.findMany({
       where,
@@ -75,6 +119,14 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
             name: true,
             email: true,
             avatarUrl: true,
+          },
+        },
+        queue: {
+          select: {
+            id: true,
+            name: true,
+            color: true,
+            icon: true,
           },
         },
         comments: {

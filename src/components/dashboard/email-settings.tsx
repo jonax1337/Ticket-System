@@ -806,9 +806,9 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                         disabled={testingConfig === config.id}
                       >
                         {testingConfig === config.id ? (
-                          <RotateCcw className="mr-2 h-4 w-4 animate-spin" style={{ animationDirection: 'reverse' }} />
+                          <RotateCcw className="h-4 w-4 animate-spin" style={{ animationDirection: 'reverse' }} />
                         ) : (
-                          <TestTube className="mr-2 h-4 w-4" />
+                          <TestTube className="h-4 w-4" />
                         )}
                         Test
                       </Button>
@@ -820,9 +820,9 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                         disabled={syncingConfig === config.id || !config.isActive}
                       >
                         {syncingConfig === config.id ? (
-                          <RotateCcw className="mr-2 h-4 w-4 animate-spin" style={{ animationDirection: 'reverse' }} />
+                          <RotateCcw className="h-4 w-4 animate-spin" style={{ animationDirection: 'reverse' }} />
                         ) : (
-                          <RotateCcw className="mr-2 h-4 w-4" />
+                          <RotateCcw className="h-4 w-4" />
                         )}
                         Sync
                       </Button>
@@ -832,7 +832,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                         size="sm"
                         onClick={() => openEditDialog(config)}
                       >
-                        <Settings className="mr-2 h-4 w-4" />
+                        <Settings className="h-4 w-4" />
                         Edit
                       </Button>
 
@@ -842,7 +842,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                             variant="outline"
                             size="sm"
                           >
-                            <Trash2 className="mr-2 h-4 w-4" />
+                            <Trash2 className="h-4 w-4" />
                             Delete
                           </Button>
                         </AlertDialogTrigger>

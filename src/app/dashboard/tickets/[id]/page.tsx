@@ -29,6 +29,14 @@ export default async function TicketPage({ params }: TicketPageProps) {
           avatarUrl: true,
         },
       },
+      queue: {
+        select: {
+          id: true,
+          name: true,
+          color: true,
+          icon: true,
+        },
+      },
       attachments: true,
       participants: {
         orderBy: [
