@@ -58,26 +58,26 @@ interface CustomPriority {
 // Removed - using enhanced icon picker with all available icons from icon-system
 
 const colorOptions = [
-  { name: 'Gray', value: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800', dot: 'bg-gray-500' },
-  { name: 'Slate', value: 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/30 dark:text-slate-400 dark:border-slate-800', dot: 'bg-slate-500' },
-  { name: 'Zinc', value: 'bg-zinc-100 text-zinc-700 border-zinc-200 dark:bg-zinc-900/30 dark:text-zinc-400 dark:border-zinc-800', dot: 'bg-zinc-500' },
-  { name: 'Red', value: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800', dot: 'bg-red-500' },
-  { name: 'Rose', value: 'bg-rose-100 text-rose-700 border-rose-200 dark:bg-rose-900/30 dark:text-rose-400 dark:border-rose-800', dot: 'bg-rose-500' },
-  { name: 'Pink', value: 'bg-pink-100 text-pink-700 border-pink-200 dark:bg-pink-900/30 dark:text-pink-400 dark:border-pink-800', dot: 'bg-pink-500' },
-  { name: 'Orange', value: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800', dot: 'bg-orange-500' },
-  { name: 'Amber', value: 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-800', dot: 'bg-amber-500' },
-  { name: 'Yellow', value: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800', dot: 'bg-yellow-500' },
-  { name: 'Lime', value: 'bg-lime-100 text-lime-700 border-lime-200 dark:bg-lime-900/30 dark:text-lime-400 dark:border-lime-800', dot: 'bg-lime-500' },
-  { name: 'Green', value: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800', dot: 'bg-green-500' },
-  { name: 'Emerald', value: 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800', dot: 'bg-emerald-500' },
-  { name: 'Teal', value: 'bg-teal-100 text-teal-700 border-teal-200 dark:bg-teal-900/30 dark:text-teal-400 dark:border-teal-800', dot: 'bg-teal-500' },
-  { name: 'Cyan', value: 'bg-cyan-100 text-cyan-700 border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-800', dot: 'bg-cyan-500' },
-  { name: 'Sky', value: 'bg-sky-100 text-sky-700 border-sky-200 dark:bg-sky-900/30 dark:text-sky-400 dark:border-sky-800', dot: 'bg-sky-500' },
-  { name: 'Blue', value: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800', dot: 'bg-blue-500' },
-  { name: 'Indigo', value: 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-400 dark:border-indigo-800', dot: 'bg-indigo-500' },
-  { name: 'Violet', value: 'bg-violet-100 text-violet-700 border-violet-200 dark:bg-violet-900/30 dark:text-violet-400 dark:border-violet-800', dot: 'bg-violet-500' },
-  { name: 'Purple', value: 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-800', dot: 'bg-purple-500' },
-  { name: 'Fuchsia', value: 'bg-fuchsia-100 text-fuchsia-700 border-fuchsia-200 dark:bg-fuchsia-900/30 dark:text-fuchsia-400 dark:border-fuchsia-800', dot: 'bg-fuchsia-500' },
+  { name: 'Gray', value: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800', hex: '#6b7280' },
+  { name: 'Slate', value: 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/30 dark:text-slate-400 dark:border-slate-800', hex: '#64748b' },
+  { name: 'Zinc', value: 'bg-zinc-100 text-zinc-700 border-zinc-200 dark:bg-zinc-900/30 dark:text-zinc-400 dark:border-zinc-800', hex: '#71717a' },
+  { name: 'Red', value: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800', hex: '#ef4444' },
+  { name: 'Rose', value: 'bg-rose-100 text-rose-700 border-rose-200 dark:bg-rose-900/30 dark:text-rose-400 dark:border-rose-800', hex: '#f43f5e' },
+  { name: 'Pink', value: 'bg-pink-100 text-pink-700 border-pink-200 dark:bg-pink-900/30 dark:text-pink-400 dark:border-pink-800', hex: '#ec4899' },
+  { name: 'Orange', value: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800', hex: '#f97316' },
+  { name: 'Amber', value: 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-800', hex: '#f59e0b' },
+  { name: 'Yellow', value: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800', hex: '#eab308' },
+  { name: 'Lime', value: 'bg-lime-100 text-lime-700 border-lime-200 dark:bg-lime-900/30 dark:text-lime-400 dark:border-lime-800', hex: '#84cc16' },
+  { name: 'Green', value: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800', hex: '#22c55e' },
+  { name: 'Emerald', value: 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800', hex: '#10b981' },
+  { name: 'Teal', value: 'bg-teal-100 text-teal-700 border-teal-200 dark:bg-teal-900/30 dark:text-teal-400 dark:border-teal-800', hex: '#14b8a6' },
+  { name: 'Cyan', value: 'bg-cyan-100 text-cyan-700 border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-400 dark:border-cyan-800', hex: '#06b6d4' },
+  { name: 'Sky', value: 'bg-sky-100 text-sky-700 border-sky-200 dark:bg-sky-900/30 dark:text-sky-400 dark:border-sky-800', hex: '#0ea5e9' },
+  { name: 'Blue', value: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800', hex: '#3b82f6' },
+  { name: 'Indigo', value: 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-400 dark:border-indigo-800', hex: '#6366f1' },
+  { name: 'Violet', value: 'bg-violet-100 text-violet-700 border-violet-200 dark:bg-violet-900/30 dark:text-violet-400 dark:border-violet-800', hex: '#8b5cf6' },
+  { name: 'Purple', value: 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-800', hex: '#a855f7' },
+  { name: 'Fuchsia', value: 'bg-fuchsia-100 text-fuchsia-700 border-fuchsia-200 dark:bg-fuchsia-900/30 dark:text-fuchsia-400 dark:border-fuchsia-800', hex: '#d946ef' },
 ]
 
 export default function CustomPriorityManager() {
@@ -397,7 +397,10 @@ export default function CustomPriorityManager() {
                           {colorOptions.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               <div className="flex items-center gap-2">
-                                <div className={`w-3 h-3 rounded-full ${option.dot}`} />
+                                <div 
+                                  className="w-4 h-4 rounded"
+                                  style={{ backgroundColor: option.hex }}
+                                />
                                 {option.name}
                               </div>
                             </SelectItem>
