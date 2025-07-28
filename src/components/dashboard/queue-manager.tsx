@@ -11,7 +11,7 @@ import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Trash2, Edit, Plus, Save, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw, Search, Shield, User as UserIcon, Check, ChevronDown, UserCheck } from 'lucide-react'
+import { Trash2, Edit, Plus, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw, Search, Shield, User as UserIcon, Check, ChevronDown, UserCheck } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import {
   AlertDialog,
@@ -355,9 +355,6 @@ export default function QueueManager() {
     return userQueues.filter(uq => uq.userId === userId)
   }
 
-  const getQueueUsers = (queueId: string) => {
-    return userQueues.filter(uq => uq.queueId === queueId)
-  }
 
   // Filter users based on search term
   const filteredUsers = users.filter(user => 
@@ -431,7 +428,7 @@ export default function QueueManager() {
                   disabled={queue.isDefault}
                   className={queue.isDefault ? "opacity-50 cursor-not-allowed" : ""}
                   title={queue.isDefault ? "Cannot delete default queue" : "Delete queue"}
-                  onClick={(e) => {
+                  onClick={() => {
                     if (!queue.isDefault) {
                       setDeletingQueue(queue)
                     }
@@ -444,9 +441,9 @@ export default function QueueManager() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Delete Queue</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to delete the queue <strong>"{queue.name}"</strong>?
+                    Are you sure you want to delete the queue <strong>&ldquo;{queue.name}&rdquo;</strong>?
                     {queue._count.tickets > 0 && (
-                      <><br /><br />This queue contains <strong>{queue._count.tickets}</strong> ticket{queue._count.tickets !== 1 ? 's' : ''}. All tickets will be moved to "No Queue".</>
+                      <><br /><br />This queue contains <strong>{queue._count.tickets}</strong> ticket{queue._count.tickets !== 1 ? 's' : ''}. All tickets will be moved to &ldquo;No Queue&rdquo;.</>
                     )}
                     {queue._count.userQueues > 0 && (
                       <><br /><br /><strong>{queue._count.userQueues}</strong> user{queue._count.userQueues !== 1 ? 's are' : ' is'} assigned to this queue and will lose access.</>
