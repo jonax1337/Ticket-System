@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
         priority: priority || 'Medium',
         status: 'Open',
         dueDate: normalizeDateToMidnight(dueDate),
-        reminderDate: normalizeDateToMidnight(reminderDate),
+        reminderDate: reminderDate ? new Date(reminderDate) : null,
       },
     })
 

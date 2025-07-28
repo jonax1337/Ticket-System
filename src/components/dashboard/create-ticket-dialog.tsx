@@ -36,6 +36,7 @@ import { Clock, Timer, AlertCircle, AlertTriangle, User, Mail, FileText, Plus, U
 import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
+import { DateTimePicker } from '@/components/ui/datetime-picker'
 import { normalizeDateToMidnight } from '@/lib/date-utils'
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from '@/components/ui/shadcn-io/dropzone'
 
@@ -177,7 +178,7 @@ export function CreateTicketDialog() {
           assignedTo: assignedTo || null,
           attachments: uploadedFiles,
           dueDate: dueDate ? normalizeDateToMidnight(dueDate)?.toISOString() : null,
-          reminderDate: reminderDate ? normalizeDateToMidnight(reminderDate)?.toISOString() : null,
+          reminderDate: reminderDate ? reminderDate.toISOString() : null,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -370,12 +371,12 @@ export function CreateTicketDialog() {
                   <div className="space-y-2">
                     <Label htmlFor="reminderDate" className="text-sm font-medium flex items-center gap-2">
                       <Bell className="h-4 w-4" />
-                      Reminder Date (optional)
+                      Reminder Date & Time (optional)
                     </Label>
-                    <DatePicker
+                    <DateTimePicker
                       date={reminderDate}
                       setDate={setReminderDate}
-                      placeholder="Select reminder date"
+                      placeholder="Select reminder date & time"
                     />
                   </div>
                 </div>
