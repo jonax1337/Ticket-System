@@ -141,9 +141,11 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   useEffect(() => {
     const fetchQueues = async () => {
       try {
-        const response = await fetch('/api/queues')
+        const response = await fetch('/api/users/queues') // Get user's assigned queues instead of all queues
         if (response.ok) {
-          const queueData = await response.json()
+          const userQueueData = await response.json()
+          // Extract just the queue data from user queue assignments
+          const queueData = userQueueData.map((uq: { queue: {id: string, name: string, color: string, icon: string} }) => uq.queue)
           setQueues(queueData)
         }
       } catch (error) {

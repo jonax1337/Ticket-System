@@ -33,10 +33,36 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   // Get session to check if user is admin
   const session = await getServerSession(authOptions)
 
+  // Get user's assigned queues for access control
+  let userQueueIds: string[] = []
+  if (session?.user?.role !== 'ADMIN') {
+    const userQueues = await prisma.userQueue.findMany({
+      where: { userId: session?.user?.id },
+      select: { queueId: true }
+    })
+    userQueueIds = userQueues.map(uq => uq.queueId)
+    
+    // If user is not assigned to any queues, they see no tickets
+    if (userQueueIds.length === 0) {
+      userQueueIds = ['no-access'] // This will match no tickets
+    }
+  }
+
   const where = {
     ...(status && { status }),
     ...(priority && { priority }),
     ...(queue && { queueId: queue }),
+    // Add queue access control for non-admin users
+    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' && {
+      OR: [
+        { queueId: { in: userQueueIds } },
+        { queueId: null } // Allow tickets with no queue for now (can be restricted if needed)
+      ]
+    }),
+    // If user has no queue access, show nothing
+    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access' && {
+      id: 'no-access'
+    }),
     ...(search && (() => {
       const words = search.trim().split(/\s+/).filter(word => word.length > 0)
       
@@ -102,11 +128,23 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     ],
   })
 
+  // Calculate stats with queue access control
+  const statsWhere = session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' 
+    ? {
+        OR: [
+          { queueId: { in: userQueueIds } },
+          { queueId: null }
+        ]
+      }
+    : session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access'
+    ? { id: 'no-access' }
+    : {}
+
   const stats = {
-    total: await prisma.ticket.count(),
-    open: await prisma.ticket.count({ where: { status: 'OPEN' } }),
-    inProgress: await prisma.ticket.count({ where: { status: 'IN_PROGRESS' } }),
-    closed: await prisma.ticket.count({ where: { status: 'CLOSED' } }),
+    total: await prisma.ticket.count({ where: statsWhere }),
+    open: await prisma.ticket.count({ where: { ...statsWhere, status: 'OPEN' } }),
+    inProgress: await prisma.ticket.count({ where: { ...statsWhere, status: 'IN_PROGRESS' } }),
+    closed: await prisma.ticket.count({ where: { ...statsWhere, status: 'CLOSED' } }),
   }
 
   return (

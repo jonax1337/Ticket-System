@@ -117,7 +117,7 @@ export function CreateTicketDialog() {
         const [usersResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/users'),
           fetch('/api/priorities'),
-          fetch('/api/queues')
+          fetch('/api/users/queues') // Get user's assigned queues instead of all queues
         ])
         
         if (usersResponse.ok) {
@@ -136,7 +136,9 @@ export function CreateTicketDialog() {
         }
 
         if (queuesResponse.ok) {
-          const queueData = await queuesResponse.json()
+          const userQueueData = await queuesResponse.json()
+          // Extract just the queue data from user queue assignments
+          const queueData = userQueueData.map((uq: { queue: {id: string, name: string, color: string, icon: string} }) => uq.queue)
           setQueues(queueData)
           // Set default queue if available
           const defaultQueue = queueData.find((q: {id: string, name: string, color: string, icon: string, isDefault: boolean}) => q.isDefault)

@@ -81,7 +81,7 @@ export default function MyTicketFilters() {
         const [statusesResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/statuses'),
           fetch('/api/priorities'),
-          fetch('/api/queues')
+          fetch('/api/users/queues') // Get user's assigned queues instead of all queues
         ])
         
         if (statusesResponse.ok) {
@@ -95,7 +95,9 @@ export default function MyTicketFilters() {
         }
 
         if (queuesResponse.ok) {
-          const queueData = await queuesResponse.json()
+          const userQueueData = await queuesResponse.json()
+          // Extract just the queue data from user queue assignments
+          const queueData = userQueueData.map((uq: { queue: Queue }) => uq.queue)
           setQueues(queueData)
         }
       } catch (error) {
