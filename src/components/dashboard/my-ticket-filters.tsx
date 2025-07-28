@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, ArrowRight, Zap, TrendingUp, Inbox, Folder } from 'lucide-react'
+import { CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, ArrowRight, Zap, TrendingUp, Inbox, Folder, Search } from 'lucide-react'
 
 interface CustomStatus {
   id: string
@@ -167,12 +167,15 @@ export default function MyTicketFilters() {
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center">
       <div className="flex-1">
-        <Input
-          placeholder="Search my tickets..."
-          value={searchValue}
-          onChange={handleSearchChange}
-          className="max-w-sm"
-        />
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search my tickets..."
+            value={searchValue}
+            onChange={handleSearchChange}
+            className="pl-10"
+          />
+        </div>
       </div>
       <div className="flex gap-2">
         <Select

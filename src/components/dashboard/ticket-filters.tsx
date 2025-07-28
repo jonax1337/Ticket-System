@@ -15,7 +15,7 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { Button } from '@/components/ui/button'
-import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp, Inbox, Folder } from 'lucide-react'
+import { X, CheckCircle2, Timer, AlertTriangle, Clock, AlertCircle, Circle, User, UserX, Users, ArrowRight, Zap, TrendingUp, Inbox, Folder, Search } from 'lucide-react'
 
 interface CustomStatus {
   id: string
@@ -270,12 +270,15 @@ export default function TicketFilters() {
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center">
       <div className="flex-1">
-        <Input
-          placeholder="Search tickets..."
-          value={searchValue}
-          onChange={handleSearchChange}
-          className="max-w-sm"
-        />
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search tickets..."
+            value={searchValue}
+            onChange={handleSearchChange}
+            className="pl-10"
+          />
+        </div>
       </div>
       <div className="flex gap-2">
         <Select
