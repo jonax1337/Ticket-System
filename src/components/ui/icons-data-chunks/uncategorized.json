@@ -1,0 +1,39 @@
+[
+  {
+    "name": "bomb",
+    "categories": [],
+    "tags": [
+      "fatal",
+      "error",
+      "crash",
+      "blockbuster",
+      "mine",
+      "explosion",
+      "explode",
+      "explosive"
+    ]
+  },
+  {
+    "name": "copyleft",
+    "categories": [],
+    "tags": [
+      "licence"
+    ]
+  },
+  {
+    "name": "copyright",
+    "categories": [],
+    "tags": [
+      "licence",
+      "license"
+    ]
+  },
+  {
+    "name": "creative-commons",
+    "categories": [],
+    "tags": [
+      "licence",
+      "license"
+    ]
+  }
+]

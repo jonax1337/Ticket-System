@@ -1,0 +1,512 @@
+[
+  {
+    "name": "chart-area",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "area"
+    ]
+  },
+  {
+    "name": "chart-bar-big",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-bar-decreasing",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "trending down"
+    ]
+  },
+  {
+    "name": "chart-bar-increasing",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "trending up"
+    ]
+  },
+  {
+    "name": "chart-bar-stacked",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "multivariate",
+      "categorical",
+      "comparison"
+    ]
+  },
+  {
+    "name": "chart-bar",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-candlestick",
+    "categories": [
+      "charts",
+      "finance"
+    ],
+    "tags": [
+      "trading",
+      "trader",
+      "financial",
+      "markets",
+      "portfolio",
+      "assets",
+      "prices",
+      "value",
+      "valuation",
+      "commodities",
+      "currencies",
+      "currency",
+      "stocks",
+      "exchange",
+      "hedge fund",
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-column-big",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-column-decreasing",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "trending down"
+    ]
+  },
+  {
+    "name": "chart-column-increasing",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "trending up"
+    ]
+  },
+  {
+    "name": "chart-column-stacked",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "multivariate",
+      "categorical",
+      "comparison"
+    ]
+  },
+  {
+    "name": "chart-column",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-gantt",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "diagram",
+      "graph",
+      "timeline",
+      "planning"
+    ]
+  },
+  {
+    "name": "chart-line",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-network",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "topology",
+      "cluster",
+      "web",
+      "nodes",
+      "connections",
+      "edges"
+    ]
+  },
+  {
+    "name": "chart-no-axes-column-decreasing",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "trending down"
+    ]
+  },
+  {
+    "name": "chart-no-axes-column-increasing",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "trending up"
+    ]
+  },
+  {
+    "name": "chart-no-axes-column",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-no-axes-combined",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "trending up"
+    ]
+  },
+  {
+    "name": "chart-no-axes-gantt",
+    "categories": [
+      "charts",
+      "time",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "roadmap",
+      "plan",
+      "intentions",
+      "timeline",
+      "deadline",
+      "date",
+      "event",
+      "range",
+      "period",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "chart-pie",
+    "categories": [
+      "charts",
+      "files"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "presentation"
+    ]
+  },
+  {
+    "name": "chart-scatter",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "chart-spline",
+    "categories": [
+      "charts"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "curve",
+      "continuous",
+      "smooth",
+      "polynomial",
+      "quadratic",
+      "function",
+      "interpolation"
+    ]
+  },
+  {
+    "name": "folder-kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design",
+      "files"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "directory",
+      "project",
+      "root"
+    ]
+  },
+  {
+    "name": "kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "square-chart-gantt",
+    "categories": [
+      "charts",
+      "time",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "roadmap",
+      "plan",
+      "intentions",
+      "timeline",
+      "deadline",
+      "date",
+      "event",
+      "range",
+      "period",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "square-dashed-kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "draft",
+      "template",
+      "boilerplate",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "square-kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "trending-down",
+    "categories": [
+      "charts",
+      "arrows"
+    ],
+    "tags": [
+      "statistics"
+    ]
+  },
+  {
+    "name": "trending-up-down",
+    "categories": [
+      "charts",
+      "arrows"
+    ],
+    "tags": [
+      "arrows",
+      "estimated",
+      "indeterminate",
+      "data fluctuation",
+      "uncertain",
+      "forecast",
+      "variable",
+      "prediction",
+      "dynamic",
+      "volatile"
+    ]
+  },
+  {
+    "name": "trending-up",
+    "categories": [
+      "charts",
+      "arrows"
+    ],
+    "tags": [
+      "statistics"
+    ]
+  }
+]

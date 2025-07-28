@@ -1,0 +1,1351 @@
+[
+  {
+    "name": "asterisk",
+    "categories": [
+      "text",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "reference",
+      "times",
+      "multiply",
+      "multiplication",
+      "operator",
+      "code",
+      "glob pattern",
+      "wildcard",
+      "*"
+    ]
+  },
+  {
+    "name": "badge-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "box",
+    "categories": [
+      "shapes",
+      "gaming",
+      "development",
+      "math"
+    ],
+    "tags": [
+      "cube",
+      "package",
+      "container",
+      "storage",
+      "geometry",
+      "3d",
+      "isometric"
+    ]
+  },
+  {
+    "name": "calculator",
+    "categories": [
+      "math",
+      "devices"
+    ],
+    "tags": [
+      "count",
+      "calculating machine"
+    ]
+  },
+  {
+    "name": "chevron-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "next",
+      "more than",
+      "greater",
+      "menu",
+      "code",
+      "coding",
+      "command line",
+      "terminal",
+      "prompt",
+      "shell",
+      ">"
+    ]
+  },
+  {
+    "name": "chevron-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "caret",
+      "keyboard",
+      "mac",
+      "control",
+      "ctrl",
+      "superscript",
+      "exponential",
+      "power",
+      "ahead",
+      "fast",
+      "^",
+      "dropdown"
+    ]
+  },
+  {
+    "name": "circle-divide",
+    "categories": [
+      "math"
+    ],
+    "tags": [
+      "calculate",
+      "math",
+      "÷",
+      "/"
+    ]
+  },
+  {
+    "name": "circle-equal",
+    "categories": [
+      "math"
+    ],
+    "tags": [
+      "calculate",
+      "shape",
+      "="
+    ]
+  },
+  {
+    "name": "circle-minus",
+    "categories": [
+      "math"
+    ],
+    "tags": [
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "calculate",
+      "line",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade",
+      "-"
+    ]
+  },
+  {
+    "name": "circle-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "circle-plus",
+    "categories": [
+      "math",
+      "development",
+      "cursors",
+      "gaming"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "operator",
+      "join",
+      "concatenate",
+      "code",
+      "coding",
+      "+"
+    ]
+  },
+  {
+    "name": "circle-slash-2",
+    "categories": [
+      "shapes",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "diameter",
+      "zero",
+      "Ø",
+      "nothing",
+      "null",
+      "void",
+      "ban",
+      "math",
+      "divide",
+      "division",
+      "half",
+      "split",
+      "/"
+    ]
+  },
+  {
+    "name": "circle-slash",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "diameter",
+      "zero",
+      "Ø",
+      "nothing",
+      "null",
+      "void",
+      "cancel",
+      "ban",
+      "no",
+      "stop",
+      "forbidden",
+      "prohibited",
+      "error",
+      "incorrect",
+      "mistake",
+      "wrong",
+      "failure",
+      "divide",
+      "division",
+      "or",
+      "/"
+    ]
+  },
+  {
+    "name": "circle-x",
+    "categories": [
+      "math",
+      "development"
+    ],
+    "tags": [
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "times",
+      "clear",
+      "error",
+      "incorrect",
+      "wrong",
+      "mistake",
+      "failure",
+      "linter",
+      "multiply",
+      "multiplication"
+    ]
+  },
+  {
+    "name": "cone",
+    "categories": [
+      "shapes",
+      "math"
+    ],
+    "tags": [
+      "conical",
+      "triangle",
+      "triangular",
+      "geometry",
+      "filter",
+      "funnel",
+      "hopper",
+      "spotlight",
+      "searchlight"
+    ]
+  },
+  {
+    "name": "copy-minus",
+    "categories": [
+      "text",
+      "math"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "remove",
+      "delete",
+      "collapse",
+      "subtract",
+      "multiple",
+      "-"
+    ]
+  },
+  {
+    "name": "copy-plus",
+    "categories": [
+      "text",
+      "math"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "add",
+      "multiple",
+      "expand",
+      "+"
+    ]
+  },
+  {
+    "name": "copy-slash",
+    "categories": [
+      "text",
+      "development",
+      "math"
+    ],
+    "tags": [
+      "clone",
+      "duplicate",
+      "cancel",
+      "ban",
+      "no",
+      "stop",
+      "forbidden",
+      "prohibited",
+      "error",
+      "multiple",
+      "divide",
+      "division",
+      "split",
+      "or",
+      "/"
+    ]
+  },
+  {
+    "name": "copy-x",
+    "categories": [
+      "notifications",
+      "math"
+    ],
+    "tags": [
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "clear",
+      "multiple",
+      "multiply",
+      "multiplication",
+      "times"
+    ]
+  },
+  {
+    "name": "cuboid",
+    "categories": [
+      "shapes",
+      "math",
+      "buildings"
+    ],
+    "tags": [
+      "brick",
+      "block",
+      "container",
+      "storage",
+      "geometry",
+      "rectangular",
+      "hexahedron"
+    ]
+  },
+  {
+    "name": "cylinder",
+    "categories": [
+      "shapes",
+      "design",
+      "math"
+    ],
+    "tags": [
+      "shape",
+      "elliptical",
+      "geometry",
+      "container",
+      "storage",
+      "tin",
+      "pot"
+    ]
+  },
+  {
+    "name": "diameter",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "width",
+      "height",
+      "size",
+      "calculate",
+      "measure"
+    ]
+  },
+  {
+    "name": "diamond-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "divide",
+    "categories": [
+      "math",
+      "development"
+    ],
+    "tags": [
+      "calculate",
+      "math",
+      "division",
+      "operator",
+      "code",
+      "÷",
+      "/"
+    ]
+  },
+  {
+    "name": "drafting-compass",
+    "categories": [
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "geometry",
+      "trigonometry",
+      "radius",
+      "diameter",
+      "circumference",
+      "calculate",
+      "measure",
+      "arc",
+      "curve",
+      "draw",
+      "sketch"
+    ]
+  },
+  {
+    "name": "equal-approximately",
+    "categories": [
+      "math"
+    ],
+    "tags": [
+      "about",
+      "calculate",
+      "math",
+      "operater"
+    ]
+  },
+  {
+    "name": "equal-not",
+    "categories": [
+      "math",
+      "development"
+    ],
+    "tags": [
+      "calculate",
+      "off",
+      "math",
+      "operator",
+      "code",
+      "≠"
+    ]
+  },
+  {
+    "name": "equal",
+    "categories": [
+      "math",
+      "development"
+    ],
+    "tags": [
+      "calculate",
+      "math",
+      "operator",
+      "assignment",
+      "code",
+      "="
+    ]
+  },
+  {
+    "name": "grid-2x2-check",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "data",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2-plus",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "data",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2-x",
+    "categories": [
+      "text",
+      "layout",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "data",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre"
+    ]
+  },
+  {
+    "name": "grid-2x2",
+    "categories": [
+      "text",
+      "layout",
+      "design",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre",
+      "window",
+      "skylight"
+    ]
+  },
+  {
+    "name": "land-plot",
+    "categories": [
+      "design",
+      "tools",
+      "math",
+      "sports",
+      "gaming"
+    ],
+    "tags": [
+      "area",
+      "surface",
+      "square metres",
+      "allotment",
+      "parcel",
+      "property",
+      "plane",
+      "acres",
+      "measure",
+      "distance",
+      "isometric",
+      "flag",
+      "golf course",
+      "hole"
+    ]
+  },
+  {
+    "name": "minus",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "tools"
+    ],
+    "tags": [
+      "subtract",
+      "remove",
+      "decrease",
+      "decrement",
+      "reduce",
+      "negative",
+      "calculate",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "octagon-x",
+    "categories": [
+      "math",
+      "notifications"
+    ],
+    "tags": [
+      "delete",
+      "stop",
+      "alert",
+      "warning",
+      "times",
+      "clear",
+      "math"
+    ]
+  },
+  {
+    "name": "omega",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "science"
+    ],
+    "tags": [
+      "greek",
+      "symbol",
+      "mathematics",
+      "education",
+      "physics",
+      "engineering",
+      "ohms",
+      "electrical resistance",
+      "angular frequency",
+      "dynamical systems",
+      "astronomy",
+      "constellations",
+      "philosophy"
+    ]
+  },
+  {
+    "name": "parentheses",
+    "categories": [
+      "development",
+      "files",
+      "math"
+    ],
+    "tags": [
+      "code",
+      "token",
+      "parenthesis",
+      "parens",
+      "brackets",
+      "parameters",
+      "arguments",
+      "args",
+      "input",
+      "call",
+      "math",
+      "formula",
+      "function",
+      "(",
+      ")"
+    ]
+  },
+  {
+    "name": "percent",
+    "categories": [
+      "math",
+      "development",
+      "finance",
+      "shopping"
+    ],
+    "tags": [
+      "percentage",
+      "modulo",
+      "modulus",
+      "remainder",
+      "%",
+      "sale",
+      "discount",
+      "offer",
+      "marketing"
+    ]
+  },
+  {
+    "name": "pi",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "constant",
+      "code",
+      "coding",
+      "programming",
+      "symbol",
+      "trigonometry",
+      "geometry",
+      "formula"
+    ]
+  },
+  {
+    "name": "plus",
+    "categories": [
+      "math",
+      "tools",
+      "development",
+      "text",
+      "cursors",
+      "gaming"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "toolbar",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "pyramid",
+    "categories": [
+      "shapes",
+      "math",
+      "travel"
+    ],
+    "tags": [
+      "prism",
+      "triangle",
+      "triangular",
+      "hierarchy",
+      "structure",
+      "geometry",
+      "ancient",
+      "egyptian",
+      "landmark",
+      "tourism"
+    ]
+  },
+  {
+    "name": "radical",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "calculate",
+      "formula",
+      "math",
+      "operator",
+      "root",
+      "square",
+      "symbol"
+    ]
+  },
+  {
+    "name": "radius",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "radii",
+      "calculate",
+      "measure",
+      "size"
+    ]
+  },
+  {
+    "name": "sigma",
+    "categories": [
+      "text",
+      "math",
+      "science"
+    ],
+    "tags": [
+      "sum",
+      "calculate",
+      "formula",
+      "math",
+      "enumeration",
+      "enumerate"
+    ]
+  },
+  {
+    "name": "slash",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "divide",
+      "division",
+      "or",
+      "/"
+    ]
+  },
+  {
+    "name": "square-asterisk",
+    "categories": [
+      "text",
+      "security",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "password",
+      "secret",
+      "access",
+      "key",
+      "multiply",
+      "multiplication",
+      "glob pattern",
+      "wildcard",
+      "*"
+    ]
+  },
+  {
+    "name": "square-chevron-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math"
+    ],
+    "tags": [
+      "caret",
+      "keyboard",
+      "button",
+      "mac",
+      "control",
+      "ctrl",
+      "superscript",
+      "exponential",
+      "power",
+      "ahead",
+      "menu",
+      "panel",
+      "^"
+    ]
+  },
+  {
+    "name": "square-divide",
+    "categories": [
+      "math"
+    ],
+    "tags": [
+      "calculate",
+      "math",
+      "÷",
+      "/"
+    ]
+  },
+  {
+    "name": "square-equal",
+    "categories": [
+      "math"
+    ],
+    "tags": [
+      "calculate",
+      "="
+    ]
+  },
+  {
+    "name": "square-function",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "programming",
+      "code",
+      "automation",
+      "math"
+    ]
+  },
+  {
+    "name": "square-minus",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "calculator",
+      "button",
+      "keyboard",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "square-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "square-pi",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "constant",
+      "code",
+      "coding",
+      "programming",
+      "symbol",
+      "trigonometry",
+      "geometry",
+      "formula"
+    ]
+  },
+  {
+    "name": "square-plus",
+    "categories": [
+      "math",
+      "tools",
+      "development",
+      "text"
+    ],
+    "tags": [
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "calculator",
+      "button",
+      "keyboard",
+      "toolbar",
+      "maximum",
+      "upgrade",
+      "extra",
+      "operator",
+      "join",
+      "concatenate",
+      "code",
+      "coding",
+      "+"
+    ]
+  },
+  {
+    "name": "square-radical",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "calculate",
+      "formula",
+      "math",
+      "operator",
+      "root",
+      "square",
+      "symbol"
+    ]
+  },
+  {
+    "name": "square-sigma",
+    "categories": [
+      "text",
+      "math"
+    ],
+    "tags": [
+      "sum",
+      "calculate",
+      "formula",
+      "math",
+      "enumeration",
+      "enumerate"
+    ]
+  },
+  {
+    "name": "square-slash",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "git",
+      "diff",
+      "ignored",
+      "divide",
+      "division",
+      "shortcut",
+      "or",
+      "/"
+    ]
+  },
+  {
+    "name": "square-x",
+    "categories": [
+      "math",
+      "notifications"
+    ],
+    "tags": [
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "times",
+      "clear",
+      "math",
+      "multiply",
+      "multiplication"
+    ]
+  },
+  {
+    "name": "tally-1",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "one",
+      "1",
+      "first",
+      "bar",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-2",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "two",
+      "2",
+      "second",
+      "double",
+      "bars",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-3",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "three",
+      "3",
+      "third",
+      "triple",
+      "bars",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-4",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "4",
+      "fourth",
+      "quadruple",
+      "bars",
+      "prison",
+      "cell",
+      "sentence"
+    ]
+  },
+  {
+    "name": "tally-5",
+    "categories": [
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "count",
+      "score",
+      "enumerate",
+      "days",
+      "five",
+      "5",
+      "fifth",
+      "bars",
+      "prison",
+      "cell",
+      "sentence",
+      "slash",
+      "/"
+    ]
+  },
+  {
+    "name": "tangent",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "tangential",
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "bezier curve"
+    ]
+  },
+  {
+    "name": "triangle-right",
+    "categories": [
+      "shapes",
+      "math"
+    ],
+    "tags": [
+      "volume",
+      "controls",
+      "controller",
+      "tv remote",
+      "geometry",
+      "delta",
+      "ramp",
+      "slope",
+      "incline",
+      "increase"
+    ]
+  },
+  {
+    "name": "variable",
+    "categories": [
+      "development",
+      "math"
+    ],
+    "tags": [
+      "code",
+      "coding",
+      "programming",
+      "symbol",
+      "calculate",
+      "algebra",
+      "x",
+      "parentheses",
+      "parenthesis",
+      "brackets",
+      "parameter",
+      "(",
+      ")"
+    ]
+  },
+  {
+    "name": "weight",
+    "categories": [
+      "math"
+    ],
+    "tags": [
+      "mass",
+      "heavy",
+      "lead",
+      "metal",
+      "measure",
+      "geometry",
+      "scales",
+      "balance"
+    ]
+  },
+  {
+    "name": "x",
+    "categories": [
+      "notifications",
+      "math"
+    ],
+    "tags": [
+      "cancel",
+      "close",
+      "delete",
+      "remove",
+      "times",
+      "clear",
+      "math",
+      "multiply",
+      "multiplication"
+    ]
+  }
+]

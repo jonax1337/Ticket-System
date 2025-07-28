@@ -1,0 +1,393 @@
+[
+  {
+    "name": "anvil",
+    "categories": [
+      "buildings",
+      "tools",
+      "gaming"
+    ],
+    "tags": [
+      "metal",
+      "iron",
+      "alloy",
+      "materials",
+      "heavy",
+      "weight",
+      "blacksmith",
+      "forge",
+      "acme"
+    ]
+  },
+  {
+    "name": "brick-wall",
+    "categories": [
+      "buildings",
+      "home"
+    ],
+    "tags": [
+      "bricks",
+      "mortar",
+      "cement",
+      "materials",
+      "construction",
+      "builder",
+      "labourer",
+      "quantity surveyor",
+      "blocks",
+      "stone"
+    ]
+  },
+  {
+    "name": "building-2",
+    "categories": [
+      "account",
+      "buildings"
+    ],
+    "tags": [
+      "business",
+      "company",
+      "enterprise",
+      "skyscraper",
+      "organisation",
+      "organization",
+      "city"
+    ]
+  },
+  {
+    "name": "building",
+    "categories": [
+      "account",
+      "buildings"
+    ],
+    "tags": [
+      "organisation",
+      "organization"
+    ]
+  },
+  {
+    "name": "castle",
+    "categories": [
+      "buildings",
+      "gaming"
+    ],
+    "tags": [
+      "fortress",
+      "stronghold",
+      "palace",
+      "chateau",
+      "building"
+    ]
+  },
+  {
+    "name": "church",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "temple",
+      "building"
+    ]
+  },
+  {
+    "name": "cuboid",
+    "categories": [
+      "shapes",
+      "math",
+      "buildings"
+    ],
+    "tags": [
+      "brick",
+      "block",
+      "container",
+      "storage",
+      "geometry",
+      "rectangular",
+      "hexahedron"
+    ]
+  },
+  {
+    "name": "dam",
+    "categories": [
+      "buildings",
+      "sustainability"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "water"
+    ]
+  },
+  {
+    "name": "factory",
+    "categories": [
+      "buildings"
+    ],
+    "tags": [
+      "building",
+      "business",
+      "energy",
+      "industry",
+      "manufacture",
+      "sector"
+    ]
+  },
+  {
+    "name": "fence",
+    "categories": [
+      "home",
+      "buildings"
+    ],
+    "tags": [
+      "picket",
+      "panels",
+      "woodwork",
+      "diy",
+      "materials",
+      "suburban",
+      "garden",
+      "property",
+      "territory"
+    ]
+  },
+  {
+    "name": "graduation-cap",
+    "categories": [
+      "buildings"
+    ],
+    "tags": [
+      "school",
+      "university",
+      "learn",
+      "study",
+      "mortarboard",
+      "education",
+      "ceremony",
+      "academic",
+      "hat",
+      "diploma",
+      "bachlor's",
+      "master's",
+      "doctorate"
+    ]
+  },
+  {
+    "name": "hospital",
+    "categories": [
+      "medical",
+      "buildings",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "infirmary",
+      "sanatorium",
+      "healthcare",
+      "doctor",
+      "hospice",
+      "clinic",
+      "emergency room",
+      "ward",
+      "building",
+      "medical",
+      "vet"
+    ]
+  },
+  {
+    "name": "hotel",
+    "categories": [
+      "buildings",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "building",
+      "hostel",
+      "motel",
+      "inn"
+    ]
+  },
+  {
+    "name": "house-plug",
+    "categories": [
+      "buildings",
+      "home",
+      "sustainability"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture",
+      "autarky",
+      "energy"
+    ]
+  },
+  {
+    "name": "house-plus",
+    "categories": [
+      "buildings",
+      "medical"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "medical",
+      "new",
+      "addition",
+      "building",
+      "residence",
+      "architecture"
+    ]
+  },
+  {
+    "name": "house-wifi",
+    "categories": [
+      "home",
+      "buildings",
+      "connectivity"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "wifi",
+      "connectivity"
+    ]
+  },
+  {
+    "name": "house",
+    "categories": [
+      "buildings",
+      "home"
+    ],
+    "tags": [
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture"
+    ]
+  },
+  {
+    "name": "landmark",
+    "categories": [
+      "finance",
+      "navigation",
+      "buildings"
+    ],
+    "tags": [
+      "bank",
+      "building",
+      "capitol",
+      "finance",
+      "money",
+      "government",
+      "institution"
+    ]
+  },
+  {
+    "name": "school",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "building",
+      "education",
+      "childhood",
+      "university",
+      "learning",
+      "campus",
+      "scholar",
+      "student",
+      "lecture",
+      "degree",
+      "course",
+      "academia",
+      "study",
+      "knowledge",
+      "classroom",
+      "research",
+      "diploma",
+      "graduation",
+      "professor",
+      "tutorial",
+      "homework",
+      "assignment",
+      "exam"
+    ]
+  },
+  {
+    "name": "store",
+    "categories": [
+      "buildings",
+      "navigation",
+      "shopping"
+    ],
+    "tags": [
+      "shop",
+      "supermarket",
+      "stand",
+      "boutique",
+      "building"
+    ]
+  },
+  {
+    "name": "theater",
+    "categories": [
+      "buildings",
+      "social"
+    ],
+    "tags": [
+      "theater",
+      "theatre",
+      "entertainment",
+      "podium",
+      "stage",
+      "musical"
+    ]
+  },
+  {
+    "name": "university",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "building",
+      "education",
+      "childhood",
+      "school"
+    ]
+  },
+  {
+    "name": "utility-pole",
+    "categories": [
+      "buildings",
+      "home",
+      "sustainability"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "transmission line",
+      "telegraph pole",
+      "power lines",
+      "phone"
+    ]
+  },
+  {
+    "name": "warehouse",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "storage",
+      "logistics",
+      "building"
+    ]
+  }
+]

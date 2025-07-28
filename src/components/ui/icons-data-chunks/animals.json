@@ -1,0 +1,337 @@
+[
+  {
+    "name": "bird",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "peace",
+      "freedom",
+      "wing",
+      "avian",
+      "tweet"
+    ]
+  },
+  {
+    "name": "bone",
+    "categories": [
+      "animals",
+      "medical",
+      "gaming"
+    ],
+    "tags": [
+      "health",
+      "skeleton",
+      "skull",
+      "death",
+      "pets",
+      "dog"
+    ]
+  },
+  {
+    "name": "bug-off",
+    "categories": [
+      "development",
+      "animals"
+    ],
+    "tags": [
+      "debug",
+      "code",
+      "insect",
+      "kill",
+      "exterminate",
+      "pest control"
+    ]
+  },
+  {
+    "name": "bug-play",
+    "categories": [
+      "development",
+      "animals"
+    ],
+    "tags": [
+      "debug",
+      "code",
+      "insect"
+    ]
+  },
+  {
+    "name": "bug",
+    "categories": [
+      "development",
+      "animals"
+    ],
+    "tags": [
+      "issue",
+      "report",
+      "debug",
+      "code",
+      "insect"
+    ]
+  },
+  {
+    "name": "cat",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "animal",
+      "pet",
+      "kitten",
+      "feline"
+    ]
+  },
+  {
+    "name": "dog",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "animal",
+      "pet",
+      "puppy",
+      "hound",
+      "canine"
+    ]
+  },
+  {
+    "name": "egg",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "bird",
+      "chicken",
+      "nest",
+      "hatch",
+      "shell",
+      "incubate",
+      "soft boiled",
+      "hard",
+      "breakfast",
+      "brunch",
+      "morning",
+      "easter"
+    ]
+  },
+  {
+    "name": "fish-off",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "food",
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "seafood",
+      "animal",
+      "pet",
+      "sea",
+      "marine",
+      "allergy",
+      "intolerance",
+      "diet"
+    ]
+  },
+  {
+    "name": "fish-symbol",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "seafood",
+      "pet",
+      "sea",
+      "marine"
+    ]
+  },
+  {
+    "name": "fish",
+    "categories": [
+      "food-beverage",
+      "animals"
+    ],
+    "tags": [
+      "dish",
+      "restaurant",
+      "course",
+      "meal",
+      "seafood",
+      "pet",
+      "sea",
+      "marine"
+    ]
+  },
+  {
+    "name": "origami",
+    "categories": [
+      "animals",
+      "design"
+    ],
+    "tags": [
+      "paper",
+      "bird"
+    ]
+  },
+  {
+    "name": "paw-print",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "pets",
+      "vets",
+      "veterinarian",
+      "domesticated",
+      "cat",
+      "dog",
+      "bear"
+    ]
+  },
+  {
+    "name": "rabbit",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "animal",
+      "rodent",
+      "pet",
+      "pest",
+      "bunny",
+      "hare",
+      "fast",
+      "speed",
+      "hop"
+    ]
+  },
+  {
+    "name": "rat",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "mouse",
+      "mice",
+      "gerbil",
+      "rodent",
+      "pet",
+      "pest",
+      "plague",
+      "disease"
+    ]
+  },
+  {
+    "name": "shell",
+    "categories": [
+      "animals",
+      "development",
+      "nature",
+      "science",
+      "travel",
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "beach",
+      "sand",
+      "holiday",
+      "sealife",
+      "fossil",
+      "ammonite",
+      "biology",
+      "ocean",
+      "terminal",
+      "command line",
+      "session",
+      "bash",
+      "zsh",
+      "roll",
+      "wrap",
+      "chewing gum",
+      "bubble gum",
+      "sweet",
+      "sugar",
+      "hosepipe",
+      "carpet",
+      "string",
+      "spiral",
+      "spinner",
+      "hypnotise",
+      "hypnosis"
+    ]
+  },
+  {
+    "name": "snail",
+    "categories": [
+      "animals",
+      "food-beverage"
+    ],
+    "tags": [
+      "animal",
+      "insect",
+      "slow",
+      "speed",
+      "delicacy",
+      "spiral"
+    ]
+  },
+  {
+    "name": "squirrel",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "animal",
+      "rodent",
+      "pet",
+      "pest",
+      "nuts",
+      "retrieve",
+      "updates",
+      "storage",
+      "stash"
+    ]
+  },
+  {
+    "name": "turtle",
+    "categories": [
+      "animals"
+    ],
+    "tags": [
+      "animal",
+      "pet",
+      "tortoise",
+      "slow",
+      "speed"
+    ]
+  },
+  {
+    "name": "worm",
+    "categories": [
+      "animals",
+      "security"
+    ],
+    "tags": [
+      "invertebrate",
+      "grub",
+      "larva",
+      "snake",
+      "crawl",
+      "wiggle",
+      "slither",
+      "pest control",
+      "computer virus",
+      "malware"
+    ]
+  }
+]

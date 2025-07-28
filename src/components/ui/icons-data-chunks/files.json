@@ -1,0 +1,2305 @@
+[
+  {
+    "name": "app-window-mac",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "application",
+      "menu bar",
+      "pane",
+      "preferences",
+      "macos",
+      "osx",
+      "executable"
+    ]
+  },
+  {
+    "name": "app-window",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "application",
+      "menu bar",
+      "pane",
+      "executable"
+    ]
+  },
+  {
+    "name": "archive-restore",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "unarchive",
+      "index",
+      "backup",
+      "box",
+      "storage",
+      "records"
+    ]
+  },
+  {
+    "name": "archive-x",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "index",
+      "backup",
+      "box",
+      "storage",
+      "records",
+      "junk"
+    ]
+  },
+  {
+    "name": "archive",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "index",
+      "backup",
+      "box",
+      "storage",
+      "records"
+    ]
+  },
+  {
+    "name": "arrow-big-down-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming",
+      "files"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slow",
+      "direction",
+      "south",
+      "download"
+    ]
+  },
+  {
+    "name": "arrow-down-from-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "download",
+      "expand",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-down-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "behind",
+      "direction",
+      "south",
+      "download",
+      "save",
+      "git",
+      "version control",
+      "pull",
+      "collapse",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-up-from-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "upload",
+      "git",
+      "version control",
+      "push",
+      "expand",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-up-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "upload",
+      "collapse",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "book-image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files",
+      "social",
+      "shopping",
+      "travel"
+    ],
+    "tags": [
+      "images",
+      "pictures",
+      "photos",
+      "album",
+      "collection",
+      "event",
+      "magazine",
+      "catalog",
+      "catalogue",
+      "brochure",
+      "browse",
+      "gallery"
+    ]
+  },
+  {
+    "name": "braces",
+    "categories": [
+      "development",
+      "files"
+    ],
+    "tags": [
+      "json",
+      "code",
+      "token",
+      "curly brackets",
+      "data",
+      "{",
+      "}"
+    ]
+  },
+  {
+    "name": "brackets",
+    "categories": [
+      "development",
+      "files"
+    ],
+    "tags": [
+      "code",
+      "token",
+      "array",
+      "list",
+      "square",
+      "[",
+      "]"
+    ]
+  },
+  {
+    "name": "calendar-fold",
+    "categories": [
+      "time",
+      "files"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event",
+      "birthday",
+      "birthdate",
+      "ics"
+    ]
+  },
+  {
+    "name": "cassette-tape",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia",
+      "communication",
+      "files"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "recording",
+      "play"
+    ]
+  },
+  {
+    "name": "chart-pie",
+    "categories": [
+      "charts",
+      "files"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "presentation"
+    ]
+  },
+  {
+    "name": "cloud-download",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "import"
+    ]
+  },
+  {
+    "name": "cloud-upload",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "file"
+    ]
+  },
+  {
+    "name": "combine",
+    "categories": [
+      "development",
+      "files"
+    ],
+    "tags": [
+      "cubes",
+      "packages",
+      "parts",
+      "units",
+      "collection",
+      "cluster",
+      "combine",
+      "gather",
+      "merge"
+    ]
+  },
+  {
+    "name": "diff",
+    "categories": [
+      "development",
+      "files"
+    ],
+    "tags": [
+      "patch",
+      "difference",
+      "compare",
+      "plus",
+      "minus",
+      "plus-minus",
+      "math"
+    ]
+  },
+  {
+    "name": "dock",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "desktop",
+      "applications",
+      "launch",
+      "home",
+      "menu bar",
+      "bottom",
+      "line",
+      "macos",
+      "osx"
+    ]
+  },
+  {
+    "name": "download",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "import",
+      "export",
+      "save"
+    ]
+  },
+  {
+    "name": "file-archive",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "zip",
+      "package",
+      "archive"
+    ]
+  },
+  {
+    "name": "file-audio-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "headphones"
+    ]
+  },
+  {
+    "name": "file-audio",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "headphones"
+    ]
+  },
+  {
+    "name": "file-axis-3d",
+    "categories": [
+      "design",
+      "files"
+    ],
+    "tags": [
+      "model",
+      "3d",
+      "axis",
+      "coordinates"
+    ]
+  },
+  {
+    "name": "file-badge-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "award",
+      "achievement",
+      "badge",
+      "rosette",
+      "prize",
+      "winner"
+    ]
+  },
+  {
+    "name": "file-badge",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "award",
+      "achievement",
+      "badge",
+      "rosette",
+      "prize",
+      "winner"
+    ]
+  },
+  {
+    "name": "file-box",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "box",
+      "package",
+      "model"
+    ]
+  },
+  {
+    "name": "file-chart-column-increasing",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "presentation",
+      "trending up"
+    ]
+  },
+  {
+    "name": "file-chart-column",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "presentation"
+    ]
+  },
+  {
+    "name": "file-chart-line",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "presentation"
+    ]
+  },
+  {
+    "name": "file-chart-pie",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph",
+      "presentation"
+    ]
+  },
+  {
+    "name": "file-check-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "done",
+      "document",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "file-check",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "done",
+      "document",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "file-clock",
+    "categories": [
+      "files",
+      "time"
+    ],
+    "tags": [
+      "history",
+      "log",
+      "clock"
+    ]
+  },
+  {
+    "name": "file-code-2",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "script",
+      "document",
+      "html",
+      "xml",
+      "property list",
+      "plist"
+    ]
+  },
+  {
+    "name": "file-code",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "script",
+      "document",
+      "gist",
+      "html",
+      "xml",
+      "property list",
+      "plist"
+    ]
+  },
+  {
+    "name": "file-cog",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "executable",
+      "settings",
+      "cog",
+      "edit",
+      "gear"
+    ]
+  },
+  {
+    "name": "file-diff",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "diff",
+      "patch"
+    ]
+  },
+  {
+    "name": "file-digit",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "number",
+      "document"
+    ]
+  },
+  {
+    "name": "file-down",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "download",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "file-heart",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "heart",
+      "favourite",
+      "bookmark",
+      "quick link"
+    ]
+  },
+  {
+    "name": "file-image",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "image",
+      "graphics",
+      "photo",
+      "picture"
+    ]
+  },
+  {
+    "name": "file-input",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "document"
+    ]
+  },
+  {
+    "name": "file-json-2",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "code",
+      "json",
+      "curly braces",
+      "curly brackets"
+    ]
+  },
+  {
+    "name": "file-json",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "code",
+      "json",
+      "curly braces",
+      "curly brackets"
+    ]
+  },
+  {
+    "name": "file-key-2",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "key",
+      "private",
+      "public",
+      "security"
+    ]
+  },
+  {
+    "name": "file-key",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "key",
+      "private",
+      "public",
+      "security"
+    ]
+  },
+  {
+    "name": "file-lock-2",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "lock",
+      "password",
+      "security"
+    ]
+  },
+  {
+    "name": "file-lock",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "lock",
+      "password",
+      "security"
+    ]
+  },
+  {
+    "name": "file-minus-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "document"
+    ]
+  },
+  {
+    "name": "file-minus",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "delete",
+      "remove",
+      "erase",
+      "document"
+    ]
+  },
+  {
+    "name": "file-music",
+    "categories": [
+      "files",
+      "multimedia"
+    ],
+    "tags": [
+      "audio",
+      "sound",
+      "noise",
+      "track",
+      "digital",
+      "recording",
+      "playback",
+      "piano",
+      "keyboard",
+      "keys",
+      "notes",
+      "chord",
+      "midi",
+      "octave"
+    ]
+  },
+  {
+    "name": "file-output",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "document"
+    ]
+  },
+  {
+    "name": "file-pen-line",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "edit"
+    ]
+  },
+  {
+    "name": "file-pen",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "signature"
+    ]
+  },
+  {
+    "name": "file-plus-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "add",
+      "create",
+      "new",
+      "document"
+    ]
+  },
+  {
+    "name": "file-plus",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "add",
+      "create",
+      "new",
+      "document"
+    ]
+  },
+  {
+    "name": "file-question",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "readme",
+      "help",
+      "question"
+    ]
+  },
+  {
+    "name": "file-scan",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "scan",
+      "code",
+      "qr-code"
+    ]
+  },
+  {
+    "name": "file-search-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "lost",
+      "document",
+      "find",
+      "browser"
+    ]
+  },
+  {
+    "name": "file-search",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "lost",
+      "document",
+      "find",
+      "browser"
+    ]
+  },
+  {
+    "name": "file-sliders",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "cogged",
+      "gear",
+      "mechanical",
+      "machinery",
+      "configuration",
+      "controls",
+      "preferences",
+      "settings",
+      "system",
+      "admin",
+      "edit",
+      "executable"
+    ]
+  },
+  {
+    "name": "file-spreadsheet",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "sheet",
+      "table"
+    ]
+  },
+  {
+    "name": "file-stack",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "versions",
+      "multiple",
+      "copy",
+      "documents",
+      "revisions",
+      "version control",
+      "history"
+    ]
+  },
+  {
+    "name": "file-symlink",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "symlink",
+      "symbolic",
+      "link"
+    ]
+  },
+  {
+    "name": "file-terminal",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "terminal",
+      "bash",
+      "script",
+      "executable"
+    ]
+  },
+  {
+    "name": "file-text",
+    "categories": [
+      "files",
+      "text"
+    ],
+    "tags": [
+      "data",
+      "txt",
+      "pdf",
+      "document"
+    ]
+  },
+  {
+    "name": "file-type-2",
+    "categories": [
+      "files",
+      "text"
+    ],
+    "tags": [
+      "font",
+      "text",
+      "typography",
+      "type"
+    ]
+  },
+  {
+    "name": "file-type",
+    "categories": [
+      "files",
+      "text"
+    ],
+    "tags": [
+      "font",
+      "text",
+      "typography",
+      "type"
+    ]
+  },
+  {
+    "name": "file-up",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "upload",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "file-user",
+    "categories": [
+      "account",
+      "files"
+    ],
+    "tags": [
+      "person",
+      "personal information",
+      "people",
+      "listing",
+      "networking",
+      "document",
+      "contact",
+      "cover letter",
+      "resume",
+      "cv",
+      "curriculum vitae",
+      "application form"
+    ]
+  },
+  {
+    "name": "file-video-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "movie",
+      "video",
+      "film"
+    ]
+  },
+  {
+    "name": "file-video",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "movie",
+      "video",
+      "film"
+    ]
+  },
+  {
+    "name": "file-volume-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "volume"
+    ]
+  },
+  {
+    "name": "file-volume",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "volume"
+    ]
+  },
+  {
+    "name": "file-warning",
+    "categories": [
+      "files",
+      "notifications"
+    ],
+    "tags": [
+      "hidden",
+      "warning",
+      "alert",
+      "danger",
+      "protected",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "file-x-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "lost",
+      "delete",
+      "remove",
+      "document"
+    ]
+  },
+  {
+    "name": "file-x",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "lost",
+      "delete",
+      "remove",
+      "document"
+    ]
+  },
+  {
+    "name": "file",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "document"
+    ]
+  },
+  {
+    "name": "files",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "multiple",
+      "copy",
+      "documents"
+    ]
+  },
+  {
+    "name": "folder-archive",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "archive",
+      "zip",
+      "package"
+    ]
+  },
+  {
+    "name": "folder-check",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "done",
+      "directory",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "folder-clock",
+    "categories": [
+      "files",
+      "time"
+    ],
+    "tags": [
+      "history",
+      "directory",
+      "clock"
+    ]
+  },
+  {
+    "name": "folder-closed",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "closed"
+    ]
+  },
+  {
+    "name": "folder-code",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "directory",
+      "coding",
+      "develop",
+      "software"
+    ]
+  },
+  {
+    "name": "folder-cog",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "settings",
+      "control",
+      "preferences",
+      "cog",
+      "edit",
+      "gear"
+    ]
+  },
+  {
+    "name": "folder-dot",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "directory",
+      "root",
+      "project",
+      "pinned",
+      "active",
+      "current",
+      "cogged",
+      "gear",
+      "mechanical",
+      "machinery",
+      "configuration",
+      "controls",
+      "preferences",
+      "settings",
+      "system",
+      "admin",
+      "edit"
+    ]
+  },
+  {
+    "name": "folder-down",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "download",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "folder-git-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "root",
+      "project",
+      "git",
+      "repo"
+    ]
+  },
+  {
+    "name": "folder-git",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "root",
+      "project",
+      "git",
+      "repo"
+    ]
+  },
+  {
+    "name": "folder-heart",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "heart",
+      "favourite",
+      "bookmark",
+      "quick link"
+    ]
+  },
+  {
+    "name": "folder-input",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "folder-kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design",
+      "files"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "directory",
+      "project",
+      "root"
+    ]
+  },
+  {
+    "name": "folder-key",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "directory",
+      "key",
+      "private",
+      "security",
+      "protected"
+    ]
+  },
+  {
+    "name": "folder-lock",
+    "categories": [
+      "files",
+      "security"
+    ],
+    "tags": [
+      "directory",
+      "lock",
+      "private",
+      "security",
+      "protected"
+    ]
+  },
+  {
+    "name": "folder-minus",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "folder-open-dot",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "directory",
+      "root",
+      "project",
+      "active",
+      "current",
+      "pinned"
+    ]
+  },
+  {
+    "name": "folder-open",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory"
+    ]
+  },
+  {
+    "name": "folder-output",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "folder-pen",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "rename"
+    ]
+  },
+  {
+    "name": "folder-plus",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "folder-root",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "directory",
+      "root",
+      "project",
+      "git",
+      "repo"
+    ]
+  },
+  {
+    "name": "folder-search-2",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "search",
+      "find",
+      "lost",
+      "browser"
+    ]
+  },
+  {
+    "name": "folder-search",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "search",
+      "find",
+      "lost",
+      "browser"
+    ]
+  },
+  {
+    "name": "folder-symlink",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "symlink",
+      "symbolic",
+      "link"
+    ]
+  },
+  {
+    "name": "folder-sync",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "synchronize",
+      "synchronise",
+      "refresh",
+      "reconnect",
+      "transfer",
+      "backup"
+    ]
+  },
+  {
+    "name": "folder-tree",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "tree",
+      "browser"
+    ]
+  },
+  {
+    "name": "folder-up",
+    "categories": [
+      "files",
+      "arrows"
+    ],
+    "tags": [
+      "directory",
+      "upload",
+      "import",
+      "export"
+    ]
+  },
+  {
+    "name": "folder-x",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory",
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "folder",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "directory"
+    ]
+  },
+  {
+    "name": "folders",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "multiple",
+      "copy",
+      "directories"
+    ]
+  },
+  {
+    "name": "gallery-horizontal-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-vertical-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "group",
+    "categories": [
+      "files"
+    ],
+    "tags": [
+      "cubes",
+      "packages",
+      "parts",
+      "units",
+      "collection",
+      "cluster",
+      "gather",
+      "dashed"
+    ]
+  },
+  {
+    "name": "hard-drive-download",
+    "categories": [
+      "development",
+      "devices",
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "memory",
+      "data",
+      "ssd",
+      "disk",
+      "hard disk",
+      "save"
+    ]
+  },
+  {
+    "name": "hard-drive-upload",
+    "categories": [
+      "development",
+      "devices",
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "memory",
+      "data",
+      "ssd",
+      "disk",
+      "hard disk",
+      "save"
+    ]
+  },
+  {
+    "name": "headphones",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound"
+    ]
+  },
+  {
+    "name": "headset",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "gaming",
+      "headphones",
+      "headset",
+      "call",
+      "center",
+      "phone",
+      "telephone",
+      "voip",
+      "video"
+    ]
+  },
+  {
+    "name": "image-down",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "download",
+      "save",
+      "export"
+    ]
+  },
+  {
+    "name": "image-minus",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "image-off",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo"
+    ]
+  },
+  {
+    "name": "image-play",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "gif",
+      "photo"
+    ]
+  },
+  {
+    "name": "image-plus",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "add",
+      "create",
+      "picture"
+    ]
+  },
+  {
+    "name": "image-up",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "upload",
+      "import"
+    ]
+  },
+  {
+    "name": "image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo"
+    ]
+  },
+  {
+    "name": "images",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "multiple",
+      "copy",
+      "gallery",
+      "album",
+      "collection",
+      "slideshow",
+      "showcase"
+    ]
+  },
+  {
+    "name": "import",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "save"
+    ]
+  },
+  {
+    "name": "list-tree",
+    "categories": [
+      "files",
+      "text",
+      "layout"
+    ],
+    "tags": [
+      "tree",
+      "browser"
+    ]
+  },
+  {
+    "name": "message-square-diff",
+    "categories": [
+      "development",
+      "files",
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "add",
+      "patch",
+      "difference",
+      "plus",
+      "minus",
+      "plus-minus",
+      "math",
+      "code review",
+      "coding",
+      "version control",
+      "git"
+    ]
+  },
+  {
+    "name": "music-2",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "quaver",
+      "eighth note",
+      "note"
+    ]
+  },
+  {
+    "name": "music-3",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "crotchet",
+      "minim",
+      "quarter note",
+      "half note",
+      "note"
+    ]
+  },
+  {
+    "name": "music-4",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "semiquaver",
+      "sixteenth note",
+      "note"
+    ]
+  },
+  {
+    "name": "music",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "note",
+      "quaver",
+      "eighth note"
+    ]
+  },
+  {
+    "name": "package-2",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "box",
+      "container",
+      "storage",
+      "sealed",
+      "packed",
+      "unopened",
+      "undelivered",
+      "archive",
+      "zip"
+    ]
+  },
+  {
+    "name": "package-open",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "box",
+      "container",
+      "storage",
+      "unpack",
+      "unarchive",
+      "unzip",
+      "opened",
+      "delivered"
+    ]
+  },
+  {
+    "name": "package-search",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "find",
+      "product process"
+    ]
+  },
+  {
+    "name": "package",
+    "categories": [
+      "files",
+      "development"
+    ],
+    "tags": [
+      "box",
+      "container",
+      "storage",
+      "sealed",
+      "delivery",
+      "undelivered",
+      "unopened",
+      "packed",
+      "archive",
+      "zip",
+      "module"
+    ]
+  },
+  {
+    "name": "paperclip",
+    "categories": [
+      "text",
+      "design",
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "attachment",
+      "file"
+    ]
+  },
+  {
+    "name": "parentheses",
+    "categories": [
+      "development",
+      "files",
+      "math"
+    ],
+    "tags": [
+      "code",
+      "token",
+      "parenthesis",
+      "parens",
+      "brackets",
+      "parameters",
+      "arguments",
+      "args",
+      "input",
+      "call",
+      "math",
+      "formula",
+      "function",
+      "(",
+      ")"
+    ]
+  },
+  {
+    "name": "save-all",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "floppy disks",
+      "copy"
+    ]
+  },
+  {
+    "name": "save-off",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "floppy disk",
+      "unsalvageable"
+    ]
+  },
+  {
+    "name": "save",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "floppy disk"
+    ]
+  },
+  {
+    "name": "sheet",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheets",
+      "table",
+      "excel"
+    ]
+  },
+  {
+    "name": "square-bottom-dashed-scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "cut",
+      "snippet",
+      "chop",
+      "stationery",
+      "crafts"
+    ]
+  },
+  {
+    "name": "square-dashed-bottom-code",
+    "categories": [
+      "development",
+      "files"
+    ],
+    "tags": [
+      "rectangle",
+      "aspect ratio",
+      "1:1",
+      "shape",
+      "snippet",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "square-dashed-bottom",
+    "categories": [
+      "development",
+      "files"
+    ],
+    "tags": [
+      "rectangle",
+      "aspect ratio",
+      "1:1",
+      "shape",
+      "snippet",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "square-scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "cut",
+      "snippet",
+      "chop",
+      "stationery",
+      "crafts",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "square-stack",
+    "categories": [
+      "text",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "versions",
+      "clone",
+      "copy",
+      "duplicate",
+      "multiple",
+      "revisions",
+      "version control",
+      "backup",
+      "history"
+    ]
+  },
+  {
+    "name": "table-2",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid"
+    ]
+  },
+  {
+    "name": "table-cells-merge",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "row"
+    ]
+  },
+  {
+    "name": "table-cells-split",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "row"
+    ]
+  },
+  {
+    "name": "table-columns-split",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "cut",
+      "break",
+      "divide",
+      "separate",
+      "segment"
+    ]
+  },
+  {
+    "name": "table-properties",
+    "categories": [
+      "text",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "property list",
+      "plist",
+      "spreadsheet",
+      "grid",
+      "dictionary",
+      "object",
+      "hash"
+    ]
+  },
+  {
+    "name": "table-rows-split",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid",
+      "cut",
+      "break",
+      "divide",
+      "separate",
+      "segment"
+    ]
+  },
+  {
+    "name": "table",
+    "categories": [
+      "text",
+      "files"
+    ],
+    "tags": [
+      "spreadsheet",
+      "grid"
+    ]
+  },
+  {
+    "name": "text",
+    "categories": [
+      "text",
+      "files",
+      "cursors"
+    ],
+    "tags": [
+      "find",
+      "search",
+      "data",
+      "txt",
+      "pdf",
+      "document"
+    ]
+  },
+  {
+    "name": "trash-2",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "garbage",
+      "delete",
+      "remove",
+      "bin"
+    ]
+  },
+  {
+    "name": "trash",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "garbage",
+      "delete",
+      "remove",
+      "bin"
+    ]
+  },
+  {
+    "name": "ungroup",
+    "categories": [
+      "shapes",
+      "files"
+    ],
+    "tags": [
+      "cubes",
+      "packages",
+      "parts",
+      "units",
+      "collection",
+      "cluster",
+      "separate"
+    ]
+  },
+  {
+    "name": "upload",
+    "categories": [
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "file"
+    ]
+  },
+  {
+    "name": "videotape",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography",
+      "files"
+    ],
+    "tags": [
+      "vhs",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "showreel",
+      "cassette"
+    ]
+  }
+]

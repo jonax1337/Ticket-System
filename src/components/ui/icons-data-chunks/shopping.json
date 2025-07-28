@@ -1,0 +1,511 @@
+[
+  {
+    "name": "badge-cent",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "cents",
+      "dollar",
+      "usd",
+      "$",
+      "¢"
+    ]
+  },
+  {
+    "name": "badge-dollar-sign",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "usd",
+      "$"
+    ]
+  },
+  {
+    "name": "badge-euro",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "€"
+    ]
+  },
+  {
+    "name": "badge-indian-rupee",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "inr",
+      "₹"
+    ]
+  },
+  {
+    "name": "badge-japanese-yen",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "jpy",
+      "¥"
+    ]
+  },
+  {
+    "name": "badge-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "badge-pound-sterling",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "british",
+      "gbp",
+      "£"
+    ]
+  },
+  {
+    "name": "badge-russian-ruble",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "rub",
+      "₽"
+    ]
+  },
+  {
+    "name": "badge-swiss-franc",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "chf",
+      "₣"
+    ]
+  },
+  {
+    "name": "barcode",
+    "categories": [
+      "shopping"
+    ],
+    "tags": [
+      "scan",
+      "checkout",
+      "till",
+      "cart",
+      "transaction",
+      "purchase",
+      "buy",
+      "product",
+      "packaging",
+      "retail",
+      "consumer"
+    ]
+  },
+  {
+    "name": "book-image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files",
+      "social",
+      "shopping",
+      "travel"
+    ],
+    "tags": [
+      "images",
+      "pictures",
+      "photos",
+      "album",
+      "collection",
+      "event",
+      "magazine",
+      "catalog",
+      "catalogue",
+      "brochure",
+      "browse",
+      "gallery"
+    ]
+  },
+  {
+    "name": "circle-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "diamond-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "percent",
+    "categories": [
+      "math",
+      "development",
+      "finance",
+      "shopping"
+    ],
+    "tags": [
+      "percentage",
+      "modulo",
+      "modulus",
+      "remainder",
+      "%",
+      "sale",
+      "discount",
+      "offer",
+      "marketing"
+    ]
+  },
+  {
+    "name": "scan-barcode",
+    "categories": [
+      "shopping",
+      "devices"
+    ],
+    "tags": [
+      "checkout",
+      "till",
+      "cart",
+      "transaction",
+      "purchase",
+      "buy",
+      "product",
+      "packaging",
+      "retail",
+      "consumer"
+    ]
+  },
+  {
+    "name": "scan-line",
+    "categories": [
+      "devices",
+      "shopping"
+    ],
+    "tags": [
+      "checkout",
+      "till",
+      "cart",
+      "transaction",
+      "purchase",
+      "buy",
+      "product",
+      "packaging",
+      "retail",
+      "consumer",
+      "qr-code",
+      "dashed"
+    ]
+  },
+  {
+    "name": "scan-qr-code",
+    "categories": [
+      "account",
+      "shopping",
+      "devices",
+      "security"
+    ],
+    "tags": [
+      "barcode",
+      "scan",
+      "qrcode",
+      "url",
+      "information",
+      "digital",
+      "scanner"
+    ]
+  },
+  {
+    "name": "scan",
+    "categories": [
+      "devices",
+      "shopping",
+      "security",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "qr-code",
+      "barcode",
+      "checkout",
+      "augmented reality",
+      "ar",
+      "target",
+      "surveillance",
+      "camera",
+      "lens",
+      "focus",
+      "frame",
+      "select",
+      "box",
+      "boundary",
+      "bounds",
+      "area",
+      "square",
+      "dashed"
+    ]
+  },
+  {
+    "name": "shirt",
+    "categories": [
+      "shopping"
+    ],
+    "tags": [
+      "t-shirt",
+      "shopping",
+      "store",
+      "clothing",
+      "clothes"
+    ]
+  },
+  {
+    "name": "shopping-bag",
+    "categories": [
+      "shopping"
+    ],
+    "tags": [
+      "ecommerce",
+      "cart",
+      "purchase",
+      "store"
+    ]
+  },
+  {
+    "name": "shopping-basket",
+    "categories": [
+      "shopping"
+    ],
+    "tags": [
+      "cart",
+      "e-commerce",
+      "store",
+      "purchase",
+      "products",
+      "items",
+      "ingredients"
+    ]
+  },
+  {
+    "name": "shopping-cart",
+    "categories": [
+      "shopping"
+    ],
+    "tags": [
+      "trolley",
+      "cart",
+      "basket",
+      "e-commerce",
+      "store",
+      "purchase",
+      "products",
+      "items",
+      "ingredients"
+    ]
+  },
+  {
+    "name": "square-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "store",
+    "categories": [
+      "buildings",
+      "navigation",
+      "shopping"
+    ],
+    "tags": [
+      "shop",
+      "supermarket",
+      "stand",
+      "boutique",
+      "building"
+    ]
+  },
+  {
+    "name": "ticket-percent",
+    "categories": [
+      "transportation",
+      "shopping"
+    ],
+    "tags": [
+      "discount",
+      "reduced",
+      "offer",
+      "voucher",
+      "entry",
+      "pass",
+      "event",
+      "concert",
+      "show",
+      "book",
+      "purchase",
+      "%"
+    ]
+  }
+]

@@ -1,0 +1,913 @@
+[
+  {
+    "name": "antenna",
+    "categories": [
+      "devices",
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "signal",
+      "connection",
+      "connectivity",
+      "tv",
+      "television",
+      "broadcast",
+      "live",
+      "frequency",
+      "tune",
+      "scan",
+      "channels",
+      "aerial",
+      "receiver",
+      "transmission",
+      "transducer",
+      "terrestrial",
+      "satellite",
+      "cable"
+    ]
+  },
+  {
+    "name": "audio-lines",
+    "categories": [
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "graphic equaliser",
+      "sound",
+      "noise",
+      "listen",
+      "hearing",
+      "hertz",
+      "frequency",
+      "wavelength",
+      "vibrate",
+      "sine",
+      "synthesizer",
+      "synthesiser",
+      "levels",
+      "track",
+      "music",
+      "playback",
+      "radio",
+      "broadcast",
+      "airwaves",
+      "voice",
+      "vocals",
+      "singer",
+      "song"
+    ]
+  },
+  {
+    "name": "audio-waveform",
+    "categories": [
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "sound",
+      "noise",
+      "listen",
+      "hearing",
+      "hertz",
+      "frequency",
+      "wavelength",
+      "vibrate",
+      "sine",
+      "synthesizer",
+      "synthesiser",
+      "levels",
+      "track",
+      "music",
+      "playback",
+      "radio",
+      "broadcast",
+      "airwaves",
+      "voice",
+      "vocals",
+      "singer",
+      "song"
+    ]
+  },
+  {
+    "name": "book-user",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "people",
+      "family",
+      "friends",
+      "acquaintances",
+      "contacts",
+      "details",
+      "addresses",
+      "phone numbers",
+      "directory",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "camera-off",
+    "categories": [
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "photo",
+      "webcam",
+      "video"
+    ]
+  },
+  {
+    "name": "camera",
+    "categories": [
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "photo",
+      "webcam",
+      "video"
+    ]
+  },
+  {
+    "name": "cassette-tape",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia",
+      "communication",
+      "files"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "recording",
+      "play"
+    ]
+  },
+  {
+    "name": "cctv",
+    "categories": [
+      "security",
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "surveillance",
+      "recording",
+      "film",
+      "videotape",
+      "crime",
+      "watching"
+    ]
+  },
+  {
+    "name": "chevrons-left-right-ellipsis",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "circle-fading-plus",
+    "categories": [
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "stories",
+      "social media",
+      "instagram",
+      "facebook",
+      "meta",
+      "snapchat",
+      "sharing",
+      "content"
+    ]
+  },
+  {
+    "name": "contact-round",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "contact",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "ethernet-port",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "handshake",
+    "categories": [
+      "account",
+      "social",
+      "communication",
+      "finance",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "partnership",
+      "deal",
+      "business",
+      "assistance",
+      "cooperation",
+      "friendship",
+      "union",
+      "terms"
+    ]
+  },
+  {
+    "name": "headphone-off",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "communication",
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "mute",
+      "off"
+    ]
+  },
+  {
+    "name": "lectern",
+    "categories": [
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "pulpit",
+      "podium",
+      "stand"
+    ]
+  },
+  {
+    "name": "mic-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "mute",
+      "microphone"
+    ]
+  },
+  {
+    "name": "mic",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "listen",
+      "radio",
+      "podcast",
+      "microphone"
+    ]
+  },
+  {
+    "name": "newspaper",
+    "categories": [
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "news",
+      "feed",
+      "home",
+      "magazine",
+      "article",
+      "headline"
+    ]
+  },
+  {
+    "name": "nfc",
+    "categories": [
+      "communication",
+      "finance",
+      "devices"
+    ],
+    "tags": [
+      "contactless",
+      "payment",
+      "near-field communication"
+    ]
+  },
+  {
+    "name": "notebook-tabs",
+    "categories": [
+      "account",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "people",
+      "family",
+      "friends",
+      "acquaintances",
+      "contacts",
+      "details",
+      "addresses",
+      "phone numbers",
+      "directory",
+      "listing",
+      "networking",
+      "alphabetical",
+      "a-z",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "stationery"
+    ]
+  },
+  {
+    "name": "notebook",
+    "categories": [
+      "text",
+      "communication",
+      "social",
+      "design"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "stationery",
+      "sketchbook",
+      "moleskine",
+      "closure",
+      "strap",
+      "band",
+      "elastic",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "written",
+      "writer",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "homework",
+      "research"
+    ]
+  },
+  {
+    "name": "phone-call",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "ring"
+    ]
+  },
+  {
+    "name": "phone-forwarded",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-incoming",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-missed",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call",
+      "mute"
+    ]
+  },
+  {
+    "name": "phone-outgoing",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone",
+    "categories": [
+      "text",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "presentation",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication",
+      "design"
+    ],
+    "tags": [
+      "screen",
+      "whiteboard",
+      "marker pens",
+      "markers",
+      "blackboard",
+      "chalk",
+      "easel",
+      "school",
+      "learning",
+      "lesson",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "projector",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "cinema",
+      "film",
+      "movie",
+      "home video",
+      "presentation",
+      "slideshow",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "radar",
+    "categories": [
+      "navigation",
+      "security",
+      "communication"
+    ],
+    "tags": [
+      "scan",
+      "sonar",
+      "detect",
+      "find",
+      "locate"
+    ]
+  },
+  {
+    "name": "screen-share-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "desktop",
+      "disconnect",
+      "monitor"
+    ]
+  },
+  {
+    "name": "screen-share",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "host",
+      "desktop",
+      "monitor"
+    ]
+  },
+  {
+    "name": "send-horizontal",
+    "categories": [
+      "mail",
+      "communication",
+      "connectivity"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "mail",
+      "paper airplane",
+      "paper aeroplane",
+      "submit"
+    ]
+  },
+  {
+    "name": "send",
+    "categories": [
+      "mail",
+      "communication",
+      "connectivity"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "mail",
+      "paper airplane",
+      "paper aeroplane",
+      "submit"
+    ]
+  },
+  {
+    "name": "smartphone-nfc",
+    "categories": [
+      "communication",
+      "finance",
+      "devices"
+    ],
+    "tags": [
+      "contactless",
+      "payment",
+      "near-field communication",
+      "screen"
+    ]
+  },
+  {
+    "name": "smile-plus",
+    "categories": [
+      "emoji",
+      "social",
+      "notifications",
+      "communication"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "happy",
+      "good",
+      "emotion",
+      "react",
+      "reaction",
+      "add"
+    ]
+  },
+  {
+    "name": "speech",
+    "categories": [
+      "accessibility",
+      "communication"
+    ],
+    "tags": [
+      "disability",
+      "disabled",
+      "dda",
+      "human",
+      "accessibility",
+      "people",
+      "sound"
+    ]
+  },
+  {
+    "name": "switch-camera",
+    "categories": [
+      "communication",
+      "devices"
+    ],
+    "tags": [
+      "photo",
+      "selfie",
+      "front",
+      "back"
+    ]
+  },
+  {
+    "name": "tv",
+    "categories": [
+      "devices",
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "television",
+      "stream",
+      "display",
+      "widescreen",
+      "high-definition",
+      "hd",
+      "1080p",
+      "4k",
+      "8k",
+      "smart",
+      "digital",
+      "video",
+      "entertainment",
+      "showtime",
+      "channels",
+      "terrestrial",
+      "satellite",
+      "cable",
+      "broadcast",
+      "live",
+      "frequency",
+      "tune",
+      "scan",
+      "aerial",
+      "receiver",
+      "transmission",
+      "signal",
+      "connection",
+      "connectivity"
+    ]
+  },
+  {
+    "name": "video-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film"
+    ]
+  },
+  {
+    "name": "video",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "camcorder",
+      "reel"
+    ]
+  },
+  {
+    "name": "videotape",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography",
+      "files"
+    ],
+    "tags": [
+      "vhs",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "showreel",
+      "cassette"
+    ]
+  },
+  {
+    "name": "volume-1",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-2",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-off",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-x",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "webcam",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "camera",
+      "security"
+    ]
+  }
+]

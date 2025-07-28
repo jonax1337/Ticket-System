@@ -1,0 +1,784 @@
+[
+  {
+    "name": "badge-cent",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "cents",
+      "dollar",
+      "usd",
+      "$",
+      "¢"
+    ]
+  },
+  {
+    "name": "badge-dollar-sign",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "usd",
+      "$"
+    ]
+  },
+  {
+    "name": "badge-euro",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "€"
+    ]
+  },
+  {
+    "name": "badge-indian-rupee",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "inr",
+      "₹"
+    ]
+  },
+  {
+    "name": "badge-japanese-yen",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "jpy",
+      "¥"
+    ]
+  },
+  {
+    "name": "badge-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "badge-pound-sterling",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "british",
+      "gbp",
+      "£"
+    ]
+  },
+  {
+    "name": "badge-russian-ruble",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "rub",
+      "₽"
+    ]
+  },
+  {
+    "name": "badge-swiss-franc",
+    "categories": [
+      "shopping",
+      "finance"
+    ],
+    "tags": [
+      "discount",
+      "offer",
+      "sale",
+      "voucher",
+      "tag",
+      "monetization",
+      "marketing",
+      "finance",
+      "financial",
+      "exchange",
+      "transaction",
+      "payment",
+      "chf",
+      "₣"
+    ]
+  },
+  {
+    "name": "banknote",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "bitcoin",
+    "categories": [
+      "brands",
+      "development",
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "chart-candlestick",
+    "categories": [
+      "charts",
+      "finance"
+    ],
+    "tags": [
+      "trading",
+      "trader",
+      "financial",
+      "markets",
+      "portfolio",
+      "assets",
+      "prices",
+      "value",
+      "valuation",
+      "commodities",
+      "currencies",
+      "currency",
+      "stocks",
+      "exchange",
+      "hedge fund",
+      "statistics",
+      "analytics",
+      "diagram",
+      "graph"
+    ]
+  },
+  {
+    "name": "circle-dollar-sign",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "monetization",
+      "marketing",
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "circle-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "credit-card",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "bank",
+      "purchase",
+      "payment",
+      "cc"
+    ]
+  },
+  {
+    "name": "currency",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "finance",
+      "money"
+    ]
+  },
+  {
+    "name": "diamond-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "dollar-sign",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "euro",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "gem",
+    "categories": [
+      "gaming",
+      "development",
+      "finance"
+    ],
+    "tags": [
+      "diamond",
+      "crystal",
+      "ruby",
+      "jewellery",
+      "price",
+      "special",
+      "present",
+      "gift",
+      "ring",
+      "wedding",
+      "proposal",
+      "marriage",
+      "rubygems"
+    ]
+  },
+  {
+    "name": "hand-coins",
+    "categories": [
+      "finance",
+      "account"
+    ],
+    "tags": [
+      "savings",
+      "banking",
+      "money",
+      "finance",
+      "offers",
+      "mortgage",
+      "payment",
+      "received",
+      "wage",
+      "payroll",
+      "allowance",
+      "pocket money",
+      "handout",
+      "pennies"
+    ]
+  },
+  {
+    "name": "handshake",
+    "categories": [
+      "account",
+      "social",
+      "communication",
+      "finance",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "partnership",
+      "deal",
+      "business",
+      "assistance",
+      "cooperation",
+      "friendship",
+      "union",
+      "terms"
+    ]
+  },
+  {
+    "name": "indian-rupee",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "japanese-yen",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "landmark",
+    "categories": [
+      "finance",
+      "navigation",
+      "buildings"
+    ],
+    "tags": [
+      "bank",
+      "building",
+      "capitol",
+      "finance",
+      "money",
+      "government",
+      "institution"
+    ]
+  },
+  {
+    "name": "nfc",
+    "categories": [
+      "communication",
+      "finance",
+      "devices"
+    ],
+    "tags": [
+      "contactless",
+      "payment",
+      "near-field communication"
+    ]
+  },
+  {
+    "name": "percent",
+    "categories": [
+      "math",
+      "development",
+      "finance",
+      "shopping"
+    ],
+    "tags": [
+      "percentage",
+      "modulo",
+      "modulus",
+      "remainder",
+      "%",
+      "sale",
+      "discount",
+      "offer",
+      "marketing"
+    ]
+  },
+  {
+    "name": "philippine-peso",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "peso",
+      "money",
+      "php"
+    ]
+  },
+  {
+    "name": "piggy-bank",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "money",
+      "savings"
+    ]
+  },
+  {
+    "name": "pound-sterling",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "receipt-cent",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "cents",
+      "dollar",
+      "usd",
+      "$",
+      "¢"
+    ]
+  },
+  {
+    "name": "receipt-euro",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "€"
+    ]
+  },
+  {
+    "name": "receipt-indian-rupee",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "inr",
+      "₹"
+    ]
+  },
+  {
+    "name": "receipt-japanese-yen",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "jpy",
+      "¥"
+    ]
+  },
+  {
+    "name": "receipt-pound-sterling",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "british",
+      "currency",
+      "gbp",
+      "£"
+    ]
+  },
+  {
+    "name": "receipt-russian-ruble",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "rub",
+      "₽"
+    ]
+  },
+  {
+    "name": "receipt-swiss-franc",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "chf",
+      "₣"
+    ]
+  },
+  {
+    "name": "receipt-text",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "details",
+      "small print",
+      "terms",
+      "conditions",
+      "contract"
+    ]
+  },
+  {
+    "name": "receipt",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "dollar",
+      "usd",
+      "$"
+    ]
+  },
+  {
+    "name": "russian-ruble",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "smartphone-nfc",
+    "categories": [
+      "communication",
+      "finance",
+      "devices"
+    ],
+    "tags": [
+      "contactless",
+      "payment",
+      "near-field communication",
+      "screen"
+    ]
+  },
+  {
+    "name": "square-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "swiss-franc",
+    "categories": [
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "wallet-cards",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "money",
+      "finance",
+      "pocket",
+      "credit",
+      "purchase",
+      "payment",
+      "shopping",
+      "retail",
+      "consumer",
+      "cc"
+    ]
+  },
+  {
+    "name": "wallet-minimal",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "finance",
+      "pocket"
+    ]
+  },
+  {
+    "name": "wallet",
+    "categories": [
+      "account",
+      "finance"
+    ],
+    "tags": [
+      "money",
+      "finance",
+      "pocket"
+    ]
+  }
+]

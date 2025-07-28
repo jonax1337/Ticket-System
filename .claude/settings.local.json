@@ -22,7 +22,9 @@
       "Bash(grep:*)",
       "Bash(sed:*)",
       "Bash(dos2unix:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(npm run lint:*)",
+      "Bash(echo:*)"
     ],
     "deny": []
   }

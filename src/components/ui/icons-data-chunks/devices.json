@@ -1,0 +1,2595 @@
+[
+  {
+    "name": "airplay",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "brands"
+    ],
+    "tags": [
+      "stream",
+      "cast",
+      "mirroring",
+      "screen",
+      "monitor",
+      "macos",
+      "osx"
+    ]
+  },
+  {
+    "name": "alarm-clock-check",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "alarm-clock-minus",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "remove"
+    ]
+  },
+  {
+    "name": "alarm-clock-off",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "morning",
+      "turn-off"
+    ]
+  },
+  {
+    "name": "alarm-clock-plus",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "add"
+    ]
+  },
+  {
+    "name": "alarm-clock",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "morning"
+    ]
+  },
+  {
+    "name": "alarm-smoke",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "fire",
+      "alert",
+      "warning",
+      "detector",
+      "carbon monoxide",
+      "safety",
+      "equipment",
+      "amenities"
+    ]
+  },
+  {
+    "name": "antenna",
+    "categories": [
+      "devices",
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "signal",
+      "connection",
+      "connectivity",
+      "tv",
+      "television",
+      "broadcast",
+      "live",
+      "frequency",
+      "tune",
+      "scan",
+      "channels",
+      "aerial",
+      "receiver",
+      "transmission",
+      "transducer",
+      "terrestrial",
+      "satellite",
+      "cable"
+    ]
+  },
+  {
+    "name": "battery-charging",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-full",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-low",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-medium",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "battery-plus",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge",
+      "plus",
+      "economy",
+      "health",
+      "add",
+      "new",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "battery-warning",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "battery",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "electricity",
+      "energy",
+      "accumulator",
+      "charge"
+    ]
+  },
+  {
+    "name": "bell-electric",
+    "categories": [
+      "devices",
+      "notifications",
+      "home"
+    ],
+    "tags": [
+      "fire alarm",
+      "flames",
+      "smoke",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency",
+      "alert",
+      "safety",
+      "school bell",
+      "period break",
+      "recess",
+      "doorbell",
+      "entrance",
+      "entry",
+      "ring",
+      "reception"
+    ]
+  },
+  {
+    "name": "bluetooth-connected",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "paired"
+    ]
+  },
+  {
+    "name": "bluetooth-off",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "lost"
+    ]
+  },
+  {
+    "name": "bluetooth-searching",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "pairing"
+    ]
+  },
+  {
+    "name": "bluetooth",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "wireless"
+    ]
+  },
+  {
+    "name": "boom-box",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "radio",
+      "speakers",
+      "audio",
+      "music",
+      "sound",
+      "broadcast",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "cable",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "cord",
+      "wire",
+      "connector",
+      "connection",
+      "link",
+      "signal",
+      "console",
+      "computer",
+      "equipment",
+      "electricity",
+      "energy",
+      "electronics",
+      "recharging",
+      "charger",
+      "power",
+      "supply",
+      "disconnected",
+      "unplugged",
+      "plugs",
+      "interface",
+      "input",
+      "output",
+      "audio video",
+      "av",
+      "rca",
+      "scart",
+      "tv",
+      "television",
+      "optical"
+    ]
+  },
+  {
+    "name": "calculator",
+    "categories": [
+      "math",
+      "devices"
+    ],
+    "tags": [
+      "count",
+      "calculating machine"
+    ]
+  },
+  {
+    "name": "camera-off",
+    "categories": [
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "photo",
+      "webcam",
+      "video"
+    ]
+  },
+  {
+    "name": "camera",
+    "categories": [
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "photo",
+      "webcam",
+      "video"
+    ]
+  },
+  {
+    "name": "cassette-tape",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia",
+      "communication",
+      "files"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "recording",
+      "play"
+    ]
+  },
+  {
+    "name": "cast",
+    "categories": [
+      "devices",
+      "connectivity"
+    ],
+    "tags": [
+      "chromecast",
+      "airplay",
+      "screen"
+    ]
+  },
+  {
+    "name": "cctv",
+    "categories": [
+      "security",
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "surveillance",
+      "recording",
+      "film",
+      "videotape",
+      "crime",
+      "watching"
+    ]
+  },
+  {
+    "name": "chevrons-left-right-ellipsis",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "computer",
+    "categories": [
+      "devices",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "pc",
+      "chassis",
+      "codespaces",
+      "github"
+    ]
+  },
+  {
+    "name": "cpu",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "processor",
+      "cores",
+      "technology",
+      "computer",
+      "chip",
+      "circuit",
+      "memory",
+      "ram",
+      "specs",
+      "gigahertz",
+      "ghz"
+    ]
+  },
+  {
+    "name": "database-backup",
+    "categories": [
+      "devices",
+      "arrows",
+      "design",
+      "development",
+      "photography"
+    ],
+    "tags": [
+      "storage",
+      "memory",
+      "bytes",
+      "servers",
+      "backup",
+      "timemachine",
+      "rotate",
+      "arrow",
+      "left"
+    ]
+  },
+  {
+    "name": "database-zap",
+    "categories": [
+      "devices",
+      "development"
+    ],
+    "tags": [
+      "cache busting",
+      "storage",
+      "memory",
+      "bytes",
+      "servers",
+      "power",
+      "crash"
+    ]
+  },
+  {
+    "name": "database",
+    "categories": [
+      "devices",
+      "development"
+    ],
+    "tags": [
+      "storage",
+      "memory",
+      "container",
+      "tin",
+      "pot",
+      "bytes",
+      "servers"
+    ]
+  },
+  {
+    "name": "diamond-minus",
+    "categories": [
+      "multimedia",
+      "photography",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "keyframe",
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "calculator",
+      "button",
+      "keyboard",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "diamond-plus",
+    "categories": [
+      "multimedia",
+      "photography",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "keyframe",
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "toolbar",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "disc-2",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "vinyl",
+      "record",
+      "cd",
+      "dvd",
+      "format",
+      "dj",
+      "spin",
+      "rotate",
+      "rpm"
+    ]
+  },
+  {
+    "name": "disc-3",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "vinyl",
+      "record",
+      "cd",
+      "dvd",
+      "format",
+      "dj",
+      "spin",
+      "rotate",
+      "rpm"
+    ]
+  },
+  {
+    "name": "disc-album",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "songs",
+      "format",
+      "cd",
+      "dvd",
+      "vinyl",
+      "sleeve",
+      "cover",
+      "platinum",
+      "compilation",
+      "ep",
+      "recording",
+      "playback",
+      "spin",
+      "rotate",
+      "rpm",
+      "dj"
+    ]
+  },
+  {
+    "name": "disc",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "songs",
+      "format",
+      "cd",
+      "dvd",
+      "vinyl",
+      "sleeve",
+      "cover",
+      "platinum",
+      "compilation",
+      "ep",
+      "recording",
+      "playback",
+      "spin",
+      "rotate",
+      "rpm",
+      "dj"
+    ]
+  },
+  {
+    "name": "drill",
+    "categories": [
+      "tools",
+      "home",
+      "devices"
+    ],
+    "tags": [
+      "power",
+      "bit",
+      "head",
+      "hole",
+      "diy",
+      "toolbox",
+      "build",
+      "construction"
+    ]
+  },
+  {
+    "name": "drum",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "drummer",
+      "kit",
+      "sticks",
+      "instrument",
+      "beat",
+      "bang",
+      "bass",
+      "backing track",
+      "band",
+      "play",
+      "performance",
+      "concert",
+      "march",
+      "music",
+      "audio",
+      "sound",
+      "noise",
+      "loud"
+    ]
+  },
+  {
+    "name": "earth-lock",
+    "categories": [
+      "security",
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "vpn",
+      "private",
+      "privacy",
+      "network",
+      "world",
+      "browser",
+      "security",
+      "encryption",
+      "protection",
+      "connection"
+    ]
+  },
+  {
+    "name": "ethernet-port",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "fingerprint",
+    "categories": [
+      "account",
+      "security",
+      "medical",
+      "devices"
+    ],
+    "tags": [
+      "2fa",
+      "authentication",
+      "biometric",
+      "identity",
+      "security"
+    ]
+  },
+  {
+    "name": "flashlight-off",
+    "categories": [
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "torch"
+    ]
+  },
+  {
+    "name": "flashlight",
+    "categories": [
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "torch"
+    ]
+  },
+  {
+    "name": "gamepad-2",
+    "categories": [
+      "gaming",
+      "devices"
+    ],
+    "tags": [
+      "console"
+    ]
+  },
+  {
+    "name": "gamepad",
+    "categories": [
+      "gaming",
+      "devices"
+    ],
+    "tags": [
+      "console"
+    ]
+  },
+  {
+    "name": "globe-lock",
+    "categories": [
+      "security",
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "vpn",
+      "private",
+      "privacy",
+      "network",
+      "world",
+      "browser",
+      "security",
+      "encryption",
+      "protection",
+      "connection"
+    ]
+  },
+  {
+    "name": "hard-drive-download",
+    "categories": [
+      "development",
+      "devices",
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "memory",
+      "data",
+      "ssd",
+      "disk",
+      "hard disk",
+      "save"
+    ]
+  },
+  {
+    "name": "hard-drive-upload",
+    "categories": [
+      "development",
+      "devices",
+      "arrows",
+      "files"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "memory",
+      "data",
+      "ssd",
+      "disk",
+      "hard disk",
+      "save"
+    ]
+  },
+  {
+    "name": "hard-drive",
+    "categories": [
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "memory",
+      "data",
+      "ssd",
+      "disk",
+      "hard disk"
+    ]
+  },
+  {
+    "name": "hdmi-port",
+    "categories": [
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "audio",
+      "video",
+      "visual",
+      "av",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "headphone-off",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "communication",
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "mute",
+      "off"
+    ]
+  },
+  {
+    "name": "headphones",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound"
+    ]
+  },
+  {
+    "name": "headset",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "gaming",
+      "headphones",
+      "headset",
+      "call",
+      "center",
+      "phone",
+      "telephone",
+      "voip",
+      "video"
+    ]
+  },
+  {
+    "name": "heater",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "heating",
+      "warmth",
+      "comfort",
+      "fire",
+      "stove",
+      "electric",
+      "electronics",
+      "amenities"
+    ]
+  },
+  {
+    "name": "joystick",
+    "categories": [
+      "gaming",
+      "devices"
+    ],
+    "tags": [
+      "game",
+      "console",
+      "control stick"
+    ]
+  },
+  {
+    "name": "keyboard-music",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "noise",
+      "notes",
+      "keys",
+      "chord",
+      "octave",
+      "midi",
+      "controller",
+      "instrument",
+      "electric",
+      "signal",
+      "digital",
+      "studio",
+      "production",
+      "producer",
+      "pianist",
+      "piano",
+      "play",
+      "performance",
+      "concert"
+    ]
+  },
+  {
+    "name": "keyboard-off",
+    "categories": [
+      "devices",
+      "text",
+      "development"
+    ],
+    "tags": [
+      "unkeys",
+      "layout",
+      "spell",
+      "settings",
+      "mouse"
+    ]
+  },
+  {
+    "name": "keyboard",
+    "categories": [
+      "text",
+      "devices",
+      "development"
+    ],
+    "tags": [
+      "layout",
+      "spell",
+      "settings",
+      "mouse"
+    ]
+  },
+  {
+    "name": "laptop-minimal-check",
+    "categories": [
+      "devices",
+      "notifications"
+    ],
+    "tags": [
+      "computer",
+      "screen",
+      "remote",
+      "success",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "laptop-minimal",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "computer",
+      "screen",
+      "remote"
+    ]
+  },
+  {
+    "name": "laptop",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "computer",
+      "screen",
+      "remote"
+    ]
+  },
+  {
+    "name": "memory-stick",
+    "categories": [
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "ram",
+      "random access",
+      "technology",
+      "computer",
+      "chip",
+      "circuit",
+      "specs",
+      "capacity",
+      "gigabytes",
+      "gb"
+    ]
+  },
+  {
+    "name": "mic-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "mute",
+      "microphone"
+    ]
+  },
+  {
+    "name": "mic-vocal",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "lyrics",
+      "voice",
+      "listen",
+      "sound",
+      "music",
+      "radio",
+      "podcast",
+      "karaoke",
+      "singing",
+      "microphone"
+    ]
+  },
+  {
+    "name": "mic",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "listen",
+      "radio",
+      "podcast",
+      "microphone"
+    ]
+  },
+  {
+    "name": "microchip",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "processor",
+      "cores",
+      "technology",
+      "computer",
+      "chip",
+      "integrated circuit",
+      "memory",
+      "ram",
+      "specs",
+      "gpu",
+      "gigahertz",
+      "ghz"
+    ]
+  },
+  {
+    "name": "monitor-check",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "running",
+      "active",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-cog",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "virtual machine",
+      "vm",
+      "executable",
+      "settings",
+      "cog",
+      "edit",
+      "gear",
+      "configuration",
+      "preferences",
+      "system",
+      "control panel",
+      "network",
+      "computing"
+    ]
+  },
+  {
+    "name": "monitor-dot",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "running",
+      "active",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-down",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "download"
+    ]
+  },
+  {
+    "name": "monitor-off",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "share"
+    ]
+  },
+  {
+    "name": "monitor-pause",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "suspend",
+      "hibernate",
+      "boot",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-play",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "running",
+      "start",
+      "boot",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-smartphone",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "smartphone",
+      "phone",
+      "cellphone",
+      "device",
+      "mobile",
+      "desktop",
+      "monitor",
+      "responsive",
+      "screens"
+    ]
+  },
+  {
+    "name": "monitor-speaker",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "devices",
+      "connect",
+      "cast"
+    ]
+  },
+  {
+    "name": "monitor-stop",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "stop",
+      "shutdown",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-up",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "upload",
+      "connect",
+      "remote",
+      "screen share"
+    ]
+  },
+  {
+    "name": "monitor-x",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "virtual machine",
+      "vm",
+      "close",
+      "stop",
+      "suspend",
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "monitor",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "mouse-off",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "device",
+      "scroll",
+      "click",
+      "disabled"
+    ]
+  },
+  {
+    "name": "mouse",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "device",
+      "scroll",
+      "click"
+    ]
+  },
+  {
+    "name": "nfc",
+    "categories": [
+      "communication",
+      "finance",
+      "devices"
+    ],
+    "tags": [
+      "contactless",
+      "payment",
+      "near-field communication"
+    ]
+  },
+  {
+    "name": "pc-case",
+    "categories": [
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "computer",
+      "chassis"
+    ]
+  },
+  {
+    "name": "phone-call",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "ring"
+    ]
+  },
+  {
+    "name": "phone-forwarded",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-incoming",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-missed",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call",
+      "mute"
+    ]
+  },
+  {
+    "name": "phone-outgoing",
+    "categories": [
+      "arrows",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "phone",
+    "categories": [
+      "text",
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "call"
+    ]
+  },
+  {
+    "name": "piano",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "noise",
+      "notes",
+      "chord",
+      "keys",
+      "octave",
+      "acoustic",
+      "instrument",
+      "play",
+      "pianist",
+      "performance",
+      "concert"
+    ]
+  },
+  {
+    "name": "plug-2",
+    "categories": [
+      "devices",
+      "development"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "socket",
+      "outlet"
+    ]
+  },
+  {
+    "name": "plug-zap",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "electronics",
+      "charge",
+      "charging",
+      "battery",
+      "connect"
+    ]
+  },
+  {
+    "name": "plug",
+    "categories": [
+      "devices",
+      "development"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "electronics",
+      "socket",
+      "outlet"
+    ]
+  },
+  {
+    "name": "presentation",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication",
+      "design"
+    ],
+    "tags": [
+      "screen",
+      "whiteboard",
+      "marker pens",
+      "markers",
+      "blackboard",
+      "chalk",
+      "easel",
+      "school",
+      "learning",
+      "lesson",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "printer-check",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "fax",
+      "office",
+      "device",
+      "success",
+      "printed"
+    ]
+  },
+  {
+    "name": "printer",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "fax",
+      "office",
+      "device"
+    ]
+  },
+  {
+    "name": "projector",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "cinema",
+      "film",
+      "movie",
+      "home video",
+      "presentation",
+      "slideshow",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "proportions",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "screens",
+      "sizes",
+      "rotate",
+      "rotation",
+      "adjust",
+      "aspect ratio",
+      "16:9",
+      "widescreen",
+      "4:3",
+      "resolution",
+      "responsive",
+      "mobile",
+      "desktop",
+      "dimensions",
+      "monitor",
+      "orientation",
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "name": "radio-receiver",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "device",
+      "music",
+      "connect"
+    ]
+  },
+  {
+    "name": "radio-tower",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "signal",
+      "broadcast",
+      "connectivity",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "radio",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "signal",
+      "broadcast",
+      "connectivity",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "router",
+    "categories": [
+      "development",
+      "devices",
+      "connectivity",
+      "home"
+    ],
+    "tags": [
+      "computer",
+      "server",
+      "cloud"
+    ]
+  },
+  {
+    "name": "satellite-dish",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "antenna",
+      "receiver",
+      "dish aerial",
+      "saucer"
+    ]
+  },
+  {
+    "name": "scan-barcode",
+    "categories": [
+      "shopping",
+      "devices"
+    ],
+    "tags": [
+      "checkout",
+      "till",
+      "cart",
+      "transaction",
+      "purchase",
+      "buy",
+      "product",
+      "packaging",
+      "retail",
+      "consumer"
+    ]
+  },
+  {
+    "name": "scan-eye",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility",
+      "security",
+      "devices",
+      "account"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "camera",
+      "watch",
+      "surveillance",
+      "retina",
+      "focus",
+      "lens",
+      "biometric",
+      "identification",
+      "authentication",
+      "access",
+      "login"
+    ]
+  },
+  {
+    "name": "scan-face",
+    "categories": [
+      "account",
+      "security",
+      "devices",
+      "social"
+    ],
+    "tags": [
+      "face",
+      "biometric",
+      "identification",
+      "authentication",
+      "2fa",
+      "access",
+      "login",
+      "dashed"
+    ]
+  },
+  {
+    "name": "scan-line",
+    "categories": [
+      "devices",
+      "shopping"
+    ],
+    "tags": [
+      "checkout",
+      "till",
+      "cart",
+      "transaction",
+      "purchase",
+      "buy",
+      "product",
+      "packaging",
+      "retail",
+      "consumer",
+      "qr-code",
+      "dashed"
+    ]
+  },
+  {
+    "name": "scan-qr-code",
+    "categories": [
+      "account",
+      "shopping",
+      "devices",
+      "security"
+    ],
+    "tags": [
+      "barcode",
+      "scan",
+      "qrcode",
+      "url",
+      "information",
+      "digital",
+      "scanner"
+    ]
+  },
+  {
+    "name": "scan-text",
+    "categories": [
+      "text",
+      "devices"
+    ],
+    "tags": [
+      "recognition",
+      "read",
+      "translate",
+      "copy",
+      "lines"
+    ]
+  },
+  {
+    "name": "scan",
+    "categories": [
+      "devices",
+      "shopping",
+      "security",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "qr-code",
+      "barcode",
+      "checkout",
+      "augmented reality",
+      "ar",
+      "target",
+      "surveillance",
+      "camera",
+      "lens",
+      "focus",
+      "frame",
+      "select",
+      "box",
+      "boundary",
+      "bounds",
+      "area",
+      "square",
+      "dashed"
+    ]
+  },
+  {
+    "name": "screen-share-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "desktop",
+      "disconnect",
+      "monitor"
+    ]
+  },
+  {
+    "name": "screen-share",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "host",
+      "desktop",
+      "monitor"
+    ]
+  },
+  {
+    "name": "server-cog",
+    "categories": [
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "cloud",
+      "storage",
+      "computing",
+      "cog",
+      "gear"
+    ]
+  },
+  {
+    "name": "server-crash",
+    "categories": [
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "cloud",
+      "storage",
+      "problem",
+      "error"
+    ]
+  },
+  {
+    "name": "server-off",
+    "categories": [
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "cloud",
+      "storage"
+    ]
+  },
+  {
+    "name": "server",
+    "categories": [
+      "development",
+      "devices"
+    ],
+    "tags": [
+      "cloud",
+      "storage"
+    ]
+  },
+  {
+    "name": "smartphone-charging",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "phone",
+      "cellphone",
+      "device",
+      "power",
+      "screen"
+    ]
+  },
+  {
+    "name": "smartphone-nfc",
+    "categories": [
+      "communication",
+      "finance",
+      "devices"
+    ],
+    "tags": [
+      "contactless",
+      "payment",
+      "near-field communication",
+      "screen"
+    ]
+  },
+  {
+    "name": "smartphone",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "phone",
+      "cellphone",
+      "device",
+      "screen"
+    ]
+  },
+  {
+    "name": "speaker",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "sound",
+      "audio",
+      "music",
+      "tweeter",
+      "subwoofer",
+      "bass",
+      "production",
+      "producer",
+      "dj"
+    ]
+  },
+  {
+    "name": "square-minus",
+    "categories": [
+      "math",
+      "development",
+      "text",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "calculator",
+      "button",
+      "keyboard",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "switch-camera",
+    "categories": [
+      "communication",
+      "devices"
+    ],
+    "tags": [
+      "photo",
+      "selfie",
+      "front",
+      "back"
+    ]
+  },
+  {
+    "name": "tablet-smartphone",
+    "categories": [
+      "devices",
+      "design",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "responsive",
+      "screens",
+      "browser",
+      "testing",
+      "mobile"
+    ]
+  },
+  {
+    "name": "tablet",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "device"
+    ]
+  },
+  {
+    "name": "toilet",
+    "categories": [
+      "devices",
+      "home"
+    ],
+    "tags": [
+      "toilet",
+      "potty",
+      "bathroom",
+      "washroom"
+    ]
+  },
+  {
+    "name": "touchpad-off",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "trackpad",
+      "cursor"
+    ]
+  },
+  {
+    "name": "touchpad",
+    "categories": [
+      "devices"
+    ],
+    "tags": [
+      "trackpad",
+      "cursor"
+    ]
+  },
+  {
+    "name": "tv-minimal-play",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "flatscreen",
+      "television",
+      "stream",
+      "display",
+      "widescreen",
+      "high-definition",
+      "hd",
+      "1080p",
+      "4k",
+      "8k",
+      "smart",
+      "digital",
+      "video",
+      "movie",
+      "live",
+      "ott",
+      "running",
+      "start",
+      "film",
+      "home cinema",
+      "entertainment",
+      "showtime",
+      "channels",
+      "catchup"
+    ]
+  },
+  {
+    "name": "tv-minimal",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "flatscreen",
+      "television",
+      "stream",
+      "display",
+      "widescreen",
+      "high-definition",
+      "hd",
+      "1080p",
+      "4k",
+      "8k",
+      "smart",
+      "digital",
+      "video",
+      "home cinema",
+      "entertainment",
+      "showtime",
+      "channels",
+      "catchup"
+    ]
+  },
+  {
+    "name": "tv",
+    "categories": [
+      "devices",
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "television",
+      "stream",
+      "display",
+      "widescreen",
+      "high-definition",
+      "hd",
+      "1080p",
+      "4k",
+      "8k",
+      "smart",
+      "digital",
+      "video",
+      "entertainment",
+      "showtime",
+      "channels",
+      "terrestrial",
+      "satellite",
+      "cable",
+      "broadcast",
+      "live",
+      "frequency",
+      "tune",
+      "scan",
+      "aerial",
+      "receiver",
+      "transmission",
+      "signal",
+      "connection",
+      "connectivity"
+    ]
+  },
+  {
+    "name": "unplug",
+    "categories": [
+      "devices",
+      "development"
+    ],
+    "tags": [
+      "electricity",
+      "energy",
+      "electronics",
+      "socket",
+      "outlet",
+      "disconnect"
+    ]
+  },
+  {
+    "name": "usb",
+    "categories": [
+      "devices",
+      "multimedia",
+      "home"
+    ],
+    "tags": [
+      "universal",
+      "serial",
+      "bus",
+      "controller",
+      "connector",
+      "interface"
+    ]
+  },
+  {
+    "name": "vibrate-off",
+    "categories": [
+      "devices",
+      "connectivity",
+      "account"
+    ],
+    "tags": [
+      "smartphone",
+      "notification",
+      "rumble",
+      "haptic feedback",
+      "notifications",
+      "screen"
+    ]
+  },
+  {
+    "name": "vibrate",
+    "categories": [
+      "devices",
+      "connectivity",
+      "account",
+      "notifications"
+    ],
+    "tags": [
+      "smartphone",
+      "notification",
+      "rumble",
+      "haptic feedback",
+      "screen"
+    ]
+  },
+  {
+    "name": "video-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film"
+    ]
+  },
+  {
+    "name": "video",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "camcorder",
+      "reel"
+    ]
+  },
+  {
+    "name": "videotape",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography",
+      "files"
+    ],
+    "tags": [
+      "vhs",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "showreel",
+      "cassette"
+    ]
+  },
+  {
+    "name": "voicemail",
+    "categories": [
+      "connectivity",
+      "devices",
+      "social"
+    ],
+    "tags": [
+      "phone",
+      "cassette",
+      "tape",
+      "reel",
+      "recording",
+      "audio"
+    ]
+  },
+  {
+    "name": "wallpaper",
+    "categories": [
+      "account",
+      "devices"
+    ],
+    "tags": [
+      "cover",
+      "lock screen"
+    ]
+  },
+  {
+    "name": "washing-machine",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "tumble dryer",
+      "amenities",
+      "electronics",
+      "cycle",
+      "clothes",
+      "rinse",
+      "spin",
+      "drum"
+    ]
+  },
+  {
+    "name": "webcam",
+    "categories": [
+      "connectivity",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "camera",
+      "security"
+    ]
+  },
+  {
+    "name": "wifi-high",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "wifi-low",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "wifi-off",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "disabled"
+    ]
+  },
+  {
+    "name": "wifi-zero",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "wifi",
+    "categories": [
+      "connectivity",
+      "devices"
+    ],
+    "tags": [
+      "connection",
+      "signal",
+      "wireless"
+    ]
+  },
+  {
+    "name": "zap-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  },
+  {
+    "name": "zap",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  }
+]

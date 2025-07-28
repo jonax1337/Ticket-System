@@ -1,0 +1,1101 @@
+[
+  {
+    "name": "alarm-smoke",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "fire",
+      "alert",
+      "warning",
+      "detector",
+      "carbon monoxide",
+      "safety",
+      "equipment",
+      "amenities"
+    ]
+  },
+  {
+    "name": "backpack",
+    "categories": [
+      "gaming",
+      "photography",
+      "travel"
+    ],
+    "tags": [
+      "bag",
+      "hiking",
+      "travel",
+      "camping",
+      "school",
+      "childhood"
+    ]
+  },
+  {
+    "name": "baggage-claim",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "baggage",
+      "luggage",
+      "travel",
+      "cart",
+      "trolley",
+      "suitcase"
+    ]
+  },
+  {
+    "name": "bath",
+    "categories": [
+      "travel"
+    ],
+    "tags": [
+      "amenities",
+      "services",
+      "bathroom",
+      "shower"
+    ]
+  },
+  {
+    "name": "binoculars",
+    "categories": [
+      "navigation",
+      "nature",
+      "photography",
+      "science",
+      "travel",
+      "development"
+    ],
+    "tags": [
+      "field glasses",
+      "lorgnette",
+      "pince-nez",
+      "observation",
+      "sightseeing",
+      "nature",
+      "wildlife",
+      "birdwatching",
+      "scouting",
+      "surveillance",
+      "search",
+      "discovery",
+      "monitoring",
+      "lookout",
+      "viewpoint",
+      "travel",
+      "tourism",
+      "research"
+    ]
+  },
+  {
+    "name": "book-image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files",
+      "social",
+      "shopping",
+      "travel"
+    ],
+    "tags": [
+      "images",
+      "pictures",
+      "photos",
+      "album",
+      "collection",
+      "event",
+      "magazine",
+      "catalog",
+      "catalogue",
+      "brochure",
+      "browse",
+      "gallery"
+    ]
+  },
+  {
+    "name": "briefcase-conveyor-belt",
+    "categories": [
+      "travel",
+      "transportation"
+    ],
+    "tags": [
+      "baggage",
+      "luggage",
+      "travel",
+      "suitcase",
+      "conveyor",
+      "carousel"
+    ]
+  },
+  {
+    "name": "cable-car",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "ski lift",
+      "winter holiday",
+      "alpine",
+      "resort",
+      "mountains"
+    ]
+  },
+  {
+    "name": "caravan",
+    "categories": [
+      "transportation",
+      "travel",
+      "nature"
+    ],
+    "tags": [
+      "trailer",
+      "tow",
+      "camping",
+      "campsite",
+      "mobile home",
+      "holiday",
+      "nomadic",
+      "wilderness",
+      "outdoors"
+    ]
+  },
+  {
+    "name": "cigarette-off",
+    "categories": [
+      "travel",
+      "transportation",
+      "medical"
+    ],
+    "tags": [
+      "smoking",
+      "no-smoking"
+    ]
+  },
+  {
+    "name": "cigarette",
+    "categories": [
+      "travel",
+      "transportation",
+      "medical"
+    ],
+    "tags": [
+      "smoking"
+    ]
+  },
+  {
+    "name": "compass",
+    "categories": [
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "direction",
+      "north",
+      "east",
+      "south",
+      "west",
+      "safari",
+      "browser"
+    ]
+  },
+  {
+    "name": "concierge-bell",
+    "categories": [
+      "travel"
+    ],
+    "tags": [
+      "reception",
+      "bell",
+      "porter"
+    ]
+  },
+  {
+    "name": "door-closed",
+    "categories": [
+      "home",
+      "travel",
+      "security"
+    ],
+    "tags": [
+      "entrance",
+      "entry",
+      "exit",
+      "ingress",
+      "egress",
+      "gate",
+      "gateway",
+      "emergency exit"
+    ]
+  },
+  {
+    "name": "door-open",
+    "categories": [
+      "home",
+      "travel",
+      "security"
+    ],
+    "tags": [
+      "entrance",
+      "entry",
+      "exit",
+      "ingress",
+      "egress",
+      "gate",
+      "gateway",
+      "emergency exit"
+    ]
+  },
+  {
+    "name": "fire-extinguisher",
+    "categories": [
+      "home",
+      "tools",
+      "travel"
+    ],
+    "tags": [
+      "flames",
+      "smoke",
+      "foam",
+      "water",
+      "spray",
+      "hose",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency",
+      "suppress",
+      "compressed",
+      "tank",
+      "cylinder",
+      "safety",
+      "equipment",
+      "amenities"
+    ]
+  },
+  {
+    "name": "heater",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "heating",
+      "warmth",
+      "comfort",
+      "fire",
+      "stove",
+      "electric",
+      "electronics",
+      "amenities"
+    ]
+  },
+  {
+    "name": "hospital",
+    "categories": [
+      "medical",
+      "buildings",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "infirmary",
+      "sanatorium",
+      "healthcare",
+      "doctor",
+      "hospice",
+      "clinic",
+      "emergency room",
+      "ward",
+      "building",
+      "medical",
+      "vet"
+    ]
+  },
+  {
+    "name": "hotel",
+    "categories": [
+      "buildings",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "building",
+      "hostel",
+      "motel",
+      "inn"
+    ]
+  },
+  {
+    "name": "luggage",
+    "categories": [
+      "travel",
+      "transportation"
+    ],
+    "tags": [
+      "baggage",
+      "luggage",
+      "travel",
+      "suitcase"
+    ]
+  },
+  {
+    "name": "map-pin-check-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "done",
+      "tick",
+      "complete",
+      "task",
+      "added"
+    ]
+  },
+  {
+    "name": "map-pin-check",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "done",
+      "tick",
+      "complete",
+      "task",
+      "added"
+    ]
+  },
+  {
+    "name": "map-pin-house",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture",
+      "address",
+      "poi",
+      "real estate",
+      "property",
+      "navigation",
+      "destination",
+      "geolocation",
+      "place",
+      "landmark"
+    ]
+  },
+  {
+    "name": "map-pin-minus-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-minus",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-off",
+    "categories": [
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "remove"
+    ]
+  },
+  {
+    "name": "map-pin-plus-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "map-pin-plus",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "map-pin-x-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-x",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop"
+    ]
+  },
+  {
+    "name": "map-pinned",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop"
+    ]
+  },
+  {
+    "name": "plane-landing",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "arrival",
+      "plane",
+      "trip",
+      "airplane",
+      "landing"
+    ]
+  },
+  {
+    "name": "plane-takeoff",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "departure",
+      "plane",
+      "trip",
+      "airplane",
+      "takeoff"
+    ]
+  },
+  {
+    "name": "plane",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "plane",
+      "trip",
+      "airplane"
+    ]
+  },
+  {
+    "name": "pyramid",
+    "categories": [
+      "shapes",
+      "math",
+      "travel"
+    ],
+    "tags": [
+      "prism",
+      "triangle",
+      "triangular",
+      "hierarchy",
+      "structure",
+      "geometry",
+      "ancient",
+      "egyptian",
+      "landmark",
+      "tourism"
+    ]
+  },
+  {
+    "name": "receipt-cent",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "cents",
+      "dollar",
+      "usd",
+      "$",
+      "¢"
+    ]
+  },
+  {
+    "name": "receipt-euro",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "€"
+    ]
+  },
+  {
+    "name": "receipt-indian-rupee",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "inr",
+      "₹"
+    ]
+  },
+  {
+    "name": "receipt-japanese-yen",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "jpy",
+      "¥"
+    ]
+  },
+  {
+    "name": "receipt-pound-sterling",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "british",
+      "currency",
+      "gbp",
+      "£"
+    ]
+  },
+  {
+    "name": "receipt-russian-ruble",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "rub",
+      "₽"
+    ]
+  },
+  {
+    "name": "receipt-swiss-franc",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "chf",
+      "₣"
+    ]
+  },
+  {
+    "name": "receipt-text",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "details",
+      "small print",
+      "terms",
+      "conditions",
+      "contract"
+    ]
+  },
+  {
+    "name": "receipt",
+    "categories": [
+      "finance",
+      "travel"
+    ],
+    "tags": [
+      "bill",
+      "voucher",
+      "slip",
+      "check",
+      "counterfoil",
+      "currency",
+      "dollar",
+      "usd",
+      "$"
+    ]
+  },
+  {
+    "name": "sailboat",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "ship",
+      "boat",
+      "harbor",
+      "harbour",
+      "dock"
+    ]
+  },
+  {
+    "name": "shell",
+    "categories": [
+      "animals",
+      "development",
+      "nature",
+      "science",
+      "travel",
+      "food-beverage",
+      "home"
+    ],
+    "tags": [
+      "beach",
+      "sand",
+      "holiday",
+      "sealife",
+      "fossil",
+      "ammonite",
+      "biology",
+      "ocean",
+      "terminal",
+      "command line",
+      "session",
+      "bash",
+      "zsh",
+      "roll",
+      "wrap",
+      "chewing gum",
+      "bubble gum",
+      "sweet",
+      "sugar",
+      "hosepipe",
+      "carpet",
+      "string",
+      "spiral",
+      "spinner",
+      "hypnotise",
+      "hypnosis"
+    ]
+  },
+  {
+    "name": "ship-wheel",
+    "categories": [
+      "transportation",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "steering",
+      "rudder",
+      "boat",
+      "knots",
+      "nautical mile",
+      "maritime",
+      "sailing",
+      "yacht",
+      "cruise",
+      "ocean liner",
+      "tanker",
+      "vessel",
+      "navy",
+      "trip"
+    ]
+  },
+  {
+    "name": "ship",
+    "categories": [
+      "transportation",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "boat",
+      "knots",
+      "nautical mile",
+      "maritime",
+      "sailing",
+      "yacht",
+      "cruise",
+      "ocean liner",
+      "tanker",
+      "vessel",
+      "navy",
+      "trip"
+    ]
+  },
+  {
+    "name": "shower-head",
+    "categories": [
+      "home",
+      "travel"
+    ],
+    "tags": [
+      "shower",
+      "bath",
+      "bathroom",
+      "amenities",
+      "services"
+    ]
+  },
+  {
+    "name": "tent-tree",
+    "categories": [
+      "travel",
+      "nature"
+    ],
+    "tags": [
+      "camping",
+      "campsite",
+      "holiday",
+      "retreat",
+      "nomadic",
+      "wilderness",
+      "outdoors"
+    ]
+  },
+  {
+    "name": "tent",
+    "categories": [
+      "travel",
+      "nature",
+      "sustainability"
+    ],
+    "tags": [
+      "tipi",
+      "teepee",
+      "wigwam",
+      "lodge",
+      "camping",
+      "campsite",
+      "holiday",
+      "retreat",
+      "nomadic",
+      "native american",
+      "indian",
+      "wilderness",
+      "outdoors"
+    ]
+  },
+  {
+    "name": "tickets-plane",
+    "categories": [
+      "transportation",
+      "travel"
+    ],
+    "tags": [
+      "plane",
+      "trip",
+      "airplane",
+      "flight",
+      "travel",
+      "fly",
+      "takeoff",
+      "vacation",
+      "passenger",
+      "pass",
+      "check-in",
+      "airport"
+    ]
+  },
+  {
+    "name": "tickets",
+    "categories": [
+      "travel",
+      "account",
+      "transportation"
+    ],
+    "tags": [
+      "trip",
+      "travel",
+      "pass",
+      "entry",
+      "voucher",
+      "event",
+      "concert",
+      "show",
+      "perforated",
+      "dashed"
+    ]
+  },
+  {
+    "name": "tower-control",
+    "categories": [
+      "travel",
+      "transportation"
+    ],
+    "tags": [
+      "airport",
+      "travel",
+      "tower",
+      "transportation",
+      "lighthouse"
+    ]
+  },
+  {
+    "name": "utensils-crossed",
+    "categories": [
+      "food-beverage",
+      "travel",
+      "navigation"
+    ],
+    "tags": [
+      "fork",
+      "knife",
+      "cutlery",
+      "flatware",
+      "tableware",
+      "silverware",
+      "food",
+      "restaurant",
+      "meal",
+      "breakfast",
+      "dinner",
+      "supper"
+    ]
+  },
+  {
+    "name": "utensils",
+    "categories": [
+      "food-beverage",
+      "travel",
+      "navigation"
+    ],
+    "tags": [
+      "fork",
+      "knife",
+      "cutlery",
+      "flatware",
+      "tableware",
+      "silverware",
+      "food",
+      "restaurant",
+      "meal",
+      "breakfast",
+      "dinner",
+      "supper"
+    ]
+  },
+  {
+    "name": "vault",
+    "categories": [
+      "security",
+      "travel",
+      "home"
+    ],
+    "tags": [
+      "safe",
+      "lockbox",
+      "deposit",
+      "locker",
+      "coffer",
+      "strongbox",
+      "safety",
+      "secure",
+      "storage",
+      "valuables",
+      "bank"
+    ]
+  },
+  {
+    "name": "volleyball",
+    "categories": [
+      "sports",
+      "gaming",
+      "travel"
+    ],
+    "tags": [
+      "beach",
+      "sand",
+      "net",
+      "holiday",
+      "vacation",
+      "summer",
+      "soccer",
+      "football",
+      "futbol",
+      "kick",
+      "pitch",
+      "goal",
+      "score",
+      "bounce",
+      "leather",
+      "wool",
+      "yarn",
+      "knitting",
+      "sewing",
+      "thread",
+      "embroidery",
+      "textile"
+    ]
+  },
+  {
+    "name": "washing-machine",
+    "categories": [
+      "home",
+      "devices",
+      "travel"
+    ],
+    "tags": [
+      "tumble dryer",
+      "amenities",
+      "electronics",
+      "cycle",
+      "clothes",
+      "rinse",
+      "spin",
+      "drum"
+    ]
+  }
+]

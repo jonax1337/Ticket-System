@@ -1,0 +1,2359 @@
+[
+  {
+    "name": "activity",
+    "categories": [
+      "medical",
+      "account",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "airplay",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "brands"
+    ],
+    "tags": [
+      "stream",
+      "cast",
+      "mirroring",
+      "screen",
+      "monitor",
+      "macos",
+      "osx"
+    ]
+  },
+  {
+    "name": "album",
+    "categories": [
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "photo",
+      "book"
+    ]
+  },
+  {
+    "name": "antenna",
+    "categories": [
+      "devices",
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "signal",
+      "connection",
+      "connectivity",
+      "tv",
+      "television",
+      "broadcast",
+      "live",
+      "frequency",
+      "tune",
+      "scan",
+      "channels",
+      "aerial",
+      "receiver",
+      "transmission",
+      "transducer",
+      "terrestrial",
+      "satellite",
+      "cable"
+    ]
+  },
+  {
+    "name": "audio-lines",
+    "categories": [
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "graphic equaliser",
+      "sound",
+      "noise",
+      "listen",
+      "hearing",
+      "hertz",
+      "frequency",
+      "wavelength",
+      "vibrate",
+      "sine",
+      "synthesizer",
+      "synthesiser",
+      "levels",
+      "track",
+      "music",
+      "playback",
+      "radio",
+      "broadcast",
+      "airwaves",
+      "voice",
+      "vocals",
+      "singer",
+      "song"
+    ]
+  },
+  {
+    "name": "audio-waveform",
+    "categories": [
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "sound",
+      "noise",
+      "listen",
+      "hearing",
+      "hertz",
+      "frequency",
+      "wavelength",
+      "vibrate",
+      "sine",
+      "synthesizer",
+      "synthesiser",
+      "levels",
+      "track",
+      "music",
+      "playback",
+      "radio",
+      "broadcast",
+      "airwaves",
+      "voice",
+      "vocals",
+      "singer",
+      "song"
+    ]
+  },
+  {
+    "name": "book-audio",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "audiobook",
+      "reading",
+      "listening",
+      "sound",
+      "story",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "student",
+      "study",
+      "learning",
+      "research"
+    ]
+  },
+  {
+    "name": "book-headphones",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "audiobook",
+      "reading",
+      "listening",
+      "sound",
+      "story",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "student",
+      "study",
+      "learning",
+      "research"
+    ]
+  },
+  {
+    "name": "book-image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files",
+      "social",
+      "shopping",
+      "travel"
+    ],
+    "tags": [
+      "images",
+      "pictures",
+      "photos",
+      "album",
+      "collection",
+      "event",
+      "magazine",
+      "catalog",
+      "catalogue",
+      "brochure",
+      "browse",
+      "gallery"
+    ]
+  },
+  {
+    "name": "boom-box",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "radio",
+      "speakers",
+      "audio",
+      "music",
+      "sound",
+      "broadcast",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "cable",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "cord",
+      "wire",
+      "connector",
+      "connection",
+      "link",
+      "signal",
+      "console",
+      "computer",
+      "equipment",
+      "electricity",
+      "energy",
+      "electronics",
+      "recharging",
+      "charger",
+      "power",
+      "supply",
+      "disconnected",
+      "unplugged",
+      "plugs",
+      "interface",
+      "input",
+      "output",
+      "audio video",
+      "av",
+      "rca",
+      "scart",
+      "tv",
+      "television",
+      "optical"
+    ]
+  },
+  {
+    "name": "captions-off",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "closed captions",
+      "subtitles",
+      "subhead",
+      "transcription",
+      "transcribe",
+      "dialogue",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "captions",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "closed captions",
+      "subtitles",
+      "subhead",
+      "transcription",
+      "transcribe",
+      "dialogue",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "cassette-tape",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia",
+      "communication",
+      "files"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "recording",
+      "play"
+    ]
+  },
+  {
+    "name": "chevron-first",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "previous",
+      "music"
+    ]
+  },
+  {
+    "name": "chevron-last",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "skip",
+      "next",
+      "music"
+    ]
+  },
+  {
+    "name": "chevrons-left-right-ellipsis",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "circle-pause",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "stop"
+    ]
+  },
+  {
+    "name": "circle-play",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "start",
+      "run"
+    ]
+  },
+  {
+    "name": "circle-stop",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "media",
+      "music"
+    ]
+  },
+  {
+    "name": "clapperboard",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "movie",
+      "film",
+      "video",
+      "camera",
+      "cinema",
+      "cut",
+      "action",
+      "television",
+      "tv",
+      "show",
+      "entertainment"
+    ]
+  },
+  {
+    "name": "diamond-minus",
+    "categories": [
+      "multimedia",
+      "photography",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "keyframe",
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "calculator",
+      "button",
+      "keyboard",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "diamond-plus",
+    "categories": [
+      "multimedia",
+      "photography",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "keyframe",
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "toolbar",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "disc-2",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "vinyl",
+      "record",
+      "cd",
+      "dvd",
+      "format",
+      "dj",
+      "spin",
+      "rotate",
+      "rpm"
+    ]
+  },
+  {
+    "name": "disc-3",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "vinyl",
+      "record",
+      "cd",
+      "dvd",
+      "format",
+      "dj",
+      "spin",
+      "rotate",
+      "rpm"
+    ]
+  },
+  {
+    "name": "disc-album",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "songs",
+      "format",
+      "cd",
+      "dvd",
+      "vinyl",
+      "sleeve",
+      "cover",
+      "platinum",
+      "compilation",
+      "ep",
+      "recording",
+      "playback",
+      "spin",
+      "rotate",
+      "rpm",
+      "dj"
+    ]
+  },
+  {
+    "name": "disc",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "album",
+      "music",
+      "songs",
+      "format",
+      "cd",
+      "dvd",
+      "vinyl",
+      "sleeve",
+      "cover",
+      "platinum",
+      "compilation",
+      "ep",
+      "recording",
+      "playback",
+      "spin",
+      "rotate",
+      "rpm",
+      "dj"
+    ]
+  },
+  {
+    "name": "drama",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "drama",
+      "masks",
+      "theater",
+      "theatre",
+      "entertainment",
+      "show"
+    ]
+  },
+  {
+    "name": "drum",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "drummer",
+      "kit",
+      "sticks",
+      "instrument",
+      "beat",
+      "bang",
+      "bass",
+      "backing track",
+      "band",
+      "play",
+      "performance",
+      "concert",
+      "march",
+      "music",
+      "audio",
+      "sound",
+      "noise",
+      "loud"
+    ]
+  },
+  {
+    "name": "ethernet-port",
+    "categories": [
+      "communication",
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "internet",
+      "network",
+      "connection",
+      "cable",
+      "lan",
+      "port",
+      "router",
+      "switch",
+      "hub",
+      "modem",
+      "web",
+      "online",
+      "networking",
+      "communication",
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "fast-forward",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "music"
+    ]
+  },
+  {
+    "name": "file-music",
+    "categories": [
+      "files",
+      "multimedia"
+    ],
+    "tags": [
+      "audio",
+      "sound",
+      "noise",
+      "track",
+      "digital",
+      "recording",
+      "playback",
+      "piano",
+      "keyboard",
+      "keys",
+      "notes",
+      "chord",
+      "midi",
+      "octave"
+    ]
+  },
+  {
+    "name": "film",
+    "categories": [
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "movie",
+      "video",
+      "reel",
+      "camera",
+      "cinema",
+      "entertainment"
+    ]
+  },
+  {
+    "name": "fullscreen",
+    "categories": [
+      "layout",
+      "multimedia",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "expand",
+      "zoom",
+      "preview",
+      "focus",
+      "camera",
+      "lens",
+      "image"
+    ]
+  },
+  {
+    "name": "gallery-horizontal-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-horizontal",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "gallery-thumbnails",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "album",
+      "portfolio",
+      "preview"
+    ]
+  },
+  {
+    "name": "gallery-vertical-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-vertical",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "guitar",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "acoustic",
+      "instrument",
+      "strings",
+      "riff",
+      "rock",
+      "band",
+      "country",
+      "concert",
+      "performance",
+      "play",
+      "lead",
+      "loud",
+      "music",
+      "audio",
+      "sound",
+      "noise"
+    ]
+  },
+  {
+    "name": "hand-metal",
+    "categories": [
+      "emoji",
+      "multimedia"
+    ],
+    "tags": [
+      "rock"
+    ]
+  },
+  {
+    "name": "hdmi-port",
+    "categories": [
+      "devices",
+      "multimedia",
+      "gaming"
+    ],
+    "tags": [
+      "socket",
+      "plug",
+      "slot",
+      "controller",
+      "connector",
+      "interface",
+      "console",
+      "signal",
+      "audio",
+      "video",
+      "visual",
+      "av",
+      "data",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "name": "headphone-off",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "communication",
+      "devices",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "mute",
+      "off"
+    ]
+  },
+  {
+    "name": "headphones",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound"
+    ]
+  },
+  {
+    "name": "headset",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "files",
+      "gaming"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "gaming",
+      "headphones",
+      "headset",
+      "call",
+      "center",
+      "phone",
+      "telephone",
+      "voip",
+      "video"
+    ]
+  },
+  {
+    "name": "heart-off",
+    "categories": [
+      "social",
+      "multimedia"
+    ],
+    "tags": [
+      "unlike",
+      "dislike",
+      "hate",
+      "emotion"
+    ]
+  },
+  {
+    "name": "heart",
+    "categories": [
+      "medical",
+      "social",
+      "multimedia",
+      "emoji",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "like",
+      "love",
+      "emotion",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "image-down",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "download",
+      "save",
+      "export"
+    ]
+  },
+  {
+    "name": "image-minus",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "image-off",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo"
+    ]
+  },
+  {
+    "name": "image-play",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "gif",
+      "photo"
+    ]
+  },
+  {
+    "name": "image-plus",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "add",
+      "create",
+      "picture"
+    ]
+  },
+  {
+    "name": "image-up",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "upload",
+      "import"
+    ]
+  },
+  {
+    "name": "image-upscale",
+    "categories": [
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "resize",
+      "picture",
+      "sharpen",
+      "increase"
+    ]
+  },
+  {
+    "name": "image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo"
+    ]
+  },
+  {
+    "name": "images",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "multiple",
+      "copy",
+      "gallery",
+      "album",
+      "collection",
+      "slideshow",
+      "showcase"
+    ]
+  },
+  {
+    "name": "infinity",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "unlimited",
+      "forever",
+      "loop",
+      "math"
+    ]
+  },
+  {
+    "name": "keyboard-music",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "noise",
+      "notes",
+      "keys",
+      "chord",
+      "octave",
+      "midi",
+      "controller",
+      "instrument",
+      "electric",
+      "signal",
+      "digital",
+      "studio",
+      "production",
+      "producer",
+      "pianist",
+      "piano",
+      "play",
+      "performance",
+      "concert"
+    ]
+  },
+  {
+    "name": "lectern",
+    "categories": [
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "pulpit",
+      "podium",
+      "stand"
+    ]
+  },
+  {
+    "name": "library-big",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "list-end",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "queue",
+      "bottom",
+      "end",
+      "playlist"
+    ]
+  },
+  {
+    "name": "list-minus",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "playlist",
+      "remove",
+      "song",
+      "subtract",
+      "delete",
+      "unqueue"
+    ]
+  },
+  {
+    "name": "list-music",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "playlist",
+      "queue",
+      "music",
+      "audio",
+      "playback"
+    ]
+  },
+  {
+    "name": "list-plus",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "playlist",
+      "add",
+      "song",
+      "track",
+      "new"
+    ]
+  },
+  {
+    "name": "list-restart",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "reset",
+      "refresh",
+      "reload",
+      "playlist",
+      "replay"
+    ]
+  },
+  {
+    "name": "list-start",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "queue",
+      "top",
+      "start",
+      "next",
+      "playlist"
+    ]
+  },
+  {
+    "name": "list-video",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "playlist",
+      "video",
+      "playback"
+    ]
+  },
+  {
+    "name": "list-x",
+    "categories": [
+      "multimedia",
+      "text"
+    ],
+    "tags": [
+      "playlist",
+      "subtract",
+      "remove",
+      "delete",
+      "unqueue"
+    ]
+  },
+  {
+    "name": "loader-circle",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "layout"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "spinner",
+      "spinning",
+      "throbber",
+      "circle"
+    ]
+  },
+  {
+    "name": "loader",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "spinner",
+      "spinning",
+      "throbber"
+    ]
+  },
+  {
+    "name": "megaphone-off",
+    "categories": [
+      "multimedia",
+      "notifications"
+    ],
+    "tags": [
+      "advertisement",
+      "attention",
+      "alert",
+      "notification",
+      "disable",
+      "silent"
+    ]
+  },
+  {
+    "name": "megaphone",
+    "categories": [
+      "multimedia",
+      "notifications"
+    ],
+    "tags": [
+      "advertisement",
+      "attention",
+      "alert",
+      "notification"
+    ]
+  },
+  {
+    "name": "mic-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "mute",
+      "microphone"
+    ]
+  },
+  {
+    "name": "mic-vocal",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "lyrics",
+      "voice",
+      "listen",
+      "sound",
+      "music",
+      "radio",
+      "podcast",
+      "karaoke",
+      "singing",
+      "microphone"
+    ]
+  },
+  {
+    "name": "mic",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "multimedia"
+    ],
+    "tags": [
+      "record",
+      "sound",
+      "listen",
+      "radio",
+      "podcast",
+      "microphone"
+    ]
+  },
+  {
+    "name": "monitor-pause",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "suspend",
+      "hibernate",
+      "boot",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-play",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "running",
+      "start",
+      "boot",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "monitor-stop",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "tv",
+      "screen",
+      "display",
+      "desktop",
+      "video",
+      "movie",
+      "film",
+      "stop",
+      "shutdown",
+      "virtual machine",
+      "vm"
+    ]
+  },
+  {
+    "name": "music-2",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "quaver",
+      "eighth note",
+      "note"
+    ]
+  },
+  {
+    "name": "music-3",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "crotchet",
+      "minim",
+      "quarter note",
+      "half note",
+      "note"
+    ]
+  },
+  {
+    "name": "music-4",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "semiquaver",
+      "sixteenth note",
+      "note"
+    ]
+  },
+  {
+    "name": "music",
+    "categories": [
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "note",
+      "quaver",
+      "eighth note"
+    ]
+  },
+  {
+    "name": "newspaper",
+    "categories": [
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "news",
+      "feed",
+      "home",
+      "magazine",
+      "article",
+      "headline"
+    ]
+  },
+  {
+    "name": "octagon-pause",
+    "categories": [
+      "multimedia",
+      "shapes"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "stop"
+    ]
+  },
+  {
+    "name": "pause",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "stop"
+    ]
+  },
+  {
+    "name": "piano",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "sound",
+      "noise",
+      "notes",
+      "chord",
+      "keys",
+      "octave",
+      "acoustic",
+      "instrument",
+      "play",
+      "pianist",
+      "performance",
+      "concert"
+    ]
+  },
+  {
+    "name": "picture-in-picture-2",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "display",
+      "play",
+      "video",
+      "pop out",
+      "always on top",
+      "window",
+      "inset",
+      "multitask"
+    ]
+  },
+  {
+    "name": "picture-in-picture",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "display",
+      "play",
+      "video",
+      "pop out",
+      "always on top",
+      "window",
+      "inset",
+      "multitask"
+    ]
+  },
+  {
+    "name": "play",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "video",
+      "start",
+      "run"
+    ]
+  },
+  {
+    "name": "podcast",
+    "categories": [
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "mic",
+      "talk",
+      "voice",
+      "subscribe",
+      "subscription",
+      "stream"
+    ]
+  },
+  {
+    "name": "popcorn",
+    "categories": [
+      "food-beverage",
+      "multimedia"
+    ],
+    "tags": [
+      "cinema",
+      "movies",
+      "films",
+      "salted",
+      "sweet",
+      "sugar",
+      "candy",
+      "snack"
+    ]
+  },
+  {
+    "name": "presentation",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication",
+      "design"
+    ],
+    "tags": [
+      "screen",
+      "whiteboard",
+      "marker pens",
+      "markers",
+      "blackboard",
+      "chalk",
+      "easel",
+      "school",
+      "learning",
+      "lesson",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "projector",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "cinema",
+      "film",
+      "movie",
+      "home video",
+      "presentation",
+      "slideshow",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "radio-tower",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "signal",
+      "broadcast",
+      "connectivity",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "radio",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "signal",
+      "broadcast",
+      "connectivity",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "repeat-1",
+    "categories": [
+      "multimedia"
+    ],
+    "tags": [
+      "replay"
+    ]
+  },
+  {
+    "name": "repeat-2",
+    "categories": [
+      "arrows",
+      "social",
+      "multimedia"
+    ],
+    "tags": [
+      "arrows",
+      "retweet",
+      "repost",
+      "share",
+      "repeat",
+      "loop"
+    ]
+  },
+  {
+    "name": "repeat",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "loop",
+      "arrows"
+    ]
+  },
+  {
+    "name": "rewind",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "music"
+    ]
+  },
+  {
+    "name": "satellite-dish",
+    "categories": [
+      "connectivity",
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "antenna",
+      "receiver",
+      "dish aerial",
+      "saucer"
+    ]
+  },
+  {
+    "name": "scan-eye",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility",
+      "security",
+      "devices",
+      "account"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "camera",
+      "watch",
+      "surveillance",
+      "retina",
+      "focus",
+      "lens",
+      "biometric",
+      "identification",
+      "authentication",
+      "access",
+      "login"
+    ]
+  },
+  {
+    "name": "scan-search",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "focus",
+      "lens"
+    ]
+  },
+  {
+    "name": "shuffle",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "music",
+      "random",
+      "reorder"
+    ]
+  },
+  {
+    "name": "skip-back",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "previous",
+      "music"
+    ]
+  },
+  {
+    "name": "skip-forward",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "skip",
+      "next",
+      "music"
+    ]
+  },
+  {
+    "name": "sparkles",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "gaming",
+      "weather"
+    ],
+    "tags": [
+      "stars",
+      "effect",
+      "filter",
+      "night",
+      "magic"
+    ]
+  },
+  {
+    "name": "speaker",
+    "categories": [
+      "multimedia",
+      "devices"
+    ],
+    "tags": [
+      "sound",
+      "audio",
+      "music",
+      "tweeter",
+      "subwoofer",
+      "bass",
+      "production",
+      "producer",
+      "dj"
+    ]
+  },
+  {
+    "name": "square-activity",
+    "categories": [
+      "medical",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "square-library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "square-play",
+    "categories": [
+      "arrows",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "audio",
+      "video",
+      "start",
+      "run"
+    ]
+  },
+  {
+    "name": "star-half",
+    "categories": [
+      "social",
+      "multimedia"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "star-off",
+    "categories": [
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "dislike",
+      "unlike",
+      "remove",
+      "unrate"
+    ]
+  },
+  {
+    "name": "star",
+    "categories": [
+      "account",
+      "social",
+      "shapes",
+      "multimedia",
+      "weather",
+      "emoji",
+      "gaming"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "step-back",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "previous",
+      "music",
+      "left",
+      "reverse"
+    ]
+  },
+  {
+    "name": "step-forward",
+    "categories": [
+      "multimedia",
+      "arrows"
+    ],
+    "tags": [
+      "arrow",
+      "next",
+      "music",
+      "right",
+      "continue"
+    ]
+  },
+  {
+    "name": "tv-minimal-play",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "flatscreen",
+      "television",
+      "stream",
+      "display",
+      "widescreen",
+      "high-definition",
+      "hd",
+      "1080p",
+      "4k",
+      "8k",
+      "smart",
+      "digital",
+      "video",
+      "movie",
+      "live",
+      "ott",
+      "running",
+      "start",
+      "film",
+      "home cinema",
+      "entertainment",
+      "showtime",
+      "channels",
+      "catchup"
+    ]
+  },
+  {
+    "name": "tv-minimal",
+    "categories": [
+      "devices",
+      "multimedia"
+    ],
+    "tags": [
+      "flatscreen",
+      "television",
+      "stream",
+      "display",
+      "widescreen",
+      "high-definition",
+      "hd",
+      "1080p",
+      "4k",
+      "8k",
+      "smart",
+      "digital",
+      "video",
+      "home cinema",
+      "entertainment",
+      "showtime",
+      "channels",
+      "catchup"
+    ]
+  },
+  {
+    "name": "tv",
+    "categories": [
+      "devices",
+      "multimedia",
+      "communication"
+    ],
+    "tags": [
+      "television",
+      "stream",
+      "display",
+      "widescreen",
+      "high-definition",
+      "hd",
+      "1080p",
+      "4k",
+      "8k",
+      "smart",
+      "digital",
+      "video",
+      "entertainment",
+      "showtime",
+      "channels",
+      "terrestrial",
+      "satellite",
+      "cable",
+      "broadcast",
+      "live",
+      "frequency",
+      "tune",
+      "scan",
+      "aerial",
+      "receiver",
+      "transmission",
+      "signal",
+      "connection",
+      "connectivity"
+    ]
+  },
+  {
+    "name": "usb",
+    "categories": [
+      "devices",
+      "multimedia",
+      "home"
+    ],
+    "tags": [
+      "universal",
+      "serial",
+      "bus",
+      "controller",
+      "connector",
+      "interface"
+    ]
+  },
+  {
+    "name": "volume-1",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-2",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-off",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume-x",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "volume",
+    "categories": [
+      "connectivity",
+      "communication",
+      "multimedia"
+    ],
+    "tags": [
+      "music",
+      "sound",
+      "mute",
+      "speaker"
+    ]
+  },
+  {
+    "name": "waves",
+    "categories": [
+      "weather",
+      "navigation",
+      "multimedia",
+      "sustainability"
+    ],
+    "tags": [
+      "water",
+      "sea",
+      "sound",
+      "hertz",
+      "wavelength",
+      "vibrate"
+    ]
+  },
+  {
+    "name": "youtube",
+    "categories": [
+      "multimedia",
+      "social",
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "social",
+      "video",
+      "play"
+    ]
+  }
+]

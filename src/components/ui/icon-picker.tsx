@@ -9,13 +9,11 @@ import { cn } from "@/lib/utils";
 import { LucideProps, LucideIcon } from 'lucide-react';
 import { DynamicIcon, IconName } from 'lucide-react/dynamic';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { iconsData } from "./icons-data";
+import { IconData, loadAllIcons } from "./icons-data";
 import { useVirtualizer, VirtualItem } from '@tanstack/react-virtual';
 import { Skeleton } from "@/components/ui/skeleton";
 import Fuse from 'fuse.js';
 import { useDebounceValue } from "usehooks-ts";
-
-export type IconData = typeof iconsData[number];
 
 interface IconPickerProps extends Omit<React.ComponentPropsWithoutRef<typeof PopoverTrigger>, 'onSelect' | 'onOpenChange'> {
   value?: IconName
@@ -62,10 +60,17 @@ const useIconsData = () => {
     const loadIcons = async () => {
       setIsLoading(true);
 
-      const { iconsData } = await import('./icons-data');
-      if (isMounted) {
-        setIcons(iconsData);
-        setIsLoading(false);
+      try {
+        const iconsData = await loadAllIcons();
+        if (isMounted) {
+          setIcons(iconsData);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error('Failed to load icons:', error);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
@@ -102,7 +107,7 @@ const IconPicker = React.forwardRef<
   const [isOpen, setIsOpen] = useState(defaultOpen || false)
   const [search, setSearch] = useDebounceValue("", 100);
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
-  const { icons } = useIconsData();
+  const { icons, isLoading: iconsLoading } = useIconsData();
   const [isLoading, setIsLoading] = useState(true);
   
   const iconsToUse = useMemo(() => iconsList || icons, [iconsList, icons]);
@@ -412,7 +417,7 @@ const IconPicker = React.forwardRef<
           className="max-h-60 overflow-auto"
           style={{ scrollbarWidth: 'thin' }}
         >
-          {isLoading ? (
+          {(isLoading || iconsLoading) ? (
             <IconsColumnSkeleton />
           ) : (
             renderVirtualContent()

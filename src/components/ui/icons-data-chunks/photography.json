@@ -1,0 +1,1368 @@
+[
+  {
+    "name": "album",
+    "categories": [
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "photo",
+      "book"
+    ]
+  },
+  {
+    "name": "aperture",
+    "categories": [
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "photo",
+      "pictures",
+      "shutter",
+      "exposure"
+    ]
+  },
+  {
+    "name": "backpack",
+    "categories": [
+      "gaming",
+      "photography",
+      "travel"
+    ],
+    "tags": [
+      "bag",
+      "hiking",
+      "travel",
+      "camping",
+      "school",
+      "childhood"
+    ]
+  },
+  {
+    "name": "binoculars",
+    "categories": [
+      "navigation",
+      "nature",
+      "photography",
+      "science",
+      "travel",
+      "development"
+    ],
+    "tags": [
+      "field glasses",
+      "lorgnette",
+      "pince-nez",
+      "observation",
+      "sightseeing",
+      "nature",
+      "wildlife",
+      "birdwatching",
+      "scouting",
+      "surveillance",
+      "search",
+      "discovery",
+      "monitoring",
+      "lookout",
+      "viewpoint",
+      "travel",
+      "tourism",
+      "research"
+    ]
+  },
+  {
+    "name": "blend",
+    "categories": [
+      "design",
+      "photography",
+      "tools",
+      "development"
+    ],
+    "tags": [
+      "mode",
+      "overlay",
+      "multiply",
+      "screen",
+      "opacity",
+      "transparency",
+      "alpha",
+      "filters",
+      "lenses",
+      "mixed",
+      "shades",
+      "tints",
+      "hues",
+      "saturation",
+      "brightness",
+      "overlap",
+      "colors",
+      "colours"
+    ]
+  },
+  {
+    "name": "book-image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files",
+      "social",
+      "shopping",
+      "travel"
+    ],
+    "tags": [
+      "images",
+      "pictures",
+      "photos",
+      "album",
+      "collection",
+      "event",
+      "magazine",
+      "catalog",
+      "catalogue",
+      "brochure",
+      "browse",
+      "gallery"
+    ]
+  },
+  {
+    "name": "camera-off",
+    "categories": [
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "photo",
+      "webcam",
+      "video"
+    ]
+  },
+  {
+    "name": "camera",
+    "categories": [
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "photo",
+      "webcam",
+      "video"
+    ]
+  },
+  {
+    "name": "cctv",
+    "categories": [
+      "security",
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "surveillance",
+      "recording",
+      "film",
+      "videotape",
+      "crime",
+      "watching"
+    ]
+  },
+  {
+    "name": "contrast",
+    "categories": [
+      "photography",
+      "accessibility",
+      "design"
+    ],
+    "tags": [
+      "display",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "crop",
+    "categories": [
+      "photography",
+      "design"
+    ],
+    "tags": [
+      "photo",
+      "image"
+    ]
+  },
+  {
+    "name": "crosshair",
+    "categories": [
+      "photography"
+    ],
+    "tags": [
+      "aim",
+      "target"
+    ]
+  },
+  {
+    "name": "database-backup",
+    "categories": [
+      "devices",
+      "arrows",
+      "design",
+      "development",
+      "photography"
+    ],
+    "tags": [
+      "storage",
+      "memory",
+      "bytes",
+      "servers",
+      "backup",
+      "timemachine",
+      "rotate",
+      "arrow",
+      "left"
+    ]
+  },
+  {
+    "name": "diamond-minus",
+    "categories": [
+      "multimedia",
+      "photography",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "keyframe",
+      "subtract",
+      "remove",
+      "decrease",
+      "reduce",
+      "calculator",
+      "button",
+      "keyboard",
+      "line",
+      "divider",
+      "separator",
+      "horizontal rule",
+      "hr",
+      "html",
+      "markup",
+      "markdown",
+      "---",
+      "toolbar",
+      "operator",
+      "code",
+      "coding",
+      "minimum",
+      "downgrade"
+    ]
+  },
+  {
+    "name": "diamond-plus",
+    "categories": [
+      "multimedia",
+      "photography",
+      "tools",
+      "devices"
+    ],
+    "tags": [
+      "keyframe",
+      "add",
+      "new",
+      "increase",
+      "increment",
+      "positive",
+      "calculate",
+      "toolbar",
+      "crosshair",
+      "aim",
+      "target",
+      "scope",
+      "sight",
+      "reticule",
+      "maximum",
+      "upgrade",
+      "extra",
+      "+"
+    ]
+  },
+  {
+    "name": "eclipse",
+    "categories": [
+      "science",
+      "design",
+      "development",
+      "accessibility",
+      "photography"
+    ],
+    "tags": [
+      "lunar",
+      "solar",
+      "crescent moon",
+      "sun",
+      "earth",
+      "day",
+      "night",
+      "planet",
+      "space",
+      "mode",
+      "dark",
+      "light",
+      "toggle",
+      "switch",
+      "color",
+      "css",
+      "styles",
+      "display",
+      "accessibility",
+      "contrast",
+      "brightness",
+      "blend",
+      "shade"
+    ]
+  },
+  {
+    "name": "eye-closed",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye-off",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "show",
+      "expose",
+      "reveal",
+      "display",
+      "visible",
+      "visibility",
+      "vision",
+      "preview",
+      "read"
+    ]
+  },
+  {
+    "name": "film",
+    "categories": [
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "movie",
+      "video",
+      "reel",
+      "camera",
+      "cinema",
+      "entertainment"
+    ]
+  },
+  {
+    "name": "flashlight-off",
+    "categories": [
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "torch"
+    ]
+  },
+  {
+    "name": "flashlight",
+    "categories": [
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "torch"
+    ]
+  },
+  {
+    "name": "flip-horizontal-2",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "flip-horizontal",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "flip-vertical-2",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "flip-vertical",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "focus",
+    "categories": [
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "lens",
+      "photo",
+      "dashed"
+    ]
+  },
+  {
+    "name": "frame",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "logo",
+      "design",
+      "tool"
+    ]
+  },
+  {
+    "name": "fullscreen",
+    "categories": [
+      "layout",
+      "multimedia",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "expand",
+      "zoom",
+      "preview",
+      "focus",
+      "camera",
+      "lens",
+      "image"
+    ]
+  },
+  {
+    "name": "gallery-horizontal-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-horizontal",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "gallery-thumbnails",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "album",
+      "portfolio",
+      "preview"
+    ]
+  },
+  {
+    "name": "gallery-vertical-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-vertical",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "image-down",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "download",
+      "save",
+      "export"
+    ]
+  },
+  {
+    "name": "image-minus",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "image-off",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo"
+    ]
+  },
+  {
+    "name": "image-play",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "gif",
+      "photo"
+    ]
+  },
+  {
+    "name": "image-plus",
+    "categories": [
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "add",
+      "create",
+      "picture"
+    ]
+  },
+  {
+    "name": "image-up",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "upload",
+      "import"
+    ]
+  },
+  {
+    "name": "image-upscale",
+    "categories": [
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "resize",
+      "picture",
+      "sharpen",
+      "increase"
+    ]
+  },
+  {
+    "name": "image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo"
+    ]
+  },
+  {
+    "name": "images",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "picture",
+      "photo",
+      "multiple",
+      "copy",
+      "gallery",
+      "album",
+      "collection",
+      "slideshow",
+      "showcase"
+    ]
+  },
+  {
+    "name": "instagram",
+    "categories": [
+      "brands",
+      "social",
+      "photography"
+    ],
+    "tags": [
+      "logo",
+      "camera",
+      "social"
+    ]
+  },
+  {
+    "name": "layout-list",
+    "categories": [
+      "design",
+      "layout",
+      "photography",
+      "text"
+    ],
+    "tags": [
+      "todo",
+      "tasks",
+      "items",
+      "pending",
+      "image",
+      "photo"
+    ]
+  },
+  {
+    "name": "library-big",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "lightbulb-off",
+    "categories": [
+      "photography"
+    ],
+    "tags": [
+      "lights"
+    ]
+  },
+  {
+    "name": "lightbulb",
+    "categories": [
+      "photography"
+    ],
+    "tags": [
+      "idea",
+      "bright",
+      "lights"
+    ]
+  },
+  {
+    "name": "paintbrush-vertical",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "paintbrush",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "palette",
+    "categories": [
+      "text",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "colors",
+      "colours",
+      "theme",
+      "scheme",
+      "paint",
+      "watercolor",
+      "watercolour",
+      "artist"
+    ]
+  },
+  {
+    "name": "presentation",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication",
+      "design"
+    ],
+    "tags": [
+      "screen",
+      "whiteboard",
+      "marker pens",
+      "markers",
+      "blackboard",
+      "chalk",
+      "easel",
+      "school",
+      "learning",
+      "lesson",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "projector",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication"
+    ],
+    "tags": [
+      "cinema",
+      "film",
+      "movie",
+      "home video",
+      "presentation",
+      "slideshow",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "proportions",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "screens",
+      "sizes",
+      "rotate",
+      "rotation",
+      "adjust",
+      "aspect ratio",
+      "16:9",
+      "widescreen",
+      "4:3",
+      "resolution",
+      "responsive",
+      "mobile",
+      "desktop",
+      "dimensions",
+      "monitor",
+      "orientation",
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "name": "ratio",
+    "categories": [
+      "layout",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "screens",
+      "sizes",
+      "rotate",
+      "rotation",
+      "adjust",
+      "aspect ratio",
+      "proportions",
+      "16:9",
+      "widescreen",
+      "4:3",
+      "resolution",
+      "responsive",
+      "mobile",
+      "desktop",
+      "dimensions",
+      "monitor",
+      "orientation",
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "name": "rotate-ccw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "left",
+      "counter-clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rotate-ccw",
+    "categories": [
+      "arrows",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "arrow",
+      "left",
+      "counter-clockwise",
+      "restart",
+      "reload",
+      "rerun",
+      "refresh",
+      "backup",
+      "undo",
+      "replay",
+      "redo",
+      "retry",
+      "rewind",
+      "reverse"
+    ]
+  },
+  {
+    "name": "rotate-cw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "right",
+      "clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rotate-cw",
+    "categories": [
+      "arrows",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "arrow",
+      "right",
+      "clockwise",
+      "refresh",
+      "reload",
+      "rerun",
+      "redo"
+    ]
+  },
+  {
+    "name": "scan-eye",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility",
+      "security",
+      "devices",
+      "account"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "camera",
+      "watch",
+      "surveillance",
+      "retina",
+      "focus",
+      "lens",
+      "biometric",
+      "identification",
+      "authentication",
+      "access",
+      "login"
+    ]
+  },
+  {
+    "name": "scan-search",
+    "categories": [
+      "photography",
+      "multimedia",
+      "accessibility"
+    ],
+    "tags": [
+      "preview",
+      "zoom",
+      "expand",
+      "fullscreen",
+      "gallery",
+      "image",
+      "focus",
+      "lens"
+    ]
+  },
+  {
+    "name": "square-library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "swatch-book",
+    "categories": [
+      "design",
+      "home",
+      "photography"
+    ],
+    "tags": [
+      "colors",
+      "colours",
+      "swatches",
+      "pantone",
+      "shades",
+      "tint",
+      "hue",
+      "saturation",
+      "brightness",
+      "theme",
+      "scheme",
+      "palette",
+      "samples",
+      "textile",
+      "carpet"
+    ]
+  },
+  {
+    "name": "video-off",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film"
+    ]
+  },
+  {
+    "name": "video",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography"
+    ],
+    "tags": [
+      "camera",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "camcorder",
+      "reel"
+    ]
+  },
+  {
+    "name": "videotape",
+    "categories": [
+      "devices",
+      "communication",
+      "connectivity",
+      "photography",
+      "files"
+    ],
+    "tags": [
+      "vhs",
+      "movie",
+      "film",
+      "recording",
+      "motion picture",
+      "showreel",
+      "cassette"
+    ]
+  },
+  {
+    "name": "view",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "eye",
+      "look"
+    ]
+  },
+  {
+    "name": "wand-sparkles",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "wizard",
+      "magician"
+    ]
+  },
+  {
+    "name": "wand",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "selection"
+    ]
+  },
+  {
+    "name": "zap-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  },
+  {
+    "name": "zap",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  },
+  {
+    "name": "zoom-in",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  },
+  {
+    "name": "zoom-out",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  }
+]

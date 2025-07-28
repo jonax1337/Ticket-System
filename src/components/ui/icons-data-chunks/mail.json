@@ -1,0 +1,347 @@
+[
+  {
+    "name": "archive-restore",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "unarchive",
+      "index",
+      "backup",
+      "box",
+      "storage",
+      "records"
+    ]
+  },
+  {
+    "name": "archive-x",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "index",
+      "backup",
+      "box",
+      "storage",
+      "records",
+      "junk"
+    ]
+  },
+  {
+    "name": "archive",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "index",
+      "backup",
+      "box",
+      "storage",
+      "records"
+    ]
+  },
+  {
+    "name": "arrows-up-from-line",
+    "categories": [
+      "arrows",
+      "transportation",
+      "mail"
+    ],
+    "tags": [
+      "direction",
+      "orientation",
+      "this way up",
+      "vertical",
+      "package",
+      "box",
+      "fragile",
+      "postage",
+      "shipping"
+    ]
+  },
+  {
+    "name": "container",
+    "categories": [
+      "development",
+      "transportation",
+      "mail"
+    ],
+    "tags": [
+      "storage",
+      "shipping",
+      "freight",
+      "supply chain",
+      "docker",
+      "environment",
+      "devops",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "forward",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "send",
+      "share",
+      "email"
+    ]
+  },
+  {
+    "name": "inbox",
+    "categories": [
+      "account",
+      "mail"
+    ],
+    "tags": [
+      "email"
+    ]
+  },
+  {
+    "name": "mail-check",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "subscribe",
+      "delivered",
+      "success",
+      "read",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "mail-minus",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "mail-open",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "read"
+    ]
+  },
+  {
+    "name": "mail-plus",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "add",
+      "create",
+      "new",
+      "compose"
+    ]
+  },
+  {
+    "name": "mail-question",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "delivery",
+      "undelivered"
+    ]
+  },
+  {
+    "name": "mail-search",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "search"
+    ]
+  },
+  {
+    "name": "mail-warning",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "delivery error",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "mail-x",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "remove",
+      "delete"
+    ]
+  },
+  {
+    "name": "mail",
+    "categories": [
+      "text",
+      "account",
+      "mail"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "letter",
+      "unread"
+    ]
+  },
+  {
+    "name": "mailbox",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "emails",
+      "messages",
+      "letters",
+      "mailing list",
+      "newsletter"
+    ]
+  },
+  {
+    "name": "mails",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "emails",
+      "messages",
+      "letters",
+      "multiple",
+      "mailing list",
+      "newsletter",
+      "copy"
+    ]
+  },
+  {
+    "name": "paperclip",
+    "categories": [
+      "text",
+      "design",
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "attachment",
+      "file"
+    ]
+  },
+  {
+    "name": "reply-all",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email"
+    ]
+  },
+  {
+    "name": "reply",
+    "categories": [
+      "mail"
+    ],
+    "tags": [
+      "email"
+    ]
+  },
+  {
+    "name": "send-horizontal",
+    "categories": [
+      "mail",
+      "communication",
+      "connectivity"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "mail",
+      "paper airplane",
+      "paper aeroplane",
+      "submit"
+    ]
+  },
+  {
+    "name": "send",
+    "categories": [
+      "mail",
+      "communication",
+      "connectivity"
+    ],
+    "tags": [
+      "email",
+      "message",
+      "mail",
+      "paper airplane",
+      "paper aeroplane",
+      "submit"
+    ]
+  },
+  {
+    "name": "trash-2",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "garbage",
+      "delete",
+      "remove",
+      "bin"
+    ]
+  },
+  {
+    "name": "trash",
+    "categories": [
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "garbage",
+      "delete",
+      "remove",
+      "bin"
+    ]
+  }
+]

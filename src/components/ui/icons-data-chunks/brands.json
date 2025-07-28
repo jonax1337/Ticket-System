@@ -1,0 +1,259 @@
+[
+  {
+    "name": "airplay",
+    "categories": [
+      "multimedia",
+      "connectivity",
+      "devices",
+      "brands"
+    ],
+    "tags": [
+      "stream",
+      "cast",
+      "mirroring",
+      "screen",
+      "monitor",
+      "macos",
+      "osx"
+    ]
+  },
+  {
+    "name": "bitcoin",
+    "categories": [
+      "brands",
+      "development",
+      "finance"
+    ],
+    "tags": [
+      "currency",
+      "money",
+      "payment"
+    ]
+  },
+  {
+    "name": "chrome",
+    "categories": [
+      "brands"
+    ],
+    "tags": [
+      "browser",
+      "logo"
+    ]
+  },
+  {
+    "name": "codepen",
+    "categories": [
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo"
+    ]
+  },
+  {
+    "name": "codesandbox",
+    "categories": [
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo"
+    ]
+  },
+  {
+    "name": "dribbble",
+    "categories": [
+      "brands",
+      "social",
+      "design"
+    ],
+    "tags": [
+      "design",
+      "social"
+    ]
+  },
+  {
+    "name": "facebook",
+    "categories": [
+      "social",
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "figma",
+    "categories": [
+      "brands",
+      "design"
+    ],
+    "tags": [
+      "logo",
+      "design",
+      "tool"
+    ]
+  },
+  {
+    "name": "framer",
+    "categories": [
+      "brands",
+      "design"
+    ],
+    "tags": [
+      "logo",
+      "design",
+      "tool"
+    ]
+  },
+  {
+    "name": "github",
+    "categories": [
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo",
+      "version control"
+    ]
+  },
+  {
+    "name": "gitlab",
+    "categories": [
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo",
+      "version control"
+    ]
+  },
+  {
+    "name": "hexagon",
+    "categories": [
+      "shapes",
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "shape",
+      "node.js",
+      "logo"
+    ]
+  },
+  {
+    "name": "instagram",
+    "categories": [
+      "brands",
+      "social",
+      "photography"
+    ],
+    "tags": [
+      "logo",
+      "camera",
+      "social"
+    ]
+  },
+  {
+    "name": "linkedin",
+    "categories": [
+      "social",
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "social media",
+      "social"
+    ]
+  },
+  {
+    "name": "pocket",
+    "categories": [
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "save"
+    ]
+  },
+  {
+    "name": "slack",
+    "categories": [
+      "account",
+      "social",
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo"
+    ]
+  },
+  {
+    "name": "target",
+    "categories": [
+      "brands",
+      "gaming"
+    ],
+    "tags": [
+      "logo",
+      "bullseye",
+      "deadline",
+      "projects",
+      "overview",
+      "work",
+      "productivity"
+    ]
+  },
+  {
+    "name": "trello",
+    "categories": [
+      "account",
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo",
+      "brand"
+    ]
+  },
+  {
+    "name": "twitch",
+    "categories": [
+      "brands",
+      "social",
+      "account",
+      "gaming"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "twitter",
+    "categories": [
+      "brands",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "youtube",
+    "categories": [
+      "multimedia",
+      "social",
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "social",
+      "video",
+      "play"
+    ]
+  }
+]

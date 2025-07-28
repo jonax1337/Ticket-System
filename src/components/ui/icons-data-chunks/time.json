@@ -1,0 +1,777 @@
+[
+  {
+    "name": "alarm-clock-check",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "alarm-clock-minus",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "remove"
+    ]
+  },
+  {
+    "name": "alarm-clock-off",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "morning",
+      "turn-off"
+    ]
+  },
+  {
+    "name": "alarm-clock-plus",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "add"
+    ]
+  },
+  {
+    "name": "alarm-clock",
+    "categories": [
+      "devices",
+      "notifications",
+      "time"
+    ],
+    "tags": [
+      "morning"
+    ]
+  },
+  {
+    "name": "calendar-1",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event",
+      "single",
+      "singular",
+      "once",
+      "1",
+      "first"
+    ]
+  },
+  {
+    "name": "calendar-arrow-down",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event",
+      "sort",
+      "order",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "calendar-arrow-up",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event",
+      "sort",
+      "order",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "calendar-check-2",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "confirm",
+      "subscribe",
+      "schedule",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "calendar-check",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "confirm",
+      "subscribe",
+      "schedule",
+      "done",
+      "todo",
+      "tick",
+      "complete",
+      "task"
+    ]
+  },
+  {
+    "name": "calendar-clock",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "clock",
+      "hour"
+    ]
+  },
+  {
+    "name": "calendar-cog",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "events",
+      "settings",
+      "gear",
+      "cog"
+    ]
+  },
+  {
+    "name": "calendar-days",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event"
+    ]
+  },
+  {
+    "name": "calendar-fold",
+    "categories": [
+      "time",
+      "files"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event",
+      "birthday",
+      "birthdate",
+      "ics"
+    ]
+  },
+  {
+    "name": "calendar-heart",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event",
+      "heart",
+      "favourite",
+      "subscribe",
+      "valentines day"
+    ]
+  },
+  {
+    "name": "calendar-minus-2",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "delete",
+      "remove"
+    ]
+  },
+  {
+    "name": "calendar-minus",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "delete",
+      "remove"
+    ]
+  },
+  {
+    "name": "calendar-off",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "delete",
+      "remove"
+    ]
+  },
+  {
+    "name": "calendar-plus-2",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "add",
+      "subscribe",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "calendar-plus",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "add",
+      "subscribe",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "calendar-range",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "range",
+      "period"
+    ]
+  },
+  {
+    "name": "calendar-search",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "events",
+      "search"
+    ]
+  },
+  {
+    "name": "calendar-sync",
+    "categories": [
+      "arrows",
+      "time"
+    ],
+    "tags": [
+      "repeat",
+      "refresh",
+      "reconnect",
+      "transfer",
+      "backup",
+      "date",
+      "month",
+      "year",
+      "event",
+      "subscribe",
+      "recurring",
+      "schedule",
+      "reminder",
+      "automatic",
+      "auto"
+    ]
+  },
+  {
+    "name": "calendar-x-2",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "remove"
+    ]
+  },
+  {
+    "name": "calendar-x",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "day",
+      "month",
+      "year",
+      "event",
+      "remove",
+      "busy"
+    ]
+  },
+  {
+    "name": "calendar",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "date",
+      "month",
+      "year",
+      "event",
+      "birthday",
+      "birthdate"
+    ]
+  },
+  {
+    "name": "chart-no-axes-gantt",
+    "categories": [
+      "charts",
+      "time",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "roadmap",
+      "plan",
+      "intentions",
+      "timeline",
+      "deadline",
+      "date",
+      "event",
+      "range",
+      "period",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "clock-1",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-10",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-11",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-12",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm",
+      "noon",
+      "midnight"
+    ]
+  },
+  {
+    "name": "clock-2",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-3",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-4",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-5",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-6",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-7",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-8",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-9",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "clock-alert",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm",
+      "warning",
+      "wrong"
+    ]
+  },
+  {
+    "name": "clock-arrow-down",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm",
+      "sort",
+      "order",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "clock-arrow-up",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm",
+      "sort",
+      "order",
+      "ascending",
+      "descending",
+      "increasing",
+      "decreasing",
+      "rising",
+      "falling"
+    ]
+  },
+  {
+    "name": "clock",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "watch",
+      "alarm"
+    ]
+  },
+  {
+    "name": "file-clock",
+    "categories": [
+      "files",
+      "time"
+    ],
+    "tags": [
+      "history",
+      "log",
+      "clock"
+    ]
+  },
+  {
+    "name": "folder-clock",
+    "categories": [
+      "files",
+      "time"
+    ],
+    "tags": [
+      "history",
+      "directory",
+      "clock"
+    ]
+  },
+  {
+    "name": "history",
+    "categories": [
+      "arrows",
+      "time"
+    ],
+    "tags": [
+      "time",
+      "redo",
+      "undo",
+      "rewind",
+      "timeline",
+      "version",
+      "time machine",
+      "backup",
+      "rotate",
+      "ccw"
+    ]
+  },
+  {
+    "name": "hourglass",
+    "categories": [
+      "time",
+      "gaming"
+    ],
+    "tags": [
+      "timer",
+      "time",
+      "sandglass"
+    ]
+  },
+  {
+    "name": "square-chart-gantt",
+    "categories": [
+      "charts",
+      "time",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "roadmap",
+      "plan",
+      "intentions",
+      "timeline",
+      "deadline",
+      "date",
+      "event",
+      "range",
+      "period",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "sunrise",
+    "categories": [
+      "arrows",
+      "weather",
+      "time"
+    ],
+    "tags": [
+      "weather",
+      "time",
+      "morning",
+      "day"
+    ]
+  },
+  {
+    "name": "timer-off",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "timer",
+      "stopwatch"
+    ]
+  },
+  {
+    "name": "timer-reset",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "timer",
+      "stopwatch"
+    ]
+  },
+  {
+    "name": "timer",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "time",
+      "timer",
+      "stopwatch"
+    ]
+  },
+  {
+    "name": "watch",
+    "categories": [
+      "time"
+    ],
+    "tags": [
+      "clock",
+      "time"
+    ]
+  }
+]

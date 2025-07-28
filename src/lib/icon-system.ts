@@ -819,6 +819,9 @@ export const ICON_MAP: { [key: string]: React.ComponentType<{ className?: string
  * @returns React component or fallback icon
  */
 export function getIconComponent(iconName: string): React.ComponentType<{ className?: string }> {
+  if (!iconName || typeof iconName !== 'string') {
+    return AlertCircle
+  }
   return ICON_MAP[iconName] || AlertCircle
 }
 

@@ -1,0 +1,2190 @@
+[
+  {
+    "name": "arrow-big-down-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming",
+      "files"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slow",
+      "direction",
+      "south",
+      "download"
+    ]
+  },
+  {
+    "name": "arrow-big-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south"
+    ]
+  },
+  {
+    "name": "arrow-big-left-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "arrow-big-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "indicate turn"
+    ]
+  },
+  {
+    "name": "arrow-big-right-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "arrow-big-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "indicate turn"
+    ]
+  },
+  {
+    "name": "arrow-big-up-dash",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "caps lock",
+      "capitals",
+      "keyboard",
+      "button",
+      "mac",
+      "forward",
+      "direction",
+      "north",
+      "faster",
+      "speed",
+      "boost"
+    ]
+  },
+  {
+    "name": "arrow-big-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "text",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "shift",
+      "keyboard",
+      "button",
+      "mac",
+      "capitalize",
+      "capitalise",
+      "forward",
+      "direction",
+      "north"
+    ]
+  },
+  {
+    "name": "arrow-down-from-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "download",
+      "expand",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-down-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "south-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-down-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "south-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-down-to-dot",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "south",
+      "waypoint",
+      "location",
+      "step",
+      "into"
+    ]
+  },
+  {
+    "name": "arrow-down-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "behind",
+      "direction",
+      "south",
+      "download",
+      "save",
+      "git",
+      "version control",
+      "pull",
+      "collapse",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-down-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "network",
+      "traffic",
+      "flow",
+      "mobile data",
+      "internet",
+      "sort",
+      "reorder",
+      "move"
+    ]
+  },
+  {
+    "name": "arrow-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south"
+    ]
+  },
+  {
+    "name": "arrow-left-from-line",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "expand",
+      "fold",
+      "horizontal",
+      "<-|"
+    ]
+  },
+  {
+    "name": "arrow-left-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "transaction",
+      "reorder",
+      "move",
+      "<-",
+      "->"
+    ]
+  },
+  {
+    "name": "arrow-left-to-line",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "collapse",
+      "fold",
+      "horizontal",
+      "|<-"
+    ]
+  },
+  {
+    "name": "arrow-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "<-"
+    ]
+  },
+  {
+    "name": "arrow-right-from-line",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "export",
+      "expand",
+      "fold",
+      "horizontal",
+      "|->"
+    ]
+  },
+  {
+    "name": "arrow-right-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "transaction",
+      "reorder",
+      "move",
+      "<-",
+      "->"
+    ]
+  },
+  {
+    "name": "arrow-right-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "tab",
+      "keyboard",
+      "mac",
+      "indent",
+      "collapse",
+      "fold",
+      "horizontal",
+      "->|"
+    ]
+  },
+  {
+    "name": "arrow-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "forward",
+      "next",
+      "direction",
+      "east",
+      "->"
+    ]
+  },
+  {
+    "name": "arrow-up-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "bidirectional",
+      "two-way",
+      "2-way",
+      "swap",
+      "switch",
+      "network",
+      "mobile data",
+      "internet",
+      "sort",
+      "reorder",
+      "move"
+    ]
+  },
+  {
+    "name": "arrow-up-from-dot",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north",
+      "step",
+      "out"
+    ]
+  },
+  {
+    "name": "arrow-up-from-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "upload",
+      "git",
+      "version control",
+      "push",
+      "expand",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-up-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-up-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "arrow-up-to-line",
+    "categories": [
+      "arrows",
+      "navigation",
+      "files"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "upload",
+      "collapse",
+      "fold",
+      "vertical"
+    ]
+  },
+  {
+    "name": "arrow-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north"
+    ]
+  },
+  {
+    "name": "binoculars",
+    "categories": [
+      "navigation",
+      "nature",
+      "photography",
+      "science",
+      "travel",
+      "development"
+    ],
+    "tags": [
+      "field glasses",
+      "lorgnette",
+      "pince-nez",
+      "observation",
+      "sightseeing",
+      "nature",
+      "wildlife",
+      "birdwatching",
+      "scouting",
+      "surveillance",
+      "search",
+      "discovery",
+      "monitoring",
+      "lookout",
+      "viewpoint",
+      "travel",
+      "tourism",
+      "research"
+    ]
+  },
+  {
+    "name": "chevron-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slow",
+      "dropdown"
+    ]
+  },
+  {
+    "name": "chevron-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "previous",
+      "less than",
+      "fewer",
+      "menu",
+      "<"
+    ]
+  },
+  {
+    "name": "chevron-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "next",
+      "more than",
+      "greater",
+      "menu",
+      "code",
+      "coding",
+      "command line",
+      "terminal",
+      "prompt",
+      "shell",
+      ">"
+    ]
+  },
+  {
+    "name": "chevron-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math",
+      "gaming"
+    ],
+    "tags": [
+      "caret",
+      "keyboard",
+      "mac",
+      "control",
+      "ctrl",
+      "superscript",
+      "exponential",
+      "power",
+      "ahead",
+      "fast",
+      "^",
+      "dropdown"
+    ]
+  },
+  {
+    "name": "chevrons-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "slower"
+    ]
+  },
+  {
+    "name": "chevrons-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "chevrons-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "turn",
+      "corner"
+    ]
+  },
+  {
+    "name": "chevrons-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "forward",
+      "ahead",
+      "faster",
+      "speed",
+      "boost"
+    ]
+  },
+  {
+    "name": "church",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "temple",
+      "building"
+    ]
+  },
+  {
+    "name": "circle-arrow-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "sign",
+      "button"
+    ]
+  },
+  {
+    "name": "circle-arrow-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "sign",
+      "turn",
+      "button",
+      "<-"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-down-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-down-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-up-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-west",
+      "diagonal",
+      "keyboard",
+      "button",
+      "escape"
+    ]
+  },
+  {
+    "name": "circle-arrow-out-up-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "circle-arrow-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "east",
+      "sign",
+      "turn",
+      "button",
+      "->"
+    ]
+  },
+  {
+    "name": "circle-arrow-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "sign",
+      "button"
+    ]
+  },
+  {
+    "name": "circle-chevron-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "menu"
+    ]
+  },
+  {
+    "name": "circle-chevron-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "previous",
+      "less than",
+      "fewer",
+      "menu",
+      "<"
+    ]
+  },
+  {
+    "name": "circle-chevron-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "more than",
+      "greater",
+      "menu",
+      ">"
+    ]
+  },
+  {
+    "name": "circle-chevron-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "caret",
+      "ahead",
+      "menu",
+      "^"
+    ]
+  },
+  {
+    "name": "circle-parking-off",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park",
+      "no parking"
+    ]
+  },
+  {
+    "name": "circle-parking",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park"
+    ]
+  },
+  {
+    "name": "compass",
+    "categories": [
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "direction",
+      "north",
+      "east",
+      "south",
+      "west",
+      "safari",
+      "browser"
+    ]
+  },
+  {
+    "name": "dumbbell",
+    "categories": [
+      "navigation",
+      "sports"
+    ],
+    "tags": [
+      "barbell",
+      "weight",
+      "workout",
+      "gym"
+    ]
+  },
+  {
+    "name": "earth",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "world",
+      "browser",
+      "language",
+      "translate",
+      "globe"
+    ]
+  },
+  {
+    "name": "ferris-wheel",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "big wheel",
+      "daisy wheel",
+      "observation",
+      "attraction",
+      "entertainment",
+      "amusement park",
+      "theme park",
+      "funfair"
+    ]
+  },
+  {
+    "name": "footprints",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "steps",
+      "walking",
+      "foot",
+      "feet",
+      "trail",
+      "shoe"
+    ]
+  },
+  {
+    "name": "fuel",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "filling-station",
+      "gas",
+      "petrol",
+      "tank"
+    ]
+  },
+  {
+    "name": "gavel",
+    "categories": [
+      "navigation",
+      "tools"
+    ],
+    "tags": [
+      "hammer",
+      "mallet"
+    ]
+  },
+  {
+    "name": "git-commit-horizontal",
+    "categories": [
+      "development",
+      "navigation"
+    ],
+    "tags": [
+      "code",
+      "version control",
+      "waypoint",
+      "stop",
+      "station"
+    ]
+  },
+  {
+    "name": "git-commit-vertical",
+    "categories": [
+      "development",
+      "navigation"
+    ],
+    "tags": [
+      "code",
+      "version control",
+      "waypoint",
+      "stop",
+      "station"
+    ]
+  },
+  {
+    "name": "globe",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "world",
+      "browser",
+      "language",
+      "translate"
+    ]
+  },
+  {
+    "name": "hospital",
+    "categories": [
+      "medical",
+      "buildings",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "infirmary",
+      "sanatorium",
+      "healthcare",
+      "doctor",
+      "hospice",
+      "clinic",
+      "emergency room",
+      "ward",
+      "building",
+      "medical",
+      "vet"
+    ]
+  },
+  {
+    "name": "hotel",
+    "categories": [
+      "buildings",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "building",
+      "hostel",
+      "motel",
+      "inn"
+    ]
+  },
+  {
+    "name": "landmark",
+    "categories": [
+      "finance",
+      "navigation",
+      "buildings"
+    ],
+    "tags": [
+      "bank",
+      "building",
+      "capitol",
+      "finance",
+      "money",
+      "government",
+      "institution"
+    ]
+  },
+  {
+    "name": "library-big",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "locate-fixed",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "map",
+      "gps",
+      "location",
+      "cross"
+    ]
+  },
+  {
+    "name": "locate-off",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "map",
+      "gps",
+      "location",
+      "cross"
+    ]
+  },
+  {
+    "name": "locate",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "map",
+      "gps",
+      "location",
+      "cross"
+    ]
+  },
+  {
+    "name": "map-pin-check-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "done",
+      "tick",
+      "complete",
+      "task",
+      "added"
+    ]
+  },
+  {
+    "name": "map-pin-check",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "done",
+      "tick",
+      "complete",
+      "task",
+      "added"
+    ]
+  },
+  {
+    "name": "map-pin-house",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "home",
+      "living",
+      "building",
+      "residence",
+      "architecture",
+      "address",
+      "poi",
+      "real estate",
+      "property",
+      "navigation",
+      "destination",
+      "geolocation",
+      "place",
+      "landmark"
+    ]
+  },
+  {
+    "name": "map-pin-minus-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-minus",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-off",
+    "categories": [
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "remove"
+    ]
+  },
+  {
+    "name": "map-pin-plus-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "map-pin-plus",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "map-pin-x-inside",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin-x",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "map-pin",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop"
+    ]
+  },
+  {
+    "name": "map-pinned",
+    "categories": [
+      "navigation",
+      "travel",
+      "account"
+    ],
+    "tags": [
+      "location",
+      "waypoint",
+      "marker",
+      "drop"
+    ]
+  },
+  {
+    "name": "map-plus",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "location",
+      "navigation",
+      "travel",
+      "new",
+      "add",
+      "create"
+    ]
+  },
+  {
+    "name": "map",
+    "categories": [
+      "text",
+      "navigation"
+    ],
+    "tags": [
+      "location",
+      "navigation",
+      "travel"
+    ]
+  },
+  {
+    "name": "milestone",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "signpost",
+      "direction",
+      "right",
+      "east",
+      "forward",
+      "version control",
+      "waypoint"
+    ]
+  },
+  {
+    "name": "navigation-2-off",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "location",
+      "travel"
+    ]
+  },
+  {
+    "name": "navigation-2",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "location",
+      "travel"
+    ]
+  },
+  {
+    "name": "navigation-off",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "location",
+      "travel"
+    ]
+  },
+  {
+    "name": "navigation",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "location",
+      "travel"
+    ]
+  },
+  {
+    "name": "parking-meter",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "driving",
+      "car park",
+      "pay",
+      "sidewalk",
+      "pavement"
+    ]
+  },
+  {
+    "name": "pin-off",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "unpin",
+      "map",
+      "unlock",
+      "unfix",
+      "unsave",
+      "remove"
+    ]
+  },
+  {
+    "name": "pin",
+    "categories": [
+      "navigation",
+      "account"
+    ],
+    "tags": [
+      "save",
+      "map",
+      "lock",
+      "fix"
+    ]
+  },
+  {
+    "name": "radar",
+    "categories": [
+      "navigation",
+      "security",
+      "communication"
+    ],
+    "tags": [
+      "scan",
+      "sonar",
+      "detect",
+      "find",
+      "locate"
+    ]
+  },
+  {
+    "name": "rail-symbol",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "railway",
+      "train",
+      "track",
+      "line"
+    ]
+  },
+  {
+    "name": "roller-coaster",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "attraction",
+      "entertainment",
+      "amusement park",
+      "theme park",
+      "funfair"
+    ]
+  },
+  {
+    "name": "route-off",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "path",
+      "journey",
+      "planner",
+      "points",
+      "stops",
+      "stations",
+      "reset",
+      "clear",
+      "cancelled",
+      "closed",
+      "blocked"
+    ]
+  },
+  {
+    "name": "route",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "path",
+      "journey",
+      "planner",
+      "points",
+      "stops",
+      "stations"
+    ]
+  },
+  {
+    "name": "scale",
+    "categories": [
+      "navigation"
+    ],
+    "tags": [
+      "balance",
+      "legal",
+      "license",
+      "right",
+      "rule",
+      "law"
+    ]
+  },
+  {
+    "name": "school",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "building",
+      "education",
+      "childhood",
+      "university",
+      "learning",
+      "campus",
+      "scholar",
+      "student",
+      "lecture",
+      "degree",
+      "course",
+      "academia",
+      "study",
+      "knowledge",
+      "classroom",
+      "research",
+      "diploma",
+      "graduation",
+      "professor",
+      "tutorial",
+      "homework",
+      "assignment",
+      "exam"
+    ]
+  },
+  {
+    "name": "ship-wheel",
+    "categories": [
+      "transportation",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "steering",
+      "rudder",
+      "boat",
+      "knots",
+      "nautical mile",
+      "maritime",
+      "sailing",
+      "yacht",
+      "cruise",
+      "ocean liner",
+      "tanker",
+      "vessel",
+      "navy",
+      "trip"
+    ]
+  },
+  {
+    "name": "ship",
+    "categories": [
+      "transportation",
+      "navigation",
+      "travel"
+    ],
+    "tags": [
+      "boat",
+      "knots",
+      "nautical mile",
+      "maritime",
+      "sailing",
+      "yacht",
+      "cruise",
+      "ocean liner",
+      "tanker",
+      "vessel",
+      "navy",
+      "trip"
+    ]
+  },
+  {
+    "name": "signpost-big",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "bidirectional",
+      "left",
+      "right",
+      "east",
+      "west"
+    ]
+  },
+  {
+    "name": "signpost",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development",
+      "gaming"
+    ],
+    "tags": [
+      "bidirectional",
+      "left",
+      "right",
+      "east",
+      "west"
+    ]
+  },
+  {
+    "name": "square-arrow-down-left",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "direction",
+      "south-west",
+      "diagonal",
+      "sign",
+      "turn",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-down-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "direction",
+      "south-east",
+      "diagonal",
+      "sign",
+      "turn",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-down",
+    "categories": [
+      "arrows",
+      "navigation",
+      "gaming"
+    ],
+    "tags": [
+      "backwards",
+      "reverse",
+      "direction",
+      "south",
+      "sign",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "previous",
+      "back",
+      "direction",
+      "west",
+      "sign",
+      "keyboard",
+      "button",
+      "<-"
+    ]
+  },
+  {
+    "name": "square-arrow-out-down-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "square-arrow-out-down-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "south-east",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "square-arrow-out-up-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-west",
+      "diagonal"
+    ]
+  },
+  {
+    "name": "square-arrow-out-up-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "social"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-east",
+      "diagonal",
+      "share",
+      "open",
+      "external",
+      "link"
+    ]
+  },
+  {
+    "name": "square-arrow-right",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "next",
+      "forward",
+      "direction",
+      "west",
+      "sign",
+      "keyboard",
+      "button",
+      "->"
+    ]
+  },
+  {
+    "name": "square-arrow-up-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "direction",
+      "north-west",
+      "diagonal",
+      "sign",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-arrow-up-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "social"
+    ],
+    "tags": [
+      "direction",
+      "north-east",
+      "diagonal",
+      "sign",
+      "keyboard",
+      "button",
+      "share"
+    ]
+  },
+  {
+    "name": "square-arrow-up",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "forward",
+      "direction",
+      "north",
+      "sign",
+      "keyboard",
+      "button"
+    ]
+  },
+  {
+    "name": "square-chevron-down",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "menu",
+      "panel"
+    ]
+  },
+  {
+    "name": "square-chevron-left",
+    "categories": [
+      "arrows",
+      "navigation"
+    ],
+    "tags": [
+      "back",
+      "previous",
+      "less than",
+      "fewer",
+      "menu",
+      "panel",
+      "button",
+      "keyboard",
+      "<"
+    ]
+  },
+  {
+    "name": "square-chevron-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "forward",
+      "next",
+      "more than",
+      "greater",
+      "menu",
+      "panel",
+      "code",
+      "coding",
+      "command line",
+      "terminal",
+      "prompt",
+      "shell",
+      "console",
+      ">"
+    ]
+  },
+  {
+    "name": "square-chevron-up",
+    "categories": [
+      "arrows",
+      "navigation",
+      "math"
+    ],
+    "tags": [
+      "caret",
+      "keyboard",
+      "button",
+      "mac",
+      "control",
+      "ctrl",
+      "superscript",
+      "exponential",
+      "power",
+      "ahead",
+      "menu",
+      "panel",
+      "^"
+    ]
+  },
+  {
+    "name": "square-library",
+    "categories": [
+      "text",
+      "photography",
+      "multimedia",
+      "navigation",
+      "development"
+    ],
+    "tags": [
+      "books",
+      "reading",
+      "written",
+      "authors",
+      "stories",
+      "fiction",
+      "novels",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "learning",
+      "study",
+      "research",
+      "collection",
+      "vinyl",
+      "records",
+      "albums",
+      "music",
+      "package"
+    ]
+  },
+  {
+    "name": "square-m",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "metro",
+      "subway",
+      "underground",
+      "track",
+      "line"
+    ]
+  },
+  {
+    "name": "square-parking-off",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park",
+      "no parking"
+    ]
+  },
+  {
+    "name": "square-parking",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "parking lot",
+      "car park"
+    ]
+  },
+  {
+    "name": "store",
+    "categories": [
+      "buildings",
+      "navigation",
+      "shopping"
+    ],
+    "tags": [
+      "shop",
+      "supermarket",
+      "stand",
+      "boutique",
+      "building"
+    ]
+  },
+  {
+    "name": "train-front-tunnel",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "railway",
+      "metro",
+      "subway",
+      "underground",
+      "speed",
+      "bullet",
+      "fast",
+      "track",
+      "line"
+    ]
+  },
+  {
+    "name": "train-track",
+    "categories": [
+      "transportation",
+      "navigation"
+    ],
+    "tags": [
+      "railway",
+      "line"
+    ]
+  },
+  {
+    "name": "university",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "building",
+      "education",
+      "childhood",
+      "school"
+    ]
+  },
+  {
+    "name": "utensils-crossed",
+    "categories": [
+      "food-beverage",
+      "travel",
+      "navigation"
+    ],
+    "tags": [
+      "fork",
+      "knife",
+      "cutlery",
+      "flatware",
+      "tableware",
+      "silverware",
+      "food",
+      "restaurant",
+      "meal",
+      "breakfast",
+      "dinner",
+      "supper"
+    ]
+  },
+  {
+    "name": "utensils",
+    "categories": [
+      "food-beverage",
+      "travel",
+      "navigation"
+    ],
+    "tags": [
+      "fork",
+      "knife",
+      "cutlery",
+      "flatware",
+      "tableware",
+      "silverware",
+      "food",
+      "restaurant",
+      "meal",
+      "breakfast",
+      "dinner",
+      "supper"
+    ]
+  },
+  {
+    "name": "warehouse",
+    "categories": [
+      "buildings",
+      "navigation"
+    ],
+    "tags": [
+      "storage",
+      "logistics",
+      "building"
+    ]
+  },
+  {
+    "name": "waves",
+    "categories": [
+      "weather",
+      "navigation",
+      "multimedia",
+      "sustainability"
+    ],
+    "tags": [
+      "water",
+      "sea",
+      "sound",
+      "hertz",
+      "wavelength",
+      "vibrate"
+    ]
+  },
+  {
+    "name": "waypoints",
+    "categories": [
+      "security",
+      "account",
+      "navigation",
+      "development",
+      "social"
+    ],
+    "tags": [
+      "indirection",
+      "vpn",
+      "virtual private network",
+      "proxy",
+      "connections",
+      "bounce",
+      "reroute",
+      "path",
+      "journey",
+      "planner",
+      "stops",
+      "stations",
+      "shared",
+      "spread",
+      "viral"
+    ]
+  }
+]

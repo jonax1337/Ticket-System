@@ -1,0 +1,2442 @@
+[
+  {
+    "name": "a-arrow-down",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "letter",
+      "font size",
+      "text",
+      "formatting",
+      "smaller"
+    ]
+  },
+  {
+    "name": "a-arrow-up",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "letter",
+      "font size",
+      "text",
+      "formatting",
+      "larger",
+      "bigger"
+    ]
+  },
+  {
+    "name": "a-large-small",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "letter",
+      "font size",
+      "text",
+      "formatting"
+    ]
+  },
+  {
+    "name": "app-window-mac",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "application",
+      "menu bar",
+      "pane",
+      "preferences",
+      "macos",
+      "osx",
+      "executable"
+    ]
+  },
+  {
+    "name": "app-window",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "application",
+      "menu bar",
+      "pane",
+      "executable"
+    ]
+  },
+  {
+    "name": "axis-3d",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "gizmo",
+      "coordinates"
+    ]
+  },
+  {
+    "name": "between-horizontal-end",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "left",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "rows",
+      "cells",
+      "excel",
+      "spreadsheet",
+      "accountancy",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "between-horizontal-start",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "right",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "rows",
+      "cells",
+      "excel",
+      "spreadsheet",
+      "accountancy",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "between-vertical-end",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "top",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "columns",
+      "cells",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "between-vertical-start",
+    "categories": [
+      "layout",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "insert",
+      "add",
+      "bottom",
+      "slot",
+      "squeeze",
+      "space",
+      "vertical",
+      "grid",
+      "table",
+      "columns",
+      "cells",
+      "data",
+      "enter",
+      "entry",
+      "entries",
+      "blocks",
+      "rectangles",
+      "chevron"
+    ]
+  },
+  {
+    "name": "blend",
+    "categories": [
+      "design",
+      "photography",
+      "tools",
+      "development"
+    ],
+    "tags": [
+      "mode",
+      "overlay",
+      "multiply",
+      "screen",
+      "opacity",
+      "transparency",
+      "alpha",
+      "filters",
+      "lenses",
+      "mixed",
+      "shades",
+      "tints",
+      "hues",
+      "saturation",
+      "brightness",
+      "overlap",
+      "colors",
+      "colours"
+    ]
+  },
+  {
+    "name": "book-type",
+    "categories": [
+      "text",
+      "design",
+      "gaming"
+    ],
+    "tags": [
+      "thesaurus",
+      "synonym",
+      "reading",
+      "booklet",
+      "magazine",
+      "leaflet",
+      "pamphlet",
+      "tome",
+      "library",
+      "writing",
+      "written",
+      "writer",
+      "author",
+      "story",
+      "script",
+      "fiction",
+      "novel",
+      "information",
+      "knowledge",
+      "education",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "learning",
+      "homework",
+      "research",
+      "language",
+      "translate",
+      "typography",
+      "fonts",
+      "collection"
+    ]
+  },
+  {
+    "name": "bring-to-front",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "bring",
+      "send",
+      "move",
+      "over",
+      "forward",
+      "front",
+      "overlap",
+      "layer",
+      "order"
+    ]
+  },
+  {
+    "name": "brush",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "draw",
+      "paint",
+      "color",
+      "artist"
+    ]
+  },
+  {
+    "name": "chart-no-axes-gantt",
+    "categories": [
+      "charts",
+      "time",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "roadmap",
+      "plan",
+      "intentions",
+      "timeline",
+      "deadline",
+      "date",
+      "event",
+      "range",
+      "period",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "columns-2",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "panel",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "sidebar",
+      "drawer",
+      "gutter",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages"
+    ]
+  },
+  {
+    "name": "columns-3",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "thirds",
+      "triple",
+      "center",
+      "middle",
+      "alignment",
+      "even",
+      "sidebars",
+      "drawers",
+      "gutters",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages"
+    ]
+  },
+  {
+    "name": "columns-4",
+    "categories": [
+      "layout",
+      "design",
+      "text",
+      "security"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "thirds",
+      "triple",
+      "center",
+      "middle",
+      "alignment",
+      "even",
+      "sidebars",
+      "drawers",
+      "gutters",
+      "fold",
+      "reflow",
+      "typography",
+      "pagination",
+      "pages",
+      "prison",
+      "jail",
+      "bars",
+      "sentence",
+      "police",
+      "cops",
+      "cell",
+      "crime",
+      "criminal",
+      "justice",
+      "law",
+      "enforcement",
+      "grill"
+    ]
+  },
+  {
+    "name": "component",
+    "categories": [
+      "design",
+      "development"
+    ],
+    "tags": [
+      "design",
+      "element",
+      "group",
+      "module",
+      "part",
+      "symbol"
+    ]
+  },
+  {
+    "name": "contrast",
+    "categories": [
+      "photography",
+      "accessibility",
+      "design"
+    ],
+    "tags": [
+      "display",
+      "accessibility"
+    ]
+  },
+  {
+    "name": "crop",
+    "categories": [
+      "photography",
+      "design"
+    ],
+    "tags": [
+      "photo",
+      "image"
+    ]
+  },
+  {
+    "name": "cylinder",
+    "categories": [
+      "shapes",
+      "design",
+      "math"
+    ],
+    "tags": [
+      "shape",
+      "elliptical",
+      "geometry",
+      "container",
+      "storage",
+      "tin",
+      "pot"
+    ]
+  },
+  {
+    "name": "database-backup",
+    "categories": [
+      "devices",
+      "arrows",
+      "design",
+      "development",
+      "photography"
+    ],
+    "tags": [
+      "storage",
+      "memory",
+      "bytes",
+      "servers",
+      "backup",
+      "timemachine",
+      "rotate",
+      "arrow",
+      "left"
+    ]
+  },
+  {
+    "name": "diameter",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "width",
+      "height",
+      "size",
+      "calculate",
+      "measure"
+    ]
+  },
+  {
+    "name": "dock",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "files"
+    ],
+    "tags": [
+      "desktop",
+      "applications",
+      "launch",
+      "home",
+      "menu bar",
+      "bottom",
+      "line",
+      "macos",
+      "osx"
+    ]
+  },
+  {
+    "name": "drafting-compass",
+    "categories": [
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "geometry",
+      "trigonometry",
+      "radius",
+      "diameter",
+      "circumference",
+      "calculate",
+      "measure",
+      "arc",
+      "curve",
+      "draw",
+      "sketch"
+    ]
+  },
+  {
+    "name": "dribbble",
+    "categories": [
+      "brands",
+      "social",
+      "design"
+    ],
+    "tags": [
+      "design",
+      "social"
+    ]
+  },
+  {
+    "name": "eclipse",
+    "categories": [
+      "science",
+      "design",
+      "development",
+      "accessibility",
+      "photography"
+    ],
+    "tags": [
+      "lunar",
+      "solar",
+      "crescent moon",
+      "sun",
+      "earth",
+      "day",
+      "night",
+      "planet",
+      "space",
+      "mode",
+      "dark",
+      "light",
+      "toggle",
+      "switch",
+      "color",
+      "css",
+      "styles",
+      "display",
+      "accessibility",
+      "contrast",
+      "brightness",
+      "blend",
+      "shade"
+    ]
+  },
+  {
+    "name": "eye-closed",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye-off",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "hide",
+      "conceal",
+      "mask",
+      "hidden",
+      "visibility",
+      "vision"
+    ]
+  },
+  {
+    "name": "eye",
+    "categories": [
+      "accessibility",
+      "photography",
+      "design",
+      "security"
+    ],
+    "tags": [
+      "view",
+      "watch",
+      "see",
+      "show",
+      "expose",
+      "reveal",
+      "display",
+      "visible",
+      "visibility",
+      "vision",
+      "preview",
+      "read"
+    ]
+  },
+  {
+    "name": "figma",
+    "categories": [
+      "brands",
+      "design"
+    ],
+    "tags": [
+      "logo",
+      "design",
+      "tool"
+    ]
+  },
+  {
+    "name": "file-axis-3d",
+    "categories": [
+      "design",
+      "files"
+    ],
+    "tags": [
+      "model",
+      "3d",
+      "axis",
+      "coordinates"
+    ]
+  },
+  {
+    "name": "flip-horizontal-2",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "flip-horizontal",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "flip-vertical-2",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "flip-vertical",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "reflect",
+      "mirror",
+      "alignment",
+      "dashed"
+    ]
+  },
+  {
+    "name": "folder-kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design",
+      "files"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "directory",
+      "project",
+      "root"
+    ]
+  },
+  {
+    "name": "frame",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "logo",
+      "design",
+      "tool"
+    ]
+  },
+  {
+    "name": "framer",
+    "categories": [
+      "brands",
+      "design"
+    ],
+    "tags": [
+      "logo",
+      "design",
+      "tool"
+    ]
+  },
+  {
+    "name": "fullscreen",
+    "categories": [
+      "layout",
+      "multimedia",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "expand",
+      "zoom",
+      "preview",
+      "focus",
+      "camera",
+      "lens",
+      "image"
+    ]
+  },
+  {
+    "name": "gallery-horizontal-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-horizontal",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "gallery-thumbnails",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "album",
+      "portfolio",
+      "preview"
+    ]
+  },
+  {
+    "name": "gallery-vertical-end",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia",
+      "files"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio",
+      "history",
+      "versions",
+      "backup",
+      "time machine"
+    ]
+  },
+  {
+    "name": "gallery-vertical",
+    "categories": [
+      "layout",
+      "design",
+      "development",
+      "photography",
+      "multimedia"
+    ],
+    "tags": [
+      "carousel",
+      "pictures",
+      "images",
+      "scroll",
+      "swipe",
+      "album",
+      "portfolio"
+    ]
+  },
+  {
+    "name": "grab",
+    "categories": [
+      "cursors",
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "hand"
+    ]
+  },
+  {
+    "name": "grid-2x2",
+    "categories": [
+      "text",
+      "layout",
+      "design",
+      "math"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns",
+      "blocks",
+      "plot",
+      "land",
+      "geometry",
+      "measure",
+      "size",
+      "width",
+      "height",
+      "distance",
+      "surface area",
+      "square meter",
+      "acre",
+      "window",
+      "skylight"
+    ]
+  },
+  {
+    "name": "grid-3x3",
+    "categories": [
+      "text",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "table",
+      "rows",
+      "columns"
+    ]
+  },
+  {
+    "name": "highlighter",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "mark",
+      "text"
+    ]
+  },
+  {
+    "name": "iteration-ccw",
+    "categories": [
+      "arrows",
+      "design"
+    ],
+    "tags": [
+      "arrow",
+      "right"
+    ]
+  },
+  {
+    "name": "iteration-cw",
+    "categories": [
+      "arrows",
+      "design"
+    ],
+    "tags": [
+      "arrow",
+      "left"
+    ]
+  },
+  {
+    "name": "kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "land-plot",
+    "categories": [
+      "design",
+      "tools",
+      "math",
+      "sports",
+      "gaming"
+    ],
+    "tags": [
+      "area",
+      "surface",
+      "square metres",
+      "allotment",
+      "parcel",
+      "property",
+      "plane",
+      "acres",
+      "measure",
+      "distance",
+      "isometric",
+      "flag",
+      "golf course",
+      "hole"
+    ]
+  },
+  {
+    "name": "lasso-select",
+    "categories": [
+      "arrows",
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "select",
+      "cursor"
+    ]
+  },
+  {
+    "name": "lasso",
+    "categories": [
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "select",
+      "cursor"
+    ]
+  },
+  {
+    "name": "layers-2",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "stack",
+      "pile",
+      "pages",
+      "sheets",
+      "paperwork",
+      "copies",
+      "copy",
+      "duplicate",
+      "double",
+      "shortcuts"
+    ]
+  },
+  {
+    "name": "layers",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "stack",
+      "pile",
+      "pages",
+      "sheets",
+      "paperwork",
+      "copies",
+      "copy"
+    ]
+  },
+  {
+    "name": "layout-dashboard",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "masonry",
+      "brick"
+    ]
+  },
+  {
+    "name": "layout-grid",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "app",
+      "home",
+      "start"
+    ]
+  },
+  {
+    "name": "layout-list",
+    "categories": [
+      "design",
+      "layout",
+      "photography",
+      "text"
+    ],
+    "tags": [
+      "todo",
+      "tasks",
+      "items",
+      "pending",
+      "image",
+      "photo"
+    ]
+  },
+  {
+    "name": "layout-panel-left",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "app",
+      "home",
+      "start",
+      "grid"
+    ]
+  },
+  {
+    "name": "loader-pinwheel",
+    "categories": [
+      "cursors",
+      "design"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "throbber",
+      "spinner",
+      "spinning",
+      "beach ball",
+      "frozen",
+      "freeze"
+    ]
+  },
+  {
+    "name": "loader",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "loading",
+      "wait",
+      "busy",
+      "progress",
+      "spinner",
+      "spinning",
+      "throbber"
+    ]
+  },
+  {
+    "name": "magnet",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "horseshoe",
+      "lock",
+      "science",
+      "snap"
+    ]
+  },
+  {
+    "name": "maximize-2",
+    "categories": [
+      "arrows",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "fullscreen",
+      "arrows",
+      "expand"
+    ]
+  },
+  {
+    "name": "maximize",
+    "categories": [
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "fullscreen",
+      "expand",
+      "dashed"
+    ]
+  },
+  {
+    "name": "minimize-2",
+    "categories": [
+      "arrows",
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "exit fullscreen",
+      "arrows",
+      "close",
+      "shrink"
+    ]
+  },
+  {
+    "name": "minimize",
+    "categories": [
+      "layout",
+      "design"
+    ],
+    "tags": [
+      "exit fullscreen",
+      "close",
+      "shrink"
+    ]
+  },
+  {
+    "name": "move-3d",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "arrows",
+      "axis",
+      "gizmo",
+      "coordinates",
+      "transform",
+      "translate"
+    ]
+  },
+  {
+    "name": "notebook",
+    "categories": [
+      "text",
+      "communication",
+      "social",
+      "design"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "stationery",
+      "sketchbook",
+      "moleskine",
+      "closure",
+      "strap",
+      "band",
+      "elastic",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "written",
+      "writer",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "homework",
+      "research"
+    ]
+  },
+  {
+    "name": "origami",
+    "categories": [
+      "animals",
+      "design"
+    ],
+    "tags": [
+      "paper",
+      "bird"
+    ]
+  },
+  {
+    "name": "paint-bucket",
+    "categories": [
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "fill",
+      "paint",
+      "bucket",
+      "color",
+      "colour"
+    ]
+  },
+  {
+    "name": "paint-roller",
+    "categories": [
+      "text",
+      "design",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "paintbrush-vertical",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "paintbrush",
+    "categories": [
+      "text",
+      "design",
+      "photography",
+      "home",
+      "tools"
+    ],
+    "tags": [
+      "brush",
+      "paintbrush",
+      "design",
+      "color",
+      "colour",
+      "decoration",
+      "diy"
+    ]
+  },
+  {
+    "name": "palette",
+    "categories": [
+      "text",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "colors",
+      "colours",
+      "theme",
+      "scheme",
+      "paint",
+      "watercolor",
+      "watercolour",
+      "artist"
+    ]
+  },
+  {
+    "name": "panel-top",
+    "categories": [
+      "layout",
+      "design",
+      "development"
+    ],
+    "tags": [
+      "drawer",
+      "browser",
+      "webpage"
+    ]
+  },
+  {
+    "name": "panels-top-left",
+    "categories": [
+      "layout",
+      "design",
+      "development"
+    ],
+    "tags": [
+      "menu bar",
+      "sidebar",
+      "primary",
+      "drawers",
+      "window",
+      "webpage",
+      "projects",
+      "overview"
+    ]
+  },
+  {
+    "name": "paperclip",
+    "categories": [
+      "text",
+      "design",
+      "files",
+      "mail"
+    ],
+    "tags": [
+      "attachment",
+      "file"
+    ]
+  },
+  {
+    "name": "pen-line",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pen-off",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "disabled",
+      "inactive",
+      "non-editable",
+      "locked",
+      "read-only",
+      "unmodifiable",
+      "frozen",
+      "restricted",
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pen-tool",
+    "categories": [
+      "text",
+      "design",
+      "cursors"
+    ],
+    "tags": [
+      "vector",
+      "drawing",
+      "path"
+    ]
+  },
+  {
+    "name": "pen",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pencil-line",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "pencil",
+      "change",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "biro",
+      "ink",
+      "marker",
+      "felt tip",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pencil-off",
+    "categories": [
+      "design",
+      "cursors",
+      "tools",
+      "text"
+    ],
+    "tags": [
+      "disabled",
+      "inactive",
+      "non-editable",
+      "locked",
+      "read-only",
+      "unmodifiable",
+      "frozen",
+      "restricted",
+      "rubber",
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pencil-ruler",
+    "categories": [
+      "tools",
+      "design",
+      "layout",
+      "text"
+    ],
+    "tags": [
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist",
+      "measurements",
+      "centimeters",
+      "cm",
+      "millimeters",
+      "mm",
+      "metre",
+      "foot",
+      "feet",
+      "inches",
+      "units",
+      "size",
+      "length",
+      "width",
+      "height",
+      "dimensions",
+      "depth",
+      "breadth",
+      "extent"
+    ]
+  },
+  {
+    "name": "pencil",
+    "categories": [
+      "design",
+      "cursors",
+      "tools",
+      "text"
+    ],
+    "tags": [
+      "rubber",
+      "edit",
+      "create",
+      "draw",
+      "sketch",
+      "draft",
+      "writer",
+      "writing",
+      "stationery",
+      "artist"
+    ]
+  },
+  {
+    "name": "pipette",
+    "categories": [
+      "text",
+      "design",
+      "science"
+    ],
+    "tags": [
+      "eye dropper",
+      "color picker",
+      "lab",
+      "chemistry"
+    ]
+  },
+  {
+    "name": "presentation",
+    "categories": [
+      "multimedia",
+      "photography",
+      "devices",
+      "communication",
+      "design"
+    ],
+    "tags": [
+      "screen",
+      "whiteboard",
+      "marker pens",
+      "markers",
+      "blackboard",
+      "chalk",
+      "easel",
+      "school",
+      "learning",
+      "lesson",
+      "office",
+      "meeting",
+      "project",
+      "planning"
+    ]
+  },
+  {
+    "name": "proportions",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "devices"
+    ],
+    "tags": [
+      "screens",
+      "sizes",
+      "rotate",
+      "rotation",
+      "adjust",
+      "aspect ratio",
+      "16:9",
+      "widescreen",
+      "4:3",
+      "resolution",
+      "responsive",
+      "mobile",
+      "desktop",
+      "dimensions",
+      "monitor",
+      "orientation",
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "name": "radius",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "radii",
+      "calculate",
+      "measure",
+      "size"
+    ]
+  },
+  {
+    "name": "ratio",
+    "categories": [
+      "layout",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "screens",
+      "sizes",
+      "rotate",
+      "rotation",
+      "adjust",
+      "aspect ratio",
+      "proportions",
+      "16:9",
+      "widescreen",
+      "4:3",
+      "resolution",
+      "responsive",
+      "mobile",
+      "desktop",
+      "dimensions",
+      "monitor",
+      "orientation",
+      "portrait",
+      "landscape"
+    ]
+  },
+  {
+    "name": "rectangle-horizontal",
+    "categories": [
+      "shapes",
+      "design"
+    ],
+    "tags": [
+      "rectangle",
+      "aspect ratio",
+      "16:9",
+      "horizontal",
+      "shape"
+    ]
+  },
+  {
+    "name": "rectangle-vertical",
+    "categories": [
+      "shapes",
+      "design"
+    ],
+    "tags": [
+      "rectangle",
+      "aspect ratio",
+      "9:16",
+      "vertical",
+      "shape"
+    ]
+  },
+  {
+    "name": "rotate-3d",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "gizmo",
+      "transform",
+      "orientation",
+      "orbit",
+      "axis"
+    ]
+  },
+  {
+    "name": "rotate-ccw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "left",
+      "counter-clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rotate-ccw",
+    "categories": [
+      "arrows",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "arrow",
+      "left",
+      "counter-clockwise",
+      "restart",
+      "reload",
+      "rerun",
+      "refresh",
+      "backup",
+      "undo",
+      "replay",
+      "redo",
+      "retry",
+      "rewind",
+      "reverse"
+    ]
+  },
+  {
+    "name": "rotate-cw-square",
+    "categories": [
+      "layout",
+      "design",
+      "photography",
+      "tools",
+      "arrows"
+    ],
+    "tags": [
+      "right",
+      "clockwise",
+      "rotate",
+      "image",
+      "90",
+      "45",
+      "degrees",
+      "°"
+    ]
+  },
+  {
+    "name": "rotate-cw",
+    "categories": [
+      "arrows",
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "arrow",
+      "right",
+      "clockwise",
+      "refresh",
+      "reload",
+      "rerun",
+      "redo"
+    ]
+  },
+  {
+    "name": "rows-2",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "panel",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawer"
+    ]
+  },
+  {
+    "name": "rows-3",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawers"
+    ]
+  },
+  {
+    "name": "rows-4",
+    "categories": [
+      "layout",
+      "design",
+      "text"
+    ],
+    "tags": [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawers",
+      "grill"
+    ]
+  },
+  {
+    "name": "ruler",
+    "categories": [
+      "tools",
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "measurements",
+      "centimeters",
+      "cm",
+      "millimeters",
+      "mm",
+      "metre",
+      "foot",
+      "feet",
+      "inches",
+      "units",
+      "size",
+      "length",
+      "width",
+      "height",
+      "dimensions",
+      "depth",
+      "breadth",
+      "extent",
+      "stationery"
+    ]
+  },
+  {
+    "name": "scale-3d",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "gizmo",
+      "transform",
+      "size",
+      "axis"
+    ]
+  },
+  {
+    "name": "scaling",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "scale",
+      "resize",
+      "design"
+    ]
+  },
+  {
+    "name": "scissors-line-dashed",
+    "categories": [
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "cut here",
+      "along",
+      "snip",
+      "chop",
+      "stationery",
+      "crafts",
+      "instructions",
+      "diagram"
+    ]
+  },
+  {
+    "name": "scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "cut",
+      "snip",
+      "chop",
+      "stationery",
+      "crafts"
+    ]
+  },
+  {
+    "name": "send-to-back",
+    "categories": [
+      "design",
+      "layout"
+    ],
+    "tags": [
+      "bring",
+      "send",
+      "move",
+      "under",
+      "back",
+      "backwards",
+      "overlap",
+      "layer",
+      "order"
+    ]
+  },
+  {
+    "name": "slice",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "cutter",
+      "scalpel",
+      "knife"
+    ]
+  },
+  {
+    "name": "spline",
+    "categories": [
+      "design"
+    ],
+    "tags": [
+      "path",
+      "pen",
+      "tool",
+      "shape",
+      "curve",
+      "draw"
+    ]
+  },
+  {
+    "name": "spray-can",
+    "categories": [
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "paint",
+      "color",
+      "graffiti",
+      "decoration",
+      "aerosol",
+      "deodorant",
+      "shaving foam",
+      "air freshener"
+    ]
+  },
+  {
+    "name": "square-bottom-dashed-scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "cut",
+      "snippet",
+      "chop",
+      "stationery",
+      "crafts"
+    ]
+  },
+  {
+    "name": "square-chart-gantt",
+    "categories": [
+      "charts",
+      "time",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "roadmap",
+      "plan",
+      "intentions",
+      "timeline",
+      "deadline",
+      "date",
+      "event",
+      "range",
+      "period",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "square-dashed-kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "draft",
+      "template",
+      "boilerplate",
+      "code",
+      "coding"
+    ]
+  },
+  {
+    "name": "square-dashed",
+    "categories": [
+      "text",
+      "design"
+    ],
+    "tags": [
+      "selection",
+      "square",
+      "rectangular",
+      "marquee",
+      "tool",
+      "dashed",
+      "box"
+    ]
+  },
+  {
+    "name": "square-kanban",
+    "categories": [
+      "charts",
+      "development",
+      "design"
+    ],
+    "tags": [
+      "projects",
+      "manage",
+      "overview",
+      "board",
+      "tickets",
+      "issues",
+      "roadmap",
+      "plan",
+      "intentions",
+      "productivity",
+      "work",
+      "agile",
+      "code",
+      "coding",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "square-scissors",
+    "categories": [
+      "text",
+      "design",
+      "tools",
+      "files",
+      "development"
+    ],
+    "tags": [
+      "cut",
+      "snippet",
+      "chop",
+      "stationery",
+      "crafts",
+      "toolbar",
+      "button"
+    ]
+  },
+  {
+    "name": "stamp",
+    "categories": [
+      "design",
+      "cursors",
+      "tools"
+    ],
+    "tags": [
+      "mark",
+      "print",
+      "clone",
+      "loyalty",
+      "library"
+    ]
+  },
+  {
+    "name": "swatch-book",
+    "categories": [
+      "design",
+      "home",
+      "photography"
+    ],
+    "tags": [
+      "colors",
+      "colours",
+      "swatches",
+      "pantone",
+      "shades",
+      "tint",
+      "hue",
+      "saturation",
+      "brightness",
+      "theme",
+      "scheme",
+      "palette",
+      "samples",
+      "textile",
+      "carpet"
+    ]
+  },
+  {
+    "name": "tablet-smartphone",
+    "categories": [
+      "devices",
+      "design",
+      "development",
+      "tools"
+    ],
+    "tags": [
+      "responsive",
+      "screens",
+      "browser",
+      "testing",
+      "mobile"
+    ]
+  },
+  {
+    "name": "tangent",
+    "categories": [
+      "shapes",
+      "math",
+      "design",
+      "tools"
+    ],
+    "tags": [
+      "tangential",
+      "shape",
+      "circle",
+      "geometry",
+      "trigonometry",
+      "bezier curve"
+    ]
+  },
+  {
+    "name": "torus",
+    "categories": [
+      "shapes",
+      "design",
+      "tools",
+      "food-beverage"
+    ],
+    "tags": [
+      "donut",
+      "doughnut",
+      "ring",
+      "hollow",
+      "3d",
+      "fast food",
+      "junk food",
+      "snack",
+      "treat",
+      "sweet",
+      "sugar",
+      "dessert"
+    ]
+  },
+  {
+    "name": "view",
+    "categories": [
+      "design",
+      "photography"
+    ],
+    "tags": [
+      "eye",
+      "look"
+    ]
+  },
+  {
+    "name": "wand-sparkles",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "wizard",
+      "magician"
+    ]
+  },
+  {
+    "name": "wand",
+    "categories": [
+      "design",
+      "gaming",
+      "cursors",
+      "photography"
+    ],
+    "tags": [
+      "magic",
+      "selection"
+    ]
+  },
+  {
+    "name": "zoom-in",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  },
+  {
+    "name": "zoom-out",
+    "categories": [
+      "accessibility",
+      "layout",
+      "design",
+      "text",
+      "photography"
+    ],
+    "tags": [
+      "magnifying glass",
+      "plus"
+    ]
+  }
+]

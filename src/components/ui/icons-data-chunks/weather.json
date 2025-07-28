@@ -1,0 +1,538 @@
+[
+  {
+    "name": "cloud-drizzle",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "shower"
+    ]
+  },
+  {
+    "name": "cloud-fog",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "mist"
+    ]
+  },
+  {
+    "name": "cloud-hail",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "rainfall"
+    ]
+  },
+  {
+    "name": "cloud-lightning",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "bolt"
+    ]
+  },
+  {
+    "name": "cloud-moon-rain",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "partly",
+      "night",
+      "rainfall"
+    ]
+  },
+  {
+    "name": "cloud-moon",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "night"
+    ]
+  },
+  {
+    "name": "cloud-off",
+    "categories": [
+      "connectivity",
+      "weather"
+    ],
+    "tags": [
+      "disconnect"
+    ]
+  },
+  {
+    "name": "cloud-rain-wind",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "rainfall"
+    ]
+  },
+  {
+    "name": "cloud-rain",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "rainfall"
+    ]
+  },
+  {
+    "name": "cloud-snow",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "blizzard"
+    ]
+  },
+  {
+    "name": "cloud-sun-rain",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "partly",
+      "rainfall"
+    ]
+  },
+  {
+    "name": "cloud-sun",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "partly"
+    ]
+  },
+  {
+    "name": "cloud",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather"
+    ]
+  },
+  {
+    "name": "cloudy",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "clouds"
+    ]
+  },
+  {
+    "name": "droplet-off",
+    "categories": [
+      "weather",
+      "gaming"
+    ],
+    "tags": [
+      "water",
+      "weather",
+      "liquid",
+      "fluid",
+      "wet",
+      "moisture",
+      "damp",
+      "bead",
+      "globule"
+    ]
+  },
+  {
+    "name": "droplet",
+    "categories": [
+      "weather",
+      "gaming"
+    ],
+    "tags": [
+      "water",
+      "weather",
+      "liquid",
+      "fluid",
+      "wet",
+      "moisture",
+      "damp",
+      "bead",
+      "globule"
+    ]
+  },
+  {
+    "name": "droplets",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "water",
+      "weather",
+      "liquid",
+      "fluid",
+      "wet",
+      "moisture",
+      "damp",
+      "bead",
+      "globule"
+    ]
+  },
+  {
+    "name": "flame",
+    "categories": [
+      "weather",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "fire",
+      "lit",
+      "burning",
+      "spark",
+      "embers",
+      "smoke",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency"
+    ]
+  },
+  {
+    "name": "haze",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "mist",
+      "fog"
+    ]
+  },
+  {
+    "name": "moon-star",
+    "categories": [
+      "accessibility",
+      "weather"
+    ],
+    "tags": [
+      "dark",
+      "night",
+      "star"
+    ]
+  },
+  {
+    "name": "rainbow",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "colors",
+      "colours",
+      "spectrum",
+      "light",
+      "prism",
+      "arc",
+      "clear",
+      "sunshine"
+    ]
+  },
+  {
+    "name": "snowflake",
+    "categories": [
+      "weather",
+      "seasons"
+    ],
+    "tags": [
+      "cold",
+      "weather",
+      "freeze",
+      "snow",
+      "winter"
+    ]
+  },
+  {
+    "name": "sparkles",
+    "categories": [
+      "cursors",
+      "multimedia",
+      "gaming",
+      "weather"
+    ],
+    "tags": [
+      "stars",
+      "effect",
+      "filter",
+      "night",
+      "magic"
+    ]
+  },
+  {
+    "name": "star",
+    "categories": [
+      "account",
+      "social",
+      "shapes",
+      "multimedia",
+      "weather",
+      "emoji",
+      "gaming"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "sun-dim",
+    "categories": [
+      "accessibility",
+      "weather"
+    ],
+    "tags": [
+      "brightness",
+      "dim",
+      "low",
+      "brightness low"
+    ]
+  },
+  {
+    "name": "sun-medium",
+    "categories": [
+      "accessibility",
+      "weather"
+    ],
+    "tags": [
+      "brightness",
+      "medium"
+    ]
+  },
+  {
+    "name": "sun-snow",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "air conditioning",
+      "temperature",
+      "hot",
+      "cold",
+      "seasons"
+    ]
+  },
+  {
+    "name": "sun",
+    "categories": [
+      "accessibility",
+      "weather",
+      "seasons",
+      "sustainability"
+    ],
+    "tags": [
+      "brightness",
+      "weather",
+      "light",
+      "summer"
+    ]
+  },
+  {
+    "name": "sunrise",
+    "categories": [
+      "arrows",
+      "weather",
+      "time"
+    ],
+    "tags": [
+      "weather",
+      "time",
+      "morning",
+      "day"
+    ]
+  },
+  {
+    "name": "sunset",
+    "categories": [
+      "arrows",
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "time",
+      "evening",
+      "night"
+    ]
+  },
+  {
+    "name": "thermometer-snowflake",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "temperature",
+      "celsius",
+      "fahrenheit",
+      "weather",
+      "cold",
+      "freeze",
+      "freezing"
+    ]
+  },
+  {
+    "name": "thermometer-sun",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "temperature",
+      "celsius",
+      "fahrenheit",
+      "weather",
+      "warm",
+      "hot"
+    ]
+  },
+  {
+    "name": "thermometer",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "temperature",
+      "celsius",
+      "fahrenheit",
+      "weather"
+    ]
+  },
+  {
+    "name": "tornado",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "weather",
+      "wind",
+      "storm",
+      "hurricane"
+    ]
+  },
+  {
+    "name": "umbrella-off",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "rain",
+      "weather",
+      "uncovered",
+      "uninsured",
+      "antivirus",
+      "unprotected",
+      "risky"
+    ]
+  },
+  {
+    "name": "umbrella",
+    "categories": [
+      "weather"
+    ],
+    "tags": [
+      "rain",
+      "weather"
+    ]
+  },
+  {
+    "name": "waves",
+    "categories": [
+      "weather",
+      "navigation",
+      "multimedia",
+      "sustainability"
+    ],
+    "tags": [
+      "water",
+      "sea",
+      "sound",
+      "hertz",
+      "wavelength",
+      "vibrate"
+    ]
+  },
+  {
+    "name": "wind-arrow-down",
+    "categories": [
+      "weather",
+      "sustainability"
+    ],
+    "tags": [
+      "weather",
+      "air",
+      "pressure",
+      "blow"
+    ]
+  },
+  {
+    "name": "wind",
+    "categories": [
+      "weather",
+      "sustainability"
+    ],
+    "tags": [
+      "weather",
+      "air",
+      "blow"
+    ]
+  },
+  {
+    "name": "zap-off",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  },
+  {
+    "name": "zap",
+    "categories": [
+      "connectivity",
+      "devices",
+      "photography",
+      "weather"
+    ],
+    "tags": [
+      "flash",
+      "camera",
+      "lightning",
+      "electricity",
+      "energy"
+    ]
+  }
+]

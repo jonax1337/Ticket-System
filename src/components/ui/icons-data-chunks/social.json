@@ -1,0 +1,2030 @@
+[
+  {
+    "name": "activity",
+    "categories": [
+      "medical",
+      "account",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "badge-alert",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "check",
+      "verified",
+      "unverified",
+      "security",
+      "safety",
+      "issue"
+    ]
+  },
+  {
+    "name": "badge-check",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "check"
+    ]
+  },
+  {
+    "name": "badge-help",
+    "categories": [
+      "accessibility",
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "help"
+    ]
+  },
+  {
+    "name": "badge-info",
+    "categories": [
+      "account",
+      "accessibility",
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "help"
+    ]
+  },
+  {
+    "name": "badge-minus",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "delete",
+      "remove",
+      "erase"
+    ]
+  },
+  {
+    "name": "badge-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "badge-plus",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "add",
+      "create",
+      "new"
+    ]
+  },
+  {
+    "name": "badge-x",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "lost",
+      "delete",
+      "remove"
+    ]
+  },
+  {
+    "name": "badge",
+    "categories": [
+      "account",
+      "social",
+      "shapes"
+    ],
+    "tags": [
+      "check",
+      "verified",
+      "unverified"
+    ]
+  },
+  {
+    "name": "book-heart",
+    "categories": [
+      "social",
+      "text",
+      "gaming"
+    ],
+    "tags": [
+      "diary",
+      "romance",
+      "novel",
+      "journal",
+      "entry",
+      "entries",
+      "personal",
+      "private",
+      "secret",
+      "crush",
+      "like",
+      "love",
+      "emotion",
+      "feminine",
+      "girls",
+      "teens",
+      "teenager",
+      "therapy",
+      "theraputic",
+      "therapist",
+      "planner",
+      "organizer",
+      "organiser",
+      "notes",
+      "notepad",
+      "stationery",
+      "sketchbook",
+      "writing",
+      "written",
+      "reading",
+      "favorite",
+      "favourite",
+      "high school"
+    ]
+  },
+  {
+    "name": "book-image",
+    "categories": [
+      "photography",
+      "text",
+      "multimedia",
+      "files",
+      "social",
+      "shopping",
+      "travel"
+    ],
+    "tags": [
+      "images",
+      "pictures",
+      "photos",
+      "album",
+      "collection",
+      "event",
+      "magazine",
+      "catalog",
+      "catalogue",
+      "brochure",
+      "browse",
+      "gallery"
+    ]
+  },
+  {
+    "name": "book-user",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "people",
+      "family",
+      "friends",
+      "acquaintances",
+      "contacts",
+      "details",
+      "addresses",
+      "phone numbers",
+      "directory",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "boom-box",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "radio",
+      "speakers",
+      "audio",
+      "music",
+      "sound",
+      "broadcast",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "bot-message-square",
+    "categories": [
+      "development",
+      "social"
+    ],
+    "tags": [
+      "robot",
+      "ai",
+      "chat",
+      "assistant"
+    ]
+  },
+  {
+    "name": "bot-off",
+    "categories": [
+      "development",
+      "social"
+    ],
+    "tags": [
+      "robot",
+      "ai",
+      "chat",
+      "assistant"
+    ]
+  },
+  {
+    "name": "bot",
+    "categories": [
+      "development",
+      "social"
+    ],
+    "tags": [
+      "robot",
+      "ai",
+      "chat",
+      "assistant"
+    ]
+  },
+  {
+    "name": "cake-slice",
+    "categories": [
+      "food-beverage",
+      "social"
+    ],
+    "tags": [
+      "birthday",
+      "birthdate",
+      "celebration",
+      "party",
+      "surprise",
+      "gateaux",
+      "dessert",
+      "candles",
+      "wish",
+      "fondant",
+      "icing sugar",
+      "sweet",
+      "baking"
+    ]
+  },
+  {
+    "name": "cake",
+    "categories": [
+      "food-beverage",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "birthday",
+      "birthdate",
+      "celebration",
+      "party",
+      "surprise",
+      "gateaux",
+      "dessert",
+      "fondant",
+      "icing sugar",
+      "sweet",
+      "baking"
+    ]
+  },
+  {
+    "name": "circle-fading-plus",
+    "categories": [
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "stories",
+      "social media",
+      "instagram",
+      "facebook",
+      "meta",
+      "snapchat",
+      "sharing",
+      "content"
+    ]
+  },
+  {
+    "name": "circle-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "contact-round",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "contact",
+    "categories": [
+      "account",
+      "connectivity",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "user",
+      "person",
+      "family",
+      "friend",
+      "acquaintance",
+      "listing",
+      "networking"
+    ]
+  },
+  {
+    "name": "diamond-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "dribbble",
+    "categories": [
+      "brands",
+      "social",
+      "design"
+    ],
+    "tags": [
+      "design",
+      "social"
+    ]
+  },
+  {
+    "name": "external-link",
+    "categories": [
+      "arrows",
+      "text",
+      "social"
+    ],
+    "tags": [
+      "outbound",
+      "open",
+      "share"
+    ]
+  },
+  {
+    "name": "facebook",
+    "categories": [
+      "social",
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "flag-off",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "unflag"
+    ]
+  },
+  {
+    "name": "flag",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "report"
+    ]
+  },
+  {
+    "name": "flame-kindling",
+    "categories": [
+      "nature",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "campfire",
+      "camping",
+      "wilderness",
+      "outdoors",
+      "lit",
+      "warmth",
+      "wood",
+      "twigs",
+      "sticks"
+    ]
+  },
+  {
+    "name": "flame",
+    "categories": [
+      "weather",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "fire",
+      "lit",
+      "burning",
+      "spark",
+      "embers",
+      "smoke",
+      "firefighter",
+      "fireman",
+      "department",
+      "brigade",
+      "station",
+      "emergency"
+    ]
+  },
+  {
+    "name": "hand-heart",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "love",
+      "like",
+      "emotion"
+    ]
+  },
+  {
+    "name": "handshake",
+    "categories": [
+      "account",
+      "social",
+      "communication",
+      "finance",
+      "security"
+    ],
+    "tags": [
+      "agreement",
+      "partnership",
+      "deal",
+      "business",
+      "assistance",
+      "cooperation",
+      "friendship",
+      "union",
+      "terms"
+    ]
+  },
+  {
+    "name": "hash",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "hashtag",
+      "number",
+      "pound"
+    ]
+  },
+  {
+    "name": "heart-off",
+    "categories": [
+      "social",
+      "multimedia"
+    ],
+    "tags": [
+      "unlike",
+      "dislike",
+      "hate",
+      "emotion"
+    ]
+  },
+  {
+    "name": "heart",
+    "categories": [
+      "medical",
+      "social",
+      "multimedia",
+      "emoji",
+      "gaming",
+      "shapes"
+    ],
+    "tags": [
+      "like",
+      "love",
+      "emotion",
+      "suit",
+      "playing",
+      "cards"
+    ]
+  },
+  {
+    "name": "instagram",
+    "categories": [
+      "brands",
+      "social",
+      "photography"
+    ],
+    "tags": [
+      "logo",
+      "camera",
+      "social"
+    ]
+  },
+  {
+    "name": "linkedin",
+    "categories": [
+      "social",
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "social media",
+      "social"
+    ]
+  },
+  {
+    "name": "message-circle-code",
+    "categories": [
+      "development",
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "code review",
+      "coding"
+    ]
+  },
+  {
+    "name": "message-circle-dashed",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "draft"
+    ]
+  },
+  {
+    "name": "message-circle-heart",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "positive",
+      "like",
+      "love",
+      "interest",
+      "valentine",
+      "dating",
+      "date",
+      "speech bubble"
+    ]
+  },
+  {
+    "name": "message-circle-more",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "typing",
+      "writing",
+      "responding",
+      "ellipsis",
+      "etc",
+      "et cetera",
+      "...",
+      "…"
+    ]
+  },
+  {
+    "name": "message-circle-off",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "clear",
+      "close",
+      "delete",
+      "remove",
+      "cancel",
+      "silence",
+      "mute",
+      "moderate"
+    ]
+  },
+  {
+    "name": "message-circle-plus",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "add"
+    ]
+  },
+  {
+    "name": "message-circle-question",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "help"
+    ]
+  },
+  {
+    "name": "message-circle-reply",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "reply",
+      "response"
+    ]
+  },
+  {
+    "name": "message-circle-warning",
+    "categories": [
+      "social",
+      "notifications"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "report",
+      "abuse",
+      "offense",
+      "alert",
+      "danger",
+      "caution",
+      "protected",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "message-circle-x",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "clear",
+      "close",
+      "delete",
+      "remove",
+      "cancel",
+      "silence",
+      "mute",
+      "moderate"
+    ]
+  },
+  {
+    "name": "message-circle",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble"
+    ]
+  },
+  {
+    "name": "message-square-code",
+    "categories": [
+      "development",
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "code review",
+      "coding"
+    ]
+  },
+  {
+    "name": "message-square-dashed",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "draft"
+    ]
+  },
+  {
+    "name": "message-square-diff",
+    "categories": [
+      "development",
+      "files",
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "add",
+      "patch",
+      "difference",
+      "plus",
+      "minus",
+      "plus-minus",
+      "math",
+      "code review",
+      "coding",
+      "version control",
+      "git"
+    ]
+  },
+  {
+    "name": "message-square-dot",
+    "categories": [
+      "social",
+      "notifications"
+    ],
+    "tags": [
+      "unread",
+      "unresolved",
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble"
+    ]
+  },
+  {
+    "name": "message-square-heart",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "positive",
+      "like",
+      "love",
+      "interest",
+      "valentine",
+      "dating",
+      "date",
+      "speech bubble"
+    ]
+  },
+  {
+    "name": "message-square-lock",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "secure",
+      "encrypted"
+    ]
+  },
+  {
+    "name": "message-square-more",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "typing",
+      "writing",
+      "responding",
+      "ellipsis",
+      "etc",
+      "et cetera",
+      "...",
+      "…"
+    ]
+  },
+  {
+    "name": "message-square-off",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "clear",
+      "close",
+      "delete",
+      "remove",
+      "cancel",
+      "silence",
+      "mute",
+      "moderate"
+    ]
+  },
+  {
+    "name": "message-square-plus",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "add"
+    ]
+  },
+  {
+    "name": "message-square-quote",
+    "categories": [
+      "social",
+      "text"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "blockquote",
+      "quotation",
+      "indent",
+      "reply",
+      "response"
+    ]
+  },
+  {
+    "name": "message-square-reply",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "reply",
+      "response"
+    ]
+  },
+  {
+    "name": "message-square-share",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "network",
+      "forward"
+    ]
+  },
+  {
+    "name": "message-square-text",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble"
+    ]
+  },
+  {
+    "name": "message-square-warning",
+    "categories": [
+      "social",
+      "notifications"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "report",
+      "abuse",
+      "offense",
+      "alert",
+      "danger",
+      "caution",
+      "protected",
+      "exclamation mark"
+    ]
+  },
+  {
+    "name": "message-square-x",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble",
+      "clear",
+      "close",
+      "delete",
+      "remove",
+      "cancel",
+      "silence",
+      "mute",
+      "moderate"
+    ]
+  },
+  {
+    "name": "message-square",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubble"
+    ]
+  },
+  {
+    "name": "messages-square",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "comment",
+      "chat",
+      "conversation",
+      "dialog",
+      "feedback",
+      "speech bubbles",
+      "copy",
+      "multiple"
+    ]
+  },
+  {
+    "name": "notebook-pen",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "pencil",
+      "notepad",
+      "notes",
+      "noted",
+      "stationery",
+      "sketchbook",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "research",
+      "homework",
+      "eraser",
+      "rubber"
+    ]
+  },
+  {
+    "name": "notebook-tabs",
+    "categories": [
+      "account",
+      "communication",
+      "social"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "people",
+      "family",
+      "friends",
+      "acquaintances",
+      "contacts",
+      "details",
+      "addresses",
+      "phone numbers",
+      "directory",
+      "listing",
+      "networking",
+      "alphabetical",
+      "a-z",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "stationery"
+    ]
+  },
+  {
+    "name": "notebook-text",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "pages",
+      "paper",
+      "stationery",
+      "sketchbook",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "research",
+      "homework",
+      "lines",
+      "opened"
+    ]
+  },
+  {
+    "name": "notebook",
+    "categories": [
+      "text",
+      "communication",
+      "social",
+      "design"
+    ],
+    "tags": [
+      "notepad",
+      "notes",
+      "stationery",
+      "sketchbook",
+      "moleskine",
+      "closure",
+      "strap",
+      "band",
+      "elastic",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "written",
+      "writer",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "homework",
+      "research"
+    ]
+  },
+  {
+    "name": "notepad-text-dashed",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "notebook",
+      "notes",
+      "pages",
+      "paper",
+      "stationery",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "draft",
+      "template",
+      "lines"
+    ]
+  },
+  {
+    "name": "notepad-text",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "notebook",
+      "notes",
+      "pages",
+      "paper",
+      "stationery",
+      "sketchbook",
+      "organizer",
+      "organiser",
+      "planner",
+      "diary",
+      "journal",
+      "writing",
+      "write",
+      "written",
+      "reading",
+      "high school",
+      "university",
+      "college",
+      "academy",
+      "student",
+      "study",
+      "homework",
+      "research",
+      "lines",
+      "opened"
+    ]
+  },
+  {
+    "name": "podcast",
+    "categories": [
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "audio",
+      "music",
+      "mic",
+      "talk",
+      "voice",
+      "subscribe",
+      "subscription",
+      "stream"
+    ]
+  },
+  {
+    "name": "qr-code",
+    "categories": [
+      "development",
+      "social"
+    ],
+    "tags": [
+      "barcode",
+      "scan",
+      "link",
+      "url",
+      "information",
+      "digital"
+    ]
+  },
+  {
+    "name": "radio-tower",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "signal",
+      "broadcast",
+      "connectivity",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "radio",
+    "categories": [
+      "devices",
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "signal",
+      "broadcast",
+      "connectivity",
+      "live",
+      "frequency"
+    ]
+  },
+  {
+    "name": "repeat-2",
+    "categories": [
+      "arrows",
+      "social",
+      "multimedia"
+    ],
+    "tags": [
+      "arrows",
+      "retweet",
+      "repost",
+      "share",
+      "repeat",
+      "loop"
+    ]
+  },
+  {
+    "name": "ribbon",
+    "categories": [
+      "social",
+      "medical",
+      "emoji"
+    ],
+    "tags": [
+      "awareness",
+      "strip",
+      "band",
+      "tape",
+      "strap",
+      "cordon"
+    ]
+  },
+  {
+    "name": "rss",
+    "categories": [
+      "development",
+      "social"
+    ],
+    "tags": [
+      "feed",
+      "subscribe",
+      "news",
+      "updates",
+      "notifications",
+      "content",
+      "blog",
+      "articles",
+      "broadcast",
+      "syndication",
+      "reader",
+      "channels",
+      "posts",
+      "publishing",
+      "digest",
+      "alert",
+      "following",
+      "inbox",
+      "newsletter",
+      "weblog",
+      "podcast"
+    ]
+  },
+  {
+    "name": "scan-face",
+    "categories": [
+      "account",
+      "security",
+      "devices",
+      "social"
+    ],
+    "tags": [
+      "face",
+      "biometric",
+      "identification",
+      "authentication",
+      "2fa",
+      "access",
+      "login",
+      "dashed"
+    ]
+  },
+  {
+    "name": "scan",
+    "categories": [
+      "devices",
+      "shopping",
+      "security",
+      "social",
+      "gaming"
+    ],
+    "tags": [
+      "qr-code",
+      "barcode",
+      "checkout",
+      "augmented reality",
+      "ar",
+      "target",
+      "surveillance",
+      "camera",
+      "lens",
+      "focus",
+      "frame",
+      "select",
+      "box",
+      "boundary",
+      "bounds",
+      "area",
+      "square",
+      "dashed"
+    ]
+  },
+  {
+    "name": "search-check",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "found",
+      "correct",
+      "complete",
+      "tick"
+    ]
+  },
+  {
+    "name": "search-code",
+    "categories": [
+      "text",
+      "social",
+      "development"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "grep",
+      "chevrons",
+      "<>"
+    ]
+  },
+  {
+    "name": "search-slash",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "stop",
+      "clear",
+      "cancel",
+      "abort",
+      "/"
+    ]
+  },
+  {
+    "name": "search-x",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass",
+      "stop",
+      "clear",
+      "cancel",
+      "abort"
+    ]
+  },
+  {
+    "name": "search",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass"
+    ]
+  },
+  {
+    "name": "share-2",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "network",
+      "connections"
+    ]
+  },
+  {
+    "name": "share",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "network",
+      "connections"
+    ]
+  },
+  {
+    "name": "slack",
+    "categories": [
+      "account",
+      "social",
+      "brands",
+      "development"
+    ],
+    "tags": [
+      "logo"
+    ]
+  },
+  {
+    "name": "smile-plus",
+    "categories": [
+      "emoji",
+      "social",
+      "notifications",
+      "communication"
+    ],
+    "tags": [
+      "emoji",
+      "face",
+      "happy",
+      "good",
+      "emotion",
+      "react",
+      "reaction",
+      "add"
+    ]
+  },
+  {
+    "name": "square-activity",
+    "categories": [
+      "medical",
+      "social",
+      "science",
+      "multimedia"
+    ],
+    "tags": [
+      "pulse",
+      "action",
+      "motion",
+      "movement",
+      "exercise",
+      "fitness",
+      "healthcare",
+      "heart rate monitor",
+      "vital signs",
+      "vitals",
+      "emergency room",
+      "er",
+      "intensive care",
+      "hospital",
+      "defibrillator",
+      "earthquake",
+      "siesmic",
+      "magnitude",
+      "richter scale",
+      "aftershock",
+      "tremor",
+      "shockwave",
+      "audio",
+      "waveform",
+      "synthesizer",
+      "synthesiser",
+      "music"
+    ]
+  },
+  {
+    "name": "square-arrow-out-up-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "social"
+    ],
+    "tags": [
+      "outwards",
+      "direction",
+      "north-east",
+      "diagonal",
+      "share",
+      "open",
+      "external",
+      "link"
+    ]
+  },
+  {
+    "name": "square-arrow-up-right",
+    "categories": [
+      "arrows",
+      "navigation",
+      "social"
+    ],
+    "tags": [
+      "direction",
+      "north-east",
+      "diagonal",
+      "sign",
+      "keyboard",
+      "button",
+      "share"
+    ]
+  },
+  {
+    "name": "square-percent",
+    "categories": [
+      "social",
+      "finance",
+      "shopping",
+      "math"
+    ],
+    "tags": [
+      "verified",
+      "unverified",
+      "sale",
+      "discount",
+      "offer",
+      "marketing",
+      "sticker",
+      "price tag"
+    ]
+  },
+  {
+    "name": "star-half",
+    "categories": [
+      "social",
+      "multimedia"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "star-off",
+    "categories": [
+      "multimedia",
+      "social"
+    ],
+    "tags": [
+      "dislike",
+      "unlike",
+      "remove",
+      "unrate"
+    ]
+  },
+  {
+    "name": "star",
+    "categories": [
+      "account",
+      "social",
+      "shapes",
+      "multimedia",
+      "weather",
+      "emoji",
+      "gaming"
+    ],
+    "tags": [
+      "bookmark",
+      "favorite",
+      "like",
+      "review",
+      "rating"
+    ]
+  },
+  {
+    "name": "sticker",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "reaction",
+      "emotion",
+      "smile",
+      "happy",
+      "feedback"
+    ]
+  },
+  {
+    "name": "sticky-note",
+    "categories": [
+      "text",
+      "social"
+    ],
+    "tags": [
+      "post-it",
+      "comment",
+      "annotation",
+      "reaction",
+      "memo",
+      "reminder",
+      "todo",
+      "task",
+      "idea",
+      "brainstorm",
+      "document",
+      "page",
+      "paper",
+      "sheet",
+      "stationary",
+      "office"
+    ]
+  },
+  {
+    "name": "theater",
+    "categories": [
+      "buildings",
+      "social"
+    ],
+    "tags": [
+      "theater",
+      "theatre",
+      "entertainment",
+      "podium",
+      "stage",
+      "musical"
+    ]
+  },
+  {
+    "name": "thumbs-down",
+    "categories": [
+      "account",
+      "social",
+      "emoji"
+    ],
+    "tags": [
+      "dislike",
+      "bad",
+      "emotion"
+    ]
+  },
+  {
+    "name": "thumbs-up",
+    "categories": [
+      "account",
+      "social",
+      "emoji"
+    ],
+    "tags": [
+      "like",
+      "good",
+      "emotion"
+    ]
+  },
+  {
+    "name": "twitch",
+    "categories": [
+      "brands",
+      "social",
+      "account",
+      "gaming"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "twitter",
+    "categories": [
+      "brands",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "logo",
+      "social"
+    ]
+  },
+  {
+    "name": "user-round-search",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact",
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass"
+    ]
+  },
+  {
+    "name": "user-search",
+    "categories": [
+      "account",
+      "social"
+    ],
+    "tags": [
+      "person",
+      "account",
+      "contact",
+      "find",
+      "scan",
+      "magnifier",
+      "magnifying glass"
+    ]
+  },
+  {
+    "name": "voicemail",
+    "categories": [
+      "connectivity",
+      "devices",
+      "social"
+    ],
+    "tags": [
+      "phone",
+      "cassette",
+      "tape",
+      "reel",
+      "recording",
+      "audio"
+    ]
+  },
+  {
+    "name": "vote",
+    "categories": [
+      "social"
+    ],
+    "tags": [
+      "vote",
+      "poll",
+      "ballot",
+      "political",
+      "social",
+      "check",
+      "tick"
+    ]
+  },
+  {
+    "name": "waypoints",
+    "categories": [
+      "security",
+      "account",
+      "navigation",
+      "development",
+      "social"
+    ],
+    "tags": [
+      "indirection",
+      "vpn",
+      "virtual private network",
+      "proxy",
+      "connections",
+      "bounce",
+      "reroute",
+      "path",
+      "journey",
+      "planner",
+      "stops",
+      "stations",
+      "shared",
+      "spread",
+      "viral"
+    ]
+  },
+  {
+    "name": "webhook-off",
+    "categories": [
+      "development",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "push api",
+      "interface",
+      "callback"
+    ]
+  },
+  {
+    "name": "webhook",
+    "categories": [
+      "development",
+      "social",
+      "account"
+    ],
+    "tags": [
+      "push api",
+      "interface",
+      "callback"
+    ]
+  },
+  {
+    "name": "youtube",
+    "categories": [
+      "multimedia",
+      "social",
+      "brands"
+    ],
+    "tags": [
+      "logo",
+      "social",
+      "video",
+      "play"
+    ]
+  }
+]
