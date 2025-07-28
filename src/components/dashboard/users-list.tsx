@@ -176,7 +176,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
           
           <div className="flex gap-2">
             <Select value={roleFilter} onValueChange={setRoleFilter}>
-              <SelectTrigger className="w-32">
+              <SelectTrigger className="w-auto min-w-[100px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -187,7 +187,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
             </Select>
             
             <Select value={activityFilter} onValueChange={setActivityFilter}>
-              <SelectTrigger className="w-32">
+              <SelectTrigger className="w-auto min-w-[100px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

@@ -10,20 +10,37 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Get current user's queue assignments
-    const userQueues = await prisma.userQueue.findMany({
+    // Get current user's explicitly assigned queues
+    const assignedQueues = await prisma.userQueue.findMany({
       where: { userId: session.user.id },
       include: {
         queue: true
-      },
-      orderBy: {
-        queue: {
-          order: 'asc'
-        }
       }
     })
 
-    return NextResponse.json(userQueues)
+    // Get all default queues (automatically accessible to all users)
+    const defaultQueues = await prisma.queue.findMany({
+      where: { isDefault: true }
+    })
+
+    // Combine assigned and default queues, avoiding duplicates
+    const assignedQueueIds = assignedQueues.map(uq => uq.queue.id)
+    const defaultOnlyQueues = defaultQueues.filter(q => !assignedQueueIds.includes(q.id))
+    
+    // Create userQueue-like objects for default queues
+    const defaultUserQueues = defaultOnlyQueues.map(queue => ({
+      id: `default-${queue.id}`,
+      userId: session.user.id,
+      queueId: queue.id,
+      queue: queue,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }))
+
+    // Combine and sort by queue order
+    const allQueues = [...assignedQueues, ...defaultUserQueues].sort((a, b) => a.queue.order - b.queue.order)
+
+    return NextResponse.json(allQueues)
   } catch (error) {
     console.error('Failed to fetch user queues:', error)
     return NextResponse.json({ error: 'Failed to fetch user queues' }, { status: 500 })
@@ -102,6 +119,15 @@ export async function DELETE(request: NextRequest) {
 
     if (!queueId) {
       return NextResponse.json({ error: 'Queue ID is required' }, { status: 400 })
+    }
+
+    // Check if this is a default queue (cannot be removed)
+    const queue = await prisma.queue.findUnique({
+      where: { id: queueId }
+    })
+
+    if (queue?.isDefault) {
+      return NextResponse.json({ error: 'Cannot remove access to default queue' }, { status: 400 })
     }
 
     await prisma.userQueue.delete({

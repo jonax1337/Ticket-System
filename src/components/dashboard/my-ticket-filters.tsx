@@ -81,7 +81,7 @@ export default function MyTicketFilters() {
         const [statusesResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/statuses'),
           fetch('/api/priorities'),
-          fetch('/api/users/queues') // Get user's assigned queues instead of all queues
+          fetch('/api/users/queues') // Get user's assigned queues + default queues
         ])
         
         if (statusesResponse.ok) {
@@ -179,7 +179,7 @@ export default function MyTicketFilters() {
           defaultValue={currentStatus}
           onValueChange={(value) => handleFilterChange('status', value)}
         >
-          <SelectTrigger className={`w-[140px] ${currentStatus !== 'ALL' ? statuses.find(s => s.name === currentStatus)?.color || '' : ''}`}>
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentStatus !== 'ALL' ? statuses.find(s => s.name === currentStatus)?.color || '' : ''}`}>
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
@@ -205,7 +205,7 @@ export default function MyTicketFilters() {
           defaultValue={currentPriority}
           onValueChange={(value) => handleFilterChange('priority', value)}
         >
-          <SelectTrigger className={`w-[140px] ${currentPriority !== 'ALL' ? priorities.find(p => p.name === currentPriority)?.color || '' : ''}`}>
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentPriority !== 'ALL' ? priorities.find(p => p.name === currentPriority)?.color || '' : ''}`}>
             <SelectValue placeholder="All Priority" />
           </SelectTrigger>
           <SelectContent>
@@ -231,7 +231,7 @@ export default function MyTicketFilters() {
           defaultValue={currentQueue}
           onValueChange={(value) => handleFilterChange('queue', value)}
         >
-          <SelectTrigger className={`w-[140px] ${currentQueue !== 'ALL' ? queues.find(q => q.id === currentQueue)?.color || '' : ''}`}>
+          <SelectTrigger className={`w-auto min-w-[100px] ${currentQueue !== 'ALL' ? queues.find(q => q.id === currentQueue)?.color || '' : ''}`}>
             <SelectValue placeholder="All Queues" />
           </SelectTrigger>
           <SelectContent>

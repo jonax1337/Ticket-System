@@ -31,16 +31,27 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
   // Get user's session to check role
   const session = await getServerSession(authOptions)
   
-  // Get user's assigned queues for access control
+  // Get user's assigned queues + default queues for access control
   let userQueueIds: string[] = []
   if (session?.user?.role !== 'ADMIN') {
+    // Get explicitly assigned queues
     const userQueues = await prisma.userQueue.findMany({
       where: { userId },
       select: { queueId: true }
     })
-    userQueueIds = userQueues.map(uq => uq.queueId)
+    const assignedQueueIds = userQueues.map(uq => uq.queueId)
     
-    // If user is not assigned to any queues, they see no tickets
+    // Get all default queues (automatically accessible to all users)
+    const defaultQueues = await prisma.queue.findMany({
+      where: { isDefault: true },
+      select: { id: true }
+    })
+    const defaultQueueIds = defaultQueues.map(q => q.id)
+    
+    // Combine assigned and default queues
+    userQueueIds = [...new Set([...assignedQueueIds, ...defaultQueueIds])]
+    
+    // If user has no access to any queues, they see no tickets
     if (userQueueIds.length === 0) {
       userQueueIds = ['no-access'] // This will match no tickets
     }

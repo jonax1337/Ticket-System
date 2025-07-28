@@ -117,7 +117,7 @@ export function CreateTicketDialog() {
         const [usersResponse, prioritiesResponse, queuesResponse] = await Promise.all([
           fetch('/api/users'),
           fetch('/api/priorities'),
-          fetch('/api/users/queues') // Get user's assigned queues instead of all queues
+          fetch('/api/users/queues') // Get user's assigned queues + default queues
         ])
         
         if (usersResponse.ok) {

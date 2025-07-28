@@ -232,7 +232,7 @@ export default function AdminSettings({ settings, tabMode = 'full' }: AdminSetti
           <div className="space-y-2">
             <Label htmlFor="ticketNumberLength">Number Length</Label>
             <Select value={ticketNumberLength.toString()} onValueChange={(value) => setTicketNumberLength(parseInt(value))}>
-              <SelectTrigger className="w-32">
+              <SelectTrigger className="w-auto min-w-[100px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

@@ -649,7 +649,7 @@ export default function QueueManager() {
                 
                 return (
                   <div key={user.id} className="border rounded-lg p-3">
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={user.avatarUrl} alt={user.name} />
@@ -657,56 +657,73 @@ export default function QueueManager() {
                             {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
-                        <div>
-                          <h4 className="font-medium text-sm">{user.name}</h4>
-                          <p className="text-xs text-muted-foreground">{user.email}</p>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <h4 className="font-medium text-sm truncate">{user.name}</h4>
+                            <Badge 
+                              variant={user.role === 'ADMIN' ? 'destructive' : 'secondary'}
+                              className="text-xs shrink-0"
+                            >
+                              {user.role === 'ADMIN' ? (
+                                <><Shield className="h-3 w-3 mr-1" />Admin</>
+                              ) : (
+                                <><UserIcon className="h-3 w-3 mr-1" />Supporter</>
+                              )}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                          
+                          <div className="flex items-center gap-2 mt-2">
+                            <div className="flex flex-wrap gap-1">
+                              {assignedQueues.map((userQueue) => (
+                                <Badge 
+                                  key={userQueue.id} 
+                                  variant={userQueue.queue.isDefault ? "secondary" : "outline"} 
+                                  className="text-xs flex items-center gap-1 py-1"
+                                >
+                                  {userQueue.queue.name}
+                                  {userQueue.queue.isDefault && (
+                                    <span className="text-xs opacity-60">(default)</span>
+                                  )}
+                                  {!userQueue.queue.isDefault && (
+                                    <button
+                                      onClick={() => handleRemoveUserFromQueue(user.id, userQueue.queueId)}
+                                      className="ml-1 hover:bg-red-100 rounded"
+                                    >
+                                      <X className="h-3 w-3" />
+                                    </button>
+                                  )}
+                                </Badge>
+                              ))}
+                              {assignedQueues.length === 0 && (
+                                <span className="text-xs text-muted-foreground">No queues assigned</span>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <Badge 
-                        variant={user.role === 'ADMIN' ? 'destructive' : 'secondary'}
-                        className="text-xs"
-                      >
-                        {user.role === 'ADMIN' ? (
-                          <><Shield className="h-3 w-3 mr-1" />Admin</>
-                        ) : (
-                          <><UserIcon className="h-3 w-3 mr-1" />Supporter</>
-                        )}
-                      </Badge>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label className="text-xs font-medium">Assigned Queues:</Label>
-                      <div className="flex flex-wrap gap-1">
-                        {assignedQueues.map((userQueue) => (
-                          <Badge key={userQueue.id} variant="outline" className="text-xs flex items-center gap-1 py-1">
-                            {userQueue.queue.name}
-                            <button
-                              onClick={() => handleRemoveUserFromQueue(user.id, userQueue.queueId)}
-                              className="ml-1 hover:bg-red-100 rounded"
-                            >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </Badge>
-                        ))}
-                        {assignedQueues.length === 0 && (
-                          <span className="text-xs text-muted-foreground">No queues assigned</span>
-                        )}
-                      </div>
                       
-                      <div className="flex items-center gap-2 mt-2">
+                      <div className="shrink-0 ml-2">
                         <Select onValueChange={(queueId) => handleAssignUserToQueue(user.id, queueId)}>
-                          <SelectTrigger className="w-40 h-8 text-xs">
-                            <SelectValue placeholder="Add to queue..." />
+                          <SelectTrigger className="w-auto min-w-[100px] h-8 text-xs">
+                            <SelectValue placeholder="Add queue" />
                           </SelectTrigger>
                           <SelectContent>
                             {availableQueues.map((queue) => {
                               const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
                               const isAlreadyAssigned = assignedQueues.some(aq => aq.queueId === queue.id)
+                              const isDefault = queue.isDefault
+                              const disabled = isAlreadyAssigned || isDefault
+                              
                               return (
-                                <SelectItem key={queue.id} value={queue.id} disabled={isAlreadyAssigned}>
+                                <SelectItem key={queue.id} value={queue.id} disabled={disabled}>
                                   <div className="flex items-center gap-2">
                                     <IconComponent className="h-3 w-3" style={{ color: queue.color }} />
-                                    <span className="text-xs">{queue.name}{isAlreadyAssigned ? ' (assigned)' : ''}</span>
+                                    <span className="text-xs">
+                                      {queue.name}
+                                      {isAlreadyAssigned && !isDefault ? ' (assigned)' : ''}
+                                      {isDefault ? ' (default - auto-assigned)' : ''}
+                                    </span>
                                   </div>
                                 </SelectItem>
                               )
