@@ -57,34 +57,10 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Get user's accessible queues for non-admin users
-    let userQueueIds: string[] = []
-    if (session.user.role !== 'ADMIN') {
-      const userQueues = await prisma.userQueue.findMany({
-        where: { userId: session.user.id },
-        select: { queueId: true }
-      })
-      const assignedQueueIds = userQueues.map(uq => uq.queueId)
-      
-      const defaultQueues = await prisma.queue.findMany({
-        where: { isDefault: true },
-        select: { id: true }
-      })
-      const defaultQueueIds = defaultQueues.map(q => q.id)
-      
-      userQueueIds = [...new Set([...assignedQueueIds, ...defaultQueueIds])]
-      
-      if (userQueueIds.length === 0) {
-        return NextResponse.json([])
-      }
-    }
-
-    // Build where clause for tickets
+    // Build where clause for tickets - no queue access control for analytics
+    // Analytics should show data from all tickets regardless of queue permissions
     const baseWhereClause = {
       ...(queueId && { queueId }),
-      ...(session.user.role !== 'ADMIN' && {
-        queueId: { in: userQueueIds }
-      }),
     }
 
     // Generate date intervals
