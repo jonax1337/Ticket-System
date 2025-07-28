@@ -95,10 +95,10 @@ export async function GET(request: NextRequest) {
     // Get tickets data for each status
     const statusData: { [status: string]: Array<{createdAt?: Date, updatedAt?: Date}> } = {}
     
-    for (const status of selectedStatuses) {
+    const statusQueries = selectedStatuses.map(async (status) => {
       if (status.toLowerCase() === 'created') {
         // Special case for "created" - count by creation date
-        statusData[status] = await prisma.ticket.findMany({
+        const data = await prisma.ticket.findMany({
           where: {
             ...baseWhereClause,
             createdAt: {
@@ -110,9 +110,10 @@ export async function GET(request: NextRequest) {
             createdAt: true,
           },
         })
+        return { status, data }
       } else {
         // For status-based counts - count by when ticket was last updated to that status
-        statusData[status] = await prisma.ticket.findMany({
+        const data = await prisma.ticket.findMany({
           where: {
             ...baseWhereClause,
             status: status,
@@ -125,8 +126,14 @@ export async function GET(request: NextRequest) {
             updatedAt: true,
           },
         })
+        return { status, data }
       }
-    }
+    })
+
+    const results = await Promise.all(statusQueries)
+    results.forEach(({ status, data }) => {
+      statusData[status] = data
+    })
 
     // Aggregate data by intervals
     const data: TicketVolumeData[] = intervals.map(date => {
