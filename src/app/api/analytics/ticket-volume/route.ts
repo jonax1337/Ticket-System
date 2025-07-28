@@ -156,7 +156,7 @@ export async function GET(request: NextRequest) {
           return ticketDate === dateStr
         }).length
         
-        result[status.toLowerCase()] = count
+        result[status.toLowerCase()] = Math.max(0, count) // Ensure non-negative values
       }
 
       return result

@@ -80,7 +80,7 @@ export function TicketVolumeChart() {
   const [queues, setQueues] = useState<Queue[]>([])
   const [customStartDate, setCustomStartDate] = useState<Date | undefined>()
   const [customEndDate, setCustomEndDate] = useState<Date | undefined>()
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>(['Open', 'Closed'])
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>(['Created', 'Closed'])
   const [availableStatuses, setAvailableStatuses] = useState<string[]>([])
   const { statuses } = useCache()
 
@@ -92,6 +92,8 @@ export function TicketVolumeChart() {
         setSelectedStatuses(JSON.parse(savedStatuses))
       } catch (error) {
         console.error('Error loading saved statuses:', error)
+        // Set default fallback if loading fails
+        setSelectedStatuses(['Created', 'Closed'])
       }
     }
   }, [])
@@ -372,17 +374,18 @@ export function TicketVolumeChart() {
                 cursor={false}
                 content={<ChartTooltipContent />}
               />
-              {selectedStatuses.map(status => {
+              {selectedStatuses.map((status, index) => {
                 return (
                   <Area
                     key={status}
                     dataKey={status.toLowerCase()}
-                    type="natural"
+                    type="monotone"
                     fill={`url(#fill${status})`}
                     fillOpacity={0.4}
                     stroke={getStatusColor(status)}
                     strokeWidth={2}
-                    stackId="a"
+                    stackId={undefined}
+                    connectNulls={false}
                   />
                 )
               })}
