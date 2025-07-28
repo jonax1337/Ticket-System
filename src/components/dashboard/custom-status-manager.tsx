@@ -312,7 +312,7 @@ export default function CustomStatusManager() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
-                <AlertCircle className="h-5 w-5" />
+                {renderIcon('Settings', 'h-5 w-5')}
                 Status Configuration
               </CardTitle>
               <CardDescription>
@@ -414,7 +414,7 @@ export default function CustomStatusManager() {
                 </>
               ) : (
                 <>
-                  <AlertCircle className="h-12 w-12 text-muted-foreground/50 mx-auto mb-3" />
+                  {renderIcon('AlertCircle', 'h-12 w-12 text-muted-foreground/50 mx-auto mb-3')}
                   <h4 className="text-sm font-medium text-muted-foreground mb-1">No statuses configured</h4>
                   <p className="text-xs text-muted-foreground">Add your first status to get started</p>
                 </>
