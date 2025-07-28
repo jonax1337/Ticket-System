@@ -645,7 +645,7 @@ export default function QueueManager() {
             <div className="space-y-3">
               {filteredUsers.map((user) => {
                 const assignedQueues = getUserQueues(user.id)
-                const availableQueues = queues.filter(queue => !assignedQueues.some(aq => aq.queueId === queue.id))
+                const availableQueues = queues
                 
                 return (
                   <div key={user.id} className="border rounded-lg p-3">
@@ -701,20 +701,16 @@ export default function QueueManager() {
                           <SelectContent>
                             {availableQueues.map((queue) => {
                               const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
+                              const isAlreadyAssigned = assignedQueues.some(aq => aq.queueId === queue.id)
                               return (
-                                <SelectItem key={queue.id} value={queue.id}>
+                                <SelectItem key={queue.id} value={queue.id} disabled={isAlreadyAssigned}>
                                   <div className="flex items-center gap-2">
                                     <IconComponent className="h-3 w-3" style={{ color: queue.color }} />
-                                    <span className="text-xs">{queue.name}</span>
+                                    <span className="text-xs">{queue.name}{isAlreadyAssigned ? ' (assigned)' : ''}</span>
                                   </div>
                                 </SelectItem>
                               )
                             })}
-                            {availableQueues.length === 0 && (
-                              <SelectItem value="" disabled>
-                                All queues assigned
-                              </SelectItem>
-                            )}
                           </SelectContent>
                         </Select>
                       </div>
