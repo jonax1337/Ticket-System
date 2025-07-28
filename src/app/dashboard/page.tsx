@@ -55,7 +55,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     
     // If user has no access to any queues, they see no tickets
     if (userQueueIds.length === 0) {
-      userQueueIds = ['00000000-0000-0000-0000-000000000000'] // UUID that will never exist
+      userQueueIds = ['__NO_ACCESS__'] // Semantic identifier that will never match real queue IDs
     }
   }
 
