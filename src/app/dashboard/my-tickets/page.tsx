@@ -28,46 +28,13 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
   const limit = 10
   const offset = (page - 1) * limit
 
-  // Get user's session to check role
-  const session = await getServerSession(authOptions)
-  
-  // Get user's assigned queues + default queues for access control
-  let userQueueIds: string[] = []
-  if (session?.user?.role !== 'ADMIN') {
-    // Get explicitly assigned queues
-    const userQueues = await prisma.userQueue.findMany({
-      where: { userId },
-      select: { queueId: true }
-    })
-    const assignedQueueIds = userQueues.map(uq => uq.queueId)
-    
-    // Get all default queues (automatically accessible to all users)
-    const defaultQueues = await prisma.queue.findMany({
-      where: { isDefault: true },
-      select: { id: true }
-    })
-    const defaultQueueIds = defaultQueues.map(q => q.id)
-    
-    // Combine assigned and default queues
-    userQueueIds = [...new Set([...assignedQueueIds, ...defaultQueueIds])]
-    
-    // If user has no access to any queues, they see no tickets
-    if (userQueueIds.length === 0) {
-      userQueueIds = ['__NO_ACCESS__'] // Explicit non-UUID identifier
-    }
-  }
+  // No queue access control needed for My Tickets - user sees all assigned tickets
 
   // Build where clause
   const where: Record<string, unknown> = {
     assignedToId: userId, // Only tickets assigned to current user
-    // Add queue access control for non-admin users
-    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' && {
-      queueId: { in: userQueueIds } // Remove null queue access for non-admin users
-    }),
-    // If user has no queue access, show nothing
-    ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access' && {
-      id: 'no-access'
-    }),
+    // NOTE: No queue access control needed here since user should see ALL assigned tickets
+    // regardless of queue access permissions
   }
 
   // Add search filter
