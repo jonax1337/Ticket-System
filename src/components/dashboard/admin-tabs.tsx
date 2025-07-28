@@ -68,36 +68,38 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-7">
-        <TabsTrigger value="general" className="flex items-center gap-2">
-          <Settings className="h-4 w-4" />
-          General
-        </TabsTrigger>
-        <TabsTrigger value="customize" className="flex items-center gap-2">
-          <Palette className="h-4 w-4" />
-          Customize
-        </TabsTrigger>
-        <TabsTrigger value="queues" className="flex items-center gap-2">
-          <Inbox className="h-4 w-4" />
-          Queues
-        </TabsTrigger>
-        <TabsTrigger value="email" className="flex items-center gap-2">
-          <Mail className="h-4 w-4" />
-          Email
-        </TabsTrigger>
-        <TabsTrigger value="templates" className="flex items-center gap-2">
-          <FileText className="h-4 w-4" />
-          Templates
-        </TabsTrigger>
-        <TabsTrigger value="workflow" className="flex items-center gap-2">
-          <Workflow className="h-4 w-4" />
-          Workflow
-        </TabsTrigger>
-        <TabsTrigger value="automation" className="flex items-center gap-2">
-          <Bot className="h-4 w-4" />
-          Automation
-        </TabsTrigger>
-      </TabsList>
+      <div className="w-full overflow-x-auto">
+        <TabsList className="inline-flex w-max min-w-full h-auto p-1">
+          <TabsTrigger value="general" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
+            <Settings className="h-4 w-4" />
+            <span className="hidden sm:inline">General</span>
+          </TabsTrigger>
+          <TabsTrigger value="customize" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
+            <Palette className="h-4 w-4" />
+            <span className="hidden sm:inline">Customize</span>
+          </TabsTrigger>
+          <TabsTrigger value="queues" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
+            <Inbox className="h-4 w-4" />
+            <span className="hidden sm:inline">Queues</span>
+          </TabsTrigger>
+          <TabsTrigger value="email" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
+            <Mail className="h-4 w-4" />
+            <span className="hidden sm:inline">Email</span>
+          </TabsTrigger>
+          <TabsTrigger value="templates" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
+            <FileText className="h-4 w-4" />
+            <span className="hidden sm:inline">Templates</span>
+          </TabsTrigger>
+          <TabsTrigger value="workflow" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
+            <Workflow className="h-4 w-4" />
+            <span className="hidden sm:inline">Workflow</span>
+          </TabsTrigger>
+          <TabsTrigger value="automation" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
+            <Bot className="h-4 w-4" />
+            <span className="hidden sm:inline">Automation</span>
+          </TabsTrigger>
+        </TabsList>
+      </div>
       
       <TabsContent value="general" className="space-y-6 mt-6">
         <GeneralSettings settings={settings} />
