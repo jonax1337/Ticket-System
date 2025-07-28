@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import TicketsList from '@/components/dashboard/tickets-list'
 import TicketFilters from '@/components/dashboard/ticket-filters'
 import { CreateTicketDialog } from '@/components/dashboard/create-ticket-dialog'
+import { TicketVolumeChart } from '@/components/dashboard/charts/ticket-volume-chart'
 // Removed enum imports - now using dynamic string values
 import {
   Card,
@@ -213,6 +214,20 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Analytics Section */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold">Ticket Analytics</h3>
+          <a 
+            href="/dashboard/analytics" 
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            View detailed analytics →
+          </a>
+        </div>
+        <TicketVolumeChart />
       </div>
 
       <div className="space-y-4">
