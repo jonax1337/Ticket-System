@@ -11,7 +11,7 @@ import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Trash2, Edit, Plus, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw, Search, Shield, User as UserIcon, Check, ChevronDown, UserCheck } from 'lucide-react'
+import { Trash2, Edit, Plus, X, GripVertical, RefreshCw, Search, Shield, User as UserIcon, Check, ChevronDown, UserCheck } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import {
   AlertDialog,
@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
+import { IconSelect, ColorSelect, IconBadge } from '@/components/ui/icon-components'
+import { getIconByValue, getColorByValue, renderIcon, getColorHex, mapLegacyHexToValue } from '@/lib/icon-map'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DndContext,
@@ -77,13 +79,7 @@ interface UserQueue {
   queue: Queue
 }
 
-const ICON_OPTIONS = [
-  { value: 'Inbox', label: 'Inbox', Icon: Inbox },
-  { value: 'Folder', label: 'Folder', Icon: Folder },
-  { value: 'Circle', label: 'Circle', Icon: Circle },
-  { value: 'Users', label: 'Users', Icon: Users },
-  { value: 'Settings', label: 'Settings', Icon: Settings },
-]
+
 
 const roleColors = {
   ADMIN: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
@@ -95,16 +91,7 @@ const roleIcons = {
   SUPPORTER: UserCheck,
 }
 
-const COLOR_OPTIONS = [
-  { value: '#2563eb', label: 'Blue' },
-  { value: '#dc2626', label: 'Red' },
-  { value: '#16a34a', label: 'Green' },
-  { value: '#ca8a04', label: 'Yellow' },
-  { value: '#9333ea', label: 'Purple' },
-  { value: '#ea580c', label: 'Orange' },
-  { value: '#0891b2', label: 'Cyan' },
-  { value: '#be123c', label: 'Rose' },
-]
+
 
 export default function QueueManager() {
   const [queues, setQueues] = useState<Queue[]>([])
@@ -118,7 +105,7 @@ export default function QueueManager() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    color: '#2563eb',
+    color: 'blue',
     icon: 'Inbox',
     isDefault: false,
     order: 0
@@ -208,10 +195,16 @@ export default function QueueManager() {
 
   const handleCreateQueue = async () => {
     try {
+      // Convert color value to hex for API
+      const queueData = {
+        ...formData,
+        color: getColorHex(formData.color)
+      }
+      
       const response = await fetch('/api/queues', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(queueData),
       })
 
       if (response.ok) {
@@ -233,10 +226,16 @@ export default function QueueManager() {
     if (!editingQueue) return
 
     try {
+      // Convert color value to hex for API
+      const queueData = {
+        ...formData,
+        color: getColorHex(formData.color)
+      }
+      
       const response = await fetch(`/api/queues/${editingQueue.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(queueData),
       })
 
       if (response.ok) {
@@ -282,7 +281,7 @@ export default function QueueManager() {
     setFormData({
       name: queue.name,
       description: queue.description || '',
-      color: queue.color,
+      color: mapLegacyHexToValue(queue.color), // Convert hex to color value
       icon: queue.icon,
       isDefault: queue.isDefault,
       order: queue.order
@@ -294,7 +293,7 @@ export default function QueueManager() {
     setFormData({
       name: '',
       description: '',
-      color: '#2563eb',
+      color: 'blue',
       icon: 'Inbox',
       isDefault: false,
       order: queues.length + 1 // New queues go to the bottom
@@ -377,7 +376,8 @@ export default function QueueManager() {
       transition,
     }
 
-    const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
+    const iconComponent = renderIcon(queue.icon, "h-4 w-4")
+    const colorValue = mapLegacyHexToValue(queue.color)
 
     return (
       <TableRow ref={setNodeRef} style={style} {...attributes}>
@@ -386,10 +386,9 @@ export default function QueueManager() {
             <div {...listeners} className="cursor-grab hover:cursor-grabbing">
               <GripVertical className="h-4 w-4 text-muted-foreground" />
             </div>
-            <IconComponent 
-              className="h-4 w-4" 
-              style={{ color: queue.color }}
-            />
+            <div style={{ color: queue.color }}>
+              {iconComponent}
+            </div>
             <span className="font-medium">{queue.name}</span>
           </div>
         </TableCell>
@@ -555,49 +554,32 @@ export default function QueueManager() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="icon">Icon</Label>
-                      <Select
+                      <IconSelect 
                         value={formData.icon}
                         onValueChange={(value) => setFormData({ ...formData, icon: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {ICON_OPTIONS.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              <div className="flex items-center gap-2">
-                                <option.Icon className="h-4 w-4" />
-                                {option.label}
-                              </div>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        placeholder="Select an icon..."
+                        showCategory={false}
+                      />
                     </div>
                     
                     <div>
                       <Label htmlFor="color">Color</Label>
-                      <Select
+                      <ColorSelect 
                         value={formData.color}
                         onValueChange={(value) => setFormData({ ...formData, color: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {COLOR_OPTIONS.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              <div className="flex items-center gap-2">
-                                <div 
-                                  className="w-4 h-4 rounded"
-                                  style={{ backgroundColor: option.value }}
-                                />
-                                {option.label}
-                              </div>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        placeholder="Select a color..."
+                        showHex={true}
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <Label>Preview:</Label>
+                    <div className="flex items-center gap-2">
+                      <div style={{ color: getColorHex(formData.color) }}>
+                        {renderIcon(formData.icon, "h-4 w-4")}
+                      </div>
+                      <span className="font-medium">{formData.name || 'Queue Name'}</span>
                     </div>
                   </div>
                   
@@ -778,7 +760,7 @@ export default function QueueManager() {
                               <CommandList>
                                 <CommandGroup>
                                   {availableQueues.map((queue) => {
-                                    const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
+                                    const iconComponent = renderIcon(queue.icon, "h-4 w-4")
                                     const isAlreadyAssigned = assignedQueues.some(aq => aq.queueId === queue.id)
                                     const isDefault = queue.isDefault
                                     
@@ -800,7 +782,9 @@ export default function QueueManager() {
                                           {isAlreadyAssigned && (
                                             <Check className="h-4 w-4 text-primary" />
                                           )}
-                                          <IconComponent className="h-4 w-4" style={{ color: queue.color }} />
+                                          <div style={{ color: queue.color }}>
+                                            {iconComponent}
+                                          </div>
                                           <div className="flex-1">
                                             <span>{queue.name}</span>
                                           </div>

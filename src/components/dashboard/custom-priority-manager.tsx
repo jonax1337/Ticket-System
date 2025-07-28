@@ -9,8 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Plus, Edit, Trash2, Clock, Timer, AlertCircle, AlertTriangle, Zap, TrendingUp, GripVertical, RefreshCw } from 'lucide-react'
+import { Plus, Edit, Trash2, GripVertical, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
+import { IconSelect, ColorSelect, IconBadge } from '@/components/ui/icon-components'
+import { getIconByValue, renderIcon } from '@/lib/icon-map'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -53,23 +55,7 @@ interface CustomPriority {
   updatedAt: Date
 }
 
-const iconOptions = [
-  { name: 'Clock', value: 'Clock', component: Clock },
-  { name: 'Timer', value: 'Timer', component: Timer },
-  { name: 'Alert Circle', value: 'AlertCircle', component: AlertCircle },
-  { name: 'Alert Triangle', value: 'AlertTriangle', component: AlertTriangle },
-  { name: 'Zap', value: 'Zap', component: Zap },
-  { name: 'Trending Up', value: 'TrendingUp', component: TrendingUp },
-]
 
-const colorOptions = [
-  { name: 'Gray', value: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800' },
-  { name: 'Yellow', value: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800' },
-  { name: 'Orange', value: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800' },
-  { name: 'Red', value: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800' },
-  { name: 'Blue', value: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800' },
-  { name: 'Green', value: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800' },
-]
 
 export default function CustomPriorityManager() {
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
@@ -79,7 +65,7 @@ export default function CustomPriorityManager() {
   const [formData, setFormData] = useState({
     name: '',
     icon: 'Clock',
-    color: colorOptions[0].value
+    color: 'gray'
   })
 
   const sensors = useSensors(
@@ -184,7 +170,7 @@ export default function CustomPriorityManager() {
         setFormData({
           name: '',
           icon: 'Clock',
-          color: colorOptions[0].value
+          color: 'gray'
         })
         toast.success(
           editingPriority ? 'Priority updated successfully' : 'Priority created successfully'
@@ -232,8 +218,7 @@ export default function CustomPriorityManager() {
   }
 
   const getIconComponent = (iconName: string) => {
-    const icon = iconOptions.find(opt => opt.value === iconName)
-    return icon ? icon.component : Clock
+    return renderIcon(iconName, "h-4 w-4")
   }
 
   // Sortable Item Component
@@ -264,10 +249,9 @@ export default function CustomPriorityManager() {
           </div>
         </TableCell>
         <TableCell>
-          <Badge variant="outline" className={priority.color}>
-            <IconComponent className="h-3 w-3 mr-1" />
+          <IconBadge icon={priority.icon} color={priority.color}>
             {priority.name}
-          </Badge>
+          </IconBadge>
         </TableCell>
         <TableCell>
           {priority.isDefault ? (
@@ -342,7 +326,7 @@ export default function CustomPriorityManager() {
                   setFormData({
                     name: '',
                     icon: 'Clock',
-                    color: colorOptions[0].value
+                    color: 'gray'
                   })
                 }}>
                   <Plus className="h-4 w-4 mr-2" />
@@ -372,52 +356,27 @@ export default function CustomPriorityManager() {
                   
                   <div>
                     <Label htmlFor="icon">Icon</Label>
-                    <Select value={formData.icon} onValueChange={(value) => setFormData({ ...formData, icon: value })}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {iconOptions.map((option) => {
-                          const IconComponent = option.component
-                          return (
-                            <SelectItem key={option.value} value={option.value}>
-                              <div className="flex items-center gap-2">
-                                <IconComponent className="h-4 w-4" />
-                                {option.name}
-                              </div>
-                            </SelectItem>
-                          )
-                        })}
-                      </SelectContent>
-                    </Select>
+                    <IconSelect 
+                      value={formData.icon}
+                      onValueChange={(value) => setFormData({ ...formData, icon: value })}
+                      placeholder="Select an icon..."
+                    />
                   </div>
 
                   <div>
                     <Label htmlFor="color">Color Theme</Label>
-                    <Select value={formData.color} onValueChange={(value) => setFormData({ ...formData, color: value })}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {colorOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${option.value.split(' ')[0]}`} />
-                              {option.name}
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <ColorSelect 
+                      value={formData.color}
+                      onValueChange={(value) => setFormData({ ...formData, color: value })}
+                      placeholder="Select a color..."
+                    />
                   </div>
-
 
                   <div className="flex items-center gap-2">
                     <Label>Preview:</Label>
-                    <Badge variant="outline" className={formData.color}>
-                      {React.createElement(getIconComponent(formData.icon), { className: "h-3 w-3 mr-1" })}
+                    <IconBadge icon={formData.icon} color={formData.color}>
                       {formData.name || 'Priority Name'}
-                    </Badge>
+                    </IconBadge>
                   </div>
 
                   <div className="flex justify-end gap-2">
