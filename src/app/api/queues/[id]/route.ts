@@ -96,9 +96,16 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     })
 
     if (ticketCount > 0) {
-      return NextResponse.json({ 
-        error: 'Cannot delete queue with tickets. Please move tickets to another queue first.' 
-      }, { status: 400 })
+      // Find default queue to move tickets to
+      const defaultQueue = await prisma.queue.findFirst({
+        where: { isDefault: true }
+      })
+  
+      // Move tickets to default queue or set to null
+      await prisma.ticket.updateMany({
+        where: { queueId: id },
+        data: { queueId: defaultQueue?.id || null }
+      })
     }
 
     await prisma.queue.delete({
