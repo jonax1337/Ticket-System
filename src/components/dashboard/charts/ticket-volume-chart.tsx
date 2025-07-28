@@ -65,7 +65,7 @@ const getStatusColor = (status: string): string => {
       // Fallback to a calculated color based on the status name
       const hash = normalizedStatus.split('').reduce((a, b) => {
         a = ((a << 5) - a) + b.charCodeAt(0)
-        return a & a
+        return a
       }, 0)
       const hue = Math.abs(hash) % 360
       return `hsl(${hue}, 70%, 50%)`
