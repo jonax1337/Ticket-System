@@ -84,7 +84,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                   <h1 className="text-lg lg:text-2xl font-bold truncate">{appName}</h1>
                 )}
                 {slogan && !hideAppName && (
-                  <p className="text-xs lg:text-sm text-muted-foreground truncate hidden sm:block">
+                  <p className="text-xs lg:text-sm text-muted-foreground hidden sm:block sm:truncate">
                     {slogan}
                   </p>
                 )}
