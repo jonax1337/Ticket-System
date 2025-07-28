@@ -6,15 +6,7 @@ import { startOfDay, endOfDay, subDays, subMonths, format, eachDayOfInterval, ea
 
 interface TicketVolumeData {
   date: string
-  created: number
-  closed: number
-}
-
-interface QueryParams {
-  timeRange?: string
-  queueId?: string
-  customStart?: string
-  customEnd?: string
+  [key: string]: number | string // Dynamic status keys
 }
 
 export async function GET(request: NextRequest) {
@@ -29,6 +21,8 @@ export async function GET(request: NextRequest) {
     const queueId = searchParams.get('queueId') || undefined
     const customStart = searchParams.get('customStart')
     const customEnd = searchParams.get('customEnd')
+    const statusesParam = searchParams.get('statuses') || 'Open,Closed' // Default to Open vs Closed
+    const selectedStatuses = statusesParam.split(',').map(s => s.trim())
 
     // Calculate date range
     let startDate: Date
@@ -86,46 +80,53 @@ export async function GET(request: NextRequest) {
     }
 
     // Build where clause for tickets
-    const whereClause = {
+    const baseWhereClause = {
       ...(queueId && { queueId }),
       ...(session.user.role !== 'ADMIN' && {
         queueId: { in: userQueueIds }
       }),
     }
 
-    // Get created tickets data
-    const createdTickets = await prisma.ticket.findMany({
-      where: {
-        ...whereClause,
-        createdAt: {
-          gte: startOfDay(startDate),
-          lte: endOfDay(endDate),
-        },
-      },
-      select: {
-        createdAt: true,
-      },
-    })
-
-    // Get closed tickets data (tickets with status 'CLOSED' and updatedAt in range)
-    const closedTickets = await prisma.ticket.findMany({
-      where: {
-        ...whereClause,
-        status: 'CLOSED',
-        updatedAt: {
-          gte: startOfDay(startDate),
-          lte: endOfDay(endDate),
-        },
-      },
-      select: {
-        updatedAt: true,
-      },
-    })
-
     // Generate date intervals
     const intervals = intervalType === 'day' 
       ? eachDayOfInterval({ start: startDate, end: endDate })
       : eachMonthOfInterval({ start: startOfMonth(startDate), end: endOfMonth(endDate) })
+
+    // Get tickets data for each status
+    const statusData: { [status: string]: Array<{createdAt?: Date, updatedAt?: Date}> } = {}
+    
+    for (const status of selectedStatuses) {
+      if (status.toLowerCase() === 'created') {
+        // Special case for "created" - count by creation date
+        statusData[status] = await prisma.ticket.findMany({
+          where: {
+            ...baseWhereClause,
+            createdAt: {
+              gte: startOfDay(startDate),
+              lte: endOfDay(endDate),
+            },
+          },
+          select: {
+            createdAt: true,
+          },
+        })
+      } else {
+        // For status-based counts - count by when ticket was last updated to that status
+        statusData[status] = await prisma.ticket.findMany({
+          where: {
+            ...baseWhereClause,
+            status: status,
+            updatedAt: {
+              gte: startOfDay(startDate),
+              lte: endOfDay(endDate),
+            },
+          },
+          select: {
+            updatedAt: true,
+          },
+        })
+      }
+    }
 
     // Aggregate data by intervals
     const data: TicketVolumeData[] = intervals.map(date => {
@@ -133,27 +134,32 @@ export async function GET(request: NextRequest) {
         ? format(date, 'yyyy-MM-dd')
         : format(date, 'yyyy-MM')
 
-      const created = createdTickets.filter(ticket => {
-        const ticketDate = intervalType === 'day'
-          ? format(ticket.createdAt, 'yyyy-MM-dd')
-          : format(ticket.createdAt, 'yyyy-MM')
-        return ticketDate === dateStr
-      }).length
-
-      const closed = closedTickets.filter(ticket => {
-        const ticketDate = intervalType === 'day'
-          ? format(ticket.updatedAt, 'yyyy-MM-dd')
-          : format(ticket.updatedAt, 'yyyy-MM')
-        return ticketDate === dateStr
-      }).length
-
-      return {
+      const result: TicketVolumeData = {
         date: intervalType === 'day' 
           ? format(date, 'MMM dd')
           : format(date, 'MMM yyyy'),
-        created,
-        closed,
       }
+
+      // Count tickets for each status
+      for (const status of selectedStatuses) {
+        const tickets = statusData[status] || []
+        const count = tickets.filter(ticket => {
+          const ticketDate = status.toLowerCase() === 'created' && ticket.createdAt
+            ? (intervalType === 'day'
+                ? format(ticket.createdAt, 'yyyy-MM-dd')
+                : format(ticket.createdAt, 'yyyy-MM'))
+            : ticket.updatedAt
+            ? (intervalType === 'day'
+                ? format(ticket.updatedAt, 'yyyy-MM-dd')
+                : format(ticket.updatedAt, 'yyyy-MM'))
+            : null
+          return ticketDate === dateStr
+        }).length
+        
+        result[status.toLowerCase()] = count
+      }
+
+      return result
     })
 
     return NextResponse.json(data)

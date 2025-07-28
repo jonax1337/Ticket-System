@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Switch } from '@/components/ui/switch'
-import { LogOut, User, Users, LayoutDashboard, Moon, Sun, Settings, Briefcase, Bell, UserCog, BarChart3 } from 'lucide-react'
+import { LogOut, User, Users, LayoutDashboard, Moon, Sun, Settings, Briefcase, Bell, UserCog } from 'lucide-react'
 import {
   Popover,
   PopoverContent,
@@ -117,18 +117,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                 <Briefcase className="h-4 w-4" />
                 My Tickets
               </Link>
-              <Link
-                href="/dashboard/analytics"
-                className={cn(
-                  "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors",
-                  pathname === '/dashboard/analytics'
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                )}
-              >
-                <BarChart3 className="h-4 w-4" />
-                Analytics
-              </Link>
+
               {user.role === 'ADMIN' && (
                 <>
                   <Link

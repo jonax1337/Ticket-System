@@ -49,6 +49,12 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* Chart colors for statuses */
+    --chart-status-open: 25 95% 53%;
+    --chart-status-closed: 142 76% 36%;
+    --chart-status-in-progress: 221 83% 53%;
+    --chart-status-created: 262 83% 58%;
   }
 
   .dark {
@@ -81,6 +87,12 @@
     --ring: 0 0% 83.1%;
 
     --border-color: hsl(0 0% 14.9%);
+
+    /* Chart colors for statuses - slightly adjusted for dark mode */
+    --chart-status-open: 25 95% 53%;
+    --chart-status-closed: 142 71% 45%;
+    --chart-status-in-progress: 221 83% 53%;
+    --chart-status-created: 262 83% 58%;
   }
 
   /* Theme Colors */

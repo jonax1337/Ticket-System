@@ -216,17 +216,9 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         </Card>
       </div>
 
-      {/* Analytics Section */}
+      {/* Ticket Volume Chart */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Ticket Analytics</h3>
-          <a 
-            href="/dashboard/analytics" 
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            View detailed analytics →
-          </a>
-        </div>
+        <h3 className="text-lg font-semibold">Ticket Volume Analytics</h3>
         <TicketVolumeChart />
       </div>
 

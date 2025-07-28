@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -26,14 +25,21 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { DatePicker } from '@/components/ui/date-picker'
-import { CalendarIcon, Download } from 'lucide-react'
-import { format, subDays, startOfDay, endOfDay } from 'date-fns'
+import { Download, Settings } from 'lucide-react'
+import { format, subDays } from 'date-fns'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useCache } from '@/lib/cache-context'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
 
 interface TicketVolumeData {
   date: string
-  created: number
-  closed: number
+  [key: string]: number | string // Dynamic status keys
 }
 
 interface Queue {
@@ -42,15 +48,28 @@ interface Queue {
   color: string
 }
 
-const chartConfig = {
-  created: {
-    label: 'Created',
-    color: 'hsl(var(--chart-1))',
-  },
-  closed: {
-    label: 'Closed',
-    color: 'hsl(var(--chart-2))',
-  },
+// Status-based color mapping
+const getStatusColor = (status: string): string => {
+  const normalizedStatus = status.toLowerCase()
+  switch (normalizedStatus) {
+    case 'open':
+      return 'hsl(var(--chart-status-open))'
+    case 'closed':
+      return 'hsl(var(--chart-status-closed))'
+    case 'in_progress':
+    case 'in-progress':
+      return 'hsl(var(--chart-status-in-progress))'
+    case 'created':
+      return 'hsl(var(--chart-status-created))'
+    default:
+      // Fallback to a calculated color based on the status name
+      const hash = normalizedStatus.split('').reduce((a, b) => {
+        a = ((a << 5) - a) + b.charCodeAt(0)
+        return a & a
+      }, 0)
+      const hue = Math.abs(hash) % 360
+      return `hsl(${hue}, 70%, 50%)`
+  }
 }
 
 export function TicketVolumeChart() {
@@ -61,9 +80,29 @@ export function TicketVolumeChart() {
   const [queues, setQueues] = useState<Queue[]>([])
   const [customStartDate, setCustomStartDate] = useState<Date | undefined>()
   const [customEndDate, setCustomEndDate] = useState<Date | undefined>()
-  const [totalCreated, setTotalCreated] = useState(0)
-  const [totalClosed, setTotalClosed] = useState(0)
-  const [changePercentage, setChangePercentage] = useState(0)
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>(['Open', 'Closed'])
+  const [availableStatuses, setAvailableStatuses] = useState<string[]>([])
+  const { statuses } = useCache()
+
+  // Load saved preferences
+  useEffect(() => {
+    const savedStatuses = localStorage.getItem('ticketVolumeChart.selectedStatuses')
+    if (savedStatuses) {
+      try {
+        setSelectedStatuses(JSON.parse(savedStatuses))
+      } catch (error) {
+        console.error('Error loading saved statuses:', error)
+      }
+    }
+  }, [])
+
+  // Get available statuses from the cache
+  useEffect(() => {
+    if (statuses.length > 0) {
+      const statusNames = statuses.map(s => s.name)
+      setAvailableStatuses(['Created', ...statusNames])
+    }
+  }, [statuses])
 
   // Fetch available queues
   useEffect(() => {
@@ -84,6 +123,12 @@ export function TicketVolumeChart() {
   // Fetch chart data
   useEffect(() => {
     const fetchData = async () => {
+      if (selectedStatuses.length === 0) {
+        setData([])
+        setLoading(false)
+        return
+      }
+
       setLoading(true)
       try {
         const params = new URLSearchParams()
@@ -100,20 +145,12 @@ export function TicketVolumeChart() {
           params.append('queueId', selectedQueue)
         }
 
+        params.append('statuses', selectedStatuses.join(','))
+
         const response = await fetch(`/api/analytics/ticket-volume?${params}`)
         if (response.ok) {
           const chartData = await response.json()
           setData(chartData)
-          
-          // Calculate totals and change percentage
-          const created = chartData.reduce((sum: number, item: TicketVolumeData) => sum + item.created, 0)
-          const closed = chartData.reduce((sum: number, item: TicketVolumeData) => sum + item.closed, 0)
-          setTotalCreated(created)
-          setTotalClosed(closed)
-          
-          // Calculate change percentage (closed vs created)
-          const change = created > 0 ? ((closed - created) / created) * 100 : 0
-          setChangePercentage(change)
         }
       } catch (error) {
         console.error('Error fetching chart data:', error)
@@ -123,12 +160,29 @@ export function TicketVolumeChart() {
     }
 
     fetchData()
-  }, [timeRange, selectedQueue, customStartDate, customEndDate])
+  }, [timeRange, selectedQueue, customStartDate, customEndDate, selectedStatuses])
+
+  const handleStatusChange = (status: string, checked: boolean) => {
+    const newStatuses = checked
+      ? [...selectedStatuses, status]
+      : selectedStatuses.filter(s => s !== status)
+    
+    setSelectedStatuses(newStatuses)
+    
+    // Save preferences
+    localStorage.setItem('ticketVolumeChart.selectedStatuses', JSON.stringify(newStatuses))
+  }
 
   const handleExportCSV = () => {
+    if (data.length === 0) return
+
+    const headers = ['Date', ...selectedStatuses]
     const csvContent = [
-      ['Date', 'Created', 'Closed'],
-      ...data.map(item => [item.date, item.created.toString(), item.closed.toString()])
+      headers,
+      ...data.map(item => [
+        item.date,
+        ...selectedStatuses.map(status => item[status.toLowerCase()]?.toString() || '0')
+      ])
     ].map(row => row.join(',')).join('\n')
 
     const blob = new Blob([csvContent], { type: 'text/csv' })
@@ -160,13 +214,23 @@ export function TicketVolumeChart() {
     }
   }
 
+  // Generate chart config dynamically based on selected statuses
+  const chartConfig = selectedStatuses.reduce((config, status) => {
+    const normalizedStatus = status.toLowerCase()
+    config[normalizedStatus] = {
+      label: status,
+      color: getStatusColor(status),
+    }
+    return config
+  }, {} as Record<string, { label: string; color: string }>)
+
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Ticket Volume - Created vs. Closed</CardTitle>
+          <CardTitle>Ticket Volume Analytics</CardTitle>
           <CardDescription>
-            Comparing ticket creation and closure rates over the selected period
+            Compare ticket volumes across selected statuses over time
           </CardDescription>
         </div>
         <div className="flex flex-col gap-2 px-6 py-4 sm:px-8 sm:py-6">
@@ -198,6 +262,37 @@ export function TicketVolumeChart() {
                 ))}
               </SelectContent>
             </Select>
+            
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-60">
+                <div className="space-y-3">
+                  <h4 className="font-medium text-sm">Select Statuses to Compare</h4>
+                  <div className="space-y-2">
+                    {availableStatuses.map(status => (
+                      <div key={status} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={status}
+                          checked={selectedStatuses.includes(status)}
+                          onCheckedChange={(checked) => handleStatusChange(status, checked as boolean)}
+                        />
+                        <Label htmlFor={status} className="text-sm">
+                          {status}
+                        </Label>
+                        <div
+                          className="w-3 h-3 rounded-full ml-auto"
+                          style={{ backgroundColor: getStatusColor(status) }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
             
             <Button variant="outline" size="sm" onClick={handleExportCSV}>
               <Download className="h-4 w-4" />
@@ -241,13 +336,32 @@ export function TicketVolumeChart() {
                 bottom: 12,
               }}
             >
+              <defs>
+                {selectedStatuses.map(status => {
+                  const normalizedStatus = status.toLowerCase()
+                  return (
+                    <linearGradient key={status} id={`fill${status}`} x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor={getStatusColor(status)}
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={getStatusColor(status)}
+                        stopOpacity={0.1}
+                      />
+                    </linearGradient>
+                  )
+                })}
+              </defs>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="date"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                tickFormatter={(value) => value}
+                tickFormatter={(value) => value.slice(0, 6)}
               />
               <YAxis
                 tickLine={false}
@@ -255,49 +369,33 @@ export function TicketVolumeChart() {
                 tickMargin={8}
               />
               <ChartTooltip
+                cursor={false}
                 content={<ChartTooltipContent />}
               />
-              <Area
-                dataKey="created"
-                type="monotone"
-                fill="var(--color-created)"
-                fillOpacity={0.4}
-                stroke="var(--color-created)"
-                strokeWidth={2}
-              />
-              <Area
-                dataKey="closed"
-                type="monotone"
-                fill="var(--color-closed)"
-                fillOpacity={0.4}
-                stroke="var(--color-closed)"
-                strokeWidth={2}
-              />
+              {selectedStatuses.map(status => {
+                return (
+                  <Area
+                    key={status}
+                    dataKey={status.toLowerCase()}
+                    type="natural"
+                    fill={`url(#fill${status})`}
+                    fillOpacity={0.4}
+                    stroke={getStatusColor(status)}
+                    strokeWidth={2}
+                    stackId="a"
+                  />
+                )
+              })}
               <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>
           </ChartContainer>
         )}
       </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 leading-none font-medium">
-              {changePercentage >= 0 ? (
-                <span className="text-green-600">
-                  Closure rate increased by {changePercentage.toFixed(1)}%
-                </span>
-              ) : (
-                <span className="text-red-600">
-                  Closure rate decreased by {Math.abs(changePercentage).toFixed(1)}%
-                </span>
-              )}
-            </div>
-            <div className="text-muted-foreground flex items-center gap-2 leading-none">
-              {getDateRangeLabel()} • {totalCreated} created, {totalClosed} closed
-            </div>
-          </div>
+      <div className="px-6 pb-4">
+        <div className="text-sm text-muted-foreground">
+          {getDateRangeLabel()} • Comparing {selectedStatuses.join(', ')}
         </div>
-      </CardFooter>
+      </div>
     </Card>
   )
 }
