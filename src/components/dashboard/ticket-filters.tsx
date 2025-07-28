@@ -367,7 +367,7 @@ export default function TicketFilters() {
               )
             )}
           </ComboboxTrigger>
-          <ComboboxContent className="p-0 min-w-[180px]" align="start">
+          <ComboboxContent className="p-0 min-w-[180px]">
             <ComboboxInput 
               placeholder="Search users..." 
               className="w-full"
