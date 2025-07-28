@@ -38,6 +38,7 @@ import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
 import { DateTimePicker } from '@/components/ui/datetime-picker'
+import { useCache } from '@/lib/cache-context'
 import { normalizeDateToMidnight } from '@/lib/date-utils'
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from '@/components/ui/shadcn-io/dropzone'
 
@@ -60,10 +61,10 @@ interface CustomPriority {
 
 export function CreateTicketDialog() {
   const router = useRouter()
+  const { priorities } = useCache()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [open, setOpen] = useState(false)
   const [users, setUsers] = useState<User[]>([])
-  const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const [queues, setQueues] = useState<Array<{id: string, name: string, color: string, icon: string}>>([])
   const [priority, setPriority] = useState<string>('Medium')
   const [assignedTo, setAssignedTo] = useState<string>('')
@@ -97,28 +98,17 @@ export function CreateTicketDialog() {
   }
 
   useEffect(() => {
-    // Load users, priorities, and queues
+    // Load users and queues (priorities come from cache)
     const fetchData = async () => {
       try {
-        const [usersResponse, prioritiesResponse, queuesResponse] = await Promise.all([
+        const [usersResponse, queuesResponse] = await Promise.all([
           fetch('/api/users'),
-          fetch('/api/priorities'),
           fetch('/api/users/queues') // Get user's assigned queues + default queues
         ])
         
         if (usersResponse.ok) {
           const userData = await usersResponse.json()
           setUsers(userData)
-        }
-        
-        if (prioritiesResponse.ok) {
-          const priorityData = await prioritiesResponse.json()
-          setPriorities(priorityData)
-          // Set default priority to first priority or 'Medium'
-          if (priorityData.length > 0) {
-            const defaultPriority = priorityData.find((p: CustomPriority) => p.name === 'Medium') || priorityData[0]
-            setPriority(defaultPriority.name)
-          }
         }
 
         if (queuesResponse.ok) {
@@ -136,7 +126,19 @@ export function CreateTicketDialog() {
         console.error('Failed to fetch data:', error)
       }
     }
-    
+
+    fetchData()
+  }, [])
+
+  // Set default priority when priorities are available from cache
+  useEffect(() => {
+    if (priorities.length > 0 && priority === 'Medium') {
+      const defaultPriority = priorities.find((p) => p.name === 'Medium') || priorities[0]
+      setPriority(defaultPriority.name)
+    }
+  }, [priorities, priority])
+
+  useEffect(() => {
     if (open) {
       fetchData()
     }

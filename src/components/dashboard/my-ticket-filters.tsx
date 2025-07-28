@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Search } from 'lucide-react'
 import { getIconComponent } from '@/lib/icon-system'
+import { useCache } from '@/lib/cache-context'
 
 interface CustomStatus {
   id: string
@@ -38,8 +39,7 @@ interface Queue {
 export default function MyTicketFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [statuses, setStatuses] = useState<CustomStatus[]>([])
-  const [priorities, setPriorities] = useState<CustomPriority[]>([])
+  const { statuses, priorities } = useCache()
   const [queues, setQueues] = useState<Queue[]>([])
   
   // Get filter values from URL params first, then fallback to localStorage
@@ -60,25 +60,11 @@ export default function MyTicketFilters() {
   const currentQueue = getFilterValue('queue', 'ALL')
 
   useEffect(() => {
-    // Load custom statuses, priorities, and queues
+    // Load queues (statuses and priorities come from cache)
     const fetchData = async () => {
       try {
-        const [statusesResponse, prioritiesResponse, queuesResponse] = await Promise.all([
-          fetch('/api/statuses'),
-          fetch('/api/priorities'),
-          fetch('/api/users/queues') // Get user's assigned queues + default queues
-        ])
+        const queuesResponse = await fetch('/api/users/queues') // Get user's assigned queues + default queues
         
-        if (statusesResponse.ok) {
-          const statusData = await statusesResponse.json()
-          setStatuses(statusData)
-        }
-        
-        if (prioritiesResponse.ok) {
-          const priorityData = await prioritiesResponse.json()
-          setPriorities(priorityData)
-        }
-
         if (queuesResponse.ok) {
           const userQueueData = await queuesResponse.json()
           // Extract just the queue data from user queue assignments

@@ -114,7 +114,8 @@ interface TicketDetailsProps {
 
 // Removed - using unified icon system
 
-export default function TicketDetails({ ticket, users, currentUser }: TicketDetailsProps) {
+export default function TicketDetails({ ticket: initialTicket, users, currentUser }: TicketDetailsProps) {
+  const [ticket, setTicket] = useState(initialTicket)
   const [isLoading, setIsLoading] = useState(false)
   const [editingDueDate, setEditingDueDate] = useState(false)
   const [tempDueDate, setTempDueDate] = useState<Date | undefined>(undefined)
@@ -147,9 +148,12 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   
   const handleStatusChange = async (status: string) => {
     setIsLoading(true)
+    const previousStatus = ticket.status
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, status }))
+    
     try {
-      const previousStatus = ticket.status
-      
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
         headers: {
@@ -176,11 +180,15 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
           console.error('Failed to create status change comment:', commentError)
           // Don't fail the main request if comment creation fails
         }
-        
-        router.refresh()
+      } else {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, status: previousStatus }))
+        throw new Error('Failed to update status')
       }
     } catch (error) {
       console.error('Failed to update status:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, status: previousStatus }))
     } finally {
       setIsLoading(false)
     }
@@ -188,6 +196,11 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handlePriorityChange = async (priority: string) => {
     setIsLoading(true)
+    const previousPriority = ticket.priority
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, priority }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -197,11 +210,15 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         body: JSON.stringify({ priority }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, priority: previousPriority }))
+        throw new Error('Failed to update priority')
       }
     } catch (error) {
       console.error('Failed to update priority:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, priority: previousPriority }))
     } finally {
       setIsLoading(false)
     }
@@ -209,20 +226,33 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleQueueChange = async (queueId: string) => {
     setIsLoading(true)
+    const previousQueueId = ticket.queueId
+    const newQueueId = queueId === 'NONE' ? null : queueId
+    const newQueue = queueId === 'NONE' ? null : queues.find(q => q.id === queueId) || null
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, queueId: newQueueId, queue: newQueue }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ queueId: queueId === 'NONE' ? null : queueId }),
+        body: JSON.stringify({ queueId: newQueueId }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        // Revert optimistic update on error
+        const previousQueue = queues.find(q => q.id === previousQueueId) || null
+        setTicket(prev => ({ ...prev, queueId: previousQueueId, queue: previousQueue }))
+        throw new Error('Failed to update queue')
       }
     } catch (error) {
       console.error('Failed to update queue:', error)
+      // Revert optimistic update
+      const previousQueue = queues.find(q => q.id === previousQueueId) || null
+      setTicket(prev => ({ ...prev, queueId: previousQueueId, queue: previousQueue }))
     } finally {
       setIsLoading(false)
     }
@@ -230,6 +260,12 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleAssigneeChange = async (assignedToId: string) => {
     setIsLoading(true)
+    const previousAssignedTo = ticket.assignedTo
+    const newAssignedTo = assignedToId === '' ? null : users.find(u => u.id === assignedToId) || null
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, assignedTo: newAssignedTo }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -241,17 +277,27 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, assignedTo: previousAssignedTo }))
+        throw new Error('Failed to update assignee')
       }
     } catch (error) {
       console.error('Failed to update assignee:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, assignedTo: previousAssignedTo }))
     } finally {
       setIsLoading(false)
     }
   }
   
   const handleRequesterUpdate = async (name: string, email: string) => {
+    const previousFromName = ticket.fromName
+    const previousFromEmail = ticket.fromEmail
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, fromName: name, fromEmail: email }))
+    
     const response = await fetch(`/api/tickets/${ticket.id}`, {
       method: 'PATCH',
       headers: {
@@ -263,15 +309,21 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
       }),
     })
 
-    if (response.ok) {
-      router.refresh()
-    } else {
+    if (!response.ok) {
+      // Revert optimistic update on error
+      setTicket(prev => ({ ...prev, fromName: previousFromName, fromEmail: previousFromEmail }))
       throw new Error('Failed to update requester')
     }
   }
 
   const handleDueDateChange = async (date: Date | undefined) => {
     setIsLoading(true)
+    const previousDueDate = ticket.dueDate
+    const normalizedDate = date ? normalizeDateToMidnight(date) : null
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, dueDate: normalizedDate }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -279,17 +331,19 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          dueDate: date ? normalizeDateToMidnight(date)?.toISOString() : null
+          dueDate: normalizedDate?.toISOString() || null
         }),
       })
 
-      if (response.ok) {
-        router.refresh()
-      } else {
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, dueDate: previousDueDate }))
         throw new Error('Failed to update due date')
       }
     } catch (error) {
       console.error('Failed to update due date:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, dueDate: previousDueDate }))
     } finally {
       setIsLoading(false)
     }
@@ -312,6 +366,11 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleReminderDateChange = async (date: Date | undefined) => {
     setIsLoading(true)
+    const previousReminderDate = ticket.reminderDate
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, reminderDate: date || null }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -323,13 +382,15 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         }),
       })
 
-      if (response.ok) {
-        router.refresh()
-      } else {
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, reminderDate: previousReminderDate }))
         throw new Error('Failed to update reminder date')
       }
     } catch (error) {
       console.error('Failed to update reminder date:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, reminderDate: previousReminderDate }))
     } finally {
       setIsLoading(false)
     }

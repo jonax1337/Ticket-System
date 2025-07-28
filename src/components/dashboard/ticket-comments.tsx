@@ -15,6 +15,7 @@ import CommentContent from './comment-content'
 import { CommentToolbar } from './comment-toolbar'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { CustomerAvatar } from '@/components/ui/customer-avatar'
+import { useCache } from '@/lib/cache-context'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -92,12 +93,12 @@ interface TicketCommentsProps {
 
 export default function TicketComments({ ticket, currentUser }: TicketCommentsProps) {
   const router = useRouter()
+  const { statuses } = useCache()
   const [newComment, setNewComment] = useState('')
   const [commentType, setCommentType] = useState<'internal' | 'external'>('internal')
   const [isLoading, setIsLoading] = useState(false)
   const [nextStatus, setNextStatus] = useState<string>(ticket.status)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
-  const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [users, setUsers] = useState<{ id: string; name: string; email: string }[]>([])
   const [expandedEmailHistory, setExpandedEmailHistory] = useState<{[key: string]: boolean}>({})
   const [selectedParticipants, setSelectedParticipants] = useState<string[]>([]) // Email addresses
@@ -105,19 +106,13 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
   const editorRef = useRef<CommentEditorRef>(null)
 
   useEffect(() => {
-    // Load custom statuses, users, and participants
+    // Load users and participants (statuses come from cache)
     const fetchData = async () => {
       try {
-        const [statusResponse, usersResponse, participantsResponse] = await Promise.all([
-          fetch('/api/statuses'),
+        const [usersResponse, participantsResponse] = await Promise.all([
           fetch('/api/users'),
           fetch(`/api/tickets/${ticket.id}/participants`)
         ])
-        
-        if (statusResponse.ok) {
-          const statusData = await statusResponse.json()
-          setStatuses(statusData)
-        }
         
         if (usersResponse.ok) {
           const userData = await usersResponse.json()
