@@ -789,14 +789,14 @@ export default function QueueManager() {
                                           disabled={isDefault}
                                         >
                                           <div className="flex items-center gap-2 flex-1">
-                                            {isAlreadyAssigned && (
+                                            {(isAlreadyAssigned || isDefault) && (
                                               <Check className="h-4 w-4 text-primary" />
                                             )}
                                             <div style={{ color: queue.color }}>
                                               <IconComponent className="h-4 w-4" />
                                             </div>
                                             <div className="flex-1">
-                                              <span style={{ color: queue.color }}>{queue.name}</span>
+                                              <span>{queue.name}</span>
                                             </div>
                                             {isDefault && (
                                               <Badge variant="outline" className="text-xs bg-slate-100 text-slate-700 border-slate-200">
