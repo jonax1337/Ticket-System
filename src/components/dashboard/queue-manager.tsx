@@ -6,11 +6,24 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/components/ui/command'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Trash2, Edit, Plus, Save, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw, Search, Shield, User as UserIcon } from 'lucide-react'
+import { Trash2, Edit, Plus, Save, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw, Search, Shield, User as UserIcon, Check, ChevronDown, UserCheck } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -72,6 +85,16 @@ const ICON_OPTIONS = [
   { value: 'Settings', label: 'Settings', Icon: Settings },
 ]
 
+const roleColors = {
+  ADMIN: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
+  SUPPORTER: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800',
+}
+
+const roleIcons = {
+  ADMIN: Shield,
+  SUPPORTER: UserCheck,
+}
+
 const COLOR_OPTIONS = [
   { value: '#2563eb', label: 'Blue' },
   { value: '#dc2626', label: 'Red' },
@@ -89,6 +112,7 @@ export default function QueueManager() {
   const [userQueues, setUserQueues] = useState<UserQueue[]>([])
   const [loading, setLoading] = useState(true)
   const [editingQueue, setEditingQueue] = useState<Queue | null>(null)
+  const [deletingQueue, setDeletingQueue] = useState<Queue | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [formData, setFormData] = useState({
@@ -231,18 +255,17 @@ export default function QueueManager() {
     }
   }
 
-  const handleDeleteQueue = async (queueId: string) => {
-    if (!confirm('Are you sure you want to delete this queue? All tickets in this queue will be moved to "No Queue".')) {
-      return
-    }
+  const handleDeleteQueue = async () => {
+    if (!deletingQueue) return
 
     try {
-      const response = await fetch(`/api/queues/${queueId}`, {
+      const response = await fetch(`/api/queues/${deletingQueue.id}`, {
         method: 'DELETE',
       })
 
       if (response.ok) {
         toast.success('Queue deleted successfully')
+        setDeletingQueue(null)
         fetchData()
       } else {
         const error = await response.json()
@@ -280,6 +303,8 @@ export default function QueueManager() {
   }
 
   const handleAssignUserToQueue = async (userId: string, queueId: string) => {
+    if (!queueId) return
+    
     try {
       const response = await fetch('/api/users/queues', {
         method: 'POST',
@@ -398,14 +423,48 @@ export default function QueueManager() {
             >
               <Edit className="h-4 w-4" />
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleDeleteQueue(queue.id)}
-              disabled={queue._count.tickets > 0}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  disabled={queue.isDefault}
+                  className={queue.isDefault ? "opacity-50 cursor-not-allowed" : ""}
+                  title={queue.isDefault ? "Cannot delete default queue" : "Delete queue"}
+                  onClick={(e) => {
+                    if (!queue.isDefault) {
+                      setDeletingQueue(queue)
+                    }
+                  }}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete Queue</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to delete the queue <strong>"{queue.name}"</strong>?
+                    {queue._count.tickets > 0 && (
+                      <><br /><br />This queue contains <strong>{queue._count.tickets}</strong> ticket{queue._count.tickets !== 1 ? 's' : ''}. All tickets will be moved to "No Queue".</>
+                    )}
+                    {queue._count.userQueues > 0 && (
+                      <><br /><br /><strong>{queue._count.userQueues}</strong> user{queue._count.userQueues !== 1 ? 's are' : ' is'} assigned to this queue and will lose access.</>
+                    )}
+                    <br /><br />This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel onClick={() => setDeletingQueue(null)}>Cancel</AlertDialogCancel>
+                  <AlertDialogAction 
+                    onClick={handleDeleteQueue}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  >
+                    Delete Queue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </TableCell>
       </TableRow>
@@ -660,15 +719,16 @@ export default function QueueManager() {
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
                             <h4 className="font-medium text-sm truncate">{user.name}</h4>
-                            <Badge 
-                              variant={user.role === 'ADMIN' ? 'destructive' : 'secondary'}
-                              className="text-xs shrink-0"
-                            >
-                              {user.role === 'ADMIN' ? (
-                                <><Shield className="h-3 w-3 mr-1" />Admin</>
-                              ) : (
-                                <><UserIcon className="h-3 w-3 mr-1" />Supporter</>
-                              )}
+                            <Badge variant="outline" className={`text-xs shrink-0 ${roleColors[user.role as keyof typeof roleColors]}`}>
+                              {(() => {
+                                const RoleIcon = roleIcons[user.role as keyof typeof roleIcons]
+                                return (
+                                  <>
+                                    <RoleIcon className="h-3 w-3 mr-1" />
+                                    {user.role}
+                                  </>
+                                )
+                              })()}
                             </Badge>
                           </div>
                           <p className="text-xs text-muted-foreground truncate">{user.email}</p>
@@ -704,32 +764,63 @@ export default function QueueManager() {
                       </div>
                       
                       <div className="shrink-0 ml-2">
-                        <Select onValueChange={(queueId) => handleAssignUserToQueue(user.id, queueId)}>
-                          <SelectTrigger className="w-auto min-w-[100px] h-8 text-xs">
-                            <SelectValue placeholder="Add queue" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {availableQueues.map((queue) => {
-                              const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
-                              const isAlreadyAssigned = assignedQueues.some(aq => aq.queueId === queue.id)
-                              const isDefault = queue.isDefault
-                              const disabled = isAlreadyAssigned || isDefault
-                              
-                              return (
-                                <SelectItem key={queue.id} value={queue.id} disabled={disabled}>
-                                  <div className="flex items-center gap-2">
-                                    <IconComponent className="h-3 w-3" style={{ color: queue.color }} />
-                                    <span className="text-xs">
-                                      {queue.name}
-                                      {isAlreadyAssigned && !isDefault ? ' (assigned)' : ''}
-                                      {isDefault ? ' (default - auto-assigned)' : ''}
-                                    </span>
-                                  </div>
-                                </SelectItem>
-                              )
-                            })}
-                          </SelectContent>
-                        </Select>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              className="w-auto min-w-[100px] justify-between text-left font-normal"
+                            >
+                              Add queue
+                              <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Command>
+                              <CommandEmpty>No queues available.</CommandEmpty>
+                              <CommandList>
+                                <CommandGroup>
+                                  {availableQueues.map((queue) => {
+                                    const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
+                                    const isAlreadyAssigned = assignedQueues.some(aq => aq.queueId === queue.id)
+                                    const isDefault = queue.isDefault
+                                    
+                                    return (
+                                      <CommandItem
+                                        key={queue.id}
+                                        onSelect={() => {
+                                          if (isDefault) return // Can't toggle default queues
+                                          
+                                          if (isAlreadyAssigned) {
+                                            handleRemoveUserFromQueue(user.id, queue.id)
+                                          } else {
+                                            handleAssignUserToQueue(user.id, queue.id)
+                                          }
+                                        }}
+                                        disabled={isDefault}
+                                      >
+                                        <div className="flex items-center gap-2 flex-1">
+                                          {isAlreadyAssigned && (
+                                            <Check className="h-4 w-4 text-primary" />
+                                          )}
+                                          <IconComponent className="h-4 w-4" style={{ color: queue.color }} />
+                                          <div className="flex-1">
+                                            <span>{queue.name}</span>
+                                          </div>
+                                          {isDefault && (
+                                            <Badge variant="outline" className="text-xs bg-slate-100 text-slate-700 border-slate-200">
+                                              Default
+                                            </Badge>
+                                          )}
+                                        </div>
+                                      </CommandItem>
+                                    )
+                                  })}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
                       </div>
                     </div>
                   </div>
