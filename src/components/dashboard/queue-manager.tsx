@@ -9,10 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Trash2, Edit, Plus, Save, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw } from 'lucide-react'
+import { Trash2, Edit, Plus, Save, X, Inbox, Folder, Circle, Users, Settings, GripVertical, RefreshCw, Search, Shield, User as UserIcon } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DndContext,
   closestCenter,
@@ -52,6 +53,7 @@ interface User {
   name: string
   email: string
   role: string
+  avatarUrl?: string
 }
 
 interface UserQueue {
@@ -88,6 +90,7 @@ export default function QueueManager() {
   const [loading, setLoading] = useState(true)
   const [editingQueue, setEditingQueue] = useState<Queue | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -271,7 +274,7 @@ export default function QueueManager() {
       color: '#2563eb',
       icon: 'Inbox',
       isDefault: false,
-      order: 0
+      order: queues.length + 1 // New queues go to the bottom
     })
     setEditingQueue(null)
   }
@@ -286,7 +289,13 @@ export default function QueueManager() {
 
       if (response.ok) {
         toast.success('User assigned to queue')
-        fetchData()
+        // Update state without full refresh
+        const newUserQueue = await response.json()
+        // We need to add the user object to the userQueue for our state
+        const user = users.find(u => u.id === userId)
+        if (user) {
+          setUserQueues(prev => [...prev, { ...newUserQueue, user }])
+        }
       } else {
         const error = await response.json()
         toast.error(error.error || 'Failed to assign user to queue')
@@ -305,7 +314,8 @@ export default function QueueManager() {
 
       if (response.ok) {
         toast.success('User removed from queue')
-        fetchData()
+        // Update state without full refresh
+        setUserQueues(prev => prev.filter(uq => !(uq.userId === userId && uq.queueId === queueId)))
       } else {
         const error = await response.json()
         toast.error(error.error || 'Failed to remove user from queue')
@@ -323,6 +333,12 @@ export default function QueueManager() {
   const getQueueUsers = (queueId: string) => {
     return userQueues.filter(uq => uq.queueId === queueId)
   }
+
+  // Filter users based on search term
+  const filteredUsers = users.filter(user => 
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   // Sortable Queue Row Component
   const SortableQueueRow = ({ queue }: { queue: Queue }) => {
@@ -537,16 +553,6 @@ export default function QueueManager() {
                     />
                     <Label htmlFor="isDefault">Set as default queue</Label>
                   </div>
-                  
-                  <div>
-                    <Label htmlFor="order">Display Order</Label>
-                    <Input
-                      id="order"
-                      type="number"
-                      value={formData.order}
-                      onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                    />
-                  </div>
                 </div>
                 
                 <DialogFooter>
@@ -623,66 +629,108 @@ export default function QueueManager() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            {users.map((user) => {
-              const assignedQueues = getUserQueues(user.id)
-              return (
-                <div key={user.id} className="border rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div>
-                      <h4 className="font-medium">{user.name}</h4>
-                      <p className="text-sm text-muted-foreground">{user.email}</p>
-                    </div>
-                    <Badge variant={user.role === 'ADMIN' ? 'default' : 'secondary'}>
-                      {user.role}
-                    </Badge>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">Assigned Queues:</Label>
-                    <div className="flex flex-wrap gap-2">
-                      {assignedQueues.map((userQueue) => (
-                        <Badge key={userQueue.id} variant="outline" className="flex items-center gap-1">
-                          {userQueue.queue.name}
-                          <button
-                            onClick={() => handleRemoveUserFromQueue(user.id, userQueue.queueId)}
-                            className="ml-1 hover:bg-red-100 rounded"
-                          >
-                            <X className="h-3 w-3" />
-                          </button>
-                        </Badge>
-                      ))}
-                      {assignedQueues.length === 0 && (
-                        <span className="text-sm text-muted-foreground">No queues assigned</span>
-                      )}
+          <div className="space-y-4">
+            {/* Search bar */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Search users..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            
+            {/* User list */}
+            <div className="space-y-3">
+              {filteredUsers.map((user) => {
+                const assignedQueues = getUserQueues(user.id)
+                const availableQueues = queues.filter(queue => !assignedQueues.some(aq => aq.queueId === queue.id))
+                
+                return (
+                  <div key={user.id} className="border rounded-lg p-3">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage src={user.avatarUrl} alt={user.name} />
+                          <AvatarFallback>
+                            {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h4 className="font-medium text-sm">{user.name}</h4>
+                          <p className="text-xs text-muted-foreground">{user.email}</p>
+                        </div>
+                      </div>
+                      <Badge 
+                        variant={user.role === 'ADMIN' ? 'destructive' : 'secondary'}
+                        className="text-xs"
+                      >
+                        {user.role === 'ADMIN' ? (
+                          <><Shield className="h-3 w-3 mr-1" />Admin</>
+                        ) : (
+                          <><UserIcon className="h-3 w-3 mr-1" />Supporter</>
+                        )}
+                      </Badge>
                     </div>
                     
-                    <div className="flex items-center gap-2 mt-2">
-                      <Select onValueChange={(queueId) => handleAssignUserToQueue(user.id, queueId)}>
-                        <SelectTrigger className="w-48">
-                          <SelectValue placeholder="Assign to queue..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {queues
-                            .filter(queue => !assignedQueues.some(aq => aq.queueId === queue.id))
-                            .map((queue) => {
+                    <div className="space-y-2">
+                      <Label className="text-xs font-medium">Assigned Queues:</Label>
+                      <div className="flex flex-wrap gap-1">
+                        {assignedQueues.map((userQueue) => (
+                          <Badge key={userQueue.id} variant="outline" className="text-xs flex items-center gap-1 py-1">
+                            {userQueue.queue.name}
+                            <button
+                              onClick={() => handleRemoveUserFromQueue(user.id, userQueue.queueId)}
+                              className="ml-1 hover:bg-red-100 rounded"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </Badge>
+                        ))}
+                        {assignedQueues.length === 0 && (
+                          <span className="text-xs text-muted-foreground">No queues assigned</span>
+                        )}
+                      </div>
+                      
+                      <div className="flex items-center gap-2 mt-2">
+                        <Select onValueChange={(queueId) => handleAssignUserToQueue(user.id, queueId)}>
+                          <SelectTrigger className="w-40 h-8 text-xs">
+                            <SelectValue placeholder="Add to queue..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {availableQueues.map((queue) => {
                               const IconComponent = ICON_OPTIONS.find(option => option.value === queue.icon)?.Icon || Inbox
                               return (
                                 <SelectItem key={queue.id} value={queue.id}>
                                   <div className="flex items-center gap-2">
-                                    <IconComponent className="h-4 w-4" style={{ color: queue.color }} />
-                                    {queue.name}
+                                    <IconComponent className="h-3 w-3" style={{ color: queue.color }} />
+                                    <span className="text-xs">{queue.name}</span>
                                   </div>
                                 </SelectItem>
                               )
                             })}
-                        </SelectContent>
-                      </Select>
+                            {availableQueues.length === 0 && (
+                              <SelectItem value="" disabled>
+                                All queues assigned
+                              </SelectItem>
+                            )}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                   </div>
+                )
+              })}
+              
+              {filteredUsers.length === 0 && (
+                <div className="text-center py-8">
+                  <UserIcon className="h-12 w-12 text-muted-foreground/50 mx-auto mb-3" />
+                  <h4 className="text-sm font-medium text-muted-foreground mb-1">No users found</h4>
+                  <p className="text-xs text-muted-foreground">Try adjusting your search terms</p>
                 </div>
-              )
-            })}
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>

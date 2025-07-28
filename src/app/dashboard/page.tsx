@@ -54,10 +54,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     ...(queue && { queueId: queue }),
     // Add queue access control for non-admin users
     ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' && {
-      OR: [
-        { queueId: { in: userQueueIds } },
-        { queueId: null } // Allow tickets with no queue for now (can be restricted if needed)
-      ]
+      queueId: { in: userQueueIds } // Remove null queue access for non-admin users
     }),
     // If user has no queue access, show nothing
     ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access' && {
@@ -130,12 +127,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
   // Calculate stats with queue access control
   const statsWhere = session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' 
-    ? {
-        OR: [
-          { queueId: { in: userQueueIds } },
-          { queueId: null }
-        ]
-      }
+    ? { queueId: { in: userQueueIds } } // Remove null queue access from stats too
     : session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access'
     ? { id: 'no-access' }
     : {}

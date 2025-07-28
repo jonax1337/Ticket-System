@@ -51,10 +51,7 @@ async function getMyTickets(userId: string, searchParams: SearchParams) {
     assignedToId: userId, // Only tickets assigned to current user
     // Add queue access control for non-admin users
     ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' && {
-      OR: [
-        { queueId: { in: userQueueIds } },
-        { queueId: null } // Allow tickets with no queue for now
-      ]
+      queueId: { in: userQueueIds } // Remove null queue access for non-admin users
     }),
     // If user has no queue access, show nothing
     ...(session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access' && {
