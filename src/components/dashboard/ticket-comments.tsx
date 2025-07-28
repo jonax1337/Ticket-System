@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button'
 import { CommentEditor, CommentEditorRef } from '@/components/editor/comment-editor'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { Send, Mail, MessageSquare, Trash2, ArrowRight, AlertCircle, CheckCircle2, Clock, Timer, AlertTriangle, Zap, TrendingUp, Paperclip, X, Download, Eye, Image as ImageIcon, ChevronDown, ChevronRight, Users, Check } from 'lucide-react'
+import { Send, Mail, MessageSquare, Trash2, ArrowRight, Paperclip, X, Download, Eye, Image as ImageIcon, ChevronDown, ChevronRight, Users, Check } from 'lucide-react'
+import { getIconComponent } from '@/lib/icon-system'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import CommentContent from './comment-content'
@@ -33,19 +34,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-    AlertCircle,
-    ArrowRight,
-    CheckCircle2,
-    Clock,
-    Timer,
-    AlertTriangle,
-    Zap,
-    TrendingUp
-  }
-  return iconMap[iconName] || AlertCircle
-}
 
 interface Comment {
   id: string
