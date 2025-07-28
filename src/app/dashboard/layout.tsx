@@ -63,7 +63,7 @@ export default async function DashboardLayout({
               logoUrl={settings.logoUrl}
               hideAppName={settings.hideAppName}
             />
-            <main className="container mx-auto py-6">
+            <main className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
               {children}
             </main>
           </div>

@@ -67,24 +67,24 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-4">
           {/* Left: Logo/Brand + Navigation */}
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4 lg:gap-8 min-w-0">
+            <div className="flex items-center gap-2 lg:gap-3 min-w-0">
               {logoUrl && (
                 <img 
                   src={logoUrl} 
                   alt="Logo" 
-                  className="h-10 w-auto object-contain"
+                  className="h-8 lg:h-10 w-auto object-contain flex-shrink-0"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
                   }}
                 />
               )}
-              <div>
+              <div className="min-w-0">
                 {!hideAppName && (
-                  <h1 className="text-2xl font-bold">{appName}</h1>
+                  <h1 className="text-lg lg:text-2xl font-bold truncate">{appName}</h1>
                 )}
                 {slogan && !hideAppName && (
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs lg:text-sm text-muted-foreground hidden sm:block sm:truncate">
                     {slogan}
                   </p>
                 )}
@@ -92,30 +92,30 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
             </div>
 
             {/* Navigation - left aligned after logo */}
-            <nav className="hidden md:flex gap-4">
+            <nav className="hidden md:flex gap-2 lg:gap-4">
               <Link
                 href="/dashboard"
                 className={cn(
-                  "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                  "flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium rounded-md transition-colors",
                   pathname === '/dashboard'
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
                 <LayoutDashboard className="h-4 w-4" />
-                Dashboard
+                <span className="hidden lg:inline">Dashboard</span>
               </Link>
               <Link
                 href="/dashboard/my-tickets"
                 className={cn(
-                  "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                  "flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium rounded-md transition-colors",
                   pathname === '/dashboard/my-tickets'
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
                 <Briefcase className="h-4 w-4" />
-                My Tickets
+                <span className="hidden lg:inline">My Tickets</span>
               </Link>
 
               {user.role === 'ADMIN' && (
@@ -123,26 +123,26 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                   <Link
                     href="/dashboard/users"
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      "flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium rounded-md transition-colors",
                       pathname === '/dashboard/users'
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
                   >
                     <Users className="h-4 w-4" />
-                    Users
+                    <span className="hidden lg:inline">Users</span>
                   </Link>
                   <Link
                     href="/dashboard/admin"
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      "flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium rounded-md transition-colors",
                       pathname === '/dashboard/admin'
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
                   >
                     <Settings className="h-4 w-4" />
-                    Admin
+                    <span className="hidden lg:inline">Admin</span>
                   </Link>
                 </>
               )}
