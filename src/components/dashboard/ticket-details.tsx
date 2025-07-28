@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell, Inbox, Folder, Circle } from 'lucide-react'
+import { getIconComponent } from '@/lib/icon-system'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
@@ -111,22 +112,7 @@ interface TicketDetailsProps {
   }
 }
 
-const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-    AlertCircle,
-    ArrowRight,
-    CheckCircle2,
-    Clock,
-    Timer,
-    AlertTriangle,
-    Zap,
-    TrendingUp,
-    Inbox,
-    Folder,
-    Circle
-  }
-  return iconMap[iconName] || AlertCircle
-}
+// Removed - using unified icon system
 
 export default function TicketDetails({ ticket, users, currentUser }: TicketDetailsProps) {
   const [isLoading, setIsLoading] = useState(false)

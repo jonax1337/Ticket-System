@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Plus, Edit, Trash2, AlertCircle, ArrowRight, CheckCircle2, Clock, Timer, AlertTriangle, GripVertical, RefreshCw } from 'lucide-react'
+import { IconPicker } from '@/components/ui/enhanced-icon-picker'
+import { getIconComponent } from '@/lib/icon-system'
 import { toast } from 'sonner'
 import {
   AlertDialog,
@@ -53,14 +55,7 @@ interface CustomStatus {
   updatedAt: Date
 }
 
-const iconOptions = [
-  { name: 'Alert Circle', value: 'AlertCircle', component: AlertCircle },
-  { name: 'Arrow Right', value: 'ArrowRight', component: ArrowRight },
-  { name: 'Check Circle', value: 'CheckCircle2', component: CheckCircle2 },
-  { name: 'Clock', value: 'Clock', component: Clock },
-  { name: 'Timer', value: 'Timer', component: Timer },
-  { name: 'Alert Triangle', value: 'AlertTriangle', component: AlertTriangle },
-]
+// Removed - using enhanced icon picker with all available icons from icon-system
 
 const colorOptions = [
   { name: 'Gray', value: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800' },
@@ -231,11 +226,6 @@ export default function CustomStatusManager() {
     }
   }
 
-  const getIconComponent = (iconName: string) => {
-    const icon = iconOptions.find(opt => opt.value === iconName)
-    return icon ? icon.component : AlertCircle
-  }
-
   // Sortable Item Component
   const SortableStatusRow = ({ status }: { status: CustomStatus }) => {
     const {
@@ -372,24 +362,12 @@ export default function CustomStatusManager() {
                   
                   <div>
                     <Label htmlFor="icon">Icon</Label>
-                    <Select value={formData.icon} onValueChange={(value) => setFormData({ ...formData, icon: value })}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {iconOptions.map((option) => {
-                          const IconComponent = option.component
-                          return (
-                            <SelectItem key={option.value} value={option.value}>
-                              <div className="flex items-center gap-2">
-                                <IconComponent className="h-4 w-4" />
-                                {option.name}
-                              </div>
-                            </SelectItem>
-                          )
-                        })}
-                      </SelectContent>
-                    </Select>
+                    <IconPicker
+                      value={formData.icon}
+                      onValueChange={(value) => setFormData({ ...formData, icon: value })}
+                      placeholder="Select an icon"
+                      showCategories={true}
+                    />
                   </div>
 
                   <div>
@@ -415,7 +393,10 @@ export default function CustomStatusManager() {
                   <div className="flex items-center gap-2">
                     <Label>Preview:</Label>
                     <Badge variant="outline" className={formData.color}>
-                      {React.createElement(getIconComponent(formData.icon), { className: "h-3 w-3 mr-1" })}
+                      {(() => {
+                        const IconComponent = getIconComponent(formData.icon)
+                        return <IconComponent className="h-3 w-3 mr-1" />
+                      })()}
                       {formData.name || 'Status Name'}
                     </Badge>
                   </div>

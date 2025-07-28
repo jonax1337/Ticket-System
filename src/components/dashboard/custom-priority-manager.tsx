@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Plus, Edit, Trash2, Clock, Timer, AlertCircle, AlertTriangle, Zap, TrendingUp, GripVertical, RefreshCw } from 'lucide-react'
+import { IconPicker } from '@/components/ui/enhanced-icon-picker'
+import { getIconComponent } from '@/lib/icon-system'
 import { toast } from 'sonner'
 import {
   AlertDialog,
@@ -53,14 +55,7 @@ interface CustomPriority {
   updatedAt: Date
 }
 
-const iconOptions = [
-  { name: 'Clock', value: 'Clock', component: Clock },
-  { name: 'Timer', value: 'Timer', component: Timer },
-  { name: 'Alert Circle', value: 'AlertCircle', component: AlertCircle },
-  { name: 'Alert Triangle', value: 'AlertTriangle', component: AlertTriangle },
-  { name: 'Zap', value: 'Zap', component: Zap },
-  { name: 'Trending Up', value: 'TrendingUp', component: TrendingUp },
-]
+// Removed - using enhanced icon picker with all available icons from icon-system
 
 const colorOptions = [
   { name: 'Gray', value: 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/30 dark:text-gray-400 dark:border-gray-800' },
@@ -231,10 +226,7 @@ export default function CustomPriorityManager() {
     }
   }
 
-  const getIconComponent = (iconName: string) => {
-    const icon = iconOptions.find(opt => opt.value === iconName)
-    return icon ? icon.component : Clock
-  }
+  // Use the icon system instead
 
   // Sortable Item Component
   const SortablePriorityRow = ({ priority }: { priority: CustomPriority }) => {
@@ -372,24 +364,12 @@ export default function CustomPriorityManager() {
                   
                   <div>
                     <Label htmlFor="icon">Icon</Label>
-                    <Select value={formData.icon} onValueChange={(value) => setFormData({ ...formData, icon: value })}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {iconOptions.map((option) => {
-                          const IconComponent = option.component
-                          return (
-                            <SelectItem key={option.value} value={option.value}>
-                              <div className="flex items-center gap-2">
-                                <IconComponent className="h-4 w-4" />
-                                {option.name}
-                              </div>
-                            </SelectItem>
-                          )
-                        })}
-                      </SelectContent>
-                    </Select>
+                    <IconPicker
+                      value={formData.icon}
+                      onValueChange={(value) => setFormData({ ...formData, icon: value })}
+                      placeholder="Select an icon"
+                      showCategories={true}
+                    />
                   </div>
 
                   <div>
@@ -415,7 +395,10 @@ export default function CustomPriorityManager() {
                   <div className="flex items-center gap-2">
                     <Label>Preview:</Label>
                     <Badge variant="outline" className={formData.color}>
-                      {React.createElement(getIconComponent(formData.icon), { className: "h-3 w-3 mr-1" })}
+                      {(() => {
+                        const IconComponent = getIconComponent(formData.icon)
+                        return <IconComponent className="h-3 w-3 mr-1" />
+                      })()}
                       {formData.name || 'Priority Name'}
                     </Badge>
                   </div>

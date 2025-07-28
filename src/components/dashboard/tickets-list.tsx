@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
 import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2, Calendar, RefreshCw, Inbox, Folder, Circle } from 'lucide-react'
+import { getIconComponent } from '@/lib/icon-system'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -57,22 +58,7 @@ interface TicketsListProps {
 type SortField = 'id' | 'subject' | 'status' | 'priority' | 'fromName' | 'assignedTo' | 'createdAt' | 'comments'
 type SortDirection = 'asc' | 'desc'
 
-const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-    AlertCircle,
-    ArrowRight,
-    CheckCircle2,
-    Clock,
-    Timer,
-    AlertTriangle,
-    Zap,
-    TrendingUp,
-    Inbox,
-    Folder,
-    Circle
-  }
-  return iconMap[iconName] || AlertCircle
-}
+// Removed - using unified icon system
 
 export default function TicketsList({ tickets, isAdmin = false }: TicketsListProps) {
   const router = useRouter()
