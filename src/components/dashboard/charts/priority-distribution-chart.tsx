@@ -59,7 +59,7 @@ const chartConfig = {
 export function PriorityDistributionChart() {
   const [data, setData] = useState<PriorityDistributionData[]>([])
   const [loading, setLoading] = useState(true)
-  const [selectedQueue, setSelectedQueue] = useState<string>('')
+  const [selectedQueue, setSelectedQueue] = useState<string>('all')
   const [queues, setQueues] = useState<Queue[]>([])
 
   // Fetch available queues
@@ -85,7 +85,7 @@ export function PriorityDistributionChart() {
       try {
         const params = new URLSearchParams()
         
-        if (selectedQueue) {
+        if (selectedQueue && selectedQueue !== 'all') {
           params.append('queueId', selectedQueue)
         }
 
@@ -152,7 +152,7 @@ export function PriorityDistributionChart() {
                 <SelectValue placeholder="All queues" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All queues</SelectItem>
+                <SelectItem value="all">All queues</SelectItem>
                 {queues.map(queue => (
                   <SelectItem key={queue.id} value={queue.id}>
                     {queue.name}

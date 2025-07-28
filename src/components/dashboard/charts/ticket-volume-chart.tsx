@@ -57,7 +57,7 @@ export function TicketVolumeChart() {
   const [data, setData] = useState<TicketVolumeData[]>([])
   const [loading, setLoading] = useState(true)
   const [timeRange, setTimeRange] = useState('7d')
-  const [selectedQueue, setSelectedQueue] = useState<string>('')
+  const [selectedQueue, setSelectedQueue] = useState<string>('all')
   const [queues, setQueues] = useState<Queue[]>([])
   const [customStartDate, setCustomStartDate] = useState<Date | undefined>()
   const [customEndDate, setCustomEndDate] = useState<Date | undefined>()
@@ -96,7 +96,7 @@ export function TicketVolumeChart() {
           params.append('timeRange', timeRange)
         }
         
-        if (selectedQueue) {
+        if (selectedQueue && selectedQueue !== 'all') {
           params.append('queueId', selectedQueue)
         }
 
@@ -190,7 +190,7 @@ export function TicketVolumeChart() {
                 <SelectValue placeholder="All queues" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All queues</SelectItem>
+                <SelectItem value="all">All queues</SelectItem>
                 {queues.map(queue => (
                   <SelectItem key={queue.id} value={queue.id}>
                     {queue.name}
