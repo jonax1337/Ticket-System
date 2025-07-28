@@ -79,7 +79,6 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
   const [deletingUser, setDeletingUser] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [roleFilter, setRoleFilter] = useState<string>('ALL')
-  const [activityFilter, setActivityFilter] = useState<string>('ALL')
   const router = useRouter()
 
   // Filter and search users
@@ -91,13 +90,9 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
       
       const matchesRole = roleFilter === 'ALL' || user.role === roleFilter
       
-      const matchesActivity = activityFilter === 'ALL' || 
-        (activityFilter === 'ACTIVE' && (user._count.assignedTickets > 0 || user._count.comments > 0)) ||
-        (activityFilter === 'INACTIVE' && user._count.assignedTickets === 0 && user._count.comments === 0)
-      
-      return matchesSearch && matchesRole && matchesActivity
+      return matchesSearch && matchesRole
     })
-  }, [users, searchQuery, roleFilter, activityFilter])
+  }, [users, searchQuery, roleFilter])
 
   const handleRoleChange = async (userId: string, role: UserRole) => {
     setUpdatingRole(userId)
@@ -149,54 +144,31 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
     }
   }
 
-  const getActivityLevel = (user: User) => {
-    const totalActivity = user._count.assignedTickets + user._count.comments
-    if (totalActivity === 0) return { level: 'inactive', color: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400 border-gray-200 dark:border-gray-800' }
-    if (totalActivity < 5) return { level: 'low', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800' }
-    if (totalActivity < 15) return { level: 'medium', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200 dark:border-blue-800' }
-    return { level: 'high', color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800' }
-  }
 
   return (
     <Card>
       <CardHeader>
         {/* Search and Filter Controls */}
-        <div className="space-y-4">
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search users by name or email..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
-            </div>
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search users by name or email..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
           </div>
-          
-          <div className="flex gap-2">
-            <Select value={roleFilter} onValueChange={setRoleFilter}>
-              <SelectTrigger className="w-auto min-w-[100px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ALL">All Roles</SelectItem>
-                <SelectItem value="ADMIN">Admin</SelectItem>
-                <SelectItem value="SUPPORTER">Supporter</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Select value={activityFilter} onValueChange={setActivityFilter}>
-              <SelectTrigger className="w-auto min-w-[100px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ALL">All Activity</SelectItem>
-                <SelectItem value="ACTIVE">Active</SelectItem>
-                <SelectItem value="INACTIVE">Inactive</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <Select value={roleFilter} onValueChange={setRoleFilter}>
+            <SelectTrigger className="w-auto min-w-[100px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Roles</SelectItem>
+              <SelectItem value="ADMIN">Admin</SelectItem>
+              <SelectItem value="SUPPORTER">Supporter</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </CardHeader>
       
@@ -204,7 +176,6 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
         <div className="space-y-3">
           {filteredUsers.map((user) => {
             const RoleIcon = roleIcons[user.role]
-            const activity = getActivityLevel(user)
             
             return (
               <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
@@ -224,9 +195,6 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                       <Badge variant="outline" className={roleColors[user.role]}>
                         <RoleIcon className="h-3 w-3 mr-1" />
                         {user.role}
-                      </Badge>
-                      <Badge variant="outline" className={activity.color}>
-                        {activity.level}
                       </Badge>
                     </div>
                     
@@ -262,23 +230,6 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <AvatarUploadDialog
-                        user={{
-                          id: user.id,
-                          name: user.name,
-                          email: user.email,
-                          avatarUrl: user.avatarUrl
-                        }}
-                        trigger={
-                          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                            <User className="h-4 w-4" />
-                            Change Avatar
-                          </DropdownMenuItem>
-                        }
-                      />
-                      
-                      <DropdownMenuSeparator />
-                      
                       <DropdownMenuItem 
                         onClick={() => handleRoleChange(user.id, user.role === 'ADMIN' ? 'SUPPORTER' : 'ADMIN')}
                         disabled={user.id === currentUserId || updatingRole === user.id || deletingUser === user.id}
@@ -341,7 +292,7 @@ export default function UsersList({ users, currentUserId }: UsersListProps) {
               <User className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p className="text-lg font-medium mb-2">No users found</p>
               <p className="text-sm">
-                {searchQuery || roleFilter !== 'ALL' || activityFilter !== 'ALL' 
+                {searchQuery || roleFilter !== 'ALL' 
                   ? 'Try adjusting your search or filters.'
                   : 'No users have been created yet.'
                 }
