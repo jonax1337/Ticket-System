@@ -18,7 +18,8 @@ import {
   searchIcons,
   type IconCategoryName 
 } from '@/lib/icon-system'
-import { Search, ChevronDown } from 'lucide-react'
+import { Search, ChevronDown, Filter } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 interface IconPickerProps {
   value?: string
@@ -92,11 +93,11 @@ export function IconPicker({
           <ChevronDown className="h-4 w-4 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="start">
+      <PopoverContent className="w-72 p-0" align="start">
         <div className="flex flex-col">
           {/* Search */}
           {allowSearch && (
-            <div className="p-3 border-b">
+            <div className="p-3 border-b flex-shrink-0">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
@@ -111,72 +112,69 @@ export function IconPicker({
 
           {/* Category Filter */}
           {showCategories && !searchQuery.trim() && (
-            <div className="p-3 border-b">
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  variant={selectedCategory === 'all' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedCategory('all')}
-                  className="h-7 text-xs"
-                >
-                  All
-                </Button>
-                {categories.map((category) => (
-                  <Button
-                    key={category.key}
-                    variant={selectedCategory === category.key ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category.key)}
-                    className="h-7 text-xs"
-                  >
-                    {category.name}
-                  </Button>
-                ))}
-              </div>
+            <div className="p-3 border-b flex-shrink-0">
+              <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as IconCategoryName | 'all')}>
+                <SelectTrigger className="h-8">
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-3 w-3" />
+                    <SelectValue placeholder="Select category" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((category) => (
+                    <SelectItem key={category.key} value={category.key}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           )}
 
           {/* Icons Grid */}
-          <ScrollArea className="h-64">
-            <div className="p-3">
-              {filteredIcons.length === 0 ? (
-                <div className="text-center text-sm text-muted-foreground py-6">
-                  No icons found
-                </div>
-              ) : (
-                <div className="grid grid-cols-6 gap-2">
-                  {filteredIcons.map((iconName) => {
-                    const IconComponent = getIconComponent(iconName)
-                    const isSelected = value === iconName
-                    
-                    return (
-                      <Button
-                        key={iconName}
-                        variant={isSelected ? 'default' : 'ghost'}
-                        size="sm"
-                        className={cn(
-                          'h-10 w-10 p-0',
-                          isSelected && 'ring-2 ring-ring ring-offset-2'
-                        )}
-                        onClick={() => handleIconSelect(iconName)}
-                        title={iconName}
-                      >
-                        <IconComponent className="h-4 w-4" />
-                      </Button>
-                    )
-                  })}
-                </div>
-              )}
-            </div>
-          </ScrollArea>
+          <div className="flex-1 min-h-0">
+            <ScrollArea className="h-48">
+              <div className="p-2">
+                {filteredIcons.length === 0 ? (
+                  <div className="text-center text-sm text-muted-foreground py-4">
+                    No icons found
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-7 gap-1 pb-2">
+                    {filteredIcons.map((iconName) => {
+                      const IconComponent = getIconComponent(iconName)
+                      const isSelected = value === iconName
+                      
+                      return (
+                        <Button
+                          key={iconName}
+                          variant={isSelected ? 'default' : 'ghost'}
+                          size="sm"
+                          className={cn(
+                            'h-8 w-8 p-0',
+                            isSelected && 'ring-1 ring-ring'
+                          )}
+                          onClick={() => handleIconSelect(iconName)}
+                          title={iconName}
+                        >
+                          <IconComponent className="h-3.5 w-3.5" />
+                        </Button>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+          </div>
 
           {/* Selected Icon Info */}
           {value && (
             <>
               <Separator />
-              <div className="p-3">
-                <div className="flex items-center gap-2 text-sm">
-                  {IconComponent && <IconComponent className="h-4 w-4" />}
+              <div className="p-2">
+                <div className="flex items-center gap-2 text-xs">
+                  {IconComponent && <IconComponent className="h-3 w-3" />}
                   <span className="font-medium">{value}</span>
                 </div>
               </div>
