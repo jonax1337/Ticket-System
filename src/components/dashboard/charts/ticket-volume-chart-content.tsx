@@ -3,13 +3,6 @@
 import { useState, useEffect } from 'react'
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -72,7 +65,7 @@ const getStatusColor = (status: string): string => {
   }
 }
 
-export function TicketVolumeChart() {
+export function TicketVolumeChartContent() {
   const [data, setData] = useState<TicketVolumeData[]>([])
   const [loading, setLoading] = useState(true)
   const [timeRange, setTimeRange] = useState('7d')
@@ -227,18 +220,18 @@ export function TicketVolumeChart() {
   }, {} as Record<string, { label: string; color: string }>)
 
   return (
-    <Card>
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-4">
-          <CardTitle className="text-lg">Ticket Volume Analytics</CardTitle>
-          <CardDescription>
+    <div className="space-y-4">
+      {/* Controls */}
+      <div className="flex flex-col items-stretch space-y-0 border-b pb-4 sm:flex-row">
+        <div className="flex flex-1 flex-col justify-center gap-1">
+          <p className="text-sm text-muted-foreground">
             Compare ticket volumes across selected statuses over time
-          </CardDescription>
+          </p>
         </div>
-        <div className="flex flex-col gap-2 px-6 py-4">
+        <div className="flex flex-col gap-2 sm:ml-4">
           <div className="flex gap-2 flex-wrap">
             <Select value={timeRange} onValueChange={setTimeRange}>
-              <SelectTrigger className="w-[120px]">
+              <SelectTrigger className="w-auto min-w-[120px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -252,7 +245,7 @@ export function TicketVolumeChart() {
             </Select>
             
             <Select value={selectedQueue} onValueChange={setSelectedQueue}>
-              <SelectTrigger className="w-[120px]">
+              <SelectTrigger className="w-auto min-w-[120px]">
                 <SelectValue placeholder="All queues" />
               </SelectTrigger>
               <SelectContent>
@@ -267,7 +260,7 @@ export function TicketVolumeChart() {
             
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" className="h-9 px-3">
                   <Settings className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
@@ -296,7 +289,7 @@ export function TicketVolumeChart() {
               </PopoverContent>
             </Popover>
             
-            <Button variant="outline" size="sm" onClick={handleExportCSV}>
+            <Button variant="outline" className="h-9 px-3" onClick={handleExportCSV}>
               <Download className="h-4 w-4" />
             </Button>
           </div>
@@ -307,100 +300,100 @@ export function TicketVolumeChart() {
                 date={customStartDate}
                 setDate={setCustomStartDate}
                 placeholder="Start date"
-                className="w-[120px]"
+                className="w-auto min-w-[120px]"
               />
               <DatePicker
                 date={customEndDate}
                 setDate={setCustomEndDate}
                 placeholder="End date"
-                className="w-[120px]"
+                className="w-auto min-w-[120px]"
               />
             </div>
           )}
         </div>
-      </CardHeader>
-      
-      <CardContent className="px-2 sm:p-6">
-        {loading ? (
-          <div className="h-[200px] w-full">
-            <Skeleton className="h-full w-full" />
-          </div>
-        ) : (
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-auto h-[200px] w-full"
+      </div>
+
+      {/* Chart */}
+      {loading ? (
+        <div className="h-[250px] w-full">
+          <Skeleton className="h-full w-full" />
+        </div>
+      ) : (
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-auto h-[250px] w-full"
+        >
+          <AreaChart
+            data={data}
+            margin={{
+              left: 12,
+              right: 12,
+              top: 12,
+              bottom: 12,
+            }}
           >
-            <AreaChart
-              data={data}
-              margin={{
-                left: 12,
-                right: 12,
-                top: 12,
-                bottom: 12,
-              }}
-            >
-              <defs>
-                {selectedStatuses.map(status => {
-                  const normalizedStatus = status.toLowerCase()
-                  return (
-                    <linearGradient key={status} id={`fill${status}`} x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="5%"
-                        stopColor={getStatusColor(status)}
-                        stopOpacity={0.8}
-                      />
-                      <stop
-                        offset="95%"
-                        stopColor={getStatusColor(status)}
-                        stopOpacity={0.1}
-                      />
-                    </linearGradient>
-                  )
-                })}
-              </defs>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="date"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 6)}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-              />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent />}
-              />
-              {selectedStatuses.map((status, index) => {
+            <defs>
+              {selectedStatuses.map(status => {
+                const normalizedStatus = status.toLowerCase()
                 return (
-                  <Area
-                    key={status}
-                    dataKey={status.toLowerCase()}
-                    type="monotone"
-                    fill={`url(#fill${status})`}
-                    fillOpacity={0.4}
-                    stroke={getStatusColor(status)}
-                    strokeWidth={2}
-                    stackId={undefined}
-                    connectNulls={false}
-                  />
+                  <linearGradient key={status} id={`fill${status}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor={getStatusColor(status)}
+                      stopOpacity={0.8}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor={getStatusColor(status)}
+                      stopOpacity={0.1}
+                    />
+                  </linearGradient>
                 )
               })}
-              <ChartLegend content={<ChartLegendContent />} />
-            </AreaChart>
-          </ChartContainer>
-        )}
-      </CardContent>
-      
-      <div className="px-6 pb-4">
+            </defs>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 6)}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent />}
+            />
+            {selectedStatuses.map((status, index) => {
+              return (
+                <Area
+                  key={status}
+                  dataKey={status.toLowerCase()}
+                  type="monotone"
+                  fill={`url(#fill${status})`}
+                  fillOpacity={0.4}
+                  stroke={getStatusColor(status)}
+                  strokeWidth={2}
+                  stackId={undefined}
+                  connectNulls={false}
+                />
+              )
+            })}
+            <ChartLegend content={<ChartLegendContent />} />
+          </AreaChart>
+        </ChartContainer>
+      )}
+
+      {/* Footer */}
+      <div className="pt-2 border-t">
         <div className="text-sm text-muted-foreground">
           {getDateRangeLabel()} • Comparing {selectedStatuses.join(', ')}
         </div>
       </div>
-    </Card>
+    </div>
   )
 }

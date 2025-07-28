@@ -21,7 +21,8 @@
       "WebFetch(domain:ui.shadcn.com)",
       "Bash(grep:*)",
       "Bash(sed:*)",
-      "Bash(dos2unix:*)"
+      "Bash(dos2unix:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }
