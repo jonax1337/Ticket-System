@@ -79,7 +79,7 @@ export function IconPicker({
         <Button
           variant="outline"
           className={cn(
-            'justify-between',
+            'w-full justify-between',
             !value && 'text-muted-foreground',
             triggerClassName
           )}

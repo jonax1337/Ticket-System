@@ -525,7 +525,10 @@ export default function QueueManager() {
                     </DialogDescription>
                   </DialogHeader>
                   
-                  <div className="space-y-4">
+                  <form onSubmit={(e) => {
+                    e.preventDefault()
+                    editingQueue ? handleUpdateQueue() : handleCreateQueue()
+                  }} className="space-y-4">
                     <div>
                       <Label htmlFor="name">Queue Name</Label>
                       <Input
@@ -533,6 +536,7 @@ export default function QueueManager() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g., Technical Support"
+                        required
                       />
                     </div>
                     
@@ -591,16 +595,20 @@ export default function QueueManager() {
                       />
                       <Label htmlFor="isDefault">Set as default queue</Label>
                     </div>
-                  </div>
-                  
-                  <DialogFooter>
-                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button onClick={editingQueue ? handleUpdateQueue : handleCreateQueue}>
-                      {editingQueue ? 'Update' : 'Create'}
-                    </Button>
-                  </DialogFooter>
+
+                    <div className="flex justify-end gap-2">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={() => setIsDialogOpen(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <Button type="submit">
+                        {editingQueue ? 'Update' : 'Create'}
+                      </Button>
+                    </div>
+                  </form>
                 </DialogContent>
               </Dialog>
             </div>

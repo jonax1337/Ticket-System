@@ -362,33 +362,35 @@ export default function CustomPriorityManager() {
                     />
                   </div>
                   
-                  <div>
-                    <Label htmlFor="icon">Icon</Label>
-                    <IconPicker
-                      value={formData.icon}
-                      onValueChange={(value) => setFormData({ ...formData, icon: value })}
-                      placeholder="Select an icon"
-                      showCategories={true}
-                    />
-                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="icon">Icon</Label>
+                      <IconPicker
+                        value={formData.icon}
+                        onValueChange={(value) => setFormData({ ...formData, icon: value })}
+                        placeholder="Select an icon"
+                        showCategories={true}
+                      />
+                    </div>
 
-                  <div>
-                    <Label htmlFor="color">Color Theme</Label>
-                    <Select value={formData.color} onValueChange={(value) => setFormData({ ...formData, color: value })}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {colorOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            <div className="flex items-center gap-2">
-                              <div className={`w-3 h-3 rounded-full ${option.value.split(' ')[0]}`} />
-                              {option.name}
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div>
+                      <Label htmlFor="color">Color Theme</Label>
+                      <Select value={formData.color} onValueChange={(value) => setFormData({ ...formData, color: value })}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {colorOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              <div className="flex items-center gap-2">
+                                <div className={`w-3 h-3 rounded-full ${option.value.split(' ')[0]}`} />
+                                {option.name}
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
 
 
