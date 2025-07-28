@@ -143,33 +143,18 @@ export async function GET(request: NextRequest) {
 
       const result: TicketVolumeData = {
         date: intervalType === 'day' 
-          // Pre-format all ticket dates once (move this outside the intervals.map loop)
-          const formattedTicketsByStatus = selectedStatuses.reduce((acc, status) => {
-            const tickets = statusData[status] || []
-            const formattedTickets = new Map<string, number>()
-  
-            tickets.forEach(ticket => {
-              const ticketDate = status.toLowerCase() === 'created' && ticket.createdAt
-                ? (intervalType === 'day'
-                    ? format(ticket.createdAt, 'yyyy-MM-dd')
-                    : format(ticket.createdAt, 'yyyy-MM'))
-                : ticket.updatedAt
-                ? (intervalType === 'day'
-                    ? format(ticket.updatedAt, 'yyyy-MM-dd')
-                    : format(ticket.updatedAt, 'yyyy-MM'))
-                : null
-    
-              if (ticketDate) {
-                formattedTickets.set(ticketDate, (formattedTickets.get(ticketDate) || 0) + 1)
-              }
-            })
-  
-            acc[status] = formattedTickets
-            return acc
-          }, {} as Record<string, Map<string, number>>)
+          ? format(date, 'MMM dd')
+          : format(date, 'MMM yyyy'),
+      }
 
-          // Then in the intervals loop:
-          const count = formattedTicketsByStatus[status]?.get(dateStr) || 0
+      // Count tickets for each status
+      for (const status of selectedStatuses) {
+        const tickets = statusData[status] || []
+        const count = tickets.filter(ticket => {
+          const ticketDate = status.toLowerCase() === 'created' && ticket.createdAt
+            ? (intervalType === 'day'
+                ? format(ticket.createdAt, 'yyyy-MM-dd')
+                : format(ticket.createdAt, 'yyyy-MM'))
             : ticket.updatedAt
             ? (intervalType === 'day'
                 ? format(ticket.updatedAt, 'yyyy-MM-dd')
