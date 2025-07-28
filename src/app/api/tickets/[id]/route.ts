@@ -48,7 +48,7 @@ export async function PATCH(
     }
     
     if (reminderDate !== undefined) {
-      updateData.reminderDate = normalizeDateToMidnight(reminderDate)
+      updateData.reminderDate = reminderDate ? new Date(reminderDate) : null
     }
 
     if (queueId !== undefined) {

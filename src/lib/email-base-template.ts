@@ -210,7 +210,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
     headerColor: '#2563eb',
     greeting: 'Hello {{customerName}},',
     introText: 'Thank you for contacting us. We have received your request and created a support ticket for you.',
-    footerText: 'Best regards,<br>{{systemName}} Support Team'
+    footerText: 'Best regards,<br>{{systemName}} Team'
   },
   status_changed: {
     headerTitle: '{{systemName}}',
@@ -218,7 +218,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
     headerColor: '#059669',
     greeting: 'Hello {{customerName}},',
     introText: 'The status of your support ticket has been updated.',
-    footerText: 'Best regards,<br>{{systemName}} Support Team'
+    footerText: 'Best regards,<br>{{systemName}} Team'
   },
   comment_added: {
     headerTitle: '{{systemName}}',
@@ -226,7 +226,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
     headerColor: '#7c3aed',
     greeting: 'Hello {{customerName}},',
     introText: 'A new comment has been added to your support ticket by {{commentAuthor}}.',
-    footerText: 'Best regards,<br>{{systemName}} Support Team'
+    footerText: 'Best regards,<br>{{systemName}} Team'
   },
   participant_added: {
     headerTitle: '{{systemName}}',
@@ -234,7 +234,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
     headerColor: '#0891b2',
     greeting: 'Hello {{participantName}},',
     introText: 'You have been added as a participant to a support ticket and will receive updates about its progress.',
-    footerText: 'Best regards,<br>{{systemName}} Support Team'
+    footerText: 'Best regards,<br>{{systemName}} Team'
   },
   automation_warning: {
     headerTitle: '{{systemName}}',
@@ -242,7 +242,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
     headerColor: '#f59e0b',
     greeting: 'Hello {{customerName}},',
     introText: 'This is a reminder that your support ticket has been inactive and will be automatically closed if no response is received soon.',
-    footerText: 'Thank you for using our support system!<br><br>Best regards,<br>{{systemName}} Support Team'
+    footerText: 'Thank you for using our support system!<br><br>Best regards,<br>{{systemName}} Team'
   },
   automation_closed: {
     headerTitle: '{{systemName}}',
@@ -250,7 +250,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
     headerColor: '#6b7280',
     greeting: 'Hello {{customerName}},',
     introText: 'Your support ticket has been automatically closed due to inactivity. We hope your issue has been resolved!',
-    footerText: 'Thank you for choosing {{systemName}}!<br><br>Best regards,<br>{{systemName}} Support Team'
+    footerText: 'Thank you for choosing {{systemName}}!<br><br>Best regards,<br>{{systemName}} Team'
   }
 }
 

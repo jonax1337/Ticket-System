@@ -13,6 +13,7 @@ import TicketComments from '@/components/dashboard/ticket-comments'
 import TicketParticipants from '@/components/dashboard/ticket-participants'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
+import { DateTimePicker } from '@/components/ui/datetime-picker'
 import { normalizeDateToMidnight } from '@/lib/date-utils'
 import {
   Combobox,
@@ -134,6 +135,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   const [editingReminderDate, setEditingReminderDate] = useState(false)
   const [tempReminderDate, setTempReminderDate] = useState<Date | undefined>(undefined)
   const [queues, setQueues] = useState<Array<{id: string, name: string, color: string, icon: string}>>([])
+
   const router = useRouter()
   const { statuses, priorities, isLoading: cacheLoading } = useCache()
 
@@ -282,12 +284,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
     }
   }
 
-  const handleDueDateEdit = () => {
-    setEditingDueDate(true)
-    setTempDueDate(ticket.dueDate ? new Date(ticket.dueDate) : undefined)
-  }
-
-  const handleDueDateSave = async () => {
+  const handleDueDateChange = async (date: Date | undefined) => {
     setIsLoading(true)
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
@@ -296,24 +293,20 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          dueDate: tempDueDate ? normalizeDateToMidnight(tempDueDate)?.toISOString() : null
+          dueDate: date ? normalizeDateToMidnight(date)?.toISOString() : null
         }),
       })
 
       if (response.ok) {
-        setEditingDueDate(false)
         router.refresh()
+      } else {
+        throw new Error('Failed to update due date')
       }
     } catch (error) {
       console.error('Failed to update due date:', error)
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const handleDueDateCancel = () => {
-    setEditingDueDate(false)
-    setTempDueDate(ticket.dueDate ? new Date(ticket.dueDate) : undefined)
   }
 
   const getDueDateStatus = () => {
@@ -331,12 +324,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
     return { status: 'normal', color: 'text-green-600', bg: 'bg-green-50' }
   }
 
-  const handleReminderDateEdit = () => {
-    setEditingReminderDate(true)
-    setTempReminderDate(ticket.reminderDate ? new Date(ticket.reminderDate) : undefined)
-  }
-
-  const handleReminderDateSave = async () => {
+  const handleReminderDateChange = async (date: Date | undefined) => {
     setIsLoading(true)
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
@@ -345,27 +333,20 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          reminderDate: tempReminderDate ? normalizeDateToMidnight(tempReminderDate)?.toISOString() : null
+          reminderDate: date ? date.toISOString() : null
         }),
       })
 
       if (response.ok) {
-        const updatedTicket = await response.json()
-        // Update the ticket data
-        Object.assign(ticket, updatedTicket)
-        setEditingReminderDate(false)
         router.refresh()
+      } else {
+        throw new Error('Failed to update reminder date')
       }
     } catch (error) {
       console.error('Failed to update reminder date:', error)
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const handleReminderDateCancel = () => {
-    setEditingReminderDate(false)
-    setTempReminderDate(ticket.reminderDate ? new Date(ticket.reminderDate) : undefined)
   }
 
   const getReminderStatus = () => {
@@ -626,125 +607,47 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
             {/* Dates */}
             <div className="space-y-3 pt-2">
               {/* Due Date */}
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  Due Date:
-                </span>
-                <div className="flex items-center gap-2">
-                  {editingDueDate ? (
-                    <div className="flex items-center gap-2">
-                      <DatePicker
-                        date={tempDueDate}
-                        setDate={setTempDueDate}
-                        placeholder="Select due date"
-                        className="h-8 text-xs"
-                      />
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        onClick={handleDueDateSave}
-                        disabled={isLoading}
-                        className="h-8 px-2"
-                      >
-                        ✓
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        onClick={handleDueDateCancel}
-                        className="h-8 px-2"
-                      >
-                        ✕
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      {ticket.dueDate ? (
-                        <span className={`${getDueDateStatus()?.color || ''} font-medium`}>
-                          {format(new Date(ticket.dueDate), 'MMM d, yyyy')}
-                          {getDueDateStatus()?.status === 'overdue' && (
-                            <Badge variant="destructive" className="ml-2 text-xs">Overdue</Badge>
-                          )}
-                          {getDueDateStatus()?.status === 'due_soon' && (
-                            <Badge variant="secondary" className="ml-2 text-xs bg-amber-100 text-amber-800">Due Soon</Badge>
-                          )}
-                        </span>
-                      ) : (
-                        <span className="text-muted-foreground">Not set</span>
-                      )}
-                      <Button 
-                        size="sm" 
-                        variant="ghost" 
-                        onClick={handleDueDateEdit}
-                        className="h-6 w-6 p-0"
-                      >
-                        <Calendar className="h-3 w-3" />
-                      </Button>
-                    </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-muted-foreground flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    Due Date
+                  </span>
+                  {ticket.dueDate && getDueDateStatus()?.status === 'overdue' && (
+                    <Badge variant="destructive" className="text-xs">Overdue</Badge>
+                  )}
+                  {ticket.dueDate && getDueDateStatus()?.status === 'due_soon' && (
+                    <Badge variant="secondary" className="text-xs bg-amber-100 text-amber-800">Due Soon</Badge>
                   )}
                 </div>
+                <DatePicker
+                  date={ticket.dueDate ? new Date(ticket.dueDate) : undefined}
+                  setDate={handleDueDateChange}
+                  placeholder="Select due date"
+                  className="text-sm"
+                />
               </div>
               
-              {/* Reminder Date */}
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground flex items-center gap-2">
-                  <Bell className="h-4 w-4" />
-                  Reminder Date:
-                </span>
-                <div className="flex items-center gap-2">
-                  {editingReminderDate ? (
-                    <div className="flex items-center gap-2">
-                      <DatePicker
-                        date={tempReminderDate}
-                        setDate={setTempReminderDate}
-                        placeholder="Select reminder date"
-                        className="h-8 text-xs"
-                      />
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        onClick={handleReminderDateSave}
-                        disabled={isLoading}
-                        className="h-8 px-2"
-                      >
-                        ✓
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        onClick={handleReminderDateCancel}
-                        className="h-8 px-2"
-                      >
-                        ✕
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      {ticket.reminderDate ? (
-                        <span className={`${getReminderStatus()?.color || ''} font-medium`}>
-                          {format(new Date(ticket.reminderDate), 'MMM d, yyyy')}
-                          {getReminderStatus()?.status === 'overdue' && (
-                            <Badge variant="destructive" className="ml-2 text-xs">Reminder Passed</Badge>
-                          )}
-                          {getReminderStatus()?.status === 'due_soon' && (
-                            <Badge variant="secondary" className="ml-2 text-xs bg-blue-100 text-blue-800">Reminder Soon</Badge>
-                          )}
-                        </span>
-                      ) : (
-                        <span className="text-muted-foreground">Not set</span>
-                      )}
-                      <Button 
-                        size="sm" 
-                        variant="ghost" 
-                        onClick={handleReminderDateEdit}
-                        className="h-6 w-6 p-0"
-                      >
-                        <Bell className="h-3 w-3" />
-                      </Button>
-                    </div>
+              {/* Reminder Date & Time */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-muted-foreground flex items-center gap-2">
+                    <Bell className="h-4 w-4" />
+                    Reminder Date & Time
+                  </span>
+                  {ticket.reminderDate && getReminderStatus()?.status === 'overdue' && (
+                    <Badge variant="destructive" className="text-xs">Reminder Passed</Badge>
+                  )}
+                  {ticket.reminderDate && getReminderStatus()?.status === 'due_soon' && (
+                    <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-800">Reminder Soon</Badge>
                   )}
                 </div>
+                <DateTimePicker
+                  date={ticket.reminderDate ? new Date(ticket.reminderDate) : undefined}
+                  setDate={handleReminderDateChange}
+                  placeholder="Select reminder date & time"
+                  className="text-sm"
+                />
               </div>
               
               <div className="flex items-center justify-between text-sm">

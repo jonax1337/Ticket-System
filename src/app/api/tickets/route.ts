@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
         status: 'Open',
         queueId: finalQueueId,
         dueDate: normalizeDateToMidnight(dueDate),
-        reminderDate: normalizeDateToMidnight(reminderDate),
+        reminderDate: reminderDate ? new Date(reminderDate) : null,
       },
     })
 
