@@ -7,16 +7,9 @@ import {
   MessageSquare, 
   Mail, 
   Paperclip, 
-  ArrowRight,
-  AlertCircle,
-  CheckCircle2,
-  Clock,
-  Timer,
-  AlertTriangle,
-  Zap,
-  TrendingUp,
   ChevronDown
 } from 'lucide-react'
+import { getIconComponent } from '@/lib/icon-system'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,19 +17,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-    AlertCircle,
-    ArrowRight,
-    CheckCircle2,
-    Clock,
-    Timer,
-    AlertTriangle,
-    Zap,
-    TrendingUp
-  }
-  return iconMap[iconName] || AlertCircle
-}
 
 interface CustomStatus {
   id: string
@@ -124,7 +104,10 @@ export function CommentToolbar({
                 }
                 return (
                   <>
-                    <Clock className="h-3.5 w-3.5" />
+                    {(() => {
+                      const ClockIcon = getIconComponent('Clock')
+                      return <ClockIcon className="h-3.5 w-3.5" />
+                    })()}
                     <span className="hidden sm:inline">Status</span>
                   </>
                 )
