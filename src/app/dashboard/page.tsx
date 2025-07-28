@@ -138,18 +138,13 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     ],
   })
 
-  // Calculate stats with queue access control
-  const statsWhere = session?.user?.role !== 'ADMIN' && userQueueIds[0] !== 'no-access' 
-    ? { queueId: { in: userQueueIds } } // Remove null queue access from stats too
-    : session?.user?.role !== 'ADMIN' && userQueueIds[0] === 'no-access'
-    ? { id: 'no-access' }
-    : {}
-
+  // Calculate stats - no queue access control for analytics/stats
+  // Stats should show data from all tickets regardless of queue permissions
   const stats = {
-    total: await prisma.ticket.count({ where: statsWhere }),
-    open: await prisma.ticket.count({ where: { ...statsWhere, status: 'OPEN' } }),
-    inProgress: await prisma.ticket.count({ where: { ...statsWhere, status: 'IN_PROGRESS' } }),
-    closed: await prisma.ticket.count({ where: { ...statsWhere, status: 'CLOSED' } }),
+    total: await prisma.ticket.count(),
+    open: await prisma.ticket.count({ where: { status: 'OPEN' } }),
+    inProgress: await prisma.ticket.count({ where: { status: 'IN_PROGRESS' } }),
+    closed: await prisma.ticket.count({ where: { status: 'CLOSED' } }),
   }
 
   return (
