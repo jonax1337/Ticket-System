@@ -198,20 +198,33 @@ export async function PATCH(
     // Handle attachments if provided
     if (attachments && Array.isArray(attachments)) {
       try {
-        // Create attachment records
-        const attachmentPromises = attachments.map((attachment: {filename: string, filepath: string, mimetype: string, size: number}) =>
-          prisma.ticketAttachment.create({
-            data: {
-              filename: attachment.filename,
-              filepath: attachment.filepath,
-              mimetype: attachment.mimetype,
-              size: attachment.size,
-              ticketId: params.id,
-            },
-          })
+        // Validate attachment data before creating records
+        const validAttachments = attachments.filter(attachment => 
+          attachment && 
+          typeof attachment.filename === 'string' && 
+          typeof attachment.filepath === 'string' && 
+          typeof attachment.mimetype === 'string' && 
+          typeof attachment.size === 'number' &&
+          attachment.filename.trim() !== '' &&
+          attachment.filepath.trim() !== '' &&
+          attachment.size > 0
         )
-        
-        await Promise.all(attachmentPromises)
+    
+        if (validAttachments.length > 0) {
+          const attachmentPromises = validAttachments.map((attachment) =>
+            prisma.ticketAttachment.create({
+              data: {
+                filename: attachment.filename,
+                filepath: attachment.filepath,
+                mimetype: attachment.mimetype,
+                size: attachment.size,
+                ticketId: params.id,
+              },
+            })
+          )
+      
+          await Promise.all(attachmentPromises)
+        }
       } catch (attachmentError) {
         console.error('Error creating attachments:', attachmentError)
         // Don't fail the main request if attachments fail
