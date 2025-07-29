@@ -723,6 +723,7 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
               email: ticket.fromEmail
             }}
             onRequesterUpdate={handleRequesterUpdate}
+            onParticipantsUpdate={(updatedParticipants) => setTicket(prev => ({ ...prev, participants: updatedParticipants }))}
           />
         )}
       </div>
