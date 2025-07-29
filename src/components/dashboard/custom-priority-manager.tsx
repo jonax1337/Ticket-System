@@ -13,6 +13,7 @@ import { Plus, Edit, Trash2, Clock, GripVertical, RefreshCw } from 'lucide-react
 import { IconPicker } from '@/components/ui/enhanced-icon-picker'
 import { getIconComponent } from '@/lib/icon-system'
 import { toast } from 'sonner'
+import { useCache } from '@/lib/cache-context'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -81,6 +82,7 @@ const colorOptions = [
 ]
 
 export default function CustomPriorityManager() {
+  const { refreshCache } = useCache()
   const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -156,6 +158,7 @@ export default function CustomPriorityManager() {
             })
           )
         )
+        await refreshCache() // Refresh cache after reordering
       } catch (error) {
         console.error('Error updating priority order:', error)
         // Revert the change on error
@@ -188,6 +191,7 @@ export default function CustomPriorityManager() {
 
       if (response.ok) {
         await fetchPriorities()
+        await refreshCache() // Refresh cache after priority change
         setIsDialogOpen(false)
         setEditingPriority(null)
         setFormData({
@@ -230,6 +234,7 @@ export default function CustomPriorityManager() {
 
       if (response.ok) {
         await fetchPriorities()
+        await refreshCache() // Refresh cache after priority deletion
         toast.success('Priority deleted successfully')
       } else {
         toast.error('Failed to delete priority')

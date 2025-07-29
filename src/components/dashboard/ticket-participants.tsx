@@ -20,7 +20,6 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Plus, Mail, UserPlus, Users, Trash2, Crown, UserX, User, Edit } from 'lucide-react'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
 import { CustomerAvatar } from '@/components/ui/customer-avatar'
 
 interface TicketParticipant {
@@ -39,6 +38,7 @@ interface TicketParticipantsProps {
     email: string
   }
   onRequesterUpdate?: (name: string, email: string) => void
+  onParticipantsUpdate?: (participants: TicketParticipant[]) => void
 }
 
 const getParticipantIcon = (type: string, name?: string | null, email?: string) => {
@@ -68,8 +68,7 @@ const getParticipantLabel = (type: string) => {
   }
 }
 
-export default function TicketParticipants({ ticketId, participants, requester, onRequesterUpdate }: TicketParticipantsProps) {
-  const router = useRouter()
+export default function TicketParticipants({ ticketId, participants, requester, onRequesterUpdate, onParticipantsUpdate }: TicketParticipantsProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [newParticipant, setNewParticipant] = useState({
     email: '',
@@ -94,6 +93,23 @@ export default function TicketParticipants({ ticketId, participants, requester, 
     }
 
     setIsLoading(true)
+    
+    // Store original participants for rollback
+    const originalParticipants = participants
+    
+    // Create optimistic participant
+    const optimisticParticipant: TicketParticipant = {
+      id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique temporary ID
+      email: newParticipant.email.trim(),
+      name: newParticipant.name.trim() || newParticipant.email.trim(),
+      type: newParticipant.type,
+      createdAt: new Date()
+    }
+    
+    // Optimistic update
+    const updatedParticipants = [...participants, optimisticParticipant]
+    onParticipantsUpdate?.(updatedParticipants)
+    
     try {
       const response = await fetch(`/api/tickets/${ticketId}/participants`, {
         method: 'POST',
@@ -108,15 +124,25 @@ export default function TicketParticipants({ ticketId, participants, requester, 
       })
 
       if (response.ok) {
+        // Get the actual participant data from the response to replace the optimistic one
+        const newParticipantData = await response.json()
+        
+        // Replace the optimistic participant with the real one
+        const finalParticipants = [...originalParticipants, newParticipantData]
+        onParticipantsUpdate?.(finalParticipants)
+        
         toast.success('Participant added successfully')
         setNewParticipant({ email: '', name: '', type: 'added_manually' })
-        router.refresh()
       } else {
         const error = await response.json()
+        // Revert optimistic update on error
+        onParticipantsUpdate?.(originalParticipants)
         toast.error(error.error || 'Failed to add participant')
       }
     } catch (error) {
       console.error('Error adding participant:', error)
+      // Revert optimistic update on error
+      onParticipantsUpdate?.(originalParticipants)
       toast.error('Failed to add participant')
     } finally {
       setIsLoading(false)
@@ -125,6 +151,14 @@ export default function TicketParticipants({ ticketId, participants, requester, 
 
   const handleRemoveParticipant = async (participantId: string) => {
     setIsLoading(true)
+    
+    // Store original participants for rollback
+    const originalParticipants = participants
+    
+    // Optimistic update - remove participant from list
+    const updatedParticipants = participants.filter(p => p.id !== participantId)
+    onParticipantsUpdate?.(updatedParticipants)
+    
     try {
       const response = await fetch(`/api/tickets/${ticketId}/participants/${participantId}`, {
         method: 'DELETE',
@@ -132,13 +166,16 @@ export default function TicketParticipants({ ticketId, participants, requester, 
 
       if (response.ok) {
         toast.success('Participant removed successfully')
-        router.refresh()
       } else {
         const error = await response.json()
+        // Revert optimistic update on error
+        onParticipantsUpdate?.(originalParticipants)
         toast.error(error.error || 'Failed to remove participant')
       }
     } catch (error) {
       console.error('Error removing participant:', error)
+      // Revert optimistic update on error
+      onParticipantsUpdate?.(originalParticipants)
       toast.error('Failed to remove participant')
     } finally {
       setIsLoading(false)

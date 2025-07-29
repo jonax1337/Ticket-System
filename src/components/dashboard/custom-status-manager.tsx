@@ -13,6 +13,7 @@ import { Plus, Edit, Trash2, GripVertical, RefreshCw, AlertCircle } from 'lucide
 import { IconPicker } from '@/components/ui/enhanced-icon-picker'
 import { getIconComponent } from '@/lib/icon-system'
 import { toast } from 'sonner'
+import { useCache } from '@/lib/cache-context'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -81,6 +82,7 @@ const colorOptions = [
 ]
 
 export default function CustomStatusManager() {
+  const { refreshCache } = useCache()
   const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -156,6 +158,7 @@ export default function CustomStatusManager() {
             })
           )
         )
+        await refreshCache() // Refresh cache after reordering
       } catch (error) {
         console.error('Error updating status order:', error)
         // Revert the change on error
@@ -188,6 +191,7 @@ export default function CustomStatusManager() {
 
       if (response.ok) {
         await fetchStatuses()
+        await refreshCache() // Refresh cache after status change
         setIsDialogOpen(false)
         setEditingStatus(null)
         setFormData({
@@ -230,6 +234,7 @@ export default function CustomStatusManager() {
 
       if (response.ok) {
         await fetchStatuses()
+        await refreshCache() // Refresh cache after status deletion
         toast.success('Status deleted successfully')
       } else {
         toast.error('Failed to delete status')

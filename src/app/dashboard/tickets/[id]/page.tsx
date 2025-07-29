@@ -85,12 +85,28 @@ export default async function TicketPage({ params }: TicketPageProps) {
     },
   })
 
+  // Get complete current user data with avatar information  
+  const currentUser = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatarUrl: true,
+    },
+  })
+
+  if (!currentUser) {
+    notFound()
+  }
+
   return (
     <div>
       <TicketDetails 
         ticket={ticketWithAllComments} 
         users={users} 
-        currentUser={session.user}
+        currentUser={currentUser}
+        session={session}
       />
     </div>
   )

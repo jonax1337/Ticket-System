@@ -7,7 +7,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell, Inbox, Folder, Circle } from 'lucide-react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell, Inbox, Folder, Circle, Trash2, Edit } from 'lucide-react'
 import { getIconComponent } from '@/lib/icon-system'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
@@ -27,6 +38,8 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { useCache } from '@/lib/cache-context'
+import TicketEditDialog from '@/components/dashboard/ticket-edit-dialog'
+import { toast } from 'sonner'
 
 interface User {
   id: string
@@ -108,13 +121,24 @@ interface TicketDetailsProps {
   }[]
   currentUser: {
     id: string
-    name?: string | null
+    name: string
+    email: string
+    avatarUrl?: string | null
+  }
+  session: {
+    user: {
+      id: string
+      role: string
+      name?: string | null
+      email?: string | null
+    }
   }
 }
 
 // Removed - using unified icon system
 
-export default function TicketDetails({ ticket, users, currentUser }: TicketDetailsProps) {
+export default function TicketDetails({ ticket: initialTicket, users, currentUser, session }: TicketDetailsProps) {
+  const [ticket, setTicket] = useState(initialTicket)
   const [isLoading, setIsLoading] = useState(false)
   const [editingDueDate, setEditingDueDate] = useState(false)
   const [tempDueDate, setTempDueDate] = useState<Date | undefined>(undefined)
@@ -147,9 +171,12 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
   
   const handleStatusChange = async (status: string) => {
     setIsLoading(true)
+    const previousStatus = ticket.status
+    
+    // Optimistic update for status
+    setTicket(prev => ({ ...prev, status }))
+    
     try {
-      const previousStatus = ticket.status
-      
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
         headers: {
@@ -168,19 +195,44 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
           formData.append('type', 'internal')
           formData.append('fileCount', '0')
           
-          await fetch(`/api/tickets/${ticket.id}/comments`, {
+          const commentResponse = await fetch(`/api/tickets/${ticket.id}/comments`, {
             method: 'POST',
             body: formData,
           })
+
+          if (commentResponse.ok) {
+            // Get the new comment data and add it to the ticket state
+            const newCommentData = await commentResponse.json()
+            
+            // Ensure the comment has the complete user data structure
+            const completeCommentData = {
+              ...newCommentData,
+              user: newCommentData.user ? {
+                id: newCommentData.user.id,
+                name: newCommentData.user.name,
+                email: newCommentData.user.email,
+                avatarUrl: newCommentData.user.avatarUrl
+              } : null
+            }
+            
+            setTicket(prev => ({ 
+              ...prev, 
+              comments: [...prev.comments, completeCommentData]
+            }))
+          }
         } catch (commentError) {
           console.error('Failed to create status change comment:', commentError)
           // Don't fail the main request if comment creation fails
         }
-        
-        router.refresh()
+      } else {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, status: previousStatus }))
+        throw new Error('Failed to update status')
       }
     } catch (error) {
       console.error('Failed to update status:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, status: previousStatus }))
     } finally {
       setIsLoading(false)
     }
@@ -188,6 +240,11 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handlePriorityChange = async (priority: string) => {
     setIsLoading(true)
+    const previousPriority = ticket.priority
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, priority }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -197,11 +254,15 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         body: JSON.stringify({ priority }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, priority: previousPriority }))
+        throw new Error('Failed to update priority')
       }
     } catch (error) {
       console.error('Failed to update priority:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, priority: previousPriority }))
     } finally {
       setIsLoading(false)
     }
@@ -209,20 +270,31 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleQueueChange = async (queueId: string) => {
     setIsLoading(true)
+    const previousQueue = ticket.queue
+    const newQueueId = queueId === 'NONE' ? null : queueId
+    const newQueue = queueId === 'NONE' ? null : queues.find(q => q.id === queueId) || null
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, queue: newQueue }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ queueId: queueId === 'NONE' ? null : queueId }),
+        body: JSON.stringify({ queueId: newQueueId }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, queue: previousQueue }))
+        throw new Error('Failed to update queue')
       }
     } catch (error) {
       console.error('Failed to update queue:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, queue: previousQueue }))
     } finally {
       setIsLoading(false)
     }
@@ -230,6 +302,12 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleAssigneeChange = async (assignedToId: string) => {
     setIsLoading(true)
+    const previousAssignedTo = ticket.assignedTo
+    const newAssignedTo = assignedToId === '' ? null : users.find(u => u.id === assignedToId) || null
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, assignedTo: newAssignedTo }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -241,17 +319,27 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, assignedTo: previousAssignedTo }))
+        throw new Error('Failed to update assignee')
       }
     } catch (error) {
       console.error('Failed to update assignee:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, assignedTo: previousAssignedTo }))
     } finally {
       setIsLoading(false)
     }
   }
   
   const handleRequesterUpdate = async (name: string, email: string) => {
+    const previousFromName = ticket.fromName
+    const previousFromEmail = ticket.fromEmail
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, fromName: name, fromEmail: email }))
+    
     const response = await fetch(`/api/tickets/${ticket.id}`, {
       method: 'PATCH',
       headers: {
@@ -263,15 +351,21 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
       }),
     })
 
-    if (response.ok) {
-      router.refresh()
-    } else {
+    if (!response.ok) {
+      // Revert optimistic update on error
+      setTicket(prev => ({ ...prev, fromName: previousFromName, fromEmail: previousFromEmail }))
       throw new Error('Failed to update requester')
     }
   }
 
   const handleDueDateChange = async (date: Date | undefined) => {
     setIsLoading(true)
+    const previousDueDate = ticket.dueDate
+    const normalizedDate = date ? normalizeDateToMidnight(date) : null
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, dueDate: normalizedDate }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -279,17 +373,19 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          dueDate: date ? normalizeDateToMidnight(date)?.toISOString() : null
+          dueDate: normalizedDate?.toISOString() || null
         }),
       })
 
-      if (response.ok) {
-        router.refresh()
-      } else {
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, dueDate: previousDueDate }))
         throw new Error('Failed to update due date')
       }
     } catch (error) {
       console.error('Failed to update due date:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, dueDate: previousDueDate }))
     } finally {
       setIsLoading(false)
     }
@@ -312,6 +408,11 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
 
   const handleReminderDateChange = async (date: Date | undefined) => {
     setIsLoading(true)
+    const previousReminderDate = ticket.reminderDate
+    
+    // Optimistic update
+    setTicket(prev => ({ ...prev, reminderDate: date || null }))
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -323,13 +424,15 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         }),
       })
 
-      if (response.ok) {
-        router.refresh()
-      } else {
+      if (!response.ok) {
+        // Revert optimistic update on error
+        setTicket(prev => ({ ...prev, reminderDate: previousReminderDate }))
         throw new Error('Failed to update reminder date')
       }
     } catch (error) {
       console.error('Failed to update reminder date:', error)
+      // Revert optimistic update
+      setTicket(prev => ({ ...prev, reminderDate: previousReminderDate }))
     } finally {
       setIsLoading(false)
     }
@@ -349,6 +452,31 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
     }
     return { status: 'normal', color: 'text-blue-600', bg: 'bg-blue-50' }
   }
+
+  const handleDeleteTicket = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch(`/api/tickets/${ticket.id}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        toast.success('Ticket deleted successfully')
+        router.push('/dashboard')
+      } else {
+        throw new Error('Failed to delete ticket')
+      }
+    } catch (error) {
+      console.error('Failed to delete ticket:', error)
+      toast.error('Failed to delete ticket. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleTicketUpdate = (updatedTicket: Ticket) => {
+    setTicket(updatedTicket)
+  }
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Main Content */}
@@ -356,10 +484,62 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
         <CardHeader>
           <div className="flex flex-col gap-4">
             <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="font-mono text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">
-                  {getDisplayTicketNumber()}
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="font-mono text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                    {getDisplayTicketNumber()}
+                  </div>
                 </div>
+                {session.user.role === 'ADMIN' && (
+                  <div className="flex items-center gap-2">
+                    <TicketEditDialog 
+                      ticket={ticket} 
+                      users={users} 
+                      onTicketUpdate={handleTicketUpdate}
+                    >
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={isLoading}
+                      >
+                        <Edit className="h-4 w-4" />
+                        Edit
+                      </Button>
+                    </TicketEditDialog>
+                    
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          disabled={isLoading}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete Ticket</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to delete ticket <strong>{getDisplayTicketNumber()}</strong>? 
+                            This action cannot be undone and will remove all associated comments and attachments.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+                          <AlertDialogAction 
+                            onClick={handleDeleteTicket}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? 'Deleting...' : 'Delete'}
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
+                )}
               </div>
               <CardTitle className="text-2xl">{ticket.subject}</CardTitle>
             </div>
@@ -426,7 +606,11 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
               Comments ({ticket.comments.length})
             </h3>
             <div className="space-y-4">
-              <TicketComments ticket={ticket} currentUser={currentUser} />
+              <TicketComments 
+                ticket={ticket} 
+                currentUser={currentUser} 
+                onTicketUpdate={(updatedFields) => setTicket(prev => ({ ...prev, ...updatedFields }))}
+              />
             </div>
           </div>
         </CardContent>
@@ -660,6 +844,7 @@ export default function TicketDetails({ ticket, users, currentUser }: TicketDeta
               email: ticket.fromEmail
             }}
             onRequesterUpdate={handleRequesterUpdate}
+            onParticipantsUpdate={(updatedParticipants) => setTicket(prev => ({ ...prev, participants: updatedParticipants }))}
           />
         )}
       </div>

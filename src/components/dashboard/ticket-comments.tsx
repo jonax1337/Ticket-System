@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { CommentEditor, CommentEditorRef } from '@/components/editor/comment-editor'
@@ -15,6 +14,7 @@ import CommentContent from './comment-content'
 import { CommentToolbar } from './comment-toolbar'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { CustomerAvatar } from '@/components/ui/customer-avatar'
+import { useCache } from '@/lib/cache-context'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -68,6 +68,7 @@ interface Ticket {
     email: string
     name?: string | null
     type: string
+    createdAt: Date
   }[]
   fromEmail: string
   fromName: string | null
@@ -86,18 +87,20 @@ interface TicketCommentsProps {
   ticket: Ticket
   currentUser: {
     id: string
-    name?: string | null
+    name: string
+    email: string
+    avatarUrl?: string | null
   }
+  onTicketUpdate?: (updatedFields: Partial<Ticket>) => void
 }
 
-export default function TicketComments({ ticket, currentUser }: TicketCommentsProps) {
-  const router = useRouter()
+export default function TicketComments({ ticket, currentUser, onTicketUpdate }: TicketCommentsProps) {
+  const { statuses } = useCache()
   const [newComment, setNewComment] = useState('')
   const [commentType, setCommentType] = useState<'internal' | 'external'>('internal')
   const [isLoading, setIsLoading] = useState(false)
   const [nextStatus, setNextStatus] = useState<string>(ticket.status)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
-  const [statuses, setStatuses] = useState<CustomStatus[]>([])
   const [users, setUsers] = useState<{ id: string; name: string; email: string }[]>([])
   const [expandedEmailHistory, setExpandedEmailHistory] = useState<{[key: string]: boolean}>({})
   const [selectedParticipants, setSelectedParticipants] = useState<string[]>([]) // Email addresses
@@ -105,19 +108,13 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
   const editorRef = useRef<CommentEditorRef>(null)
 
   useEffect(() => {
-    // Load custom statuses, users, and participants
+    // Load users and participants (statuses come from cache)
     const fetchData = async () => {
       try {
-        const [statusResponse, usersResponse, participantsResponse] = await Promise.all([
-          fetch('/api/statuses'),
+        const [usersResponse, participantsResponse] = await Promise.all([
           fetch('/api/users'),
           fetch(`/api/tickets/${ticket.id}/participants`)
         ])
-        
-        if (statusResponse.ok) {
-          const statusData = await statusResponse.json()
-          setStatuses(statusData)
-        }
         
         if (usersResponse.ok) {
           const userData = await usersResponse.json()
@@ -249,6 +246,14 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
 
   const handleDeleteComment = async (commentId: string) => {
     setIsLoading(true)
+    
+    // Store original comments for rollback
+    const originalComments = ticket.comments
+    
+    // Optimistic update - remove comment from list
+    const updatedComments = ticket.comments.filter(comment => comment.id !== commentId)
+    onTicketUpdate?.({ comments: updatedComments })
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}/comments/${commentId}`, {
         method: 'DELETE',
@@ -256,12 +261,15 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
 
       if (response.ok) {
         toast.success('Comment deleted successfully')
-        router.refresh()
       } else {
+        // Revert optimistic update on error
+        onTicketUpdate?.({ comments: originalComments })
         toast.error('Failed to delete comment')
       }
     } catch (error) {
       console.error('Failed to delete comment:', error)
+      // Revert optimistic update on error  
+      onTicketUpdate?.({ comments: originalComments })
       toast.error('Failed to delete comment')
     } finally {
       setIsLoading(false)
@@ -273,6 +281,11 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
     if (!newComment.trim()) return
 
     setIsLoading(true)
+    
+    // Store original data for rollback
+    const originalComments = ticket.comments
+    const originalStatus = ticket.status
+    
     try {
       // Extract proper mention format from editor state
       const processedComment = extractMentionsFromState(editorSerializedState)
@@ -285,6 +298,36 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
       const commentContent = commentType === 'external' 
         ? `[EMAIL] ${processedComment.trim()}`
         : processedComment.trim()
+
+      // Create optimistic comment
+      const optimisticComment: Comment = {
+        id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique temporary ID
+        content: commentContent + (isStatusChanging ? ` [STATUS_CHANGE] Status changed from "${previousStatus}" to "${nextStatus}"` : ''),
+        fullEmailContent: null,
+        sentToEmails: commentType === 'external' && selectedParticipants.length > 0 
+          ? selectedParticipants.join(', ') 
+          : null,
+        createdAt: new Date(),
+        user: {
+          id: currentUser.id,
+          name: currentUser.name,
+          email: currentUser.email,
+          avatarUrl: currentUser.avatarUrl
+        },
+        fromName: null,
+        fromEmail: null,
+        attachments: [] // File attachments will be handled after the API call
+      }
+
+      // Optimistic updates
+      const updatedComments = [...ticket.comments, optimisticComment]
+      const updatedFields: Partial<Ticket> = { comments: updatedComments }
+      
+      if (isStatusChanging) {
+        updatedFields.status = nextStatus
+      }
+      
+      onTicketUpdate?.(updatedFields)
 
       // Prepare form data for file uploads
       const formData = new FormData()
@@ -341,6 +384,24 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
       }
 
       if (commentResponse.ok) {
+        // Get the actual comment data from the response to replace the optimistic one
+        const newCommentData = await commentResponse.json()
+        
+        // Replace the optimistic comment with the real one
+        const finalComments = [...originalComments, newCommentData]
+        const finalUpdatedFields: Partial<Ticket> = { comments: finalComments }
+        
+        // Update status only if the change was successful
+        if (isStatusChanging && statusUpdateSuccess) {
+          finalUpdatedFields.status = nextStatus
+        } else if (isStatusChanging && !statusUpdateSuccess) {
+          // Revert status if update failed
+          finalUpdatedFields.status = originalStatus
+        }
+        
+        onTicketUpdate?.(finalUpdatedFields)
+        
+        // Reset form state
         setNewComment('')
         setEditorSerializedState(null)
         // Reset nextStatus to current ticket status unless status change was successful
@@ -360,14 +421,15 @@ export default function TicketComments({ ticket, currentUser }: TicketCommentsPr
         } else {
           toast.success('Comment added successfully')
         }
-        
-        // Refresh to show changes
-        router.refresh()
       } else {
+        // Revert optimistic updates on error
+        onTicketUpdate?.({ comments: originalComments, status: originalStatus })
         toast.error('Failed to add comment')
       }
     } catch (error) {
       console.error('Failed to add comment:', error)
+      // Revert optimistic updates on error
+      onTicketUpdate?.({ comments: originalComments, status: originalStatus })
       toast.error('Failed to add comment')
     } finally {
       setIsLoading(false)

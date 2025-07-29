@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useCache } from '@/lib/cache-context'
+import { toast } from 'sonner'
 // Removed enum imports - now using dynamic string values
 
 interface User {
@@ -30,14 +31,19 @@ interface TicketActionsProps {
     id: string
     role: string
   }
+  onUpdate?: (updatedTicket: Partial<Ticket>) => void
 }
 
-export default function TicketActions({ ticket, users }: TicketActionsProps) {
+export default function TicketActions({ ticket, users, onUpdate }: TicketActionsProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const { statuses, priorities } = useCache()
 
   const handleStatusChange = async (status: string) => {
     setIsLoading(true)
+    
+    // Optimistic update
+    onUpdate?.({ status })
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -47,11 +53,18 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
         body: JSON.stringify({ status }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        throw new Error('Failed to update status')
       }
+      
+      const updatedTicket = await response.json()
+      onUpdate?.(updatedTicket)
+      toast.success('Status updated successfully')
     } catch (error) {
       console.error('Failed to update status:', error)
+      // Revert optimistic update
+      onUpdate?.({ status: ticket.status })
+      toast.error('Failed to update status')
     } finally {
       setIsLoading(false)
     }
@@ -59,6 +72,10 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
 
   const handlePriorityChange = async (priority: string) => {
     setIsLoading(true)
+    
+    // Optimistic update
+    onUpdate?.({ priority })
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -68,11 +85,18 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
         body: JSON.stringify({ priority }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        throw new Error('Failed to update priority')
       }
+      
+      const updatedTicket = await response.json()
+      onUpdate?.(updatedTicket)
+      toast.success('Priority updated successfully')
     } catch (error) {
       console.error('Failed to update priority:', error)
+      // Revert optimistic update
+      onUpdate?.({ priority: ticket.priority })
+      toast.error('Failed to update priority')
     } finally {
       setIsLoading(false)
     }
@@ -80,6 +104,12 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
 
   const handleAssigneeChange = async (assignedToId: string) => {
     setIsLoading(true)
+    
+    const newAssignedTo = assignedToId === 'unassigned' ? null : users.find(u => u.id === assignedToId) || null
+    
+    // Optimistic update
+    onUpdate?.({ assignedTo: newAssignedTo })
+    
     try {
       const response = await fetch(`/api/tickets/${ticket.id}`, {
         method: 'PATCH',
@@ -91,11 +121,18 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
         }),
       })
 
-      if (response.ok) {
-        router.refresh()
+      if (!response.ok) {
+        throw new Error('Failed to update assignee')
       }
+      
+      const updatedTicket = await response.json()
+      onUpdate?.(updatedTicket)
+      toast.success('Assignee updated successfully')
     } catch (error) {
       console.error('Failed to update assignee:', error)
+      // Revert optimistic update
+      onUpdate?.({ assignedTo: ticket.assignedTo })
+      toast.error('Failed to update assignee')
     } finally {
       setIsLoading(false)
     }
@@ -111,7 +148,7 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
           <div>
             <label className="block text-sm font-medium mb-2">Status</label>
             <Select
-              defaultValue={ticket.status}
+              value={ticket.status}
               onValueChange={handleStatusChange}
               disabled={isLoading}
             >
@@ -119,9 +156,17 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="OPEN">Open</SelectItem>
-                <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
-                <SelectItem value="CLOSED">Closed</SelectItem>
+                {statuses.map((status) => (
+                  <SelectItem key={status.id} value={status.name}>
+                    <div className="flex items-center gap-2">
+                      <span 
+                        className="w-2 h-2 rounded-full" 
+                        style={{ backgroundColor: status.color }}
+                      />
+                      {status.name}
+                    </div>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -129,7 +174,7 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
           <div>
             <label className="block text-sm font-medium mb-2">Priority</label>
             <Select
-              defaultValue={ticket.priority}
+              value={ticket.priority}
               onValueChange={handlePriorityChange}
               disabled={isLoading}
             >
@@ -137,10 +182,17 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="LOW">Low</SelectItem>
-                <SelectItem value="MEDIUM">Medium</SelectItem>
-                <SelectItem value="HIGH">High</SelectItem>
-                <SelectItem value="URGENT">Urgent</SelectItem>
+                {priorities.map((priority) => (
+                  <SelectItem key={priority.id} value={priority.name}>
+                    <div className="flex items-center gap-2">
+                      <span 
+                        className="w-2 h-2 rounded-full" 
+                        style={{ backgroundColor: priority.color }}
+                      />
+                      {priority.name}
+                    </div>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -148,7 +200,7 @@ export default function TicketActions({ ticket, users }: TicketActionsProps) {
           <div>
             <label className="block text-sm font-medium mb-2">Assigned To</label>
             <Select
-              defaultValue={ticket.assignedTo?.id || 'unassigned'}
+              value={ticket.assignedTo?.id || 'unassigned'}
               onValueChange={handleAssigneeChange}
               disabled={isLoading}
             >

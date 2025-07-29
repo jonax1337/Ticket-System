@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { X, User, UserX, Users, Search } from 'lucide-react'
 import { getIconComponent } from '@/lib/icon-system'
+import { useCache } from '@/lib/cache-context'
 
 interface CustomStatus {
   id: string
@@ -55,9 +56,8 @@ interface User {
 export default function TicketFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { statuses, priorities } = useCache()
   const [users, setUsers] = useState<User[]>([])
-  const [statuses, setStatuses] = useState<CustomStatus[]>([])
-  const [priorities, setPriorities] = useState<CustomPriority[]>([])
   const [queues, setQueues] = useState<Queue[]>([])
   
   
@@ -139,29 +139,17 @@ export default function TicketFilters() {
   }, [searchParams, router])
 
   useEffect(() => {
-    // Load users, statuses, priorities, and queues
+    // Load users and queues (statuses and priorities come from cache)
     const fetchData = async () => {
       try {
-        const [usersResponse, statusesResponse, prioritiesResponse, queuesResponse] = await Promise.all([
+        const [usersResponse, queuesResponse] = await Promise.all([
           fetch('/api/users'),
-          fetch('/api/statuses'),
-          fetch('/api/priorities'),
           fetch('/api/users/queues') // Get user's assigned queues + default queues
         ])
         
         if (usersResponse.ok) {
           const userData = await usersResponse.json()
           setUsers(userData)
-        }
-        
-        if (statusesResponse.ok) {
-          const statusData = await statusesResponse.json()
-          setStatuses(statusData)
-        }
-        
-        if (prioritiesResponse.ok) {
-          const priorityData = await prioritiesResponse.json()
-          setPriorities(priorityData)
         }
 
         if (queuesResponse.ok) {
