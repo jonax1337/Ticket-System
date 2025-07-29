@@ -1,7 +1,13 @@
 import { checkTicketDueDates } from './notification-service'
 
-let isRunning = false
-let intervalId: NodeJS.Timeout | null = null
+// Use global variable to prevent multiple cron instances across hot reloads
+declare global {
+  var __due_date_cron_id: NodeJS.Timeout | null | undefined
+  var __due_date_cron_running: boolean | undefined
+}
+
+let isRunning = globalThis.__due_date_cron_running ?? false
+let intervalId = globalThis.__due_date_cron_id ?? null
 
 // Check due dates every hour (3600000 ms)
 const CHECK_INTERVAL = 60 * 60 * 1000
@@ -13,6 +19,7 @@ async function runDueDateCheck() {
   }
   
   isRunning = true
+  globalThis.__due_date_cron_running = true
   
   try {
     console.log('Starting due date check...')
@@ -27,6 +34,7 @@ async function runDueDateCheck() {
     console.error('Error during due date check:', error)
   } finally {
     isRunning = false
+    globalThis.__due_date_cron_running = false
   }
 }
 
@@ -48,6 +56,9 @@ function startDueDateCron() {
     runDueDateCheck()
   }, CHECK_INTERVAL)
   
+  // Store in global for hot reload persistence
+  globalThis.__due_date_cron_id = intervalId
+  
   console.log(`Due date cron started with ${CHECK_INTERVAL / 1000 / 60} minute interval`)
 }
 
@@ -55,14 +66,16 @@ function stopDueDateCron() {
   if (intervalId) {
     clearInterval(intervalId)
     intervalId = null
+    globalThis.__due_date_cron_id = null
     console.log('Due date cron stopped')
   }
 }
 
-// Start automatically when module is imported
-if (typeof window === 'undefined') { // Only run on server side
-  startDueDateCron()
-}
+// Export functions but don't auto-start
+// The cron should be explicitly started from a single entry point
+// if (typeof window === 'undefined') { // Only run on server side
+//   startDueDateCron()
+// }
 
 export {
   startDueDateCron,

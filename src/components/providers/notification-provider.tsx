@@ -56,6 +56,11 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
   // Fetch notifications from API
   const fetchNotifications = useCallback(async () => {
+    // Only fetch on client side
+    if (typeof window === 'undefined') {
+      return
+    }
+    
     try {
       const response = await fetch('/api/notifications?limit=50')
       if (response.ok) {
@@ -124,6 +129,11 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
   // Mark notification as read
   const markNotificationAsRead = useCallback(async (notificationId: string) => {
+    // Only execute on client side
+    if (typeof window === 'undefined') {
+      return
+    }
+    
     try {
       const response = await fetch('/api/notifications', {
         method: 'PATCH',
@@ -151,6 +161,11 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
   // Mark all notifications as read
   const markAllNotificationsAsRead = useCallback(async () => {
+    // Only execute on client side
+    if (typeof window === 'undefined') {
+      return
+    }
+    
     try {
       const response = await fetch('/api/notifications', {
         method: 'PATCH',

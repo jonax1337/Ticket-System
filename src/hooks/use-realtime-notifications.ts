@@ -53,6 +53,11 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
 
   // Polling fallback
   const startPolling = useCallback(() => {
+    // Prevent polling on server side
+    if (typeof window === 'undefined') {
+      return
+    }
+    
     if (!enablePollingFallback || pollingTimeoutRef.current) return
     
     const poll = async () => {
@@ -84,6 +89,11 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
   }, [])
 
   const connect = useCallback(() => {
+    // Prevent SSE connections on server side
+    if (typeof window === 'undefined') {
+      return
+    }
+    
     if (eventSourceRef.current?.readyState === EventSource.OPEN) {
       return // Already connected
     }
@@ -191,6 +201,11 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
 
   // Connect on mount
   useEffect(() => {
+    // Only connect on client side
+    if (typeof window === 'undefined') {
+      return
+    }
+    
     connect()
     
     // Cleanup on unmount
