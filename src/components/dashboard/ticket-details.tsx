@@ -485,7 +485,11 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
               Comments ({ticket.comments.length})
             </h3>
             <div className="space-y-4">
-              <TicketComments ticket={ticket} currentUser={currentUser} />
+              <TicketComments 
+                ticket={ticket} 
+                currentUser={currentUser} 
+                onTicketUpdate={(updatedFields) => setTicket(prev => ({ ...prev, ...updatedFields }))}
+              />
             </div>
           </div>
         </CardContent>
