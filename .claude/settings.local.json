@@ -26,6 +26,7 @@
       "Bash(npm run lint:*)",
       "Bash(echo:*)",
       "Bash(find:*)"
+      "WebFetch(domain:shadcn-ui-animated-tabs.vercel.app)"
     ],
     "deny": []
   }

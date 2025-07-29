@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsContents, TabsList, TabsTrigger } from '@/components/animate-ui/components/tabs'
 import { Settings, Palette, Mail, Workflow, FileText, Bot, Inbox } from 'lucide-react'
 import AdminSettings from '@/components/dashboard/admin-settings'
 import EmailSettings from '@/components/dashboard/email-settings'
@@ -68,70 +68,70 @@ export default function AdminTabs({ settings, emailConfigs, priorities, statuses
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <div className="w-full overflow-x-auto">
-        <TabsList className="inline-flex w-max min-w-full h-auto p-1">
-          <TabsTrigger value="general" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
-            <Settings className="h-4 w-4" />
-            <span className="hidden sm:inline">General</span>
-          </TabsTrigger>
-          <TabsTrigger value="customize" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
-            <Palette className="h-4 w-4" />
-            <span className="hidden sm:inline">Customize</span>
-          </TabsTrigger>
-          <TabsTrigger value="queues" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
-            <Inbox className="h-4 w-4" />
-            <span className="hidden sm:inline">Queues</span>
-          </TabsTrigger>
-          <TabsTrigger value="email" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
-            <Mail className="h-4 w-4" />
-            <span className="hidden sm:inline">Email</span>
-          </TabsTrigger>
-          <TabsTrigger value="templates" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
-            <FileText className="h-4 w-4" />
-            <span className="hidden sm:inline">Templates</span>
-          </TabsTrigger>
-          <TabsTrigger value="workflow" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
-            <Workflow className="h-4 w-4" />
-            <span className="hidden sm:inline">Workflow</span>
-          </TabsTrigger>
-          <TabsTrigger value="automation" className="flex items-center gap-2 whitespace-nowrap px-3 py-2">
-            <Bot className="h-4 w-4" />
-            <span className="hidden sm:inline">Automation</span>
-          </TabsTrigger>
-        </TabsList>
-      </div>
+      <TabsList className="w-full grid grid-cols-7 h-auto p-1">
+        <TabsTrigger value="general" className="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-2 min-w-0">
+          <Settings className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline truncate">General</span>
+        </TabsTrigger>
+        <TabsTrigger value="customize" className="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-2 min-w-0">
+          <Palette className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline truncate">Customize</span>
+        </TabsTrigger>
+        <TabsTrigger value="queues" className="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-2 min-w-0">
+          <Inbox className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline truncate">Queues</span>
+        </TabsTrigger>
+        <TabsTrigger value="email" className="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-2 min-w-0">
+          <Mail className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline truncate">Email</span>
+        </TabsTrigger>
+        <TabsTrigger value="templates" className="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-2 min-w-0">
+          <FileText className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline truncate">Templates</span>
+        </TabsTrigger>
+        <TabsTrigger value="workflow" className="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-2 min-w-0">
+          <Workflow className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline truncate">Workflow</span>
+        </TabsTrigger>
+        <TabsTrigger value="automation" className="flex items-center justify-center gap-2 whitespace-nowrap px-2 py-2 min-w-0">
+          <Bot className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline truncate">Automation</span>
+        </TabsTrigger>
+      </TabsList>
       
-      <TabsContent value="general" className="space-y-6 mt-6">
-        <GeneralSettings settings={settings} />
-      </TabsContent>
-      
-      <TabsContent value="customize" className="space-y-6 mt-6">
-        <CustomizeSettings settings={settings} />
-      </TabsContent>
-      
-      <TabsContent value="queues" className="space-y-6 mt-6">
-        <QueueManager />
-      </TabsContent>
-      
-      <TabsContent value="email" className="space-y-6 mt-6">
-        <EmailSettings 
-          emailConfigs={emailConfigs} 
-          priorities={priorities} 
-          statuses={statuses} 
-        />
-      </TabsContent>
-      
-      <TabsContent value="templates" className="space-y-6 mt-6">
-        <EmailTemplateManager />
-      </TabsContent>
-      
-      <TabsContent value="workflow" className="space-y-6 mt-6">
-        <WorkflowSettings />
-      </TabsContent>
-      
-      <TabsContent value="automation" className="space-y-6 mt-6">
-        <AutomationSettings settings={settings} />
-      </TabsContent>
+      <TabsContents className="mt-6">
+        <TabsContent value="general" className="space-y-6">
+          <GeneralSettings settings={settings} />
+        </TabsContent>
+        
+        <TabsContent value="customize" className="space-y-6">
+          <CustomizeSettings settings={settings} />
+        </TabsContent>
+        
+        <TabsContent value="queues" className="space-y-6">
+          <QueueManager />
+        </TabsContent>
+        
+        <TabsContent value="email" className="space-y-6">
+          <EmailSettings 
+            emailConfigs={emailConfigs} 
+            priorities={priorities} 
+            statuses={statuses} 
+          />
+        </TabsContent>
+        
+        <TabsContent value="templates" className="space-y-6">
+          <EmailTemplateManager />
+        </TabsContent>
+        
+        <TabsContent value="workflow" className="space-y-6">
+          <WorkflowSettings />
+        </TabsContent>
+        
+        <TabsContent value="automation" className="space-y-6">
+          <AutomationSettings settings={settings} />
+        </TabsContent>
+      </TabsContents>
     </Tabs>
   )
 }

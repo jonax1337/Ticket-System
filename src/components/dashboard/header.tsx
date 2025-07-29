@@ -14,8 +14,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Switch } from '@/components/ui/switch'
-import { LogOut, User, Users, LayoutDashboard, Moon, Sun, Settings, Briefcase, Bell, UserCog } from 'lucide-react'
+import { Switch } from '@/components/animate-ui/radix/switch'
+import { LogOut, User, Moon, Sun, Bell, UserCog } from 'lucide-react'
+import { UsersRound } from '@/components/animate-ui/icons/users-round'
+import { LayoutDashboard } from '@/components/animate-ui/icons/layout-dashboard'
+import { Settings } from '@/components/animate-ui/icons/settings'
+import { Layers } from '@/components/animate-ui/icons/layers'
+import { AnimateIcon } from '@/components/animate-ui/icons/icon'
 import {
   Popover,
   PopoverContent,
@@ -45,6 +50,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   
   // Handle scroll effect
   useEffect(() => {
@@ -101,8 +107,12 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
+                onMouseEnter={() => setHoveredItem('dashboard')}
+                onMouseLeave={() => setHoveredItem(null)}
               >
-                <LayoutDashboard className="h-4 w-4" />
+                <div onMouseEnter={() => setHoveredItem('dashboard')}>
+                  <LayoutDashboard className="h-4 w-4" animateOnHover={hoveredItem === 'dashboard'} />
+                </div>
                 <span className="hidden lg:inline">Dashboard</span>
               </Link>
               <Link
@@ -113,8 +123,12 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
+                onMouseEnter={() => setHoveredItem('tickets')}
+                onMouseLeave={() => setHoveredItem(null)}
               >
-                <Briefcase className="h-4 w-4" />
+                <div onMouseEnter={() => setHoveredItem('tickets')}>
+                  <Layers className="h-4 w-4" animateOnHover={hoveredItem === 'tickets'} />
+                </div>
                 <span className="hidden lg:inline">My Tickets</span>
               </Link>
 
@@ -128,8 +142,12 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
+                    onMouseEnter={() => setHoveredItem('users')}
+                    onMouseLeave={() => setHoveredItem(null)}
                   >
-                    <Users className="h-4 w-4" />
+                    <div onMouseEnter={() => setHoveredItem('users')}>
+                      <UsersRound className="h-4 w-4" animateOnHover={hoveredItem === 'users'} />
+                    </div>
                     <span className="hidden lg:inline">Users</span>
                   </Link>
                   <Link
@@ -140,8 +158,12 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
+                    onMouseEnter={() => setHoveredItem('admin')}
+                    onMouseLeave={() => setHoveredItem(null)}
                   >
-                    <Settings className="h-4 w-4" />
+                    <div onMouseEnter={() => setHoveredItem('admin')}>
+                      <Settings className="h-4 w-4" animateOnHover={hoveredItem === 'admin'} />
+                    </div>
                     <span className="hidden lg:inline">Admin</span>
                   </Link>
                 </>
@@ -190,28 +212,56 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                 {/* Mobile Navigation */}
                 <div className="md:hidden">
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard" className="flex items-center gap-2">
-                      <LayoutDashboard className="h-4 w-4" />
+                    <Link 
+                      href="/dashboard" 
+                      className="flex items-center gap-2"
+                      onMouseEnter={() => setHoveredItem('dashboard-mobile')}
+                      onMouseLeave={() => setHoveredItem(null)}
+                    >
+                      <div onMouseEnter={() => setHoveredItem('dashboard-mobile')}>
+                        <LayoutDashboard className="h-4 w-4" animateOnHover={hoveredItem === 'dashboard-mobile'} />
+                      </div>
                       Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/my-tickets" className="flex items-center gap-2">
-                      <Briefcase className="h-4 w-4" />
+                    <Link 
+                      href="/dashboard/my-tickets" 
+                      className="flex items-center gap-2"
+                      onMouseEnter={() => setHoveredItem('tickets-mobile')}
+                      onMouseLeave={() => setHoveredItem(null)}
+                    >
+                      <div onMouseEnter={() => setHoveredItem('tickets-mobile')}>
+                        <Layers className="h-4 w-4" animateOnHover={hoveredItem === 'tickets-mobile'} />
+                      </div>
                       My Tickets
                     </Link>
                   </DropdownMenuItem>
                   {user.role === 'ADMIN' && (
                     <>
                       <DropdownMenuItem asChild>
-                        <Link href="/dashboard/users" className="flex items-center gap-2">
-                          <Users className="h-4 w-4" />
+                        <Link 
+                          href="/dashboard/users" 
+                          className="flex items-center gap-2"
+                          onMouseEnter={() => setHoveredItem('users-mobile')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                        >
+                          <div onMouseEnter={() => setHoveredItem('users-mobile')}>
+                            <UsersRound className="h-4 w-4" animateOnHover={hoveredItem === 'users-mobile'} />
+                          </div>
                           Users
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/dashboard/admin" className="flex items-center gap-2">
-                          <Settings className="h-4 w-4" />
+                        <Link 
+                          href="/dashboard/admin" 
+                          className="flex items-center gap-2"
+                          onMouseEnter={() => setHoveredItem('admin-mobile')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                        >
+                          <div onMouseEnter={() => setHoveredItem('admin-mobile')}>
+                            <Settings className="h-4 w-4" animateOnHover={hoveredItem === 'admin-mobile'} />
+                          </div>
                           Admin
                         </Link>
                       </DropdownMenuItem>
@@ -232,6 +282,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                   <Switch
                     checked={theme === 'dark'}
                     onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                    className="h-5 w-8 p-[2px]"
                   />
                 </div>
                 <DropdownMenuSeparator />
