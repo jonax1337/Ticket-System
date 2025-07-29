@@ -474,7 +474,7 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
     }
   }
 
-  const handleTicketUpdate = (updatedTicket: any) => {
+  const handleTicketUpdate = (updatedTicket: Ticket) => {
     setTicket(updatedTicket)
   }
   return (

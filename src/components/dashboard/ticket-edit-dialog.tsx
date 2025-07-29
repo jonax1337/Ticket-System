@@ -40,12 +40,15 @@ interface Ticket {
   ticketNumber?: string | null
   subject: string
   description: string
+  htmlContent?: string | null
   status: string
   priority: string
   fromEmail: string
   fromName: string | null
   dueDate?: Date | null
   reminderDate?: Date | null
+  createdAt: Date
+  updatedAt: Date
   assignedTo: {
     id: string
     name: string
@@ -58,6 +61,42 @@ interface Ticket {
     color: string
     icon: string
   } | null
+  participants?: {
+    id: string
+    email: string
+    name?: string | null
+    type: string
+    createdAt: Date
+  }[]
+  attachments?: {
+    id: string
+    filename: string
+    filepath: string
+    mimetype: string
+    size: number
+  }[]
+  comments: {
+    id: string
+    content: string
+    fullEmailContent?: string | null
+    sentToEmails?: string | null
+    createdAt: Date
+    user: {
+      id: string
+      name: string
+      email: string
+      avatarUrl?: string | null
+    } | null
+    fromName?: string | null
+    fromEmail?: string | null
+    attachments?: {
+      id: string
+      filename: string
+      filepath: string
+      mimetype: string
+      size: number
+    }[]
+  }[]
 }
 
 interface User {
@@ -70,7 +109,7 @@ interface User {
 interface TicketEditDialogProps {
   ticket: Ticket
   users: User[]
-  onTicketUpdate: (updatedTicket: any) => void
+  onTicketUpdate: (updatedTicket: Ticket) => void
   children: React.ReactNode
 }
 
