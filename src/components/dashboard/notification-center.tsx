@@ -157,10 +157,10 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
                       body: JSON.stringify({})
                     })
                     if (response.ok) {
-                      console.log('[DEBUG] Test notification sent')
+                      // Test notification sent successfully
                     }
                   } catch (error) {
-                    console.error('[DEBUG] Failed to send test notification:', error)
+                    console.error('Failed to send test notification:', error)
                   }
                 }}
                 className="h-8 px-2 text-xs"

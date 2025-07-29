@@ -6,21 +6,14 @@ import { getUnreadNotificationCount } from './notification-service'
  */
 export async function broadcastNewNotification(userId: string, notification: Record<string, unknown>) {
   try {
-    console.log(`[NOTIFICATION DEBUG] Broadcasting new notification to user ${userId}:`, {
-      notificationId: notification.id,
-      type: notification.type,
-      title: notification.title
-    })
-    
     // Broadcast the notification
     broadcastNotificationToUser(userId, notification)
     
     // Also broadcast updated unread count
     const unreadCount = await getUnreadNotificationCount(userId)
-    console.log(`[NOTIFICATION DEBUG] Broadcasting unread count ${unreadCount} to user ${userId}`)
     broadcastUnreadCountToUser(userId, unreadCount)
   } catch (error) {
-    console.error('[NOTIFICATION DEBUG] Error broadcasting notification:', error)
+    console.error('Error broadcasting notification:', error)
   }
 }
 

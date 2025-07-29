@@ -18,8 +18,6 @@ export async function POST(request: NextRequest) {
     // Use current user if no target specified
     const userId = targetUserId || session.user.id
 
-    console.log(`[TEST DEBUG] Creating test notification for user ${userId}`)
-
     const notification = await createNotification({
       type: 'ticket_assigned',
       title: 'Test Notification',
@@ -29,7 +27,6 @@ export async function POST(request: NextRequest) {
     })
 
     if (notification) {
-      console.log(`[TEST DEBUG] Test notification created successfully:`, notification.id)
       return NextResponse.json({ 
         success: true, 
         notification: {
@@ -40,11 +37,10 @@ export async function POST(request: NextRequest) {
         }
       })
     } else {
-      console.log(`[TEST DEBUG] Failed to create test notification`)
       return NextResponse.json({ error: 'Failed to create notification' }, { status: 500 })
     }
   } catch (error) {
-    console.error('[TEST DEBUG] Error creating test notification:', error)
+    console.error('Error creating test notification:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

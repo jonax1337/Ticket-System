@@ -29,17 +29,17 @@ export default function NotificationDiagnostics() {
 
   // Listen for SSE events
   useEffect(() => {
-    const originalConsoleLog = console.log
-    console.log = (...args) => {
+    const originalConsoleError = console.error
+    console.error = (...args) => {
       const message = args.join(' ')
-      if (message.includes('[SSE CLIENT DEBUG]') || message.includes('[NOTIFICATION PROVIDER DEBUG]')) {
+      if (message.includes('SSE') || message.includes('notification')) {
         setLastEventReceived(new Date().toLocaleTimeString() + ': ' + message)
       }
-      originalConsoleLog.apply(console, args)
+      originalConsoleError.apply(console, args)
     }
 
     return () => {
-      console.log = originalConsoleLog
+      console.error = originalConsoleError
     }
   }, [])
 
@@ -234,10 +234,10 @@ export default function NotificationDiagnostics() {
             <li>If using &quot;Polling Fallback&quot;, SSE failed but notifications will still work with a delay</li>
             <li>Verify that server connections show your user ID in the active connections</li>
             <li>Send a test notification and watch for it to appear</li>
-            <li>Open browser dev tools and check the Console tab for debug logs</li>
-            <li>Look for logs starting with &quot;SSE CLIENT DEBUG&quot; or &quot;NOTIFICATION PROVIDER DEBUG&quot;</li>
-            <li>If SSE is not connecting, check the Network tab for failed requests to /api/notifications/stream</li>
+            <li>Open browser dev tools and check the Console tab for errors</li>
+            <li>Check the Network tab for failed requests to /api/notifications/stream if SSE is not connecting</li>
             <li>The system automatically falls back to polling if SSE fails, so notifications should always work</li>
+            <li>Debug logs have been removed to reduce console spam - errors will still be logged</li>
           </ol>
         </CardContent>
       </Card>

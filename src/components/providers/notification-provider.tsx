@@ -70,23 +70,18 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
   // Handle new notification from real-time stream
   const handleNewNotification = useCallback((notificationData: Record<string, unknown>) => {
-    console.log('[NOTIFICATION PROVIDER DEBUG] Received new notification:', notificationData)
-    
     // Cast to the expected Notification type since we know the structure
     const notification = notificationData as unknown as Notification
     setNotifications(prev => {
-      console.log('[NOTIFICATION PROVIDER DEBUG] Adding notification to list, current count:', prev.length)
       return [notification, ...prev]
     })
     setUnreadCount(prev => {
       const newCount = prev + 1
-      console.log('[NOTIFICATION PROVIDER DEBUG] Updating unread count from', prev, 'to', newCount)
       return newCount
     })
     
     // Show toast notification if it's unread and not from the current user
     if (!notification.isRead) {
-      console.log('[NOTIFICATION PROVIDER DEBUG] Showing toast for notification:', notification.title)
       toast(notification.title, {
         description: notification.message,
         action: notification.ticketId ? {
@@ -102,15 +97,12 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
   // Handle unread count updates from real-time stream
   const handleUnreadCountUpdate = useCallback((count: number) => {
-    console.log('[NOTIFICATION PROVIDER DEBUG] Received unread count update:', count)
     setUnreadCount(count)
   }, [])
 
   // Handle connection status changes
   const handleConnectionStatusChange = useCallback((connected: boolean) => {
-    console.log('[NOTIFICATION PROVIDER DEBUG] Connection status changed:', connected)
     if (connected) {
-      console.log('[NOTIFICATION PROVIDER DEBUG] Connection established, refreshing notifications')
       // Refresh notifications when connection is established
       fetchNotifications()
     }
@@ -124,11 +116,6 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     enablePollingFallback: true,
     pollingInterval: 30000,
   })
-
-  // Debug: Log connection status changes
-  useEffect(() => {
-    console.log('[NOTIFICATION PROVIDER DEBUG] Connection status:', { isConnected, connectionError, usePolling })
-  }, [isConnected, connectionError, usePolling])
 
   // Initial fetch
   useEffect(() => {
