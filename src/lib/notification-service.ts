@@ -1,4 +1,5 @@
 import { prisma } from './prisma'
+import { broadcastNotificationCreated, broadcastUnreadCountChanged } from './sse-service'
 
 export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment' | 'ticket_due_soon' | 'ticket_overdue' | 'ticket_reminder' | 'ticket_auto_close_warning' | 'ticket_auto_closed'
 
@@ -49,6 +50,18 @@ export async function createNotification(params: CreateNotificationParams) {
         },
       },
     })
+
+    // Broadcast real-time notification
+    try {
+      await broadcastNotificationCreated(params.userId, notification)
+      
+      // Also broadcast updated unread count
+      const unreadCount = await getUnreadNotificationCount(params.userId)
+      await broadcastUnreadCountChanged(params.userId, unreadCount)
+    } catch (broadcastError) {
+      console.error('Error broadcasting notification:', broadcastError)
+      // Don't fail notification creation if broadcast fails
+    }
 
     return notification
   } catch (error) {
@@ -372,6 +385,17 @@ export async function markNotificationAsRead(notificationId: string, userId: str
       },
     })
 
+    if (notification.count > 0) {
+      // Broadcast real-time update
+      try {
+        const unreadCount = await getUnreadNotificationCount(userId)
+        await broadcastUnreadCountChanged(userId, unreadCount)
+      } catch (broadcastError) {
+        console.error('Error broadcasting notification read:', broadcastError)
+        // Don't fail the main operation if broadcast fails
+      }
+    }
+
     return notification.count > 0
   } catch (error) {
     console.error('Error marking notification as read:', error)
@@ -393,6 +417,16 @@ export async function markAllNotificationsAsRead(userId: string) {
         isRead: true,
       },
     })
+
+    if (result.count > 0) {
+      // Broadcast real-time update
+      try {
+        await broadcastUnreadCountChanged(userId, 0)
+      } catch (broadcastError) {
+        console.error('Error broadcasting all notifications read:', broadcastError)
+        // Don't fail the main operation if broadcast fails
+      }
+    }
 
     return result.count
   } catch (error) {

@@ -10,12 +10,13 @@ import {
 } from '@/components/ui/popover'
 import { Bell } from 'lucide-react'
 import NotificationCenter from './notification-center'
+import { useNotificationStream } from '@/hooks/use-notification-stream'
 
 export default function NotificationPopover() {
   const [isOpen, setIsOpen] = useState(false)
   const [unreadCount, setUnreadCount] = useState(0)
 
-  // Fetch unread count
+  // Fetch initial unread count
   const fetchUnreadCount = async () => {
     try {
       const response = await fetch('/api/notifications/unread-count')
@@ -28,6 +29,16 @@ export default function NotificationPopover() {
     }
   }
 
+  // Set up real-time notification stream
+  const { isConnected } = useNotificationStream({
+    onUnreadCountChanged: (count) => {
+      setUnreadCount(count)
+    },
+    onConnectionStatusChange: (connected) => {
+      console.log('Notification stream connection status:', connected)
+    }
+  })
+
   // Fetch unread count on mount and when popover opens
   useEffect(() => {
     fetchUnreadCount()
@@ -39,11 +50,13 @@ export default function NotificationPopover() {
     }
   }, [isOpen])
 
-  // Poll for new notifications every 30 seconds
+  // Fallback polling when SSE is not connected (every 30 seconds)
   useEffect(() => {
-    const interval = setInterval(fetchUnreadCount, 30000)
-    return () => clearInterval(interval)
-  }, [])
+    if (!isConnected) {
+      const interval = setInterval(fetchUnreadCount, 30000)
+      return () => clearInterval(interval)
+    }
+  }, [isConnected])
 
   // Handle unread count changes from NotificationCenter
   const handleUnreadCountChange = (newCount: number) => {

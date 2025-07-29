@@ -8,6 +8,7 @@ import { Bell, CheckCheck, RefreshCw, Inbox } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import NotificationItem from './notification-item'
+import { useNotificationStream } from '@/hooks/use-notification-stream'
 
 interface Notification {
   id: string
@@ -47,6 +48,29 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
       return saved === 'unread'
     }
     return false
+  })
+
+  // Set up real-time notification stream
+  const { isConnected } = useNotificationStream({
+    onNotificationCreated: (notification) => {
+      // Add new notification to the list
+      setNotifications(prev => [notification, ...prev])
+      
+      // Update unread count if the notification is unread
+      if (!notification.isRead) {
+        const newUnreadCount = unreadCount + 1
+        setUnreadCount(newUnreadCount)
+        if (onUnreadCountChange) {
+          onUnreadCountChange(newUnreadCount)
+        }
+      }
+    },
+    onUnreadCountChanged: (count) => {
+      setUnreadCount(count)
+      if (onUnreadCountChange) {
+        onUnreadCountChange(count)
+      }
+    }
   })
 
   // Fetch notifications
@@ -167,14 +191,16 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
     fetchNotifications(showUnreadOnly)
   }, [])
 
-  // Auto-refresh notifications every 30 seconds for live updates
+  // Auto-refresh notifications as fallback when SSE is not connected (reduced frequency)
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchNotifications(showUnreadOnly)
-    }, 30000) // Refresh every 30 seconds
+    if (!isConnected) {
+      const interval = setInterval(() => {
+        fetchNotifications(showUnreadOnly)
+      }, 60000) // Reduced to 60 seconds when SSE is available as fallback
 
-    return () => clearInterval(interval)
-  }, [showUnreadOnly])
+      return () => clearInterval(interval)
+    }
+  }, [showUnreadOnly, isConnected])
 
   // Also refresh when filter changes
   useEffect(() => {
