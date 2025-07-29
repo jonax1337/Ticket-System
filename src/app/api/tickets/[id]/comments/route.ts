@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { v4 as uuidv4 } from 'uuid'
-import { parseMentionsFromComment, createMentionNotification } from '@/lib/notification-service'
+import { parseMentionsFromComment, createMentionNotification, createCommentNotification } from '@/lib/notification-service'
 import { sendExternalEmail, sendTemplatedEmail } from '@/lib/email-service'
 
 export async function POST(
@@ -259,17 +259,14 @@ export async function POST(
           ticket.assignedTo.id !== session.user.id && 
           !mentionedUserIds.includes(ticket.assignedTo.id)) {
         
-        await prisma.notification.create({
-          data: {
-            type: 'comment_added',
-            title: 'New Comment',
-            message: `A new comment was added to your ticket ${displayTicketNumber}: ${ticket.subject}`,
-            userId: ticket.assignedTo.id,
-            actorId: session.user.id,
-            ticketId: params.id,
-            commentId: comment.id,
-          }
-        })
+        await createCommentNotification(
+          comment.id,
+          params.id,
+          ticket.assignedTo.id,
+          session.user.id,
+          displayTicketNumber,
+          ticket.subject
+        )
       }
     } catch (notificationError) {
       console.error('Error creating notifications:', notificationError)

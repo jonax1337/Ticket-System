@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       title: 'Test Notification',
       message: `This is a test notification created at ${new Date().toLocaleString()}`,
       userId,
-      actorId: session.user.id,
+      // Don't set actorId for test notifications to avoid self-notification blocking
     })
 
     if (notification) {
