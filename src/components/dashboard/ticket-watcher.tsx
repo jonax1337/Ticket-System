@@ -41,6 +41,26 @@ export default function TicketWatcher({
   const [isLoading, setIsLoading] = useState(false)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
+  // Refresh watchers every 30 seconds when popover is open
+  useEffect(() => {
+    if (!isPopoverOpen) return
+
+    const refreshWatchers = async () => {
+      try {
+        const response = await fetch(`/api/tickets/${ticketId}/watchers`)
+        if (response.ok) {
+          const updatedWatchers = await response.json()
+          setWatchers(updatedWatchers)
+        }
+      } catch (error) {
+        console.error('Error refreshing watchers:', error)
+      }
+    }
+
+    const interval = setInterval(refreshWatchers, 30000) // 30 seconds
+    return () => clearInterval(interval)
+  }, [isPopoverOpen, ticketId])
+
   const isWatching = watchers.some(w => w.user.id === currentUserId)
 
   const handleToggleWatch = async () => {
