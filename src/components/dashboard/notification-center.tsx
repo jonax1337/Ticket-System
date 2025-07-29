@@ -42,6 +42,7 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
     unreadCount,
     isConnected,
     connectionError,
+    usePolling,
     refreshNotifications,
     markNotificationAsRead,
     markAllNotificationsAsRead
@@ -168,7 +169,13 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
                 Test
               </Button>
             )}
-            {!isConnected && (
+            {!isConnected && usePolling && (
+              <div className="flex items-center gap-1 text-xs text-blue-600">
+                <RefreshCw className="h-3 w-3 animate-spin" />
+                <span className="hidden sm:inline">Polling mode</span>
+              </div>
+            )}
+            {!isConnected && !usePolling && (
               <div className="flex items-center gap-1 text-xs text-orange-600">
                 <AlertCircle className="h-3 w-3" />
                 <span className="hidden sm:inline">
@@ -210,10 +217,16 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
       {/* Notifications List */}
       <div className="flex-1 min-h-0 overflow-hidden">
         {/* Connection status indicator */}
-        {!isConnected && connectionError && (
+        {!isConnected && !usePolling && connectionError && (
           <div className="flex items-center gap-2 text-sm text-orange-600 mb-2 px-4 py-2 bg-orange-50 dark:bg-orange-950/20 border-l-4 border-orange-500">
             <AlertCircle className="h-4 w-4" />
             <span>{connectionError}</span>
+          </div>
+        )}
+        {usePolling && (
+          <div className="flex items-center gap-2 text-sm text-blue-600 mb-2 px-4 py-2 bg-blue-50 dark:bg-blue-950/20 border-l-4 border-blue-500">
+            <RefreshCw className="h-4 w-4 animate-spin" />
+            <span>Using polling mode - notifications may have a delay</span>
           </div>
         )}
         

@@ -7,22 +7,95 @@ interface UseRealtimeNotificationsOptions {
   onNotification?: (notification: Record<string, unknown>) => void
   onUnreadCountUpdate?: (count: number) => void
   onConnectionStatusChange?: (connected: boolean) => void
+  enablePollingFallback?: boolean
+  pollingInterval?: number
 }
 
 export function useRealtimeNotifications(options: UseRealtimeNotificationsOptions = {}) {
   const [isConnected, setIsConnected] = useState(false)
   const [connectionError, setConnectionError] = useState<string | null>(null)
+  const [usePolling, setUsePolling] = useState(false)
   const eventSourceRef = useRef<EventSource | null>(null)
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const pollingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const reconnectAttemptsRef = useRef(0)
+  const lastHeartbeatRef = useRef<number>(Date.now())
+  const healthCheckIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const maxReconnectAttempts = 5
+  const heartbeatTimeout = 60000 // 60 seconds
 
-  const { onNotification, onUnreadCountUpdate, onConnectionStatusChange } = options
+  const { 
+    onNotification, 
+    onUnreadCountUpdate, 
+    onConnectionStatusChange,
+    enablePollingFallback = true,
+    pollingInterval = 30000 // 30 seconds
+  } = options
+
+  // Health check for SSE connection
+  const startHealthCheck = useCallback(() => {
+    if (healthCheckIntervalRef.current) {
+      clearInterval(healthCheckIntervalRef.current)
+    }
+    
+    healthCheckIntervalRef.current = setInterval(() => {
+      const timeSinceLastHeartbeat = Date.now() - lastHeartbeatRef.current
+      if (timeSinceLastHeartbeat > heartbeatTimeout && isConnected) {
+        console.log('[SSE CLIENT DEBUG] Heartbeat timeout detected, connection may be stale')
+        setConnectionError('Connection timeout - switching to polling')
+        if (enablePollingFallback) {
+          setUsePolling(true)
+          setIsConnected(false)
+          onConnectionStatusChange?.(false)
+        }
+      }
+    }, 30000) // Check every 30 seconds
+  }, [isConnected, enablePollingFallback, onConnectionStatusChange])
+
+  // Polling fallback
+  const startPolling = useCallback(() => {
+    if (!enablePollingFallback || pollingTimeoutRef.current) return
+    
+    console.log('[SSE CLIENT DEBUG] Starting polling fallback')
+    const poll = async () => {
+      try {
+        const response = await fetch('/api/notifications?limit=5')
+        if (response.ok) {
+          const data = await response.json()
+          if (data.unreadCount !== undefined) {
+            onUnreadCountUpdate?.(data.unreadCount)
+          }
+        }
+      } catch (error) {
+        console.error('[SSE CLIENT DEBUG] Polling error:', error)
+      }
+      
+      if (usePolling) {
+        pollingTimeoutRef.current = setTimeout(poll, pollingInterval)
+      }
+    }
+    
+    poll()
+  }, [usePolling, enablePollingFallback, pollingInterval, onUnreadCountUpdate])
+
+  const stopPolling = useCallback(() => {
+    if (pollingTimeoutRef.current) {
+      clearTimeout(pollingTimeoutRef.current)
+      pollingTimeoutRef.current = null
+      console.log('[SSE CLIENT DEBUG] Stopped polling fallback')
+    }
+  }, [])
 
   const connect = useCallback(() => {
     if (eventSourceRef.current?.readyState === EventSource.OPEN) {
       console.log('[SSE CLIENT DEBUG] Connection already open, skipping connect')
       return // Already connected
+    }
+
+    // Stop polling if we're trying SSE again
+    if (usePolling) {
+      stopPolling()
+      setUsePolling(false)
     }
 
     try {
@@ -34,8 +107,11 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
         console.log('[SSE CLIENT DEBUG] EventSource connection opened')
         setIsConnected(true)
         setConnectionError(null)
+        setUsePolling(false)
         reconnectAttemptsRef.current = 0
+        lastHeartbeatRef.current = Date.now()
         onConnectionStatusChange?.(true)
+        startHealthCheck()
       }
 
       eventSource.onmessage = (event) => {
@@ -46,9 +122,11 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
           switch (data.type) {
             case 'connected':
               console.log('[SSE CLIENT DEBUG] SSE connected at:', data.timestamp)
+              lastHeartbeatRef.current = Date.now()
               break
             case 'heartbeat':
               console.log('[SSE CLIENT DEBUG] Received heartbeat at:', data.timestamp)
+              lastHeartbeatRef.current = Date.now()
               // Keep connection alive
               break
             case 'notification':
@@ -89,16 +167,25 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
               connect()
             }, delay)
           } else {
-            console.log('[SSE CLIENT DEBUG] Max reconnect attempts reached')
-            setConnectionError('Failed to connect after multiple attempts. Please refresh the page.')
+            console.log('[SSE CLIENT DEBUG] Max reconnect attempts reached, switching to polling')
+            setConnectionError('SSE failed. Using polling fallback.')
+            if (enablePollingFallback) {
+              setUsePolling(true)
+              startPolling()
+            }
           }
         }
       }
     } catch (error) {
       console.error('[SSE CLIENT DEBUG] Error creating SSE connection:', error)
       setConnectionError('Failed to establish real-time connection')
+      if (enablePollingFallback) {
+        console.log('[SSE CLIENT DEBUG] Falling back to polling due to SSE creation error')
+        setUsePolling(true)
+        startPolling()
+      }
     }
-  }, [onNotification, onUnreadCountUpdate, onConnectionStatusChange])
+  }, [onNotification, onUnreadCountUpdate, onConnectionStatusChange, usePolling, stopPolling, startHealthCheck, enablePollingFallback, startPolling])
 
   const disconnect = useCallback(() => {
     if (eventSourceRef.current) {
@@ -109,9 +196,15 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
       clearTimeout(reconnectTimeoutRef.current)
       reconnectTimeoutRef.current = null
     }
+    if (healthCheckIntervalRef.current) {
+      clearInterval(healthCheckIntervalRef.current)
+      healthCheckIntervalRef.current = null
+    }
+    stopPolling()
     setIsConnected(false)
+    setUsePolling(false)
     onConnectionStatusChange?.(false)
-  }, [onConnectionStatusChange])
+  }, [onConnectionStatusChange, stopPolling])
 
   // Connect on mount
   useEffect(() => {
@@ -123,6 +216,15 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
     }
   }, [connect, disconnect])
 
+  // Start polling if needed
+  useEffect(() => {
+    if (usePolling) {
+      startPolling()
+    } else {
+      stopPolling()
+    }
+  }, [usePolling, startPolling, stopPolling])
+
   // Handle page visibility changes to manage connections
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -130,7 +232,7 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
         // Page is hidden, don't disconnect but reduce activity
       } else {
         // Page is visible, ensure connection is active
-        if (!isConnected && reconnectAttemptsRef.current < maxReconnectAttempts) {
+        if (!isConnected && !usePolling && reconnectAttemptsRef.current < maxReconnectAttempts) {
           connect()
         }
       }
@@ -138,12 +240,13 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
-  }, [isConnected, connect])
+  }, [isConnected, usePolling, connect])
 
   return {
-    isConnected,
-    connectionError,
+    isConnected: isConnected || usePolling, // Show as connected if either SSE or polling is active
+    connectionError: usePolling ? 'Using polling fallback' : connectionError,
     connect,
     disconnect,
+    usePolling,
   }
 }

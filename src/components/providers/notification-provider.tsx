@@ -30,6 +30,7 @@ interface NotificationContextType {
   unreadCount: number
   isConnected: boolean
   connectionError: string | null
+  usePolling: boolean
   refreshNotifications: () => Promise<void>
   markNotificationAsRead: (notificationId: string) => Promise<void>
   markAllNotificationsAsRead: () => Promise<void>
@@ -116,16 +117,18 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   }, [fetchNotifications])
 
   // Setup real-time notifications
-  const { isConnected, connectionError } = useRealtimeNotifications({
+  const { isConnected, connectionError, usePolling } = useRealtimeNotifications({
     onNotification: handleNewNotification,
     onUnreadCountUpdate: handleUnreadCountUpdate,
     onConnectionStatusChange: handleConnectionStatusChange,
+    enablePollingFallback: true,
+    pollingInterval: 30000,
   })
 
   // Debug: Log connection status changes
   useEffect(() => {
-    console.log('[NOTIFICATION PROVIDER DEBUG] Connection status:', { isConnected, connectionError })
-  }, [isConnected, connectionError])
+    console.log('[NOTIFICATION PROVIDER DEBUG] Connection status:', { isConnected, connectionError, usePolling })
+  }, [isConnected, connectionError, usePolling])
 
   // Initial fetch
   useEffect(() => {
@@ -187,6 +190,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     unreadCount,
     isConnected,
     connectionError,
+    usePolling,
     refreshNotifications: fetchNotifications,
     markNotificationAsRead,
     markAllNotificationsAsRead,

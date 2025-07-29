@@ -21,7 +21,7 @@ interface DebugInfo {
 
 export default function NotificationDiagnostics() {
   const { data: session } = useSession()
-  const { isConnected, connectionError } = useNotifications()
+  const { isConnected, connectionError, usePolling } = useNotifications()
   const [debugInfo, setDebugInfo] = useState<DebugInfo | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null)
@@ -113,22 +113,26 @@ export default function NotificationDiagnostics() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            {isConnected ? (
+            {isConnected && !usePolling ? (
               <CheckCircle className="h-5 w-5 text-green-500" />
+            ) : usePolling ? (
+              <RefreshCw className="h-5 w-5 text-blue-500 animate-spin" />
             ) : (
               <XCircle className="h-5 w-5 text-red-500" />
             )}
-            SSE Connection Status
+            Connection Status
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Badge variant={isConnected ? "default" : "destructive"}>
-                {isConnected ? "Connected" : "Disconnected"}
+                {isConnected && !usePolling && "Real-time (SSE)"}
+                {usePolling && "Polling Fallback"}
+                {!isConnected && !usePolling && "Disconnected"}
               </Badge>
               {connectionError && (
-                <span className="text-sm text-red-600">{connectionError}</span>
+                <span className="text-sm text-muted-foreground">{connectionError}</span>
               )}
             </div>
             {lastEventReceived && (
@@ -226,12 +230,14 @@ export default function NotificationDiagnostics() {
         </CardHeader>
         <CardContent className="prose prose-sm max-w-none">
           <ol className="space-y-2">
-            <li>Check the SSE Connection Status above - it should be &quot;Connected&quot;</li>
+            <li>Check the Connection Status above - it should show &quot;Real-time (SSE)&quot; for best performance</li>
+            <li>If using &quot;Polling Fallback&quot;, SSE failed but notifications will still work with a delay</li>
             <li>Verify that server connections show your user ID in the active connections</li>
-            <li>Send a test notification and watch for it to appear instantly</li>
+            <li>Send a test notification and watch for it to appear</li>
             <li>Open browser dev tools and check the Console tab for debug logs</li>
             <li>Look for logs starting with &quot;SSE CLIENT DEBUG&quot; or &quot;NOTIFICATION PROVIDER DEBUG&quot;</li>
             <li>If SSE is not connecting, check the Network tab for failed requests to /api/notifications/stream</li>
+            <li>The system automatically falls back to polling if SSE fails, so notifications should always work</li>
           </ol>
         </CardContent>
       </Card>
