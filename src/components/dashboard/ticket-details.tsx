@@ -172,10 +172,19 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
           formData.append('type', 'internal')
           formData.append('fileCount', '0')
           
-          await fetch(`/api/tickets/${ticket.id}/comments`, {
+          const commentResponse = await fetch(`/api/tickets/${ticket.id}/comments`, {
             method: 'POST',
             body: formData,
           })
+
+          if (commentResponse.ok) {
+            // Get the new comment data and add it to the ticket state
+            const newCommentData = await commentResponse.json()
+            setTicket(prev => ({ 
+              ...prev, 
+              comments: [...prev.comments, newCommentData]
+            }))
+          }
         } catch (commentError) {
           console.error('Failed to create status change comment:', commentError)
           // Don't fail the main request if comment creation fails
