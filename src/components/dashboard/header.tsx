@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Switch } from '@/components/animate-ui/radix/switch'
-import { LogOut, User, Moon, Sun, Bell, UserCog } from 'lucide-react'
+import { LogOut, User, Moon, Sun, UserCog } from 'lucide-react'
 import { UsersRound } from '@/components/animate-ui/icons/users-round'
 import { LayoutDashboard } from '@/components/animate-ui/icons/layout-dashboard'
 import { Settings } from '@/components/animate-ui/icons/settings'
@@ -99,6 +99,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
 
             {/* Navigation - left aligned after logo */}
             <nav className="hidden md:flex gap-2 lg:gap-4">
+              <AnimateIcon animateOnHover>
               <Link
                 href="/dashboard"
                 className={cn(
@@ -107,14 +108,13 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
-                onMouseEnter={() => setHoveredItem('dashboard')}
-                onMouseLeave={() => setHoveredItem(null)}
               >
-                <div onMouseEnter={() => setHoveredItem('dashboard')}>
-                  <LayoutDashboard className="h-4 w-4" animateOnHover={hoveredItem === 'dashboard'} />
-                </div>
+                <LayoutDashboard className="h-4 w-4" />
                 <span className="hidden lg:inline">Dashboard</span>
               </Link>
+              </AnimateIcon>
+
+              <AnimateIcon animateOnHover>
               <Link
                 href="/dashboard/my-tickets"
                 className={cn(
@@ -123,17 +123,15 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
-                onMouseEnter={() => setHoveredItem('tickets')}
-                onMouseLeave={() => setHoveredItem(null)}
               >
-                <div onMouseEnter={() => setHoveredItem('tickets')}>
                   <Layers className="h-4 w-4" animateOnHover={hoveredItem === 'tickets'} />
-                </div>
                 <span className="hidden lg:inline">My Tickets</span>
               </Link>
+              </AnimateIcon>
 
               {user.role === 'ADMIN' && (
                 <>
+                  <AnimateIcon animateOnHover>
                   <Link
                     href="/dashboard/users"
                     className={cn(
@@ -142,14 +140,13 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
-                    onMouseEnter={() => setHoveredItem('users')}
-                    onMouseLeave={() => setHoveredItem(null)}
                   >
-                    <div onMouseEnter={() => setHoveredItem('users')}>
-                      <UsersRound className="h-4 w-4" animateOnHover={hoveredItem === 'users'} />
-                    </div>
+                    <UsersRound className="h-4 w-4" />
                     <span className="hidden lg:inline">Users</span>
                   </Link>
+                  </AnimateIcon>
+
+                  <AnimateIcon animateOnHover>
                   <Link
                     href="/dashboard/admin"
                     className={cn(
@@ -158,14 +155,11 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
-                    onMouseEnter={() => setHoveredItem('admin')}
-                    onMouseLeave={() => setHoveredItem(null)}
                   >
-                    <div onMouseEnter={() => setHoveredItem('admin')}>
-                      <Settings className="h-4 w-4" animateOnHover={hoveredItem === 'admin'} />
-                    </div>
-                    <span className="hidden lg:inline">Admin</span>
+                      <Settings className="h-4 w-4" />
+                      <span className="hidden lg:inline">Admin</span>
                   </Link>
+                  </AnimateIcon>
                 </>
               )}
             </nav>
