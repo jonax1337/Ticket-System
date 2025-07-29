@@ -108,7 +108,9 @@ interface TicketDetailsProps {
   }[]
   currentUser: {
     id: string
-    name?: string | null
+    name: string
+    email: string
+    avatarUrl?: string | null
   }
 }
 
@@ -150,7 +152,7 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
     setIsLoading(true)
     const previousStatus = ticket.status
     
-    // Optimistic update
+    // Optimistic update for status
     setTicket(prev => ({ ...prev, status }))
     
     try {
@@ -180,9 +182,21 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
           if (commentResponse.ok) {
             // Get the new comment data and add it to the ticket state
             const newCommentData = await commentResponse.json()
+            
+            // Ensure the comment has the complete user data structure
+            const completeCommentData = {
+              ...newCommentData,
+              user: newCommentData.user ? {
+                id: newCommentData.user.id,
+                name: newCommentData.user.name,
+                email: newCommentData.user.email,
+                avatarUrl: newCommentData.user.avatarUrl
+              } : null
+            }
+            
             setTicket(prev => ({ 
               ...prev, 
-              comments: [...prev.comments, newCommentData]
+              comments: [...prev.comments, completeCommentData]
             }))
           }
         } catch (commentError) {

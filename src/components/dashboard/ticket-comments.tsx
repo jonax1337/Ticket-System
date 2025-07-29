@@ -87,7 +87,9 @@ interface TicketCommentsProps {
   ticket: Ticket
   currentUser: {
     id: string
-    name?: string | null
+    name: string
+    email: string
+    avatarUrl?: string | null
   }
   onTicketUpdate?: (updatedFields: Partial<Ticket>) => void
 }
@@ -308,9 +310,9 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
         createdAt: new Date(),
         user: {
           id: currentUser.id,
-          name: currentUser.name || 'Current User',
-          email: '', // We don't have current user email in the interface
-          avatarUrl: null
+          name: currentUser.name,
+          email: currentUser.email,
+          avatarUrl: currentUser.avatarUrl
         },
         fromName: null,
         fromEmail: null,
