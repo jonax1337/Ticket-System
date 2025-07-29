@@ -5,23 +5,10 @@ import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
 import { strictRateLimit } from '@/lib/rate-limit'
+import { APP_CONFIG } from '@/lib/config'
 
-// Security constants
-const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
-const MAX_FILES_PER_REQUEST = 10
-const ALLOWED_MIME_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/webp',
-  'application/pdf',
-  'text/plain',
-  'text/csv',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  'application/zip',
-  'application/x-zip-compressed'
-]
+// Security constants from config
+const { maxFileSize, maxFilesPerRequest, allowedMimeTypes } = APP_CONFIG.upload
 
 function sanitizeFilename(filename: string): string {
   // Remove or replace dangerous characters
@@ -34,7 +21,7 @@ function sanitizeFilename(filename: string): string {
 
 function validateFileType(file: File): boolean {
   // Check MIME type
-  if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+  if (!allowedMimeTypes.includes(file.type as typeof allowedMimeTypes[number])) {
     return false
   }
   
@@ -97,9 +84,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate file count
-    if (files.length > MAX_FILES_PER_REQUEST) {
+    if (files.length > maxFilesPerRequest) {
       return NextResponse.json(
-        { error: `Maximum ${MAX_FILES_PER_REQUEST} files allowed per request` },
+        { error: `Maximum ${maxFilesPerRequest} files allowed per request` },
         { status: 400 }
       )
     }
@@ -118,8 +105,8 @@ export async function POST(request: NextRequest) {
       if (!file || typeof file === 'string') continue
 
       // Validate file size
-      if (file.size > MAX_FILE_SIZE) {
-        errors.push(`File ${file.name} exceeds maximum size of ${MAX_FILE_SIZE / 1024 / 1024}MB`)
+      if (file.size > maxFileSize) {
+        errors.push(`File ${file.name} exceeds maximum size of ${maxFileSize / 1024 / 1024}MB`)
         continue
       }
 

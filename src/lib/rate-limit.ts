@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server'
+import { APP_CONFIG } from './config'
 
 interface RateLimitStore {
   [key: string]: {
@@ -67,21 +68,18 @@ export function rateLimit(options: RateLimitOptions) {
   }
 }
 
-// Predefined rate limiters for different endpoint types
+// Predefined rate limiters using configuration
 export const strictRateLimit = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  maxRequests: 10, // 10 requests per 15 minutes
+  ...APP_CONFIG.rateLimits.strict,
   message: 'Too many requests, please try again later'
 })
 
 export const moderateRateLimit = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  maxRequests: 100, // 100 requests per 15 minutes
+  ...APP_CONFIG.rateLimits.moderate,
   message: 'Rate limit exceeded, please slow down'
 })
 
 export const lenientRateLimit = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  maxRequests: 60, // 60 requests per minute
+  ...APP_CONFIG.rateLimits.lenient,
   message: 'Too many requests per minute'
 })

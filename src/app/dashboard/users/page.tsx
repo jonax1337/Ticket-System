@@ -6,7 +6,7 @@ import UsersList from '@/components/dashboard/users-list'
 import AddUserForm from '@/components/dashboard/add-user-form'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Users, UserCheck, Shield, Activity, Calendar, TrendingUp } from 'lucide-react'
+import { Users, UserCheck, Shield, Activity, TrendingUp } from 'lucide-react'
 
 export default async function UsersPage() {
   const session = await getServerSession(authOptions)

@@ -27,7 +27,7 @@ export function addSecurityHeaders(response: NextResponse): NextResponse {
   return response
 }
 
-export function middleware(request: NextRequest) {
+export function middleware() {
   const response = NextResponse.next()
   return addSecurityHeaders(response)
 }
