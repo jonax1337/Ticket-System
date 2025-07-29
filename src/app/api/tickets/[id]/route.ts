@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { sendTemplatedEmail } from '@/lib/email-service'
 import { normalizeDateToMidnight } from '@/lib/date-utils'
+import { createTicketAssignedNotification, createTicketUnassignedNotification } from '@/lib/notification-service'
 
 export async function PATCH(
   request: NextRequest,
@@ -254,32 +255,25 @@ export async function PATCH(
               }
             }
 
-            await prisma.notification.create({
-              data: {
-                type: 'ticket_unassigned',
-                title: 'Ticket Unassigned',
-                message,
-                userId: previousAssigneeId,
-                actorId: session.user.id,
-                ticketId: params.id,
-              }
-            })
+            await createTicketUnassignedNotification(
+              params.id,
+              previousAssigneeId,
+              session.user.id,
+              currentTicket.ticketNumber || undefined,
+              currentTicket.subject,
+              newAssigneeId || undefined
+            )
           }
 
           // Notify new assignee that ticket was assigned
           if (newAssigneeId && newAssigneeId !== session.user.id) {
-            const displayTicketNumber = currentTicket.ticketNumber || `#${params.id.slice(-6).toUpperCase()}`
-            
-            await prisma.notification.create({
-              data: {
-                type: 'ticket_assigned',
-                title: 'Ticket Assigned',
-                message: `You have been assigned to ticket ${displayTicketNumber}: ${currentTicket.subject}`,
-                userId: newAssigneeId,
-                actorId: session.user.id,
-                ticketId: params.id,
-              }
-            })
+            await createTicketAssignedNotification(
+              params.id,
+              newAssigneeId,
+              session.user.id,
+              currentTicket.ticketNumber || undefined,
+              currentTicket.subject
+            )
           }
         } catch (notificationError) {
           console.error('Error creating notifications:', notificationError)

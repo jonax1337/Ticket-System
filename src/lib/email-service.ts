@@ -3,6 +3,7 @@ import { simpleParser, ParsedMail } from 'mailparser'
 import { prisma } from '@/lib/prisma'
 import { generateTicketNumber } from '@/lib/ticket-number-generator'
 import { renderEmailTemplate, EmailTemplateType } from '@/lib/email-template-service'
+import { createNotification } from '@/lib/notification-service'
 import nodemailer from 'nodemailer'
 
 interface EmailConfig {
@@ -1246,19 +1247,17 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
       if (ticketWithDetails?.assignedTo) {
         console.log('[EMAIL REPLY DEBUG] Creating in-app notification for assignee:', ticketWithDetails.assignedTo.id)
         
-        const notification = await prisma.notification.create({
-          data: {
-            type: 'comment_added',
-            title: 'New Email Reply',
-            message: `${fromName} replied via email to ticket ${displayTicketNumber}: ${ticketWithDetails.subject}`,
-            userId: ticketWithDetails.assignedTo.id,
-            actorId: userId, // This can be null for external users
-            ticketId: ticket.id,
-            commentId: comment.id,
-          }
+        await createNotification({
+          type: 'comment_added',
+          title: 'New Email Reply',
+          message: `${fromName} replied via email to ticket ${displayTicketNumber}: ${ticketWithDetails.subject}`,
+          userId: ticketWithDetails.assignedTo.id,
+          actorId: userId || undefined, // Handle null userId for external users
+          ticketId: ticket.id,
+          commentId: comment.id,
         })
         
-        console.log('[EMAIL REPLY DEBUG] In-app notification created successfully:', notification.id)
+        console.log('[EMAIL REPLY DEBUG] In-app notification created successfully')
       } else {
         console.log('[EMAIL REPLY DEBUG] No assigned user found, skipping in-app notification')
       }
