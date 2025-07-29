@@ -1,4 +1,5 @@
 import { prisma } from './prisma'
+import { broadcastNewNotification, broadcastUnreadCount } from './notification-realtime'
 
 export type NotificationType = 'ticket_assigned' | 'ticket_unassigned' | 'comment_added' | 'mentioned_in_comment' | 'ticket_due_soon' | 'ticket_overdue' | 'ticket_reminder' | 'ticket_auto_close_warning' | 'ticket_auto_closed'
 
@@ -49,6 +50,9 @@ export async function createNotification(params: CreateNotificationParams) {
         },
       },
     })
+
+    // Broadcast the notification in real-time
+    await broadcastNewNotification(params.userId, notification)
 
     return notification
   } catch (error) {
@@ -372,6 +376,11 @@ export async function markNotificationAsRead(notificationId: string, userId: str
       },
     })
 
+    if (notification.count > 0) {
+      // Broadcast updated unread count
+      await broadcastUnreadCount(userId)
+    }
+
     return notification.count > 0
   } catch (error) {
     console.error('Error marking notification as read:', error)
@@ -393,6 +402,11 @@ export async function markAllNotificationsAsRead(userId: string) {
         isRead: true,
       },
     })
+
+    if (result.count > 0) {
+      // Broadcast updated unread count (should be 0)
+      await broadcastUnreadCount(userId)
+    }
 
     return result.count
   } catch (error) {

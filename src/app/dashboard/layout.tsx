@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma'
 import DashboardHeader from '@/components/dashboard/header'
 import ThemeProvider from '@/components/providers/theme-system-provider'
 import AvatarUpdateProvider from '@/components/providers/avatar-update-provider'
+import { NotificationProvider } from '@/components/providers/notification-provider'
 import { CacheProvider } from '@/lib/cache-context'
 
 export default async function DashboardLayout({
@@ -55,18 +56,20 @@ export default async function DashboardLayout({
     <ThemeProvider themeColor={settings.themeColor}>
       <AvatarUpdateProvider>
         <CacheProvider>
-          <div className="min-h-screen bg-background">
-            <DashboardHeader 
-              user={session.user} 
-              appName={settings.appName}
-              slogan={settings.slogan}
-              logoUrl={settings.logoUrl}
-              hideAppName={settings.hideAppName}
-            />
-            <main className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
-              {children}
-            </main>
-          </div>
+          <NotificationProvider>
+            <div className="min-h-screen bg-background">
+              <DashboardHeader 
+                user={session.user} 
+                appName={settings.appName}
+                slogan={settings.slogan}
+                logoUrl={settings.logoUrl}
+                hideAppName={settings.hideAppName}
+              />
+              <main className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                {children}
+              </main>
+            </div>
+          </NotificationProvider>
         </CacheProvider>
       </AvatarUpdateProvider>
     </ThemeProvider>

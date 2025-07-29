@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -10,44 +10,15 @@ import {
 } from '@/components/ui/popover'
 import { Bell } from 'lucide-react'
 import NotificationCenter from './notification-center'
+import { useNotifications } from '@/components/providers/notification-provider'
 
 export default function NotificationPopover() {
   const [isOpen, setIsOpen] = useState(false)
-  const [unreadCount, setUnreadCount] = useState(0)
-
-  // Fetch unread count
-  const fetchUnreadCount = async () => {
-    try {
-      const response = await fetch('/api/notifications/unread-count')
-      if (response.ok) {
-        const data = await response.json()
-        setUnreadCount(data.count || 0)
-      }
-    } catch (error) {
-      console.error('Error fetching unread count:', error)
-    }
-  }
-
-  // Fetch unread count on mount and when popover opens
-  useEffect(() => {
-    fetchUnreadCount()
-  }, [])
-
-  useEffect(() => {
-    if (isOpen) {
-      fetchUnreadCount()
-    }
-  }, [isOpen])
-
-  // Poll for new notifications every 30 seconds
-  useEffect(() => {
-    const interval = setInterval(fetchUnreadCount, 30000)
-    return () => clearInterval(interval)
-  }, [])
+  const { unreadCount } = useNotifications()
 
   // Handle unread count changes from NotificationCenter
   const handleUnreadCountChange = (newCount: number) => {
-    setUnreadCount(newCount)
+    // The count is already managed by the context, so this is just for compatibility
   }
 
   return (

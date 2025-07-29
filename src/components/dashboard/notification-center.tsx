@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
-import { Bell, CheckCheck, RefreshCw, Inbox } from 'lucide-react'
+import { Bell, CheckCheck, RefreshCw, Inbox, AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import NotificationItem from './notification-item'
+import { useNotifications } from '@/components/providers/notification-provider'
 
 interface Notification {
   id: string
@@ -36,9 +37,17 @@ interface NotificationCenterProps {
 }
 
 export default function NotificationCenter({ onClose, onUnreadCountChange }: NotificationCenterProps) {
-  const [notifications, setNotifications] = useState<Notification[]>([])
-  const [unreadCount, setUnreadCount] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
+  const {
+    notifications,
+    unreadCount,
+    isConnected,
+    connectionError,
+    refreshNotifications,
+    markNotificationAsRead,
+    markAllNotificationsAsRead
+  } = useNotifications()
+  
+  const [isLoading, setIsLoading] = useState(false)
   const [isMarkingAllAsRead, setIsMarkingAllAsRead] = useState(false)
   const [showUnreadOnly, setShowUnreadOnly] = useState(() => {
     // Load filter preference from localStorage
@@ -49,58 +58,17 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
     return false
   })
 
-  // Fetch notifications
-  const fetchNotifications = async (unreadOnly = false) => {
-    try {
-      setIsLoading(true)
-      const response = await fetch(`/api/notifications?unreadOnly=${unreadOnly}&limit=50`)
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch notifications')
-      }
-
-      const data = await response.json()
-      setNotifications(data.notifications || [])
-      setUnreadCount(data.unreadCount || 0)
-    } catch (error) {
-      console.error('Error fetching notifications:', error)
-      toast.error('Failed to load notifications')
-    } finally {
-      setIsLoading(false)
+  // Notify parent component of unread count changes
+  useEffect(() => {
+    if (onUnreadCountChange) {
+      onUnreadCountChange(unreadCount)
     }
-  }
+  }, [unreadCount, onUnreadCountChange])
 
   // Mark single notification as read
   const markAsRead = async (notificationId: string) => {
     try {
-      const response = await fetch('/api/notifications', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ notificationId }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to mark notification as read')
-      }
-
-      // Update local state
-      setNotifications(prev => 
-        prev.map(notification => 
-          notification.id === notificationId 
-            ? { ...notification, isRead: true }
-            : notification
-        )
-      )
-      
-      const newUnreadCount = Math.max(0, unreadCount - 1)
-      setUnreadCount(newUnreadCount)
-      
-      // Notify parent component
-      if (onUnreadCountChange) {
-        onUnreadCountChange(newUnreadCount)
-      }
+      await markNotificationAsRead(notificationId)
     } catch (error) {
       console.error('Error marking notification as read:', error)
       toast.error('Failed to mark notification as read')
@@ -113,29 +81,7 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
 
     setIsMarkingAllAsRead(true)
     try {
-      const response = await fetch('/api/notifications', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ markAllAsRead: true }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to mark all notifications as read')
-      }
-
-      // Update local state
-      setNotifications(prev => 
-        prev.map(notification => ({ ...notification, isRead: true }))
-      )
-      setUnreadCount(0)
-      
-      // Notify parent component
-      if (onUnreadCountChange) {
-        onUnreadCountChange(0)
-      }
-      
+      await markAllNotificationsAsRead()
       toast.success('All notifications marked as read')
     } catch (error) {
       console.error('Error marking all notifications as read:', error)
@@ -146,40 +92,28 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
   }
 
   // Refresh notifications
-  const refreshNotifications = () => {
-    fetchNotifications(showUnreadOnly)
+  const refreshNotificationsList = async () => {
+    setIsLoading(true)
+    try {
+      await refreshNotifications()
+    } catch (error) {
+      console.error('Error refreshing notifications:', error)
+      toast.error('Failed to refresh notifications')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   // Toggle unread only filter
   const toggleUnreadOnly = () => {
     const newShowUnreadOnly = !showUnreadOnly
     setShowUnreadOnly(newShowUnreadOnly)
-    fetchNotifications(newShowUnreadOnly)
     
     // Save filter preference to localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('notificationFilter', newShowUnreadOnly ? 'unread' : 'all')
     }
   }
-
-  // Initial load
-  useEffect(() => {
-    fetchNotifications(showUnreadOnly)
-  }, [])
-
-  // Auto-refresh notifications every 30 seconds for live updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchNotifications(showUnreadOnly)
-    }, 30000) // Refresh every 30 seconds
-
-    return () => clearInterval(interval)
-  }, [showUnreadOnly])
-
-  // Also refresh when filter changes
-  useEffect(() => {
-    fetchNotifications(showUnreadOnly)
-  }, [showUnreadOnly])
 
   const displayedNotifications = showUnreadOnly 
     ? notifications.filter(n => !n.isRead)
@@ -203,13 +137,21 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
             <Button
               variant="ghost"
               size="sm"
-              onClick={refreshNotifications}
+              onClick={refreshNotificationsList}
               disabled={isLoading}
               className="h-8 w-8 p-0"
               title="Refresh"
             >
               <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
             </Button>
+            {!isConnected && (
+              <div className="flex items-center gap-1 text-xs text-orange-600">
+                <AlertCircle className="h-3 w-3" />
+                <span className="hidden sm:inline">
+                  {connectionError || 'Connecting...'}
+                </span>
+              </div>
+            )}
           </div>
         </div>
         
@@ -243,6 +185,14 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
 
       {/* Notifications List */}
       <div className="flex-1 min-h-0 overflow-hidden">
+        {/* Connection status indicator */}
+        {!isConnected && connectionError && (
+          <div className="flex items-center gap-2 text-sm text-orange-600 mb-2 px-4 py-2 bg-orange-50 dark:bg-orange-950/20 border-l-4 border-orange-500">
+            <AlertCircle className="h-4 w-4" />
+            <span>{connectionError}</span>
+          </div>
+        )}
+        
         {/* Silent loading indicator */}
         {isLoading && displayedNotifications.length > 0 && (
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2 px-4">
