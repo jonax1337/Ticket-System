@@ -99,7 +99,7 @@ export default function TicketParticipants({ ticketId, participants, requester, 
     
     // Create optimistic participant
     const optimisticParticipant: TicketParticipant = {
-      id: `temp-${Date.now()}`, // Temporary ID
+      id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique temporary ID
       email: newParticipant.email.trim(),
       name: newParticipant.name.trim() || newParticipant.email.trim(),
       type: newParticipant.type,
