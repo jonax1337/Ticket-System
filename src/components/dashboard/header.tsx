@@ -29,6 +29,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import NotificationPopover from './notification-popover'
+import { Users } from '../animate-ui/icons/users'
 
 interface DashboardHeaderProps {
   user: {
@@ -141,7 +142,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                     )}
                   >
-                    <UsersRound className="h-4 w-4" />
+                    <Users className="h-4 w-4" />
                     <span className="hidden lg:inline">Users</span>
                   </Link>
                   </AnimateIcon>
