@@ -356,6 +356,7 @@ export async function getUserNotifications(
  */
 export async function getUnreadNotificationCount(userId: string) {
   try {
+    console.log('Getting unread notification count for user:', userId)
     const count = await prisma.notification.count({
       where: {
         userId,
@@ -363,6 +364,7 @@ export async function getUnreadNotificationCount(userId: string) {
       },
     })
 
+    console.log('Unread notification count for user', userId, ':', count)
     return count
   } catch (error) {
     console.error('Error fetching unread notification count:', error)

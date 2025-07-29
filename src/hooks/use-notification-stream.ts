@@ -70,7 +70,7 @@ export function useNotificationStream(options: UseNotificationStreamOptions = {}
       eventSourceRef.current = eventSource
 
       eventSource.onopen = () => {
-        console.log('SSE connection opened')
+        console.log('SSE connection opened successfully')
         setIsConnected(true)
         reconnectAttemptsRef.current = 0
         options.onConnectionStatusChange?.(true)
@@ -98,6 +98,7 @@ export function useNotificationStream(options: UseNotificationStreamOptions = {}
               }
               break
             case 'unread_count_changed':
+              console.log('SSE: Received unread count update:', data.data)
               if (data.data && typeof data.data === 'object' && 'unreadCount' in data.data) {
                 options.onUnreadCountChanged?.(data.data.unreadCount as number)
               }
