@@ -141,11 +141,11 @@ export default function TicketWatcher({
       <PopoverTrigger asChild>
         <AnimateIcon animateOnHover>
         <Button
-          variant={isWatching ? "default" : "outline"}
+          variant="outline"
           size="sm"
           onClick={handleToggleWatch}
           disabled={isLoading}
-          className={`relative h-9 min-w-[2.25rem] transition-all duration-200 ${isWatching ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'hover:bg-accent hover:text-accent-foreground border-input'}`}
+          className={`relative h-9 min-w-[2.25rem] transition-all duration-200 border ${isWatching ? 'bg-primary hover:bg-primary/90 hover:text-white text-primary-foreground border-primary' : 'hover:bg-accent hover:text-accent-foreground border-input'}`}
           onMouseEnter={() => setIsPopoverOpen(true)}
           onMouseLeave={() => {
             // Add a small delay to allow moving mouse to popover
