@@ -144,6 +144,30 @@ export default function NotificationCenter({ onClose, onUnreadCountChange }: Not
             >
               <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
             </Button>
+            {process.env.NODE_ENV === 'development' && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={async () => {
+                  try {
+                    const response = await fetch('/api/notifications/test', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({})
+                    })
+                    if (response.ok) {
+                      console.log('[DEBUG] Test notification sent')
+                    }
+                  } catch (error) {
+                    console.error('[DEBUG] Failed to send test notification:', error)
+                  }
+                }}
+                className="h-8 px-2 text-xs"
+                title="Send Test Notification"
+              >
+                Test
+              </Button>
+            )}
             {!isConnected && (
               <div className="flex items-center gap-1 text-xs text-orange-600">
                 <AlertCircle className="h-3 w-3" />

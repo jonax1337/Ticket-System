@@ -21,14 +21,17 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
 
   const connect = useCallback(() => {
     if (eventSourceRef.current?.readyState === EventSource.OPEN) {
+      console.log('[SSE CLIENT DEBUG] Connection already open, skipping connect')
       return // Already connected
     }
 
     try {
+      console.log('[SSE CLIENT DEBUG] Creating new EventSource connection')
       const eventSource = new EventSource('/api/notifications/stream')
       eventSourceRef.current = eventSource
 
       eventSource.onopen = () => {
+        console.log('[SSE CLIENT DEBUG] EventSource connection opened')
         setIsConnected(true)
         setConnectionError(null)
         reconnectAttemptsRef.current = 0
@@ -38,34 +41,39 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
       eventSource.onmessage = (event) => {
         try {
           const data: RealtimeNotificationEvent = JSON.parse(event.data)
+          console.log('[SSE CLIENT DEBUG] Received SSE event:', data.type, data)
           
           switch (data.type) {
             case 'connected':
-              console.log('SSE connected at:', data.timestamp)
+              console.log('[SSE CLIENT DEBUG] SSE connected at:', data.timestamp)
               break
             case 'heartbeat':
+              console.log('[SSE CLIENT DEBUG] Received heartbeat at:', data.timestamp)
               // Keep connection alive
               break
             case 'notification':
+              console.log('[SSE CLIENT DEBUG] Received notification:', data.data)
               if (data.data) {
                 onNotification?.(data.data)
               }
               break
             case 'unread_count':
+              console.log('[SSE CLIENT DEBUG] Received unread count update:', data.data)
               if (data.data && typeof data.data === 'object' && 'count' in data.data) {
                 onUnreadCountUpdate?.(data.data.count as number)
               }
               break
             default:
-              console.log('Unknown SSE event type:', data.type)
+              console.log('[SSE CLIENT DEBUG] Unknown SSE event type:', data.type)
           }
         } catch (error) {
-          console.error('Error parsing SSE data:', error)
+          console.error('[SSE CLIENT DEBUG] Error parsing SSE data:', error)
         }
       }
 
       eventSource.onerror = (error) => {
-        console.error('SSE connection error:', error)
+        console.error('[SSE CLIENT DEBUG] SSE connection error:', error)
+        console.log('[SSE CLIENT DEBUG] EventSource readyState:', eventSource.readyState)
         setIsConnected(false)
         onConnectionStatusChange?.(false)
         
@@ -73,6 +81,7 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
           // Connection lost, attempt to reconnect
           if (reconnectAttemptsRef.current < maxReconnectAttempts) {
             const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 30000) // Exponential backoff
+            console.log(`[SSE CLIENT DEBUG] Attempting reconnect ${reconnectAttemptsRef.current + 1}/${maxReconnectAttempts} in ${delay}ms`)
             setConnectionError(`Connection lost. Reconnecting in ${Math.ceil(delay / 1000)}s...`)
             
             reconnectTimeoutRef.current = setTimeout(() => {
@@ -80,12 +89,13 @@ export function useRealtimeNotifications(options: UseRealtimeNotificationsOption
               connect()
             }, delay)
           } else {
+            console.log('[SSE CLIENT DEBUG] Max reconnect attempts reached')
             setConnectionError('Failed to connect after multiple attempts. Please refresh the page.')
           }
         }
       }
     } catch (error) {
-      console.error('Error creating SSE connection:', error)
+      console.error('[SSE CLIENT DEBUG] Error creating SSE connection:', error)
       setConnectionError('Failed to establish real-time connection')
     }
   }, [onNotification, onUnreadCountUpdate, onConnectionStatusChange])
