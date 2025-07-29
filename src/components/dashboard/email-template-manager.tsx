@@ -377,7 +377,7 @@ export default function EmailTemplateManager() {
         </TabsList>
 
         <TabsContents className="mt-6">
-          <div value="base" className="space-y-6">
+          <TabsContent value="base" className="space-y-6">
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -687,9 +687,9 @@ export default function EmailTemplateManager() {
               )}
             </CardContent>
           </Card>
-          </div>
+          </TabsContent>
 
-          <div value="types" className="space-y-6">
+          <TabsContent value="types" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -767,7 +767,7 @@ export default function EmailTemplateManager() {
               )}
             </CardContent>
           </Card>
-          </div>
+          </TabsContent>
         </TabsContents>
       </Tabs>
 
@@ -1016,7 +1016,7 @@ export default function EmailTemplateManager() {
                 </TabsList>
                 
                 <TabsContents className="mt-6">
-                  <div value="html" className="space-y-4">
+                  <TabsContent value="html" className="space-y-4">
                   <div className="space-y-2">
                     <Label>Subject:</Label>
                     <div className="p-3 bg-muted rounded font-mono text-sm">
@@ -1057,9 +1057,9 @@ export default function EmailTemplateManager() {
                       />
                     </div>
                   </div>
-                  </div>
+                  </TabsContent>
                 
-                  <div value="source" className="space-y-4">
+                  <TabsContent value="source" className="space-y-4">
                   <div className="space-y-2">
                     <Label>HTML Source:</Label>
                     <div className="border rounded p-4 bg-muted/30">
@@ -1068,7 +1068,7 @@ export default function EmailTemplateManager() {
                       </pre>
                     </div>
                   </div>
-                  </div>
+                  </TabsContent>
                 </TabsContents>
               </Tabs>
             )}
