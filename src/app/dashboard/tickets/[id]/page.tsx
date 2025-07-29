@@ -44,6 +44,21 @@ export default async function TicketPage({ params }: TicketPageProps) {
           { createdAt: 'asc' }
         ]
       },
+      watchers: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              avatarUrl: true,
+            }
+          }
+        },
+        orderBy: {
+          createdAt: 'asc'
+        }
+      },
       comments: {
         include: {
           user: {

@@ -34,6 +34,7 @@ model User {
   notifications   Notification[] @relation("UserNotifications")
   actorNotifications Notification[] @relation("ActorNotifications")
   userQueues      UserQueue[]
+  watchedTickets  TicketWatcher[]
 
   @@map("users")
 }
@@ -100,6 +101,7 @@ model Ticket {
   attachments TicketAttachment[]
   notifications Notification[]
   participants TicketParticipant[] // New modular participant system
+  watchers TicketWatcher[]
 
   @@map("tickets")
 }
@@ -355,4 +357,17 @@ model UserQueue {
 
   @@unique([userId, queueId])
   @@map("user_queues")
+}
+
+model TicketWatcher {
+  id        String   @id @default(cuid())
+  ticketId  String
+  userId    String
+  createdAt DateTime @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([ticketId, userId])
+  @@map("ticket_watchers")
 }

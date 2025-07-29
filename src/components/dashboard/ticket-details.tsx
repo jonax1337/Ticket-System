@@ -39,6 +39,7 @@ import {
 } from '@/components/ui/shadcn-io/combobox'
 import { useCache } from '@/lib/cache-context'
 import TicketEditDialog from '@/components/dashboard/ticket-edit-dialog'
+import TicketWatcher from '@/components/dashboard/ticket-watcher'
 import { toast } from 'sonner'
 
 interface User {
@@ -86,6 +87,17 @@ interface Ticket {
     filepath: string
     mimetype: string
     size: number
+  }[]
+  watchers?: {
+    id: string
+    userId: string
+    createdAt: Date
+    user: {
+      id: string
+      name: string
+      email: string
+      avatarUrl?: string | null
+    }
   }[]
   comments: {
     id: string
@@ -620,7 +632,17 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Ticket Details</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Ticket Details</CardTitle>
+              {ticket.watchers && (
+                <TicketWatcher
+                  ticketId={ticket.id}
+                  initialWatchers={ticket.watchers}
+                  currentUserId={currentUser.id}
+                  currentUserRole={session.user.role}
+                />
+              )}
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Status */}
