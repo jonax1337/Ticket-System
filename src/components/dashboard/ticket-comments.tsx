@@ -301,7 +301,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
 
       // Create optimistic comment
       const optimisticComment: Comment = {
-        id: `temp-${Date.now()}`, // Temporary ID
+        id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique temporary ID
         content: commentContent + (isStatusChanging ? ` [STATUS_CHANGE] Status changed from "${previousStatus}" to "${nextStatus}"` : ''),
         fullEmailContent: null,
         sentToEmails: commentType === 'external' && selectedParticipants.length > 0 
