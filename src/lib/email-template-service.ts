@@ -180,13 +180,22 @@ export async function renderEmailTemplate(
 
     // Apply subject prefix from system settings
     let renderedSubject = replaceTemplateVariables(template.subject, fullVariables)
-    const subjectPrefix = replaceTemplateVariables(fullVariables.emailSubjectPrefix || '[Ticket {{ticketNumber}}]', fullVariables)
     
-    // Add prefix if not already present (check for exact prefix pattern)
-    const prefixPattern = fullVariables.emailSubjectPrefix || '[Ticket {{ticketNumber}}]'
-    const renderedPrefix = replaceTemplateVariables(prefixPattern, fullVariables)
-    if (!renderedSubject.startsWith(renderedPrefix)) {
-      renderedSubject = `${renderedPrefix} ${renderedSubject}`
+    // Smart prefix detection - check if ticket number already exists in subject
+    const ticketNumber = fullVariables.ticketNumber
+    const hasTicketNumberInSubject = ticketNumber && (
+      renderedSubject.includes(`[Ticket ${ticketNumber}]`) ||
+      renderedSubject.includes(`Ticket ${ticketNumber}`) ||
+      renderedSubject.includes(ticketNumber)
+    )
+    
+    // Only add prefix if ticket number is not already present in the subject
+    if (!hasTicketNumberInSubject) {
+      const prefixPattern = fullVariables.emailSubjectPrefix || '[Ticket {{ticketNumber}}]'
+      const renderedPrefix = replaceTemplateVariables(prefixPattern, fullVariables)
+      if (!renderedSubject.startsWith(renderedPrefix)) {
+        renderedSubject = `${renderedPrefix} ${renderedSubject}`
+      }
     }
     
     const renderedTextContent = template.textContent 
@@ -213,8 +222,8 @@ function renderEmailLogo(logoUrl: string | null, showLogo: boolean): string {
   }
   
   return `
-    <div class="logo">
-      <img src="${logoUrl}" alt="Logo" />
+    <div class="logo" style="margin-bottom: 15px; text-align: center;">
+      <img src="${logoUrl}" alt="Logo" style="max-height: 80px; max-width: 300px; height: auto; width: auto; display: block; margin: 0 auto;" />
     </div>
   `
 }
