@@ -1,7 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Eye, X } from 'lucide-react'
+import { X, Info } from 'lucide-react'
+import { Bell } from '@/components/animate-ui/icons/bell'
+import { BellOff } from '@/components/animate-ui/icons/bell-off'
+import { AnimateIcon } from '@/components/animate-ui/icons/icon'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -74,7 +77,10 @@ export default function TicketWatcher({
         
         if (response.ok) {
           setWatchers(prev => prev.filter(w => w.user.id !== currentUserId))
-          toast.success('Stopped watching ticket')
+          toast.success('You are no longer watching this ticket', {
+            description: 'You will not receive notifications for updates',
+            icon: <BellOff size={16} animateOnHover />
+          })
         } else {
           throw new Error('Failed to unwatch ticket')
         }
@@ -87,14 +93,19 @@ export default function TicketWatcher({
         if (response.ok) {
           const newWatcher = await response.json()
           setWatchers(prev => [...prev, newWatcher])
-          toast.success('Now watching ticket')
+          toast.success('You are now watching this ticket', {
+            description: 'You will receive notifications for all updates',
+            icon: <Bell size={16} animateOnHover />
+          })
         } else {
           throw new Error('Failed to watch ticket')
         }
       }
     } catch (error) {
       console.error('Error toggling watch status:', error)
-      toast.error('Failed to update watch status')
+      toast.error('Failed to update watch status', {
+        description: 'Please try again or contact support if the issue persists'
+      })
     } finally {
       setIsLoading(false)
     }
@@ -109,13 +120,17 @@ export default function TicketWatcher({
       
       if (response.ok) {
         setWatchers(prev => prev.filter(w => w.user.id !== watcherUserId))
-        toast.success('Watcher removed')
+        toast.success('Watcher removed from ticket', {
+          description: 'They will no longer receive notifications for updates'
+        })
       } else {
         throw new Error('Failed to remove watcher')
       }
     } catch (error) {
       console.error('Error removing watcher:', error)
-      toast.error('Failed to remove watcher')
+      toast.error('Failed to remove watcher', {
+        description: 'Please try again or contact support if the issue persists'
+      })
     } finally {
       setIsLoading(false)
     }
@@ -124,12 +139,13 @@ export default function TicketWatcher({
   return (
     <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
       <PopoverTrigger asChild>
+        <AnimateIcon animateOnHover>
         <Button
-          variant="outline"
+          variant={isWatching ? "default" : "outline"}
           size="sm"
           onClick={handleToggleWatch}
           disabled={isLoading}
-          className="relative"
+          className={`relative h-9 min-w-[2.25rem] transition-all duration-200 ${isWatching ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'hover:bg-accent hover:text-accent-foreground border-input'}`}
           onMouseEnter={() => setIsPopoverOpen(true)}
           onMouseLeave={() => {
             // Add a small delay to allow moving mouse to popover
@@ -141,16 +157,21 @@ export default function TicketWatcher({
             }, 100)
           }}
         >
-          <Eye className={`h-4 w-4 ${isWatching ? 'fill-current' : ''}`} />
+          {isWatching ? (
+              <Bell size={16} />
+          ) : (
+              <BellOff size={16} />
+          )}
           {watchers.length > 0 && (
             <Badge 
               variant="secondary" 
-              className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
+              className={`absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs font-medium ${isWatching ? 'bg-background text-foreground border border-border' : 'bg-primary text-primary-foreground'}`}
             >
               {watchers.length}
             </Badge>
           )}
         </Button>
+        </AnimateIcon>
       </PopoverTrigger>
       <PopoverContent 
         className="w-80 p-3"
@@ -206,8 +227,21 @@ export default function TicketWatcher({
             </div>
           )}
           
-          <div className="pt-2 border-t text-xs text-muted-foreground">
-            Click the eye to {isWatching ? 'stop watching' : 'watch'} this ticket
+          <div className="pt-2 border-t space-y-2">
+            <div className="flex items-start gap-2 p-2 bg-blue-50 dark:bg-blue-950/30 rounded-md">
+              <Info className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div className="text-xs">
+                <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">
+                  {isWatching ? 'You are watching this ticket' : 'Watch this ticket'}
+                </p>
+                <p className="text-blue-700 dark:text-blue-300">
+                  {isWatching 
+                    ? 'You will receive notifications for all updates, comments, and status changes.'
+                    : 'Click the bell icon to get notified about updates, comments, and status changes.'
+                  }
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </PopoverContent>

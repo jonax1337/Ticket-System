@@ -49,6 +49,7 @@
     "lexical": "^0.33.1",
     "lucide-react": "^0.471.2",
     "mailparser": "^3.7.4",
+    "motion": "^12.23.11",
     "multer": "^2.0.2",
     "mysql2": "^3.14.2",
     "next": "15.4.1",
