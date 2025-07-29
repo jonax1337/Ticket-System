@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsContents, TabsList, TabsTrigger } from '@/components/animate-ui/components/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Checkbox } from '@/components/ui/checkbox'
 import { 
@@ -365,7 +365,7 @@ export default function EmailTemplateManager() {
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="w-full grid grid-cols-2 h-auto p-1">
           <TabsTrigger value="base" className="flex items-center gap-2">
             <FileType className="h-4 w-4" />
             Base Template
@@ -376,8 +376,8 @@ export default function EmailTemplateManager() {
           </TabsTrigger>
         </TabsList>
 
-        {/* Base Template Tab */}
-        <TabsContent value="base" className="space-y-6">
+        <TabsContents className="mt-6">
+          <div value="base" className="space-y-6">
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -687,10 +687,9 @@ export default function EmailTemplateManager() {
               )}
             </CardContent>
           </Card>
-        </TabsContent>
+          </div>
 
-        {/* Email Types Tab */}
-        <TabsContent value="types" className="space-y-6">
+          <div value="types" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -768,7 +767,8 @@ export default function EmailTemplateManager() {
               )}
             </CardContent>
           </Card>
-        </TabsContent>
+          </div>
+        </TabsContents>
       </Tabs>
 
       {/* Type Configuration Dialog */}
@@ -1004,7 +1004,7 @@ export default function EmailTemplateManager() {
           <div className="flex-1 overflow-y-auto p-6">
             {previewData && (
               <Tabs defaultValue="html" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
+                <TabsList className="w-full grid grid-cols-2 h-auto p-1">
                   <TabsTrigger value="html" className="flex items-center gap-2">
                     <Globe className="h-4 w-4" />
                     HTML Preview
@@ -1015,7 +1015,8 @@ export default function EmailTemplateManager() {
                   </TabsTrigger>
                 </TabsList>
                 
-                <TabsContent value="html" className="space-y-4">
+                <TabsContents className="mt-6">
+                  <div value="html" className="space-y-4">
                   <div className="space-y-2">
                     <Label>Subject:</Label>
                     <div className="p-3 bg-muted rounded font-mono text-sm">
@@ -1056,9 +1057,9 @@ export default function EmailTemplateManager() {
                       />
                     </div>
                   </div>
-                </TabsContent>
+                  </div>
                 
-                <TabsContent value="source" className="space-y-4">
+                  <div value="source" className="space-y-4">
                   <div className="space-y-2">
                     <Label>HTML Source:</Label>
                     <div className="border rounded p-4 bg-muted/30">
@@ -1067,7 +1068,8 @@ export default function EmailTemplateManager() {
                       </pre>
                     </div>
                   </div>
-                </TabsContent>
+                  </div>
+                </TabsContents>
               </Tabs>
             )}
           </div>
