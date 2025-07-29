@@ -24,7 +24,8 @@
       "Bash(dos2unix:*)",
       "Bash(git checkout:*)",
       "Bash(npm run lint:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }
