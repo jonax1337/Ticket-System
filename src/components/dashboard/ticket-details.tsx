@@ -7,7 +7,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell, Inbox, Folder, Circle } from 'lucide-react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { User, Clock, Mail, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, Search, MessageSquare, FileText, Zap, TrendingUp, Paperclip, Download, Calendar, RefreshCw, Bell, Inbox, Folder, Circle, Trash2, Edit } from 'lucide-react'
 import { getIconComponent } from '@/lib/icon-system'
 import { useRouter } from 'next/navigation'
 import TicketComments from '@/components/dashboard/ticket-comments'
@@ -27,6 +38,8 @@ import {
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
 import { useCache } from '@/lib/cache-context'
+import TicketEditDialog from '@/components/dashboard/ticket-edit-dialog'
+import { toast } from 'sonner'
 
 interface User {
   id: string
@@ -112,11 +125,19 @@ interface TicketDetailsProps {
     email: string
     avatarUrl?: string | null
   }
+  session: {
+    user: {
+      id: string
+      role: string
+      name?: string | null
+      email?: string | null
+    }
+  }
 }
 
 // Removed - using unified icon system
 
-export default function TicketDetails({ ticket: initialTicket, users, currentUser }: TicketDetailsProps) {
+export default function TicketDetails({ ticket: initialTicket, users, currentUser, session }: TicketDetailsProps) {
   const [ticket, setTicket] = useState(initialTicket)
   const [isLoading, setIsLoading] = useState(false)
   const [editingDueDate, setEditingDueDate] = useState(false)
@@ -431,6 +452,31 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
     }
     return { status: 'normal', color: 'text-blue-600', bg: 'bg-blue-50' }
   }
+
+  const handleDeleteTicket = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch(`/api/tickets/${ticket.id}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        toast.success('Ticket deleted successfully')
+        router.push('/dashboard')
+      } else {
+        throw new Error('Failed to delete ticket')
+      }
+    } catch (error) {
+      console.error('Failed to delete ticket:', error)
+      toast.error('Failed to delete ticket. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleTicketUpdate = (updatedTicket: any) => {
+    setTicket(updatedTicket)
+  }
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Main Content */}
@@ -438,10 +484,62 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
         <CardHeader>
           <div className="flex flex-col gap-4">
             <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="font-mono text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">
-                  {getDisplayTicketNumber()}
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="font-mono text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                    {getDisplayTicketNumber()}
+                  </div>
                 </div>
+                {session.user.role === 'ADMIN' && (
+                  <div className="flex items-center gap-2">
+                    <TicketEditDialog 
+                      ticket={ticket} 
+                      users={users} 
+                      onTicketUpdate={handleTicketUpdate}
+                    >
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={isLoading}
+                      >
+                        <Edit className="h-4 w-4" />
+                        Edit
+                      </Button>
+                    </TicketEditDialog>
+                    
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          disabled={isLoading}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete Ticket</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to delete ticket <strong>{getDisplayTicketNumber()}</strong>? 
+                            This action cannot be undone and will remove all associated comments and attachments.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+                          <AlertDialogAction 
+                            onClick={handleDeleteTicket}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? 'Deleting...' : 'Delete'}
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
+                )}
               </div>
               <CardTitle className="text-2xl">{ticket.subject}</CardTitle>
             </div>

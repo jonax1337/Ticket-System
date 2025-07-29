@@ -19,7 +19,7 @@ export async function PATCH(
       )
     }
 
-    const { status, priority, assignedToId, fromName, fromEmail, dueDate, reminderDate, queueId } = await request.json()
+    const { status, priority, assignedToId, fromName, fromEmail, dueDate, reminderDate, queueId, subject, description, attachments } = await request.json()
 
     const updateData: Record<string, unknown> = {}
     
@@ -55,7 +55,15 @@ export async function PATCH(
       updateData.queueId = queueId
     }
 
-    if (Object.keys(updateData).length === 0) {
+    if (subject !== undefined) {
+      updateData.subject = subject
+    }
+
+    if (description !== undefined) {
+      updateData.description = description
+    }
+
+    if (Object.keys(updateData).length === 0 && !attachments) {
       return NextResponse.json(
         { error: 'No valid fields to update' },
         { status: 400 }
@@ -91,19 +99,124 @@ export async function PATCH(
       )
     }
 
-    const ticket = await prisma.ticket.update({
-      where: { id: params.id },
-      data: updateData,
-      include: {
-        assignedTo: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
+    // Update ticket if there are fields to update
+    let ticket
+    if (Object.keys(updateData).length > 0) {
+      ticket = await prisma.ticket.update({
+        where: { id: params.id },
+        data: updateData,
+        include: {
+          assignedTo: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              avatarUrl: true,
+            },
+          },
+          queue: {
+            select: {
+              id: true,
+              name: true,
+              color: true,
+              icon: true,
+            },
+          },
+          attachments: true,
+          participants: {
+            orderBy: [
+              { type: 'asc' },
+              { createdAt: 'asc' }
+            ]
+          },
+          comments: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                  avatarUrl: true,
+                },
+              },
+              attachments: true,
+            },
+            orderBy: {
+              createdAt: 'asc',
+            },
           },
         },
-      },
-    })
+      })
+    } else {
+      // If no fields to update but we have attachments, get the current ticket
+      ticket = await prisma.ticket.findUnique({
+        where: { id: params.id },
+        include: {
+          assignedTo: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              avatarUrl: true,
+            },
+          },
+          queue: {
+            select: {
+              id: true,
+              name: true,
+              color: true,
+              icon: true,
+            },
+          },
+          attachments: true,
+          participants: {
+            orderBy: [
+              { type: 'asc' },
+              { createdAt: 'asc' }
+            ]
+          },
+          comments: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                  avatarUrl: true,
+                },
+              },
+              attachments: true,
+            },
+            orderBy: {
+              createdAt: 'asc',
+            },
+          },
+        },
+      })
+    }
+
+    // Handle attachments if provided
+    if (attachments && Array.isArray(attachments)) {
+      try {
+        // Create attachment records
+        const attachmentPromises = attachments.map((attachment: {filename: string, filepath: string, mimetype: string, size: number}) =>
+          prisma.ticketAttachment.create({
+            data: {
+              filename: attachment.filename,
+              filepath: attachment.filepath,
+              mimetype: attachment.mimetype,
+              size: attachment.size,
+              ticketId: params.id,
+            },
+          })
+        )
+        
+        await Promise.all(attachmentPromises)
+      } catch (attachmentError) {
+        console.error('Error creating attachments:', attachmentError)
+        // Don't fail the main request if attachments fail
+      }
+    }
 
     // Handle assignment notifications
     if (assignedToId !== undefined) {

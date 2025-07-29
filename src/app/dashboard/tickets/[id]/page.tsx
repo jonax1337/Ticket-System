@@ -106,6 +106,7 @@ export default async function TicketPage({ params }: TicketPageProps) {
         ticket={ticketWithAllComments} 
         users={users} 
         currentUser={currentUser}
+        session={session}
       />
     </div>
   )

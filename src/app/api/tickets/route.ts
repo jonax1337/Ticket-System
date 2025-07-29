@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     // Parse request body
     const body = await req.json()
-    const { subject, description, fromEmail, fromName, priority, htmlContent, attachments, dueDate, reminderDate, queueId } = body
+    const { subject, description, fromEmail, fromName, status, priority, htmlContent, attachments, dueDate, reminderDate, queueId } = body
 
     // Validate required fields
     if (!subject || !description) {
@@ -47,8 +47,8 @@ export async function POST(req: NextRequest) {
         htmlContent: htmlContent || null,
         fromEmail: fromEmail || 'internal@support.com',
         fromName: fromName || 'Internal Support',
+        status: status || 'Open',
         priority: priority || 'Medium',
-        status: 'Open',
         queueId: finalQueueId,
         dueDate: normalizeDateToMidnight(dueDate),
         reminderDate: reminderDate ? new Date(reminderDate) : null,

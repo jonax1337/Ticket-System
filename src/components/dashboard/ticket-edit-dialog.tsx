@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -15,13 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import {
   Combobox,
   ComboboxContent,
@@ -32,15 +25,40 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from '@/components/ui/shadcn-io/combobox'
-import { User, Mail, FileText, Plus, Upload, X, Image, Calendar, Bell } from 'lucide-react'
+import { User, Mail, FileText, Edit, Calendar, Bell, Upload, X, Image } from 'lucide-react'
+import { useCache } from '@/lib/cache-context'
 import { getIconComponent } from '@/lib/icon-system'
-import { toast } from 'sonner'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { DatePicker } from '@/components/ui/date-picker'
 import { DateTimePicker } from '@/components/ui/datetime-picker'
-import { useCache } from '@/lib/cache-context'
 import { normalizeDateToMidnight } from '@/lib/date-utils'
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from '@/components/ui/shadcn-io/dropzone'
+import { toast } from 'sonner'
+
+interface Ticket {
+  id: string
+  ticketNumber?: string | null
+  subject: string
+  description: string
+  status: string
+  priority: string
+  fromEmail: string
+  fromName: string | null
+  dueDate?: Date | null
+  reminderDate?: Date | null
+  assignedTo: {
+    id: string
+    name: string
+    email: string
+    avatarUrl?: string | null
+  } | null
+  queue?: {
+    id: string
+    name: string
+    color: string
+    icon: string
+  } | null
+}
 
 interface User {
   id: string
@@ -49,30 +67,28 @@ interface User {
   avatarUrl?: string | null
 }
 
-interface CustomPriority {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
+interface TicketEditDialogProps {
+  ticket: Ticket
+  users: User[]
+  onTicketUpdate: (updatedTicket: any) => void
+  children: React.ReactNode
 }
 
-
-export function CreateTicketDialog() {
-  const router = useRouter()
-  const { priorities, statuses } = useCache()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+export default function TicketEditDialog({ ticket, users, onTicketUpdate, children }: TicketEditDialogProps) {
+  const { statuses, priorities } = useCache()
+  
   const [open, setOpen] = useState(false)
-  const [users, setUsers] = useState<User[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [queues, setQueues] = useState<Array<{id: string, name: string, color: string, icon: string}>>([])
-  const [status, setStatus] = useState<string>('Open')
-  const [priority, setPriority] = useState<string>('Medium')
-  const [assignedTo, setAssignedTo] = useState<string>('')
-  const [selectedQueue, setSelectedQueue] = useState<string>('no-queue')
+  
+  // Form state
+  const [status, setStatus] = useState(ticket.status)
+  const [priority, setPriority] = useState(ticket.priority)
+  const [assignedTo, setAssignedTo] = useState(ticket.assignedTo?.id || '')
+  const [selectedQueue, setSelectedQueue] = useState(ticket.queue?.id || 'no-queue')
+  const [dueDate, setDueDate] = useState<Date | undefined>(ticket.dueDate ? new Date(ticket.dueDate) : undefined)
+  const [reminderDate, setReminderDate] = useState<Date | undefined>(ticket.reminderDate ? new Date(ticket.reminderDate) : undefined)
   const [attachments, setAttachments] = useState<File[]>([])
-  const [dueDate, setDueDate] = useState<Date | undefined>(undefined)
-  const [reminderDate, setReminderDate] = useState<Date | undefined>(undefined)
 
   const handleAssigneeChange = (value: string) => {
     setAssignedTo(value)
@@ -98,62 +114,40 @@ export function CreateTicketDialog() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }
 
-  // Set default status and priority when available from cache
   useEffect(() => {
-    if (statuses.length > 0 && status === 'Open') {
-      const defaultStatus = statuses.find((s) => s.name === 'Open') || statuses[0]
-      setStatus(defaultStatus.name)
-    }
-  }, [statuses, status])
-
-  useEffect(() => {
-    if (priorities.length > 0 && priority === 'Medium') {
-      const defaultPriority = priorities.find((p) => p.name === 'Medium') || priorities[0]
-      setPriority(defaultPriority.name)
-    }
-  }, [priorities, priority])
-
-  useEffect(() => {
-    // Load users and queues when dialog opens
-    if (open) {
-      const fetchData = async () => {
-        try {
-          const [usersResponse, queuesResponse] = await Promise.all([
-            fetch('/api/users'),
-            fetch('/api/users/queues') // Get user's assigned queues + default queues
-          ])
-          
-          if (usersResponse.ok) {
-            const userData = await usersResponse.json()
-            setUsers(userData)
-          }
-
-          if (queuesResponse.ok) {
-            const userQueueData = await queuesResponse.json()
-            // Extract just the queue data from user queue assignments
-            const queueData = userQueueData.map((uq: { queue: {id: string, name: string, color: string, icon: string} }) => uq.queue)
-            setQueues(queueData)
-            // Set default queue if available
-            const defaultQueue = queueData.find((q: {id: string, name: string, color: string, icon: string, isDefault: boolean}) => q.isDefault)
-            if (defaultQueue) {
-              setSelectedQueue(defaultQueue.id)
-            }
-          }
-        } catch (error) {
-          console.error('Failed to fetch data:', error)
+    const fetchQueues = async () => {
+      try {
+        const response = await fetch('/api/queues')
+        if (response.ok) {
+          const allQueues = await response.json()
+          setQueues(allQueues)
         }
+      } catch (error) {
+        console.error('Failed to fetch queues:', error)
       }
-
-      fetchData()
     }
-  }, [open])
+    fetchQueues()
+  }, [])
+
+  // Reset form data when ticket changes or dialog opens
+  useEffect(() => {
+    if (open) {
+      setStatus(ticket.status)
+      setPriority(ticket.priority)
+      setAssignedTo(ticket.assignedTo?.id || '')
+      setSelectedQueue(ticket.queue?.id || 'no-queue')
+      setDueDate(ticket.dueDate ? new Date(ticket.dueDate) : undefined)
+      setReminderDate(ticket.reminderDate ? new Date(ticket.reminderDate) : undefined)
+      setAttachments([])
+    }
+  }, [open, ticket])
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsSubmitting(true)
 
     const formData = new FormData(event.currentTarget)
-    
+
     try {
       // Upload attachments first if any
       let uploadedFiles: Array<{filename: string, filepath: string, mimetype: string, size: number}> = []
@@ -175,53 +169,55 @@ export function CreateTicketDialog() {
         }
       }
 
-      // Create ticket with attachments
-      const response = await fetch('/api/tickets', {
-        method: 'POST',
-        body: JSON.stringify({
-          subject: formData.get('subject'),
-          description: formData.get('description'),
-          fromEmail: formData.get('fromEmail') || 'internal@support.com',
-          fromName: formData.get('fromName') || 'Internal Support',
-          status: status,
-          priority: priority,
-          queueId: selectedQueue && selectedQueue !== 'no-queue' ? selectedQueue : null,
-          assignedTo: assignedTo || null,
-          attachments: uploadedFiles,
-          dueDate: dueDate ? normalizeDateToMidnight(dueDate)?.toISOString() : null,
-          reminderDate: reminderDate ? reminderDate.toISOString() : null,
-        }),
+      const updateData: Record<string, unknown> = {
+        subject: formData.get('subject'),
+        description: formData.get('description'),
+        fromEmail: formData.get('fromEmail'),
+        fromName: formData.get('fromName'),
+        status: status,
+        priority: priority,
+        queueId: selectedQueue && selectedQueue !== 'no-queue' ? selectedQueue : null,
+        assignedToId: assignedTo || null,
+        dueDate: dueDate ? normalizeDateToMidnight(dueDate)?.toISOString() : null,
+        reminderDate: reminderDate ? reminderDate.toISOString() : null,
+      }
+
+      // Add attachments to update if any were uploaded
+      if (uploadedFiles.length > 0) {
+        updateData.attachments = uploadedFiles
+      }
+
+      const response = await fetch(`/api/tickets/${ticket.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(updateData),
         headers: {
           'Content-Type': 'application/json',
         },
       })
 
       if (!response.ok) {
-        throw new Error('Failed to create ticket')
+        throw new Error('Failed to update ticket')
       }
 
-      const createdTicket = await response.json()
-
-      // Reset form and close dialog on success
-      const defaultStatus = statuses.find(s => s.name === 'Open') || statuses[0]
-      const defaultPriority = priorities.find(p => p.name === 'Medium') || priorities[0]
-      setStatus(defaultStatus?.name || 'Open')
-      setPriority(defaultPriority?.name || 'Medium')
-      setAssignedTo('')
-      setSelectedQueue('no-queue')
-      setAttachments([])
-      setDueDate(undefined)
-      setReminderDate(undefined)
+      const updatedTicket = await response.json()
+      
+      // Ensure arrays exist to prevent runtime errors
+      const safeTicket = {
+        ...updatedTicket,
+        comments: updatedTicket.comments || [],
+        participants: updatedTicket.participants || [],
+        attachments: updatedTicket.attachments || []
+      }
+      
+      onTicketUpdate(safeTicket)
       setOpen(false)
       
-      toast.success('Ticket created successfully', {
-        description: `Ticket ${createdTicket.ticketNumber || createdTicket.id} has been created.`
+      toast.success('Ticket updated successfully', {
+        description: `Ticket ${ticket.ticketNumber || ticket.id} has been updated.`
       })
-      
-      router.refresh()
     } catch (error) {
-      console.error('Error creating ticket:', error)
-      toast.error('Failed to create ticket', {
+      console.error('Error updating ticket:', error)
+      toast.error('Failed to update ticket', {
         description: 'Please try again or contact support if the problem persists.'
       })
     } finally {
@@ -232,19 +228,17 @@ export function CreateTicketDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="ml-auto">
-          New Ticket
-        </Button>
+        {children}
       </DialogTrigger>
       <DialogContent className="max-w-2xl w-full max-h-[90vh] m-4 p-0 overflow-hidden flex flex-col gap-0">
         <div className="p-6 border-b flex-shrink-0">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Plus className="h-5 w-5" />
-              Create New Ticket
+              <Edit className="h-5 w-5" />
+              Edit Ticket
             </DialogTitle>
             <DialogDescription>
-              Create a new support ticket. Fill in all required fields.
+              Make changes to ticket {ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`}
             </DialogDescription>
           </DialogHeader>
         </div>
@@ -264,6 +258,7 @@ export function CreateTicketDialog() {
                     <Input
                       id="subject"
                       name="subject"
+                      defaultValue={ticket.subject}
                       placeholder="Brief description of the issue"
                       required
                     />
@@ -273,6 +268,7 @@ export function CreateTicketDialog() {
                     <Textarea
                       id="description"
                       name="description"
+                      defaultValue={ticket.description}
                       placeholder="Detailed description of the problem or request"
                       rows={4}
                       required
@@ -451,7 +447,7 @@ export function CreateTicketDialog() {
               <div className="space-y-4">
                 <h4 className="text-sm font-medium flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  Requester (optional)
+                  Requester
                 </h4>
                 <div className="space-y-4">
                   <div className="grid gap-2">
@@ -460,7 +456,9 @@ export function CreateTicketDialog() {
                       id="fromEmail"
                       name="fromEmail"
                       type="email"
+                      defaultValue={ticket.fromEmail}
                       placeholder="email@example.com"
+                      required
                     />
                   </div>
                   <div className="grid gap-2">
@@ -468,6 +466,7 @@ export function CreateTicketDialog() {
                     <Input
                       id="fromName"
                       name="fromName"
+                      defaultValue={ticket.fromName || ''}
                       placeholder="Requester's name"
                     />
                   </div>
@@ -558,11 +557,12 @@ export function CreateTicketDialog() {
                 type="button" 
                 variant="outline" 
                 onClick={() => setOpen(false)}
+                disabled={isSubmitting}
               >
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Creating...' : 'Create Ticket'}
+                {isSubmitting ? 'Updating...' : 'Update Ticket'}
               </Button>
             </DialogFooter>
           </div>
