@@ -54,7 +54,7 @@ export async function DELETE(
     }
 
     // Only allow users to remove themselves, or admins to remove anyone
-    if (session.user.id !== userId && session.user.role !== 'ADMIN') {
+    if (session.user.id !== userId && (!session.user.role || session.user.role !== 'ADMIN')) {
       return NextResponse.json({ error: 'Insufficient permissions' }, { status: 403 })
     }
 
