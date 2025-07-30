@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger } from '@/components/animate-ui/components/tabs'
 import { Mail, Plus, Settings, Trash2, TestTube, CheckCircle, XCircle, Clock, Eye, EyeOff, Filter, Zap, RotateCcw, AlertCircle, ArrowRight, CheckCircle2, Timer, AlertTriangle, TrendingUp, RefreshCw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
@@ -92,12 +92,8 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
   // Use optimistic configs if available, otherwise use live configs
   const displayConfigs = optimisticConfigs.length > 0 ? optimisticConfigs : liveConfigs
   
-  // Clear optimistic updates when live configs change (after successful server sync)
-  useEffect(() => {
-    if (optimisticConfigs.length > 0 && liveConfigs.length > 0) {
-      setOptimisticConfigs([])
-    }
-  }, [liveConfigs, optimisticConfigs.length])
+  // Only clear optimistic updates on component unmount or explicit clear
+  // Don't auto-clear when liveConfigs change to avoid UI jumps
 
   const [formData, setFormData] = useState({
     name: '',
@@ -204,6 +200,8 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
         toast.success(
           editingConfig ? 'Email configuration updated successfully' : 'Email configuration created successfully'
         )
+        // Clear any optimistic updates since we're getting fresh data
+        setOptimisticConfigs([])
         await refreshStatus()
       } else {
         toast.error('Failed to save email configuration')
@@ -224,6 +222,8 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
 
       if (response.ok) {
         toast.success('Email configuration deleted successfully')
+        // Clear any optimistic updates since we're getting fresh data
+        setOptimisticConfigs([])
         await refreshStatus()
       } else {
         toast.error('Failed to delete email configuration')
@@ -287,10 +287,8 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
             ? 'Email configuration set as outbound'
             : 'Email configuration removed from outbound'
         )
-        // Silent refresh to sync with server
-        await refreshStatus()
-        // Clear optimistic state after successful update
-        setOptimisticConfigs([])
+        // Keep optimistic state - no refresh needed
+        // The optimistic update is already correct
       } else {
         // Revert optimistic update on error
         setOptimisticConfigs([])
@@ -777,12 +775,13 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                       {/* Outbound Mail Selection */}
                       <div className="mt-3 pt-3 border-t border-border/50">
                         <div className="space-y-3">
+                          <div className="w-full">
                           <Tabs 
                             value={config.isOutbound ? "outbound" : "inbound"} 
                             onValueChange={(value) => handleSetOutbound(config.id, value === "outbound")}
                             className="w-full"
                           >
-                            <TabsList className="grid w-full grid-cols-2">
+                            <TabsList className="grid grid-cols-2 h-auto p-1" style={{ width: '400px' }}>
                               <TabsTrigger value="inbound" className="text-sm">
                                 Inbound only
                               </TabsTrigger>
@@ -791,6 +790,7 @@ export default function EmailSettings({ emailConfigs, priorities, statuses }: Em
                               </TabsTrigger>
                             </TabsList>
                           </Tabs>
+                          </div>
                           <p className="text-xs text-muted-foreground">
                             Only one email configuration can be used for outbound mail at a time.
                           </p>

@@ -25,6 +25,29 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Sanitize and validate inputs
+    const sanitizedSubject = subject.toString().trim().substring(0, 255)
+    const sanitizedDescription = description.toString().trim().substring(0, 10000)
+    const sanitizedFromEmail = fromEmail ? fromEmail.toString().trim().substring(0, 255) : 'internal@support.com'
+    const sanitizedFromName = fromName ? fromName.toString().trim().substring(0, 255) : 'Internal Support'
+    const sanitizedStatus = status ? status.toString().trim().substring(0, 50) : 'Open'
+    const sanitizedPriority = priority ? priority.toString().trim().substring(0, 50) : 'Medium'
+    
+    // Validate email format if provided
+    if (fromEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedFromEmail)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      )
+    }
+
+    if (sanitizedSubject.length === 0 || sanitizedDescription.length === 0) {
+      return NextResponse.json(
+        { error: 'Subject and description cannot be empty' },
+        { status: 400 }
+      )
+    }
+
     // If no queue specified, try to get default queue
     let finalQueueId = queueId
     if (!finalQueueId) {
@@ -42,13 +65,13 @@ export async function POST(req: NextRequest) {
     const ticket = await prisma.ticket.create({
       data: {
         ticketNumber: uniqueTicketNumber,
-        subject,
-        description,
+        subject: sanitizedSubject,
+        description: sanitizedDescription,
         htmlContent: htmlContent || null,
-        fromEmail: fromEmail || 'internal@support.com',
-        fromName: fromName || 'Internal Support',
-        status: status || 'Open',
-        priority: priority || 'Medium',
+        fromEmail: sanitizedFromEmail,
+        fromName: sanitizedFromName,
+        status: sanitizedStatus,
+        priority: sanitizedPriority,
         queueId: finalQueueId,
         dueDate: normalizeDateToMidnight(dueDate),
         reminderDate: reminderDate ? new Date(reminderDate) : null,

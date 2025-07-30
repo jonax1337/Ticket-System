@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { Suspense } from 'react'
 import TicketsList from '@/components/dashboard/tickets-list'
 import MyTicketFilters from '@/components/dashboard/my-ticket-filters'
-import { User, Clock } from 'lucide-react'
+import { User } from 'lucide-react'
 
 interface SearchParams {
   search?: string
