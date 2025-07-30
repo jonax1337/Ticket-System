@@ -1,47 +1,64 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export function SignInForm({
+export function SetupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const message = searchParams.get('message')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match')
+      return
+    }
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters')
+      return
+    }
+
     setIsLoading(true)
 
     try {
-      const result = await signIn('credentials', {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
+      const response = await fetch('/api/setup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
       })
 
-      if (result?.error) {
-        setError('Invalid credentials')
+      if (response.ok) {
+        router.push('/auth/signin?message=Setup completed successfully')
       } else {
-        router.push('/dashboard')
+        const data = await response.json()
+        setError(data.error || 'Setup failed')
       }
     } catch {
-      setError('An error occurred during sign in')
+      setError('An error occurred during setup')
     } finally {
       setIsLoading(false)
     }
@@ -51,19 +68,25 @@ export function SignInForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Welcome back</CardTitle>
+          <CardTitle>Initial Setup</CardTitle>
           <CardDescription>
-            Sign in to your Ticket System
+            Create the first admin account to get started
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {message && (
-            <div className="text-sm text-green-600 bg-green-50 dark:bg-green-950 dark:text-green-400 p-3 rounded-md mb-6">
-              {message}
-            </div>
-          )}
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
+              <div className="grid gap-3">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Enter your full name"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+              </div>
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -83,6 +106,18 @@ export function SignInForm({
                   required 
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  placeholder="Enter a secure password"
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input 
+                  id="confirmPassword" 
+                  type="password" 
+                  required 
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  placeholder="Confirm your password"
                 />
               </div>
               {error && (
@@ -91,7 +126,7 @@ export function SignInForm({
                 </div>
               )}
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Signing In...' : 'Sign In'}
+                {isLoading ? 'Creating Account...' : 'Complete Setup'}
               </Button>
             </div>
           </form>
@@ -100,5 +135,3 @@ export function SignInForm({
     </div>
   )
 }
-
-export default SignInForm
