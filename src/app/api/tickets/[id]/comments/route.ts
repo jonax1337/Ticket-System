@@ -73,13 +73,6 @@ export async function POST(
 
     const sanitizedContent = content.trim().substring(0, 10000) // Limit content length
     const sanitizedType = ['internal', 'external'].includes(type) ? type : 'internal'
-    
-    if (sanitizedContent.length === 0) {
-      return NextResponse.json(
-        { error: 'Comment content cannot be empty' },
-        { status: 400 }
-      )
-    }
 
     // Validate participants for external comments
     if (sanitizedType === 'external' && selectedParticipants.length === 0) {
