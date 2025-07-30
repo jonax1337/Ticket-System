@@ -32,7 +32,12 @@ export function rateLimit(options: RateLimitOptions) {
   return (request: NextRequest) => {
     // Get client identifier (IP + user agent for better uniqueness)
     const forwarded = request.headers.get('x-forwarded-for')
-    const ip = forwarded ? forwarded.split(',')[0] : request.ip || 'unknown'
+    const realIp = request.headers.get('x-real-ip')
+    const ip = forwarded 
+      ? forwarded.split(',')[0].trim()
+      : realIp 
+      ? realIp.trim()
+      : 'unknown'
     const userAgent = request.headers.get('user-agent') || 'unknown'
     const key = `${ip}:${userAgent.substring(0, 50)}`
 

@@ -1,6 +1,6 @@
 // Application performance and security configuration
 
-export const APP_CONFIG = {
+const BASE_CONFIG = {
   // Performance settings
   pagination: {
     defaultPageSize: 20,
@@ -25,22 +25,6 @@ export const APP_CONFIG = {
       'application/zip',
       'application/x-zip-compressed'
     ]
-  },
-
-  // Rate limiting configuration
-  rateLimits: {
-    strict: {
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      maxRequests: 10
-    },
-    moderate: {
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      maxRequests: 100
-    },
-    lenient: {
-      windowMs: 60 * 1000, // 1 minute
-      maxRequests: 60
-    }
   },
 
   // Input validation limits
@@ -86,11 +70,45 @@ export const APP_CONFIG = {
 export const isDevelopment = process.env.NODE_ENV === 'development'
 export const isProduction = process.env.NODE_ENV === 'production'
 
-// Adjust settings based on environment
-if (isDevelopment) {
-  // More lenient rate limits in development
-  APP_CONFIG.rateLimits.strict.maxRequests = 50
-  APP_CONFIG.rateLimits.moderate.maxRequests = 500
+// Environment-specific rate limit configurations
+const getRateLimits = () => {
+  if (isDevelopment) {
+    return {
+      strict: {
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        maxRequests: 50 // More lenient in development
+      },
+      moderate: {
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        maxRequests: 500 // More lenient in development
+      },
+      lenient: {
+        windowMs: 60 * 1000, // 1 minute
+        maxRequests: 60
+      }
+    }
+  }
+  
+  // Production settings
+  return {
+    strict: {
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      maxRequests: 10
+    },
+    moderate: {
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      maxRequests: 100
+    },
+    lenient: {
+      windowMs: 60 * 1000, // 1 minute
+      maxRequests: 60
+    }
+  }
+}
+
+export const APP_CONFIG = {
+  ...BASE_CONFIG,
+  rateLimits: getRateLimits()
 }
 
 export default APP_CONFIG

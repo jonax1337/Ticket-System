@@ -43,18 +43,18 @@ export function throttle<T extends (...args: unknown[]) => void>(
 }
 
 // Lazy loading utility for heavy components
-export function createLazyComponent<T extends React.ComponentType<Record<string, unknown>>>(
-  importFunc: () => Promise<{ default: T }>,
+export function createLazyComponent<P extends Record<string, unknown> = Record<string, unknown>>(
+  importFunc: () => Promise<{ default: React.ComponentType<P> }>,
   fallback?: React.ComponentType
 ) {
   const LazyComponent = React.lazy(importFunc)
   const FallbackComponent = fallback || (() => React.createElement('div', null, 'Loading...'))
   
-  return function LazyWrapper(props: React.ComponentProps<T>) {
+  return function LazyWrapper(props: P) {
     return React.createElement(
       React.Suspense,
       { fallback: React.createElement(FallbackComponent) },
-      React.createElement(LazyComponent, props)
+      React.createElement(LazyComponent, props as P & Record<string, unknown>)
     )
   }
 }
