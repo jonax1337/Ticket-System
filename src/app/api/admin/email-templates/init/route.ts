@@ -5,7 +5,7 @@ import { createDefaultEmailTemplates } from '@/lib/email-template-service'
 import { prisma } from '@/lib/prisma'
 
 // POST - Initialize default email templates and type configurations
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions)
     
@@ -16,6 +16,18 @@ export async function POST() {
       )
     }
 
+    // Check if force reinit is requested
+    const body = await request.json().catch(() => ({}))
+    const forceReinit = body.forceReinit === true
+
+    if (forceReinit) {
+      console.log('[EMAIL_INIT] Force reinitializing email configurations with new defaults...')
+      
+      // Delete existing configurations to force recreation with new defaults
+      await prisma.emailTypeConfig.deleteMany({})
+      console.log('[EMAIL_INIT] Deleted existing email type configurations')
+    }
+
     // Initialize templates and type configurations
     await createDefaultEmailTemplates()
 
@@ -24,16 +36,21 @@ export async function POST() {
     
     const stats = {
       emailTypeConfigsCount: emailTypeConfigs.length,
+      forceReinit,
       emailTypeConfigs: emailTypeConfigs.map(config => ({
         type: config.type,
         sectionsCount: JSON.parse(config.sections).length,
-        hasActionButton: !!config.actionButton
+        hasActionButton: !!config.actionButton,
+        headerTitle: config.headerTitle,
+        footerText: config.footerText
       }))
     }
 
     return NextResponse.json({ 
       success: true, 
-      message: 'Default email templates and type configurations initialized successfully',
+      message: forceReinit 
+        ? 'Email templates and type configurations force reinitialized with new defaults'
+        : 'Default email templates and type configurations initialized successfully',
       stats
     })
   } catch (error) {

@@ -549,7 +549,8 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       return false
     }
 
-    // Prepare template variables
+    // Prepare template variables with improved customer name resolution
+    const customerName = options.toName || ticket.fromName || options.to.split('@')[0] || 'Customer'
     const templateVariables = {
       ticketNumber: ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`,
       ticketSubject: ticket.subject,
@@ -559,7 +560,7 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       ticketCreatedAt: ticket.createdAt.toLocaleString(),
       ticketUpdatedAt: ticket.updatedAt.toLocaleString(),
       ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`,
-      customerName: options.toName || ticket.fromName || options.to,
+      customerName: customerName.trim() || 'Customer', // Ensure no empty names
       customerEmail: options.to,
       assignedToName: ticket.assignedTo?.name,
       assignedToEmail: ticket.assignedTo?.email,
@@ -577,10 +578,20 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
 
     if (debugMode) {
       console.log(`[EMAIL_SEND_DEBUG] Rendering template for ${options.templateType}:`)
-      console.log(`- To: ${options.to} (${options.toName})`)
+      console.log(`- To: ${options.to} (${options.toName || 'no name provided'})`)
+      console.log(`- Customer Name: "${customerName}" (length: ${customerName.length})`)
       console.log(`- Ticket: ${ticket.subject}`)
+      console.log(`- Template Variables Count: ${Object.keys(templateVariables).length}`)
       console.log(`- Subject: ${renderedTemplate.subject}`)
       console.log(`- HTML length: ${renderedTemplate.htmlContent.length}`)
+      
+      // Log important variables for debugging (safely access optional properties)
+      console.log(`[EMAIL_SEND_DEBUG] Key Variables:`)
+      console.log(`  - customerName: "${templateVariables.customerName}"`)
+      console.log(`  - ticketNumber: "${templateVariables.ticketNumber}"`)
+      console.log(`  - commentAuthor: "${(templateVariables as any).commentAuthor || 'N/A'}"`)
+      console.log(`  - commentContent: "${((templateVariables as any).commentContent?.substring(0, 50)) || 'N/A'}..."`)
+      
       if (renderedTemplate.debugInfo) {
         console.log(`- Config source: ${renderedTemplate.debugInfo.configSource}`)
         console.log(`- Sections count: ${renderedTemplate.debugInfo.finalSectionsCount}`)
