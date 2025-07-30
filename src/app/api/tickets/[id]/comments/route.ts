@@ -208,6 +208,14 @@ export async function POST(
               recipientName = participant.name || recipientEmail
             }
             
+            // Enhanced author name resolution with fallbacks
+            const commentAuthor = session.user.name || 
+                                session.user.email?.split('@')[0] || 
+                                'Support Agent'
+            const actorName = session.user.name || 
+                            session.user.email?.split('@')[0] || 
+                            'Support Agent'
+            
             const templateSent = await sendTemplatedEmail({
               templateType: 'comment_added',
               to: recipientEmail,
@@ -215,10 +223,10 @@ export async function POST(
               ticketId: params.id,
               variables: {
                 commentContent: content.trim(),
-                commentAuthor: session.user.name,
+                commentAuthor: commentAuthor.trim(),
                 commentCreatedAt: new Date().toLocaleString(),
-                actorName: session.user.name,
-                actorEmail: session.user.email
+                actorName: actorName.trim(),
+                actorEmail: session.user.email || 'support@example.com'
               },
               attachments: attachments.length > 0 ? attachments.map(att => ({
                 filename: att.filename,

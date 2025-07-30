@@ -548,7 +548,7 @@ async function renderUnifiedTemplate(
     emailHideSlogan: systemSettings?.emailHideSlogan
   }
   
-  // Create unified email data
+  // Create unified email data with enhanced disclaimer
   const emailData: UnifiedEmailData = {
     headerTitle: baseConfig.headerTitle || '{{systemName}}',
     headerSubtitle: baseConfig.headerSubtitle || 'Notification',
@@ -558,7 +558,8 @@ async function renderUnifiedTemplate(
     sections,
     actionButton: actionButton || undefined,
     footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Team',
-    disclaimerText: 'This email was sent from {{systemName}} support system.'
+    disclaimerText: 'This email was sent from {{systemName}} support system.<br>' +
+                   'If you believe you received this email in error, please contact us at {{supportEmail}}'
   }
 
   debugInfo.finalEmailData = emailData
@@ -774,7 +775,7 @@ export async function createDefaultEmailTemplates(): Promise<void> {
       }
     }
 
-    // Also initialize email type configurations with empty sections for admin customization
+    // Also initialize email type configurations with meaningful default sections
     await createDefaultEmailTypeConfigs()
   } catch (error) {
     console.error('Error creating default email templates:', error)
@@ -783,9 +784,10 @@ export async function createDefaultEmailTemplates(): Promise<void> {
 
 /**
  * Create default email type configurations with meaningful default sections
+ * If forceReinit is true, recreates all configs with new defaults
  */
-async function createDefaultEmailTypeConfigs(): Promise<void> {
-  const { EMAIL_TYPE_CONFIGS, generateEmailSections } = await import('./email-base-template')
+export async function createDefaultEmailTypeConfigs(forceReinit: boolean = false): Promise<void> {
+  const { EMAIL_TYPE_CONFIGS, generateEmailSections, generateActionButton } = await import('./email-base-template')
   
   try {
     for (const [type, config] of Object.entries(EMAIL_TYPE_CONFIGS)) {
@@ -794,49 +796,61 @@ async function createDefaultEmailTypeConfigs(): Promise<void> {
         where: { type }
       })
 
-      if (!existingConfig) {
-        // Generate meaningful default sections for this email type
-        const defaultSections = generateEmailSections(type, {
-          ticketNumber: '{{ticketNumber}}',
-          ticketSubject: '{{ticketSubject}}',
-          ticketStatus: '{{ticketStatus}}',
-          ticketPriority: '{{ticketPriority}}',
-          commentAuthor: '{{commentAuthor}}',
-          commentContent: '{{commentContent}}',
-          commentCreatedAt: '{{commentCreatedAt}}',
-          previousStatus: '{{previousStatus}}',
-          newStatus: '{{newStatus}}',
-          actorName: '{{actorName}}',
-          currentDate: '{{currentDate}}',
-          currentTime: '{{currentTime}}',
-          statusChangeReason: '{{statusChangeReason}}',
-          assignedToName: '{{assignedToName}}',
-          ticketCreatedAt: '{{ticketCreatedAt}}',
-          ticketUpdatedAt: '{{ticketUpdatedAt}}',
-          participantName: '{{participantName}}',
-          participantType: '{{participantType}}'
-        })
-        
-        // Create with meaningful default sections
-        await prisma.emailTypeConfig.create({
-          data: {
-            type,
-            headerTitle: config.headerTitle || '{{systemName}}',
-            headerSubtitle: config.headerSubtitle || 'Notification',
-            headerColor: config.headerColor || '#2563eb',
-            greeting: config.greeting || 'Hello {{customerName}},',
-            introText: config.introText || '',
-            footerText: config.footerText || 'Best regards,<br>{{systemName}} Team',
-            sections: JSON.stringify(defaultSections), // Include helpful default sections
-            actionButton: JSON.stringify({ // Add default view ticket button
-              text: 'View Ticket & Reply',
-              url: '{{ticketUrl}}',
-              color: '#2563eb'
-            })
-          }
-        })
-        console.log(`Created default email type config: ${type} with ${defaultSections.length} default sections`)
+      // Skip if exists and not forcing reinit
+      if (existingConfig && !forceReinit) {
+        continue
       }
+
+      // Delete existing config if forcing reinit
+      if (existingConfig && forceReinit) {
+        await prisma.emailTypeConfig.delete({
+          where: { type }
+        })
+        console.log(`[EMAIL_TYPE_CONFIG] Deleted existing config for ${type} (force reinit)`)
+      }
+
+      // Generate meaningful default sections for this email type
+      const defaultSections = generateEmailSections(type, {
+        ticketNumber: '{{ticketNumber}}',
+        ticketSubject: '{{ticketSubject}}',
+        ticketStatus: '{{ticketStatus}}',
+        ticketPriority: '{{ticketPriority}}',
+        commentAuthor: '{{commentAuthor}}',
+        commentContent: '{{commentContent}}',
+        commentCreatedAt: '{{commentCreatedAt}}',
+        previousStatus: '{{previousStatus}}',
+        newStatus: '{{newStatus}}',
+        actorName: '{{actorName}}',
+        currentDate: '{{currentDate}}',
+        currentTime: '{{currentTime}}',
+        statusChangeReason: '{{statusChangeReason}}',
+        assignedToName: '{{assignedToName}}',
+        ticketCreatedAt: '{{ticketCreatedAt}}',
+        ticketUpdatedAt: '{{ticketUpdatedAt}}',
+        participantName: '{{participantName}}',
+        participantType: '{{participantType}}'
+      })
+      
+      // Generate default action button
+      const defaultActionButton = generateActionButton(type, {
+        ticketUrl: '{{ticketUrl}}'
+      })
+      
+      // Create with meaningful default sections
+      await prisma.emailTypeConfig.create({
+        data: {
+          type,
+          headerTitle: config.headerTitle || '{{systemName}}',
+          headerSubtitle: config.headerSubtitle || 'Notification',
+          headerColor: config.headerColor || '#2563eb',
+          greeting: config.greeting || 'Hello {{customerName}},',
+          introText: config.introText || '',
+          footerText: config.footerText || 'Best regards,<br>{{systemName}} Team',
+          sections: JSON.stringify(defaultSections), // Include helpful default sections
+          actionButton: defaultActionButton ? JSON.stringify(defaultActionButton) : null
+        }
+      })
+      console.log(`[EMAIL_TYPE_CONFIG] Created ${forceReinit ? 'new' : 'default'} email type config: ${type} with ${defaultSections.length} default sections`)
     }
   } catch (error) {
     console.error('Error creating default email type configurations:', error)

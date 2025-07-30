@@ -563,8 +563,46 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       return false
     }
 
-    // Prepare template variables with improved customer name resolution
-    const customerName = options.toName || ticket.fromName || options.to.split('@')[0] || 'Customer'
+    // Enhanced customer name resolution with robust fallback chain
+    let customerName = options.toName || ticket.fromName || options.to.split('@')[0] || 'Customer'
+    
+    // Ensure customer name is never empty, null, or whitespace
+    if (!customerName || typeof customerName !== 'string' || customerName.trim() === '') {
+      customerName = options.to.split('@')[0] || 'Customer'
+    }
+    customerName = customerName.trim()
+    if (customerName === '') {
+      customerName = 'Customer'
+    }
+    
+    // Enhanced comment author resolution from variables
+    let commentAuthor = 'Support Team'
+    if (options.variables?.commentAuthor) {
+      commentAuthor = String(options.variables.commentAuthor).trim()
+      if (commentAuthor === '') {
+        commentAuthor = 'Support Team'
+      }
+    } else if (options.variables?.actorName) {
+      commentAuthor = String(options.variables.actorName).trim()
+      if (commentAuthor === '') {
+        commentAuthor = 'Support Team'
+      }
+    }
+    
+    // Enhanced actor name resolution
+    let actorName = 'Support Team'
+    if (options.variables?.actorName) {
+      actorName = String(options.variables.actorName).trim()
+      if (actorName === '') {
+        actorName = 'Support Team'
+      }
+    } else if (options.variables?.commentAuthor) {
+      actorName = String(options.variables.commentAuthor).trim()
+      if (actorName === '') {
+        actorName = 'Support Team'
+      }
+    }
+    
     const templateVariables = {
       ticketNumber: ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`,
       ticketSubject: ticket.subject,
@@ -574,10 +612,12 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       ticketCreatedAt: ticket.createdAt.toLocaleString(),
       ticketUpdatedAt: ticket.updatedAt.toLocaleString(),
       ticketUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/tickets/${ticket.id}`,
-      customerName: customerName.trim() || 'Customer', // Ensure no empty names
+      customerName, // Now guaranteed to be non-empty
       customerEmail: options.to,
       assignedToName: ticket.assignedTo?.name,
       assignedToEmail: ticket.assignedTo?.email,
+      commentAuthor, // Now guaranteed to be non-empty
+      actorName, // Now guaranteed to be non-empty
       ...options.variables
     }
 
@@ -591,20 +631,45 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
     }
 
     if (debugMode) {
-      console.log(`[EMAIL_SEND_DEBUG] Rendering template for ${options.templateType}:`)
+      console.log(`[EMAIL_SEND_DEBUG] Enhanced variable resolution for ${options.templateType}:`)
       console.log(`- To: ${options.to} (${options.toName || 'no name provided'})`)
-      console.log(`- Customer Name: "${customerName}" (length: ${customerName.length})`)
+      console.log(`- Customer Name Resolution:`)
+      console.log(`  * toName: "${options.toName || 'undefined'}"`)
+      console.log(`  * ticket.fromName: "${ticket.fromName || 'undefined'}"`)
+      console.log(`  * email prefix: "${options.to.split('@')[0] || 'undefined'}"`)
+      console.log(`  * Final customerName: "${customerName}" (length: ${customerName.length})`)
+      console.log(`- Comment Author Resolution:`)
+      console.log(`  * commentAuthor from variables: "${options.variables?.commentAuthor || 'undefined'}"`)
+      console.log(`  * actorName from variables: "${options.variables?.actorName || 'undefined'}"`)
+      console.log(`  * Final commentAuthor: "${commentAuthor}" (length: ${commentAuthor.length})`)
+      console.log(`- Actor Name Resolution:`)
+      console.log(`  * Final actorName: "${actorName}" (length: ${actorName.length})`)
       console.log(`- Ticket: ${ticket.subject}`)
       console.log(`- Template Variables Count: ${Object.keys(templateVariables).length}`)
       console.log(`- Subject: ${renderedTemplate.subject}`)
       console.log(`- HTML length: ${renderedTemplate.htmlContent.length}`)
       
+      // Check for empty variables that should never be empty
+      const criticalVars = ['customerName', 'commentAuthor', 'actorName', 'ticketNumber', 'ticketSubject'] as const
+      const emptyVars = criticalVars.filter(key => {
+        const value = (templateVariables as Record<string, unknown>)[key]
+        return !value || String(value).trim() === ''
+      })
+      if (emptyVars.length > 0) {
+        console.log(`[EMAIL_SEND_DEBUG] ⚠️ WARNING: Critical variables are empty: ${emptyVars.join(', ')}`)
+      } else {
+        console.log(`[EMAIL_SEND_DEBUG] ✅ All critical variables are populated`)
+      }
+      
       // Log important variables for debugging (safely access optional properties)
       console.log(`[EMAIL_SEND_DEBUG] Key Variables:`)
       console.log(`  - customerName: "${templateVariables.customerName}"`)
       console.log(`  - ticketNumber: "${templateVariables.ticketNumber}"`)
-      console.log(`  - commentAuthor: "${(templateVariables as any).commentAuthor || 'N/A'}"`)
-      console.log(`  - commentContent: "${((templateVariables as any).commentContent?.substring(0, 50)) || 'N/A'}..."`)
+      console.log(`  - commentAuthor: "${templateVariables.commentAuthor || 'N/A'}"`)
+      console.log(`  - actorName: "${templateVariables.actorName || 'N/A'}"`)
+      const allVariables = templateVariables as Record<string, unknown>
+      const commentContent = allVariables.commentContent as string | undefined
+      console.log(`  - commentContent: "${(commentContent?.substring(0, 50)) || 'N/A'}..."`)
       
       if (renderedTemplate.debugInfo) {
         console.log(`- Config source: ${renderedTemplate.debugInfo.configSource}`)

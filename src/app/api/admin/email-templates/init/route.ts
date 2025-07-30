@@ -21,14 +21,17 @@ export async function POST(request: Request) {
     const forceReinit = body.forceReinit === true
 
     if (forceReinit) {
-      console.log('[EMAIL_INIT] Force reinitializing email configurations with new defaults...')
+      console.log('[EMAIL_INIT] Force reinitializing email configurations with new meaningful defaults...')
       
-      // Delete existing configurations to force recreation with new defaults
-      await prisma.emailTypeConfig.deleteMany({})
-      console.log('[EMAIL_INIT] Deleted existing email type configurations')
+      // Import the function with forceReinit support
+      const { createDefaultEmailTypeConfigs } = await import('@/lib/email-template-service')
+      
+      // Force recreate configurations with meaningful defaults
+      await createDefaultEmailTypeConfigs(true)
+      console.log('[EMAIL_INIT] Force recreated email type configurations with meaningful default sections')
     }
 
-    // Initialize templates and type configurations
+    // Initialize templates and type configurations normally (if not force reinitialized above)
     await createDefaultEmailTemplates()
 
     // Check how many email type configs were created/exist
