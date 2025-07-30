@@ -281,20 +281,45 @@ async function renderUnifiedTemplate(
       try {
         sections = JSON.parse(config.sections) as EmailContentSection[]
         actionButton = config.actionButton ? JSON.parse(config.actionButton) : null
+        // IMPORTANT: Respect admin configuration - do NOT fall back to hardcoded sections
+        // If admin configured empty sections, use empty sections (don't override with hardcoded ones)
       } catch (parseError) {
         console.error('Error parsing email configuration JSON:', parseError)
+        // Only fall back to hardcoded sections if JSON parsing completely fails
         sections = generateEmailSections(type, variables as Record<string, unknown>)
         actionButton = generateActionButton(type, variables as Record<string, unknown>)
       }
     } else {
-      // Fallback to hardcoded configuration
-      baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
-      sections = generateEmailSections(type, variables as Record<string, unknown>)
-      actionButton = generateActionButton(type, variables as Record<string, unknown>)
+      // Create default email type config if it doesn't exist
+      console.log(`No email type config found for ${type}, creating default...`)
+      await createDefaultEmailTypeConfigs()
+      
+      // Try to get the newly created config
+      const newConfig = await prisma.emailTypeConfig.findUnique({
+        where: { type }
+      })
+      
+      if (newConfig) {
+        baseConfig = {
+          headerTitle: newConfig.headerTitle,
+          headerSubtitle: newConfig.headerSubtitle,
+          headerColor: newConfig.headerColor,
+          greeting: newConfig.greeting,
+          introText: newConfig.introText,
+          footerText: newConfig.footerText
+        }
+        sections = JSON.parse(newConfig.sections) as EmailContentSection[]
+        actionButton = newConfig.actionButton ? JSON.parse(newConfig.actionButton) : null
+      } else {
+        // Last resort fallback to hardcoded configuration
+        baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
+        sections = generateEmailSections(type, variables as Record<string, unknown>)
+        actionButton = generateActionButton(type, variables as Record<string, unknown>)
+      }
     }
   } catch (error) {
     console.error('Error fetching email configuration from database:', error)
-    // Fallback to hardcoded configuration
+    // Fallback to hardcoded configuration only on database errors
     baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
     sections = generateEmailSections(type, variables as Record<string, unknown>)
     actionButton = generateActionButton(type, variables as Record<string, unknown>)
@@ -428,7 +453,7 @@ async function getSystemDefaults(): Promise<TemplateVariables> {
 }
 
 /**
- * Create default email templates using unified template system
+ * Create default email templates and email type configurations
  */
 export async function createDefaultEmailTemplates(): Promise<void> {
   const defaultTemplates = [
@@ -497,8 +522,47 @@ export async function createDefaultEmailTemplates(): Promise<void> {
         console.log(`Created default unified email template: ${template.type}`)
       }
     }
+
+    // Also initialize email type configurations with empty sections for admin customization
+    await createDefaultEmailTypeConfigs()
   } catch (error) {
     console.error('Error creating default email templates:', error)
+  }
+}
+
+/**
+ * Create default email type configurations with empty sections for admin customization
+ */
+async function createDefaultEmailTypeConfigs(): Promise<void> {
+  const { EMAIL_TYPE_CONFIGS } = await import('./email-base-template')
+  
+  try {
+    for (const [type, config] of Object.entries(EMAIL_TYPE_CONFIGS)) {
+      // Check if email type config already exists
+      const existingConfig = await prisma.emailTypeConfig.findUnique({
+        where: { type }
+      })
+
+      if (!existingConfig) {
+        // Create with empty sections so admins can configure them
+        await prisma.emailTypeConfig.create({
+          data: {
+            type,
+            headerTitle: config.headerTitle || '{{systemName}}',
+            headerSubtitle: config.headerSubtitle || 'Notification',
+            headerColor: config.headerColor || '#2563eb',
+            greeting: config.greeting || 'Hello {{customerName}},',
+            introText: config.introText || '',
+            footerText: config.footerText || 'Best regards,<br>{{systemName}} Team',
+            sections: '[]', // Empty sections array - admin can configure
+            actionButton: null // No default action button
+          }
+        })
+        console.log(`Created default email type config: ${type}`)
+      }
+    }
+  } catch (error) {
+    console.error('Error creating default email type configurations:', error)
   }
 }
 

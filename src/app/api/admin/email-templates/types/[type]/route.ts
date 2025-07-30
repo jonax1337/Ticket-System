@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { EMAIL_TYPE_CONFIGS, generateEmailSections, generateActionButton } from '@/lib/email-base-template'
+import { EMAIL_TYPE_CONFIGS } from '@/lib/email-base-template'
 
 interface RouteParams {
   params: Promise<{
@@ -29,11 +29,9 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       where: { type }
     })
 
-    // If config doesn't exist, create it with defaults
+    // If config doesn't exist, create it with empty sections for admin customization
     if (!config) {
       const defaultConfig = EMAIL_TYPE_CONFIGS[type] || {}
-      const defaultSections = generateEmailSections(type, {})
-      const defaultActionButton = generateActionButton(type, { ticketUrl: '#' })
 
       config = await prisma.emailTypeConfig.create({
         data: {
@@ -44,8 +42,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
           greeting: defaultConfig.greeting || 'Hello {{customerName}},',
           introText: defaultConfig.introText || '',
           footerText: defaultConfig.footerText || 'Best regards,<br>{{systemName}} Support Team',
-          sections: JSON.stringify(defaultSections),
-          actionButton: JSON.stringify(defaultActionButton)
+          sections: '[]', // Empty sections - let admin configure
+          actionButton: null // No default action button
         }
       })
     }

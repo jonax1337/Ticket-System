@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { createTestEmailTemplate, EmailTemplateType } from '@/lib/email-template-service'
+import { renderEmailTemplate, EmailTemplateType } from '@/lib/email-template-service'
 
-// POST - Generate preview for base template
+// POST - Generate preview for base template using actual email template service
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -37,34 +37,35 @@ export async function POST(request: NextRequest) {
       supportUrl: 'https://example.com',
       currentDate: new Date().toLocaleDateString(),
       currentTime: new Date().toLocaleTimeString(),
+      // Additional variables for other template types
+      commentContent: 'This is a sample comment content for preview.',
+      commentAuthor: 'Support Agent',
+      commentCreatedAt: new Date().toLocaleString(),
+      actorName: 'Support Agent',
+      actorEmail: 'agent@example.com',
+      previousStatus: 'Open',
+      newStatus: 'In Progress',
+      participantName: 'Jane Smith',
+      participantEmail: 'jane.smith@example.com',
+      participantType: 'CC recipient',
       ...customVariables
     }
 
-    // Generate preview HTML
-    const htmlContent = await createTestEmailTemplate(templateType as EmailTemplateType, sampleData)
+    // Use the actual email template service to generate preview
+    // This ensures the preview matches exactly what users will receive
+    const renderedTemplate = await renderEmailTemplate(templateType as EmailTemplateType, sampleData)
     
-    // Generate subject with prefix
-    const subjectPrefix = '[Ticket {{ticketNumber}}]'
-    const baseSubject = (() => {
-      switch (templateType) {
-        case 'ticket_created': return 'Ticket Created: {{ticketSubject}}'
-        case 'status_changed': return 'Status Updated: {{newStatus}}'
-        case 'comment_added': return 'New Comment: {{ticketSubject}}'
-        case 'participant_added': return 'Added as Participant: {{ticketSubject}}'
-        case 'automation_warning': return 'Action Required: Ticket Will Auto-Close Soon'
-        case 'automation_closed': return 'Ticket Automatically Closed'
-        default: return 'Notification: {{ticketSubject}}'
-      }
-    })()
-
-    const fullSubject = `${subjectPrefix} ${baseSubject}`
-      .replace(/{{ticketNumber}}/g, sampleData.ticketNumber)
-      .replace(/{{ticketSubject}}/g, sampleData.ticketSubject)
-      .replace(/{{newStatus}}/g, 'In Progress')
+    if (!renderedTemplate) {
+      return NextResponse.json(
+        { error: `Failed to render template for type: ${templateType}` },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json({
-      subject: fullSubject,
-      htmlContent,
+      subject: renderedTemplate.subject,
+      htmlContent: renderedTemplate.htmlContent,
+      textContent: renderedTemplate.textContent,
       sampleData
     })
   } catch (error) {

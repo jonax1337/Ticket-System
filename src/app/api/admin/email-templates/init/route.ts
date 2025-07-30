@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { createDefaultEmailTemplates } from '@/lib/email-template-service'
 
-// POST - Initialize default email templates
-export async function POST(request: NextRequest) {
+// POST - Initialize default email templates and type configurations
+export async function POST() {
   try {
     const session = await getServerSession(authOptions)
     
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ 
       success: true, 
-      message: 'Default email templates initialized successfully' 
+      message: 'Default email templates and type configurations initialized successfully' 
     })
   } catch (error) {
     console.error('Error initializing email templates:', error)
