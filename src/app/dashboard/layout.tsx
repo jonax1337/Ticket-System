@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth'
 import { isSetupComplete } from '@/lib/setup'
 import { prisma } from '@/lib/prisma'
 import DashboardHeader from '@/components/dashboard/header'
-import ThemeProvider from '@/components/providers/theme-system-provider'
+import { AppThemeProvider } from '@/components/providers/app-theme-provider'
 import AvatarUpdateProvider from '@/components/providers/avatar-update-provider'
 import { CacheProvider } from '@/lib/cache-context'
 
@@ -53,7 +53,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <ThemeProvider themeColor={settings.themeColor}>
+    <AppThemeProvider>
       <AvatarUpdateProvider>
         <CacheProvider>
           <div className="min-h-screen bg-background">
@@ -70,6 +70,6 @@ export default async function DashboardLayout({
           </div>
         </CacheProvider>
       </AvatarUpdateProvider>
-    </ThemeProvider>
+    </AppThemeProvider>
   )
 }
