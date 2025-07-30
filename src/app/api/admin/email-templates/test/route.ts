@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { createTestEmailTemplate, EmailTemplateType } from '@/lib/email-template-service'
+import { renderEmailTemplate, EmailTemplateType } from '@/lib/email-template-service'
+import { prisma } from '@/lib/prisma'
 
-// POST - Generate test email using unified template system
+// POST - Generate test email using actual email template service for accurate testing
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -51,19 +52,45 @@ export async function POST(request: NextRequest) {
       ...variables
     }
 
-    // Generate test email HTML
-    const htmlContent = await createTestEmailTemplate(type as EmailTemplateType, defaultVariables)
+    // Check email type configuration for debugging
+    const emailTypeConfig = await prisma.emailTypeConfig.findUnique({
+      where: { type }
+    })
+
+    // Use the actual email template service (same as real emails)
+    const renderedTemplate = await renderEmailTemplate(type as EmailTemplateType, defaultVariables)
+    
+    if (!renderedTemplate) {
+      return NextResponse.json(
+        { error: `Failed to render template for type: ${type}` },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json({
       type,
-      htmlContent,
+      renderedTemplate: {
+        subject: renderedTemplate.subject,
+        htmlContent: renderedTemplate.htmlContent,
+        textContent: renderedTemplate.textContent
+      },
       variables: defaultVariables,
-      message: 'Test email generated successfully using unified template system'
+      debugInfo: {
+        hasEmailTypeConfig: !!emailTypeConfig,
+        emailTypeConfigId: emailTypeConfig?.id,
+        sectionsCount: emailTypeConfig ? JSON.parse(emailTypeConfig.sections).length : 0,
+        hasActionButton: emailTypeConfig ? !!emailTypeConfig.actionButton : false,
+        sections: emailTypeConfig ? JSON.parse(emailTypeConfig.sections) : null
+      },
+      message: 'Test email generated using actual email template service (same as real emails)'
     })
   } catch (error) {
     console.error('Error generating test email:', error)
     return NextResponse.json(
-      { error: 'Internal server error while generating test email' },
+      { 
+        error: 'Internal server error while generating test email',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }
