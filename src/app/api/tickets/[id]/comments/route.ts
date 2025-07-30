@@ -228,9 +228,9 @@ export async function POST(
             })
 
             if (templateSent) {
-              console.log(`Templated external email sent successfully to ${recipientEmail} for ticket ${displayTicketNumber}`)
+              console.log(`[COMMENT_EMAIL] ✅ Templated external email sent successfully to ${recipientEmail} for ticket ${displayTicketNumber}`)
             } else {
-              console.log(`Template failed for ${recipientEmail}, trying legacy email`)
+              console.log(`[COMMENT_EMAIL] ❌ Template failed for ${recipientEmail}, trying legacy email`)
               // Fallback to legacy email if template fails
               const emailSent = await sendExternalEmail({
                 to: recipientEmail,
@@ -248,9 +248,9 @@ export async function POST(
               })
               
               if (emailSent) {
-                console.log(`Legacy external email sent successfully to ${recipientEmail} for ticket ${displayTicketNumber}`)
+                console.log(`[COMMENT_EMAIL] ✅ Legacy external email sent successfully to ${recipientEmail} for ticket ${displayTicketNumber}`)
               } else {
-                console.error(`Failed to send external email to ${recipientEmail} for ticket ${displayTicketNumber}`)
+                console.error(`[COMMENT_EMAIL] ❌ Failed to send external email to ${recipientEmail} for ticket ${displayTicketNumber}`)
               }
             }
           }

@@ -155,7 +155,12 @@ export async function renderEmailTemplate(
   }
 
   try {
-    if (debug) console.log(`[EMAIL_DEBUG] Starting template render for type: ${type}`)
+    if (debug) {
+      console.log(`\n========== EMAIL TEMPLATE RENDER START ==========`)
+      console.log(`[EMAIL_TEMPLATE_DEBUG] Starting template render for type: ${type}`)
+      console.log(`[EMAIL_TEMPLATE_DEBUG] Debug mode: ${debug}`)
+      console.log(`[EMAIL_TEMPLATE_DEBUG] Input variables: ${Object.keys(variables).length} provided`)
+    }
     
     const template = await getEmailTemplate(type)
     debugInfo.template = {
@@ -164,18 +169,26 @@ export async function renderEmailTemplate(
       name: template?.name,
       isDefault: template?.isDefault,
       isActive: template?.isActive,
-      htmlContent: template?.htmlContent
+      htmlContentType: template?.htmlContent === 'unified_template' ? 'unified' : 'legacy'
     }
     
     if (!template) {
-      console.error(`[EMAIL_DEBUG] No template found for type: ${type}`)
+      console.error(`[EMAIL_TEMPLATE_DEBUG] ❌ ERROR: No template found for type: ${type}`)
       debugInfo.error = 'No template found'
       return null
     }
 
-    if (debug) console.log(`[EMAIL_DEBUG] Template found:`, debugInfo.template)
+    if (debug) {
+      console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Template found:`)
+      console.log(`- ID: ${template.id}`)
+      console.log(`- Name: ${template.name}`)
+      console.log(`- Type: ${template.htmlContent === 'unified_template' ? 'Unified Template' : 'Legacy HTML'}`)
+      console.log(`- Is Default: ${template.isDefault}`)
+      console.log(`- Is Active: ${template.isActive}`)
+    }
 
     // Add system defaults if not provided
+    if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] Getting system defaults...`)
     const systemDefaults = await getSystemDefaults()
     const fullVariables: TemplateVariables = {
       ...systemDefaults,
@@ -187,7 +200,14 @@ export async function renderEmailTemplate(
     debugInfo.systemDefaults = systemDefaults
     debugInfo.fullVariables = fullVariables
 
-    if (debug) console.log(`[EMAIL_DEBUG] Full variables:`, fullVariables)
+    if (debug) {
+      console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Full variables prepared:`)
+      console.log(`- System name: ${fullVariables.systemName}`)
+      console.log(`- Support email: ${fullVariables.supportEmail}`)
+      console.log(`- Customer name: ${fullVariables.customerName}`)
+      console.log(`- Ticket number: ${fullVariables.ticketNumber}`)
+      console.log(`- Total variables: ${Object.keys(fullVariables).length}`)
+    }
 
     // Check if template uses unified template system or legacy format
     const isUnifiedTemplate = template.htmlContent === 'unified_template' || 
@@ -199,13 +219,13 @@ export async function renderEmailTemplate(
     let renderedHtmlContent: string
 
     if (isUnifiedTemplate) {
-      if (debug) console.log(`[EMAIL_DEBUG] Using unified template system`)
+      if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] 🔄 Using unified template system (respects admin configuration)`)
       // Use unified template system
       const unifiedResult = await renderUnifiedTemplate(type, template, fullVariables, debug)
       renderedHtmlContent = unifiedResult.html
       debugInfo.unifiedTemplateDebug = unifiedResult.debugInfo
     } else {
-      if (debug) console.log(`[EMAIL_DEBUG] Using legacy template format`)
+      if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] 🔄 Using legacy template format`)
       // Legacy template format
       renderedHtmlContent = replaceTemplateVariables(template.htmlContent, fullVariables)
       debugInfo.renderMethod = 'legacy'
@@ -249,10 +269,17 @@ export async function renderEmailTemplate(
     debugInfo.success = true
 
     if (debug) {
-      console.log(`[EMAIL_DEBUG] Template rendering complete for ${type}`)
-      console.log(`[EMAIL_DEBUG] Subject: ${renderedSubject}`)
-      console.log(`[EMAIL_DEBUG] HTML Content length: ${renderedHtmlContent.length}`)
-      console.log(`[EMAIL_DEBUG] Full debug info:`, JSON.stringify(debugInfo, null, 2))
+      console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Template rendering complete for ${type}`)
+      console.log(`- Subject: ${renderedSubject}`)
+      console.log(`- HTML Content length: ${renderedHtmlContent.length}`)
+      console.log(`- Text Content length: ${renderedTextContent?.length || 0}`)
+      if (debugInfo.unifiedTemplateDebug) {
+        const unifiedDebug = debugInfo.unifiedTemplateDebug as Record<string, unknown>
+        console.log(`- Config source: ${unifiedDebug.configSource}`)
+        console.log(`- Sections count: ${unifiedDebug.finalSectionsCount}`)
+        console.log(`- Fallback reason: ${unifiedDebug.fallbackReason || 'None'}`)
+      }
+      console.log(`========== EMAIL TEMPLATE RENDER END ==========\n`)
     }
 
     return {
@@ -262,9 +289,12 @@ export async function renderEmailTemplate(
       ...(debug ? { debugInfo } : {})
     }
   } catch (error) {
-    console.error('[EMAIL_DEBUG] Error rendering email template:', error)
+    console.error('[EMAIL_TEMPLATE_DEBUG] ❌ CRITICAL ERROR: Template rendering failed:', error)
     debugInfo.error = error instanceof Error ? error.message : 'Unknown error'
     debugInfo.step = 'error'
+    if (debug) {
+      console.log(`========== EMAIL TEMPLATE RENDER END (ERROR) ==========\n`)
+    }
     return null
   }
 }
@@ -328,7 +358,7 @@ async function renderUnifiedTemplate(
   let actionButton: { text: string; url: string; color: string } | null
 
   try {
-    if (debug) console.log(`[EMAIL_DEBUG] Looking for EmailTypeConfig for type: ${type}`)
+    if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] Looking for EmailTypeConfig for type: ${type}`)
     
     const config = await prisma.emailTypeConfig.findUnique({
       where: { type }
@@ -338,9 +368,14 @@ async function renderUnifiedTemplate(
     debugInfo.configData = config
 
     if (config) {
-      if (debug) console.log(`[EMAIL_DEBUG] Found EmailTypeConfig:`, config)
+      if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] Found EmailTypeConfig:`, {
+        type: config.type,
+        headerTitle: config.headerTitle,
+        sectionsRaw: config.sections,
+        hasActionButton: !!config.actionButton
+      })
       
-      // Use database configuration
+      // Use database configuration - ALWAYS respect admin settings
       baseConfig = {
         headerTitle: config.headerTitle,
         headerSubtitle: config.headerSubtitle,
@@ -363,28 +398,34 @@ async function renderUnifiedTemplate(
         debugInfo.actionButtonFromDB = actionButton
         
         if (debug) {
-          console.log(`[EMAIL_DEBUG] Parsed sections from DB (count: ${sections.length}):`, sections)
-          console.log(`[EMAIL_DEBUG] Parsed action button from DB:`, actionButton)
+          console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Successfully parsed admin configuration:`)
+          console.log(`- Sections count: ${sections.length}`)
+          console.log(`- Sections:`, sections)
+          console.log(`- Action button:`, actionButton)
+          console.log(`- RESPECTING ADMIN CONFIGURATION: ${sections.length === 0 ? 'Empty sections (admin wants no sections)' : 'Using configured sections'}`)
         }
         
-        // CRITICAL FIX: Respect admin configuration completely
-        // Do NOT fall back to hardcoded sections even if admin configured empty sections
-        // If admin wants empty sections, give them empty sections!
+        // CRITICAL: NEVER override admin configuration
+        // If admin configured empty sections, use empty sections
+        // If admin configured specific sections, use those sections
+        // NO fallback to hardcoded content unless database is completely broken
         
       } catch (parseError) {
-        console.error('[EMAIL_DEBUG] Error parsing email configuration JSON:', parseError)
+        console.error('[EMAIL_TEMPLATE_DEBUG] ❌ ERROR: Failed to parse admin configuration JSON:', parseError)
         debugInfo.sectionsParseSuccess = false
         debugInfo.parseError = parseError instanceof Error ? parseError.message : 'Unknown parse error'
-        debugInfo.fallbackReason = 'JSON parse failed'
+        debugInfo.fallbackReason = 'JSON parse failed - admin configuration corrupted'
         
-        // Only fall back to hardcoded sections if JSON parsing completely fails
+        // Only fall back to hardcoded sections if JSON parsing completely fails (corrupted data)
+        if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] ⚠️ FALLBACK: Using hardcoded sections due to corrupted admin configuration`)
         sections = generateEmailSections(type, variables as Record<string, unknown>)
         actionButton = generateActionButton(type, variables as Record<string, unknown>)
+        debugInfo.configSource = 'hardcoded_fallback_corrupted'
         debugInfo.sectionsFromFallback = sections
         debugInfo.actionButtonFromFallback = actionButton
       }
     } else {
-      if (debug) console.log(`[EMAIL_DEBUG] No email type config found for ${type}, creating default...`)
+      if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] ⚠️ No EmailTypeConfig found for ${type}, creating default...`)
       
       // Create default email type config if it doesn't exist
       debugInfo.configSource = 'creating_default'
@@ -399,7 +440,7 @@ async function renderUnifiedTemplate(
       debugInfo.newConfigData = newConfig
       
       if (newConfig) {
-        if (debug) console.log(`[EMAIL_DEBUG] Created and retrieved new config:`, newConfig)
+        if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Created and retrieved new config with empty sections`)
         
         baseConfig = {
           headerTitle: newConfig.headerTitle,
@@ -415,12 +456,16 @@ async function renderUnifiedTemplate(
         debugInfo.configSource = 'new_database'
         debugInfo.sectionsFromNewDB = sections
         debugInfo.actionButtonFromNewDB = actionButton
+        
+        if (debug) {
+          console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ New config created with ${sections.length} sections (admin can customize these)`)
+        }
       } else {
-        if (debug) console.log(`[EMAIL_DEBUG] Failed to create/retrieve new config, using hardcoded fallback`)
+        if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] ❌ CRITICAL: Failed to create database config, using hardcoded fallback`)
         
         // Last resort fallback to hardcoded configuration
-        debugInfo.configSource = 'hardcoded_fallback'
-        debugInfo.fallbackReason = 'Failed to create database config'
+        debugInfo.configSource = 'hardcoded_fallback_db_error'
+        debugInfo.fallbackReason = 'Failed to create database config - database connection issue'
         baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
         sections = generateEmailSections(type, variables as Record<string, unknown>)
         actionButton = generateActionButton(type, variables as Record<string, unknown>)
@@ -430,10 +475,10 @@ async function renderUnifiedTemplate(
       }
     }
   } catch (error) {
-    console.error('[EMAIL_DEBUG] Error fetching email configuration from database:', error)
+    console.error('[EMAIL_TEMPLATE_DEBUG] ❌ CRITICAL: Database error fetching email configuration:', error)
     debugInfo.error = error instanceof Error ? error.message : 'Unknown database error'
     debugInfo.configSource = 'hardcoded_error_fallback'
-    debugInfo.fallbackReason = 'Database error'
+    debugInfo.fallbackReason = 'Database connection error'
     
     // Fallback to hardcoded configuration only on database errors
     baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
@@ -445,6 +490,7 @@ async function renderUnifiedTemplate(
   }
   
   // Get email logo configuration from system settings
+  if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] Getting system settings for logos/branding...`)
   const systemSettings = await prisma.systemSettings.findFirst()
   const emailLogoHtml = renderEmailLogo(
     systemSettings?.logoUrl || null,
@@ -485,9 +531,14 @@ async function renderUnifiedTemplate(
   debugInfo.finalSectionsCount = sections.length
 
   if (debug) {
-    console.log(`[EMAIL_DEBUG] Final email data created with ${sections.length} sections`)
-    console.log(`[EMAIL_DEBUG] Sections:`, sections)
-    console.log(`[EMAIL_DEBUG] Action button:`, actionButton)
+    console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Final email data created:`)
+    console.log(`- Header: ${emailData.headerTitle} - ${emailData.headerSubtitle}`)
+    console.log(`- Greeting: ${emailData.greeting}`)
+    console.log(`- Intro: ${emailData.introText}`)
+    console.log(`- Sections: ${sections.length} configured`)
+    console.log(`- Action button: ${actionButton ? 'Yes' : 'No'}`)
+    console.log(`- Footer: ${emailData.footerText}`)
+    console.log(`[EMAIL_TEMPLATE_DEBUG] 📧 Using ${sections.length} sections from ${debugInfo.configSource}`)
   }
 
   // Start with base template
@@ -534,10 +585,11 @@ async function renderUnifiedTemplate(
   debugInfo.finalHtmlLength = html.length
 
   if (debug) {
-    console.log(`[EMAIL_DEBUG] Unified template rendering complete`)
-    console.log(`[EMAIL_DEBUG] Final HTML length: ${html.length}`)
-    console.log(`[EMAIL_DEBUG] Sections HTML: ${sectionsHtml}`)
-    console.log(`[EMAIL_DEBUG] Button HTML: ${buttonHtml}`)
+    console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Unified template rendering complete`)
+    console.log(`- Final HTML length: ${html.length}`)
+    console.log(`- Sections HTML length: ${sectionsHtml.length}`)
+    console.log(`- Button HTML length: ${buttonHtml.length}`)
+    console.log(`- Template content preview: ${html.substring(0, 300)}...`)
   }
 
   return { html, debugInfo }
