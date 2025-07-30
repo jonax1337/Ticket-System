@@ -10,15 +10,15 @@ interface RateLimitStore {
 
 const store: RateLimitStore = {}
 
-// Cleanup expired entries every 5 minutes
-setInterval(() => {
+// Cleanup expired entries on-demand during rate limit checks
+function cleanupExpiredEntries() {
   const now = Date.now()
   for (const key in store) {
     if (store[key].resetTime <= now) {
       delete store[key]
     }
   }
-}, 5 * 60 * 1000)
+}
 
 export interface RateLimitOptions {
   windowMs: number // Time window in milliseconds
