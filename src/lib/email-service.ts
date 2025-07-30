@@ -83,6 +83,8 @@ export async function syncEmails(emailConfig: EmailConfiguration): Promise<SyncR
   let errorCount = 0
 
   try {
+    console.log('Starting email sync for config:', emailConfig.id)
+    
     const client = new ImapFlow({
       host: emailConfig.host,
       port: emailConfig.port,
@@ -95,7 +97,10 @@ export async function syncEmails(emailConfig: EmailConfiguration): Promise<SyncR
       disableCompression: true
     })
 
+    console.log('Connecting to IMAP server:', emailConfig.host, emailConfig.port)
     await client.connect()
+    
+    console.log('Opening mailbox:', emailConfig.folder)
     const mailbox = await client.mailboxOpen(emailConfig.folder)
 
     if (mailbox.exists === 0) {
@@ -166,6 +171,15 @@ export async function syncEmails(emailConfig: EmailConfiguration): Promise<SyncR
     return { importedCount, skippedCount, errorCount, processed: processedCount }
 
   } catch (error) {
+    console.error('Email sync error details:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      emailConfigId: emailConfig.id,
+      host: emailConfig.host,
+      port: emailConfig.port,
+      username: emailConfig.username,
+      folder: emailConfig.folder
+    })
     throw new Error(`Email sync failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
   }
 }

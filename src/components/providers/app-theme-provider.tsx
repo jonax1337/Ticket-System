@@ -1,5 +1,7 @@
 'use client'
 
+import * as React from 'react'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { useAppSettings } from '@/hooks/use-app-settings'
 import { useEffect } from 'react'
 
@@ -49,10 +51,12 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
       // Custom hex color
       const hsl = hexToHsl(settings.themeColor)
       root.style.setProperty('--primary', hsl)
+      root.style.setProperty('--ring', hsl)
+      root.setAttribute('data-theme', 'default')
     } else {
       // Predefined theme colors
       const themeColors = {
-        default: '222.2 84% 4.9%',
+        default: '0 0% 98%', // Almost white for default
         blue: '221.2 83.2% 53.3%',
         green: '142.1 76.2% 36.3%',
         purple: '262.1 83.3% 57.8%',
@@ -66,8 +70,19 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
       
       const colorValue = themeColors[settings.themeColor as keyof typeof themeColors] || themeColors.default
       root.style.setProperty('--primary', colorValue)
+      root.style.setProperty('--ring', colorValue)
+      root.setAttribute('data-theme', settings.themeColor)
     }
   }, [settings])
 
-  return <>{children}</>
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {children}
+    </NextThemesProvider>
+  )
 }

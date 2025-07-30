@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/components/providers/session-provider";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { AppThemeProvider } from "@/components/providers/app-theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "@/lib/startup"; // Start email cron manager
 
@@ -24,15 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <AppThemeProvider>
           <AuthProvider>{children}</AuthProvider>
           <Toaster position="top-center" />
-        </ThemeProvider>
+        </AppThemeProvider>
       </body>
     </html>
   );
