@@ -257,7 +257,7 @@ export const EMAIL_TYPE_CONFIGS: Record<string, Partial<UnifiedEmailData>> = {
 /**
  * Generate sections content for specific email types (fallback for when DB config not available)
  */
-export function generateEmailSections(type: string, variables: Record<string, unknown>): EmailContentSection[] {
+export function generateEmailSections(type: string, _variables: Record<string, unknown>): EmailContentSection[] {
   switch (type) {
     case 'ticket_created':
       return [
@@ -434,24 +434,36 @@ export function generateEmailSections(type: string, variables: Record<string, un
 }
 
 /**
- * Get sections from database configuration or fallback to hardcoded
+ * Get sections from database configuration - RESPECTS admin empty sections configuration
  */
-export async function getEmailSectionsFromConfig(type: string, variables: Record<string, unknown> = {}): Promise<EmailContentSection[]> {
+export async function getEmailSectionsFromConfig(type: string, variables: Record<string, unknown> = {}, debug: boolean = false): Promise<EmailContentSection[]> {
   try {
     const { prisma } = await import('./prisma')
     const config = await prisma.emailTypeConfig.findUnique({
       where: { type }
     })
     
+    if (debug) console.log(`[EMAIL_DEBUG] getEmailSectionsFromConfig for ${type}:`, config)
+    
     if (config && config.sections) {
       const sections = JSON.parse(config.sections) as EmailContentSection[]
-      return sections.length > 0 ? sections : generateEmailSections(type, variables)
+      
+      if (debug) {
+        console.log(`[EMAIL_DEBUG] Parsed sections from config (length: ${sections.length}):`, sections)
+      }
+      
+      // CRITICAL FIX: Return sections as-is from admin configuration
+      // Do NOT fall back to hardcoded sections if admin configured empty sections
+      // If admin wants empty sections, respect that choice!
+      return sections
     }
   } catch (error) {
-    console.error('Error fetching email sections from config:', error)
+    console.error('[EMAIL_DEBUG] Error fetching email sections from config:', error)
+    if (debug) console.log(`[EMAIL_DEBUG] Falling back to hardcoded sections due to error`)
   }
   
-  // Fallback to hardcoded sections
+  // Only fall back to hardcoded sections if no config exists or there's an error
+  if (debug) console.log(`[EMAIL_DEBUG] No config found for ${type}, using hardcoded sections`)
   return generateEmailSections(type, variables)
 }
 

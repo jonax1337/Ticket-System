@@ -51,9 +51,9 @@ export async function POST(request: NextRequest) {
       ...customVariables
     }
 
-    // Use the actual email template service to generate preview
+    // Use the actual email template service to generate preview with debugging
     // This ensures the preview matches exactly what users will receive
-    const renderedTemplate = await renderEmailTemplate(templateType as EmailTemplateType, sampleData)
+    const renderedTemplate = await renderEmailTemplate(templateType as EmailTemplateType, sampleData, true)
     
     if (!renderedTemplate) {
       return NextResponse.json(
@@ -62,11 +62,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    console.log(`[PREVIEW_DEBUG] Generated preview for ${templateType}:`)
+    console.log(`- Subject: ${renderedTemplate.subject}`)
+    console.log(`- HTML length: ${renderedTemplate.htmlContent.length}`)
+    if (renderedTemplate.debugInfo) {
+      console.log(`- Config source: ${renderedTemplate.debugInfo.configSource}`)
+      console.log(`- Sections count: ${renderedTemplate.debugInfo.finalSectionsCount}`)
+    }
+
     return NextResponse.json({
       subject: renderedTemplate.subject,
       htmlContent: renderedTemplate.htmlContent,
       textContent: renderedTemplate.textContent,
-      sampleData
+      sampleData,
+      debugInfo: renderedTemplate.debugInfo
     })
   } catch (error) {
     console.error('Error generating base template preview:', error)

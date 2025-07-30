@@ -57,14 +57,22 @@ export async function POST(request: NextRequest) {
       where: { type }
     })
 
-    // Use the actual email template service (same as real emails)
-    const renderedTemplate = await renderEmailTemplate(type as EmailTemplateType, defaultVariables)
+    // Use the actual email template service (same as real emails) with debugging
+    const renderedTemplate = await renderEmailTemplate(type as EmailTemplateType, defaultVariables, true)
     
     if (!renderedTemplate) {
       return NextResponse.json(
         { error: `Failed to render template for type: ${type}` },
         { status: 500 }
       )
+    }
+
+    console.log(`[TEST_DEBUG] Generated test email for ${type}:`)
+    console.log(`- Subject: ${renderedTemplate.subject}`)
+    console.log(`- HTML length: ${renderedTemplate.htmlContent.length}`)
+    if (renderedTemplate.debugInfo) {
+      console.log(`- Config source: ${renderedTemplate.debugInfo.configSource}`)
+      console.log(`- Sections count: ${renderedTemplate.debugInfo.finalSectionsCount}`)
     }
 
     return NextResponse.json({
@@ -80,7 +88,8 @@ export async function POST(request: NextRequest) {
         emailTypeConfigId: emailTypeConfig?.id,
         sectionsCount: emailTypeConfig ? JSON.parse(emailTypeConfig.sections).length : 0,
         hasActionButton: emailTypeConfig ? !!emailTypeConfig.actionButton : false,
-        sections: emailTypeConfig ? JSON.parse(emailTypeConfig.sections) : null
+        sections: emailTypeConfig ? JSON.parse(emailTypeConfig.sections) : null,
+        templateDebugInfo: renderedTemplate.debugInfo
       },
       message: 'Test email generated using actual email template service (same as real emails)'
     })

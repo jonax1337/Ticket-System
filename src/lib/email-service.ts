@@ -566,12 +566,26 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       ...options.variables
     }
 
-    // Render template
-    const renderedTemplate = await renderEmailTemplate(options.templateType, templateVariables)
+    // Render template with debugging for comment_added emails
+    const debugMode = options.templateType === 'comment_added'
+    const renderedTemplate = await renderEmailTemplate(options.templateType, templateVariables, debugMode)
     
     if (!renderedTemplate) {
       console.error(`No template found for type: ${options.templateType}`)
       return false
+    }
+
+    if (debugMode) {
+      console.log(`[EMAIL_SEND_DEBUG] Rendering template for ${options.templateType}:`)
+      console.log(`- To: ${options.to} (${options.toName})`)
+      console.log(`- Ticket: ${ticket.subject}`)
+      console.log(`- Subject: ${renderedTemplate.subject}`)
+      console.log(`- HTML length: ${renderedTemplate.htmlContent.length}`)
+      if (renderedTemplate.debugInfo) {
+        console.log(`- Config source: ${renderedTemplate.debugInfo.configSource}`)
+        console.log(`- Sections count: ${renderedTemplate.debugInfo.finalSectionsCount}`)
+        console.log(`- Debug info:`, JSON.stringify(renderedTemplate.debugInfo, null, 2))
+      }
     }
 
     // Get email configuration - prioritize outbound-designated account
