@@ -5,8 +5,8 @@ import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { useState, useEffect } from 'react'
-import { User, MessageCircle, Clock, AlertTriangle, AlertCircle, CheckCircle2, Timer, ArrowRight, ChevronUp, ChevronDown, Zap, TrendingUp, Trash2, Calendar, RefreshCw, Inbox, Folder, Circle } from 'lucide-react'
+import { useState } from 'react'
+import { ChevronUp, ChevronDown, Trash2, RefreshCw } from 'lucide-react'
 import { getIconComponent } from '@/lib/icon-system'
 import {
   AlertDialog,
@@ -50,9 +50,19 @@ interface Ticket {
   }[]
 }
 
+interface PaginationInfo {
+  currentPage: number
+  totalPages: number
+  totalCount: number
+  hasNextPage: boolean
+  hasPrevPage: boolean
+  limit: number
+}
+
 interface TicketsListProps {
   tickets: Ticket[]
   isAdmin?: boolean
+  pagination?: PaginationInfo
 }
 
 type SortField = 'id' | 'subject' | 'status' | 'priority' | 'fromName' | 'assignedTo' | 'createdAt' | 'comments'
@@ -60,7 +70,7 @@ type SortDirection = 'asc' | 'desc'
 
 // Removed - using unified icon system
 
-export default function TicketsList({ tickets, isAdmin = false }: TicketsListProps) {
+export default function TicketsList({ tickets, isAdmin = false, pagination }: TicketsListProps) {
   const router = useRouter()
   const [sortField, setSortField] = useState<SortField>('createdAt')
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
@@ -411,6 +421,46 @@ export default function TicketsList({ tickets, isAdmin = false }: TicketsListPro
             </tbody>
           </table>
         </div>
+        
+        {/* Pagination Controls */}
+        {pagination && pagination.totalPages > 1 && (
+          <div className="flex items-center justify-between px-4 py-3 border-t">
+            <div className="text-sm text-muted-foreground">
+              Showing {((pagination.currentPage - 1) * pagination.limit) + 1} to{' '}
+              {Math.min(pagination.currentPage * pagination.limit, pagination.totalCount)} of{' '}
+              {pagination.totalCount} tickets
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={!pagination.hasPrevPage}
+                onClick={() => {
+                  const url = new URL(window.location.href)
+                  url.searchParams.set('page', (pagination.currentPage - 1).toString())
+                  router.push(url.toString())
+                }}
+              >
+                Previous
+              </Button>
+              <div className="text-sm text-muted-foreground">
+                Page {pagination.currentPage} of {pagination.totalPages}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={!pagination.hasNextPage}
+                onClick={() => {
+                  const url = new URL(window.location.href)
+                  url.searchParams.set('page', (pagination.currentPage + 1).toString())
+                  router.push(url.toString())
+                }}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   )

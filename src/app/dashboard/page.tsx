@@ -2,13 +2,9 @@ import { prisma } from '@/lib/prisma'
 import TicketsList from '@/components/dashboard/tickets-list'
 import TicketFilters from '@/components/dashboard/ticket-filters'
 import { CreateTicketDialog } from '@/components/dashboard/create-ticket-dialog'
-import { TicketVolumeChart } from '@/components/dashboard/charts/ticket-volume-chart'
-// Removed enum imports - now using dynamic string values
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -24,6 +20,8 @@ interface DashboardPageProps {
     search?: string
     assigned?: string
     queue?: string
+    page?: string
+    limit?: string
   }>
 }
 
@@ -31,6 +29,11 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const params = await searchParams
   const { status, priority, search, queue } = params
   const assigned = params.assigned || 'UNASSIGNED'
+  
+  // Pagination parameters
+  const page = Math.max(1, parseInt(params.page || '1'))
+  const limit = Math.min(50, Math.max(10, parseInt(params.limit || '20'))) // Max 50, min 10, default 20
+  const skip = (page - 1) * limit
   
   // Get session to check if user is admin
   const session = await getServerSession(authOptions)
@@ -74,30 +77,35 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       id: 'no-access'
     }),
     ...(search && (() => {
-      const words = search.trim().split(/\s+/).filter(word => word.length > 0)
+      // Sanitize search input to prevent SQL injection
+      const sanitizedSearch = search.trim().replace(/[%_\\]/g, '\\$&').substring(0, 100)
+      const words = sanitizedSearch.split(/\s+/).filter(word => word.length > 0 && word.length >= 2)
+      
+      if (words.length === 0) return {}
       
       if (words.length > 1) {
         // Multiple words: all words must be found (AND logic)
         return {
           AND: words.map(word => ({
             OR: [
-              { subject: { contains: word } },
-              { description: { contains: word } },
-              { fromEmail: { contains: word } },
-              { fromName: { contains: word } },
-              { ticketNumber: { contains: word } },
+              { subject: { contains: word, mode: 'insensitive' } },
+              { description: { contains: word, mode: 'insensitive' } },
+              { fromEmail: { contains: word, mode: 'insensitive' } },
+              { fromName: { contains: word, mode: 'insensitive' } },
+              { ticketNumber: { contains: word, mode: 'insensitive' } },
             ]
           }))
         }
       } else {
         // Single word: simple OR search
+        const word = words[0]
         return {
           OR: [
-            { subject: { contains: search } },
-            { description: { contains: search } },
-            { fromEmail: { contains: search } },
-            { fromName: { contains: search } },
-            { ticketNumber: { contains: search } },
+            { subject: { contains: word, mode: 'insensitive' } },
+            { description: { contains: word, mode: 'insensitive' } },
+            { fromEmail: { contains: word, mode: 'insensitive' } },
+            { fromName: { contains: word, mode: 'insensitive' } },
+            { ticketNumber: { contains: word, mode: 'insensitive' } },
           ]
         }
       }
@@ -106,6 +114,9 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     ...(assigned === 'UNASSIGNED' ? { assignedToId: null } : {}),
     ...(assigned && assigned !== 'ALL' && assigned !== 'UNASSIGNED' ? { assignedToId: assigned } : {}),
   }
+
+  // Get total count for pagination
+  const totalCount = await prisma.ticket.count({ where })
 
   const tickets = await prisma.ticket.findMany({
     where,
@@ -136,7 +147,14 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       { priority: 'desc' },
       { createdAt: 'desc' },
     ],
+    skip,
+    take: limit,
   })
+
+  // Calculate pagination info
+  const totalPages = Math.ceil(totalCount / limit)
+  const hasNextPage = page < totalPages
+  const hasPrevPage = page > 1
 
   // Calculate stats - no queue access control for analytics/stats
   // Stats should show data from all tickets regardless of queue permissions
@@ -217,7 +235,18 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
       <div className="space-y-4">
         <TicketFilters />
-        <TicketsList tickets={tickets} isAdmin={session?.user?.role === 'ADMIN'} />
+        <TicketsList 
+          tickets={tickets} 
+          isAdmin={session?.user?.role === 'ADMIN'}
+          pagination={{
+            currentPage: page,
+            totalPages,
+            totalCount,
+            hasNextPage,
+            hasPrevPage,
+            limit
+          }}
+        />
       </div>
     </div>
   )

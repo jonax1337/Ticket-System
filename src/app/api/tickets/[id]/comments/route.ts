@@ -63,6 +63,7 @@ export async function POST(
         })()
       : null
 
+    // Validate and sanitize inputs
     if (!content || !content.trim()) {
       return NextResponse.json(
         { error: 'Comment content is required' },
@@ -70,8 +71,32 @@ export async function POST(
       )
     }
 
+    const sanitizedContent = content.trim().substring(0, 10000) // Limit content length
+    const sanitizedType = ['internal', 'external'].includes(type) ? type : 'internal'
+
+    // Validate participants for external comments
+    if (sanitizedType === 'external' && selectedParticipants.length === 0) {
+      return NextResponse.json(
+        { error: 'At least one participant must be selected for external comments' },
+        { status: 400 }
+      )
+    }
+
+    // Validate participant emails
+    if (selectedParticipants.length > 0) {
+      const invalidEmails = selectedParticipants.filter(email => 
+        typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+      )
+      if (invalidEmails.length > 0) {
+        return NextResponse.json(
+          { error: 'Invalid email addresses in participants' },
+          { status: 400 }
+        )
+      }
+    }
+
     // Add selected participants info to content if external (less intrusive)
-    let finalContent = content.trim()
+    let finalContent = sanitizedContent
     
     // Add status change information to comment content if present
     if (statusChange) {
@@ -91,7 +116,7 @@ export async function POST(
         sentToEmails: sentToInfo,
         ticketId: params.id,
         userId: session.user.id,
-        type: type,
+        type: sanitizedType,
       },
       include: {
         user: {

@@ -211,8 +211,8 @@ async function shouldProcessEmail(email: ParsedMail, config: EmailConfiguration)
       if (!regex.test(email.subject || '')) {
         return false
       }
-    } catch (error) {
-      console.error('Invalid subject filter regex:', config.subjectFilter)
+    } catch (filterError) {
+      console.error('Invalid subject filter regex:', config.subjectFilter, filterError)
     }
   }
 
@@ -224,8 +224,8 @@ async function shouldProcessEmail(email: ParsedMail, config: EmailConfiguration)
       if (!regex.test(fromAddress)) {
         return false
       }
-    } catch (error) {
-      console.error('Invalid from filter regex:', config.fromFilter)
+    } catch (filterError) {
+      console.error('Invalid from filter regex:', config.fromFilter, filterError)
     }
   }
 

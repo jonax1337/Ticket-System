@@ -103,6 +103,17 @@ model Ticket {
   participants TicketParticipant[] // New modular participant system
   watchers TicketWatcher[]
 
+  // Performance indexes
+  @@index([status])
+  @@index([priority])
+  @@index([assignedToId])
+  @@index([queueId])
+  @@index([createdAt])
+  @@index([dueDate])
+  @@index([fromEmail])
+  @@index([status, priority])
+  @@index([assignedToId, status])
+  @@index([queueId, status])
   @@map("tickets")
 }
 
@@ -140,6 +151,12 @@ model Comment {
   attachments CommentAttachment[]
   notifications Notification[]
 
+  // Performance indexes
+  @@index([ticketId])
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+  @@index([ticketId, createdAt])
   @@map("comments")
 }
 
@@ -293,6 +310,12 @@ model Notification {
   ticket  Ticket?  @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
+  // Performance indexes
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@index([userId, isRead])
+  @@index([ticketId])
   @@map("notifications")
 }
 

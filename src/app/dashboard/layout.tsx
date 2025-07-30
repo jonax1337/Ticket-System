@@ -37,8 +37,9 @@ export default async function DashboardLayout({
         data: { id: 'system' }
       })
     }
-  } catch (error) {
+  } catch (dbError) {
     // Fallback if systemSettings table doesn't exist yet
+    console.warn('SystemSettings not available, using defaults:', dbError)
     settings = {
       id: 'system',
       appName: 'Support Dashboard',
