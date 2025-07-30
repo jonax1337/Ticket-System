@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export function addSecurityHeaders(response: NextResponse): NextResponse {
+function addSecurityHeaders(response: NextResponse): NextResponse {
   // Content Security Policy
   response.headers.set(
     'Content-Security-Policy',
@@ -27,7 +27,20 @@ export function addSecurityHeaders(response: NextResponse): NextResponse {
   return response
 }
 
-export function middleware() {
+export function middleware(_request: NextRequest) {
   const response = NextResponse.next()
   return addSecurityHeaders(response)
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 }

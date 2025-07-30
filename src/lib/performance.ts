@@ -43,17 +43,18 @@ export function throttle<T extends (...args: unknown[]) => void>(
 }
 
 // Lazy loading utility for heavy components
-export function createLazyComponent<T extends React.ComponentType<any>>(
+export function createLazyComponent<T extends React.ComponentType<Record<string, unknown>>>(
   importFunc: () => Promise<{ default: T }>,
-  fallback: React.ComponentType = () => <div>Loading...</div>
+  fallback?: React.ComponentType
 ) {
   const LazyComponent = React.lazy(importFunc)
+  const FallbackComponent = fallback || (() => React.createElement('div', null, 'Loading...'))
   
   return function LazyWrapper(props: React.ComponentProps<T>) {
-    return (
-      <React.Suspense fallback={<fallback />}>
-        <LazyComponent {...props} />
-      </React.Suspense>
+    return React.createElement(
+      React.Suspense,
+      { fallback: React.createElement(FallbackComponent) },
+      React.createElement(LazyComponent, props)
     )
   }
 }
@@ -99,7 +100,7 @@ export function calculateVisibleItems(
 // Memory usage monitoring
 export function logMemoryUsage(context?: string) {
   if (process.env.NODE_ENV === 'development' && 'memory' in performance) {
-    const memory = (performance as any).memory
+    const memory = (performance as typeof performance & { memory: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory
     console.log(`🧠 Memory Usage ${context ? `(${context})` : ''}:`, {
       used: `${Math.round(memory.usedJSHeapSize / 1024 / 1024)}MB`,
       total: `${Math.round(memory.totalJSHeapSize / 1024 / 1024)}MB`,
