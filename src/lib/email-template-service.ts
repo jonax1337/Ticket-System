@@ -209,21 +209,31 @@ export async function renderEmailTemplate(
       console.log(`- Total variables: ${Object.keys(fullVariables).length}`)
     }
 
-    // Check if template uses unified template system or legacy format
-    const isUnifiedTemplate = template.htmlContent === 'unified_template' || 
+    // FORCE unified template system for comment_added emails to respect admin config
+    const forceUnifiedForTypes = ['comment_added'] // Add more types here as needed
+    const isUnifiedTemplate = forceUnifiedForTypes.includes(type) ||
+                             template.htmlContent === 'unified_template' || 
                              (!template.htmlContent.includes('<!DOCTYPE html>') && 
-                              !template.htmlContent.includes('<html>'))
+                              !template.htmlContent.includes('<html>') &&
+                              !template.htmlContent.includes('<div class='))
     
     debugInfo.isUnifiedTemplate = isUnifiedTemplate
+    debugInfo.forcedUnified = forceUnifiedForTypes.includes(type)
     
     let renderedHtmlContent: string
 
     if (isUnifiedTemplate) {
-      if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] 🔄 Using unified template system (respects admin configuration)`)
-      // Use unified template system
+      if (debug) {
+        console.log(`[EMAIL_TEMPLATE_DEBUG] 🔄 Using unified template system (respects admin configuration)`)
+        if (forceUnifiedForTypes.includes(type)) {
+          console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ FORCED UNIFIED: ${type} emails always use unified template to respect admin settings`)
+        }
+      }
+      // Use unified template system - this will respect admin EmailTypeConfig
       const unifiedResult = await renderUnifiedTemplate(type, template, fullVariables, debug)
       renderedHtmlContent = unifiedResult.html
       debugInfo.unifiedTemplateDebug = unifiedResult.debugInfo
+      debugInfo.renderMethod = 'unified'
     } else {
       if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] 🔄 Using legacy template format`)
       // Legacy template format
@@ -257,8 +267,9 @@ export async function renderEmailTemplate(
       if (!renderedSubject.startsWith(renderedPrefix)) {
         renderedSubject = `${renderedPrefix} ${renderedSubject}`
       }
-      debugInfo.subjectProcessing.finalSubject = renderedSubject
-      debugInfo.subjectProcessing.prefixAdded = true
+      const subjectProcessing = debugInfo.subjectProcessing as Record<string, unknown>
+      subjectProcessing.finalSubject = renderedSubject
+      subjectProcessing.prefixAdded = true
     }
     
     const renderedTextContent = template.textContent 
@@ -368,12 +379,20 @@ async function renderUnifiedTemplate(
     debugInfo.configData = config
 
     if (config) {
-      if (debug) console.log(`[EMAIL_TEMPLATE_DEBUG] Found EmailTypeConfig:`, {
-        type: config.type,
-        headerTitle: config.headerTitle,
-        sectionsRaw: config.sections,
-        hasActionButton: !!config.actionButton
-      })
+      if (debug) {
+        console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Found EmailTypeConfig for ${type}:`)
+        console.log(`- ID: ${config.id}`)
+        console.log(`- Type: ${config.type}`)
+        console.log(`- Header Title: ${config.headerTitle}`)
+        console.log(`- Header Subtitle: ${config.headerSubtitle}`)
+        console.log(`- Greeting: ${config.greeting}`)
+        console.log(`- Intro Text: ${config.introText}`)
+        console.log(`- Sections (raw): ${config.sections}`)
+        console.log(`- Action Button (raw): ${config.actionButton}`)
+        console.log(`- Footer Text: ${config.footerText}`)
+        console.log(`- Created At: ${config.createdAt}`)
+        console.log(`- Updated At: ${config.updatedAt}`)
+      }
       
       // Use database configuration - ALWAYS respect admin settings
       baseConfig = {
@@ -400,9 +419,15 @@ async function renderUnifiedTemplate(
         if (debug) {
           console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Successfully parsed admin configuration:`)
           console.log(`- Sections count: ${sections.length}`)
-          console.log(`- Sections:`, sections)
-          console.log(`- Action button:`, actionButton)
-          console.log(`- RESPECTING ADMIN CONFIGURATION: ${sections.length === 0 ? 'Empty sections (admin wants no sections)' : 'Using configured sections'}`)
+          if (sections.length === 0) {
+            console.log(`- RESPECTING ADMIN CONFIGURATION: Empty sections (admin wants minimal email content)`)
+          } else {
+            console.log(`- RESPECTING ADMIN CONFIGURATION: Using ${sections.length} configured sections`)
+            sections.forEach((section, index) => {
+              console.log(`  ${index + 1}. ${section.title}: ${section.content.substring(0, 50)}...`)
+            })
+          }
+          console.log(`- Action button: ${actionButton ? `Yes (${actionButton.text})` : 'No'}`)
         }
         
         // CRITICAL: NEVER override admin configuration

@@ -531,16 +531,6 @@ interface SendTemplatedEmailOptions {
 
 export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Promise<boolean> {
   try {
-    // ALWAYS enable debug mode for complete visibility
-    const debugMode = true
-    const templateType = options.templateType
-    
-    console.log(`\n========== EMAIL SEND DEBUG START ==========`)
-    console.log(`[EMAIL_SEND] Starting templated email for type: ${templateType}`)
-    console.log(`[EMAIL_SEND] To: ${options.to} (${options.toName || 'no name'})`)
-    console.log(`[EMAIL_SEND] Ticket ID: ${options.ticketId}`)
-    console.log(`[EMAIL_SEND] Timestamp: ${new Date().toISOString()}`)
-
     // Get ticket details for variables
     const ticket = await prisma.ticket.findUnique({
       where: { id: options.ticketId },
@@ -555,11 +545,9 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
     })
 
     if (!ticket) {
-      console.error('[EMAIL_SEND] ERROR: Ticket not found for templated email')
+      console.error('Ticket not found for templated email')
       return false
     }
-
-    console.log(`[EMAIL_SEND] Ticket found: ${ticket.subject} (${ticket.status})`)
 
     // Prepare template variables
     const templateVariables = {
@@ -578,36 +566,26 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       ...options.variables
     }
 
-    console.log(`[EMAIL_SEND] Template variables prepared:`)
-    console.log(`- ticketNumber: ${templateVariables.ticketNumber}`)
-    console.log(`- ticketSubject: ${templateVariables.ticketSubject}`)
-    console.log(`- customerName: ${templateVariables.customerName}`)
-    console.log(`- Total variables: ${Object.keys(templateVariables).length}`)
-
-    // Render template with full debugging enabled
-    console.log(`[EMAIL_SEND] Calling renderEmailTemplate with debug mode enabled...`)
-    const renderedTemplate = await renderEmailTemplate(templateType, templateVariables, debugMode)
+    // Render template with debugging for comment_added emails
+    const debugMode = options.templateType === 'comment_added'
+    const renderedTemplate = await renderEmailTemplate(options.templateType, templateVariables, debugMode)
     
     if (!renderedTemplate) {
-      console.error(`[EMAIL_SEND] ERROR: No template found for type: ${templateType}`)
+      console.error(`No template found for type: ${options.templateType}`)
       return false
     }
 
-    console.log(`[EMAIL_SEND] Template rendered successfully:`)
-    console.log(`- Subject: ${renderedTemplate.subject}`)
-    console.log(`- HTML Content length: ${renderedTemplate.htmlContent.length}`)
-    console.log(`- Text Content length: ${renderedTemplate.textContent?.length || 0}`)
-    
-    if (renderedTemplate.debugInfo) {
-      console.log(`[EMAIL_SEND] Template Debug Info:`)
-      console.log(`- Config source: ${renderedTemplate.debugInfo.configSource}`)
-      console.log(`- Sections count: ${renderedTemplate.debugInfo.finalSectionsCount}`)
-      console.log(`- Is unified template: ${renderedTemplate.debugInfo.isUnifiedTemplate}`)
-      if (renderedTemplate.debugInfo.fallbackReason) {
-        console.log(`- Fallback reason: ${renderedTemplate.debugInfo.fallbackReason}`)
+    if (debugMode) {
+      console.log(`[EMAIL_SEND_DEBUG] Rendering template for ${options.templateType}:`)
+      console.log(`- To: ${options.to} (${options.toName})`)
+      console.log(`- Ticket: ${ticket.subject}`)
+      console.log(`- Subject: ${renderedTemplate.subject}`)
+      console.log(`- HTML length: ${renderedTemplate.htmlContent.length}`)
+      if (renderedTemplate.debugInfo) {
+        console.log(`- Config source: ${renderedTemplate.debugInfo.configSource}`)
+        console.log(`- Sections count: ${renderedTemplate.debugInfo.finalSectionsCount}`)
+        console.log(`- Debug info:`, JSON.stringify(renderedTemplate.debugInfo, null, 2))
       }
-    } else {
-      console.log(`[EMAIL_SEND] WARNING: No debug info available from template rendering`)
     }
 
     // Get email configuration - prioritize outbound-designated account
@@ -652,67 +630,12 @@ export async function sendTemplatedEmail(options: SendTemplatedEmailOptions): Pr
       attachments: options.attachments
     }
 
-    // Get email configuration - prioritize outbound-designated account
-    console.log(`[EMAIL_SEND] Looking up email configuration...`)
-    const emailConfig = await prisma.emailConfiguration.findFirst({
-      where: {
-        isActive: true
-      },
-      orderBy: [
-        { isOutbound: 'desc' }, // Prioritize outbound accounts
-        { createdAt: 'asc' }    // Fallback to oldest if no outbound set
-      ]
-    })
-
-    if (!emailConfig) {
-      console.error('[EMAIL_SEND] ERROR: No active email configuration found for sending emails')
-      throw new Error('No active email configuration found for sending emails')
-    }
-
-    console.log(`[EMAIL_SEND] Email config found: ${emailConfig.name} (${emailConfig.username})`)
-
-    // Create SMTP transporter
-    console.log(`[EMAIL_SEND] Creating SMTP transporter...`)
-    const transporter = nodemailer.createTransporter({
-      host: emailConfig.host,
-      port: emailConfig.port === 993 ? 587 : emailConfig.port,
-      secure: emailConfig.port === 465,
-      auth: {
-        user: emailConfig.username,
-        pass: emailConfig.password
-      }
-    })
-
-    // Send email
-    const mailOptions = {
-      from: {
-        name: emailConfig.name || 'Support',
-        address: emailConfig.username
-      },
-      to: {
-        name: options.toName || options.to,
-        address: options.to
-      },
-      subject: renderedTemplate.subject,
-      html: renderedTemplate.htmlContent,
-      text: renderedTemplate.textContent || undefined,
-      attachments: options.attachments
-    }
-
-    console.log(`[EMAIL_SEND] Sending email with subject: ${renderedTemplate.subject}`)
-    console.log(`[EMAIL_SEND] HTML content preview: ${renderedTemplate.htmlContent.substring(0, 200)}...`)
-    
     const result = await transporter.sendMail(mailOptions)
-    
-    console.log(`[EMAIL_SEND] ✅ Email sent successfully!`)
-    console.log(`[EMAIL_SEND] Message ID: ${result.messageId || 'no-message-id'}`)
-    console.log(`[EMAIL_SEND] Response: ${result.response || 'no-response'}`)
-    console.log(`========== EMAIL SEND DEBUG END ==========\n`)
+    console.log('Templated email sent successfully:', result.messageId)
 
     return true
   } catch (error) {
-    console.error('[EMAIL_SEND] ERROR: Failed to send templated email:', error)
-    console.log(`========== EMAIL SEND DEBUG END (ERROR) ==========\n`)
+    console.error('Failed to send templated email:', error)
     return false
   }
 }

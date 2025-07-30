@@ -56,17 +56,21 @@ export async function POST(request: NextRequest) {
 
     if (emailTypeConfig) {
       try {
-        debugInfo.emailTypeConfig.sectionsParsed = JSON.parse(emailTypeConfig.sections)
-        debugInfo.emailTypeConfig.sectionsCount = JSON.parse(emailTypeConfig.sections).length
+        const emailTypeConfigInfo = debugInfo.emailTypeConfig as Record<string, unknown>
+        emailTypeConfigInfo.sectionsParsed = JSON.parse(emailTypeConfig.sections)
+        emailTypeConfigInfo.sectionsCount = JSON.parse(emailTypeConfig.sections).length
       } catch (e) {
-        debugInfo.emailTypeConfig.sectionsParseError = e instanceof Error ? e.message : 'Unknown error'
+        const emailTypeConfigInfo = debugInfo.emailTypeConfig as Record<string, unknown>
+        emailTypeConfigInfo.sectionsParseError = e instanceof Error ? e.message : 'Unknown error'
       }
 
       if (emailTypeConfig.actionButton) {
         try {
-          debugInfo.emailTypeConfig.actionButtonParsed = JSON.parse(emailTypeConfig.actionButton)
+          const emailTypeConfigInfo = debugInfo.emailTypeConfig as Record<string, unknown>
+          emailTypeConfigInfo.actionButtonParsed = JSON.parse(emailTypeConfig.actionButton)
         } catch (e) {
-          debugInfo.emailTypeConfig.actionButtonParseError = e instanceof Error ? e.message : 'Unknown error'
+          const emailTypeConfigInfo = debugInfo.emailTypeConfig as Record<string, unknown>
+          emailTypeConfigInfo.actionButtonParseError = e instanceof Error ? e.message : 'Unknown error'
         }
       }
     }
@@ -131,7 +135,8 @@ export async function POST(request: NextRequest) {
 
     if (!renderedTemplate) {
       console.log(`[DEBUG STEP 3] FAILED - No template rendered`)
-      debugInfo.renderResult.error = 'Template rendering failed'
+      const renderResult = debugInfo.renderResult as Record<string, unknown>
+      renderResult.error = 'Template rendering failed'
     } else {
       console.log(`[DEBUG STEP 3] SUCCESS - Template rendered`)
       console.log(`- Subject: ${renderedTemplate.subject}`)
@@ -178,7 +183,7 @@ export async function POST(request: NextRequest) {
             commentAuthor: 'Jonas Laux',
             commentCreatedAt: '30.7.2025, 09:42:36',
             actorName: 'Jonas Laux',
-            actorEmail: session.user.email
+            actorEmail: session.user.email || 'support@example.com'
           }
 
           const realRenderedTemplate = await renderEmailTemplate(type as EmailTemplateType, realVariables, true)
