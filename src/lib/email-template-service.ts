@@ -204,9 +204,18 @@ export async function renderEmailTemplate(
       console.log(`[EMAIL_TEMPLATE_DEBUG] ✅ Full variables prepared:`)
       console.log(`- System name: ${fullVariables.systemName}`)
       console.log(`- Support email: ${fullVariables.supportEmail}`)
-      console.log(`- Customer name: ${fullVariables.customerName}`)
+      console.log(`- Customer name: "${fullVariables.customerName}" (length: ${fullVariables.customerName?.length || 0})`)
+      console.log(`- Customer email: ${fullVariables.customerEmail}`)
       console.log(`- Ticket number: ${fullVariables.ticketNumber}`)
+      console.log(`- Ticket subject: ${fullVariables.ticketSubject}`)
       console.log(`- Total variables: ${Object.keys(fullVariables).length}`)
+      
+      // Log any empty or undefined important variables
+      const importantVars = ['systemName', 'customerName', 'supportEmail', 'ticketNumber']
+      const emptyVars = importantVars.filter(key => !fullVariables[key] || fullVariables[key].trim() === '')
+      if (emptyVars.length > 0) {
+        console.log(`[EMAIL_TEMPLATE_DEBUG] ⚠️ WARNING: Empty important variables: ${emptyVars.join(', ')}`)
+      }
     }
 
     // FORCE unified template system for comment_added emails to respect admin config
@@ -664,9 +673,20 @@ async function getSystemDefaults(): Promise<TemplateVariables> {
   try {
     const systemSettings = await prisma.systemSettings.findFirst()
     
+    // Get support email from outbound email configuration
+    const emailConfig = await prisma.emailConfiguration.findFirst({
+      where: {
+        isActive: true
+      },
+      orderBy: [
+        { isOutbound: 'desc' }, // Prioritize outbound accounts
+        { createdAt: 'asc' }    // Fallback to oldest if no outbound set
+      ]
+    })
+    
     return {
       systemName: systemSettings?.appName || 'Support System',
-      supportEmail: 'support@example.com', // This should come from email config
+      supportEmail: emailConfig?.username || 'support@example.com',
       supportUrl: process.env.NEXTAUTH_URL || 'https://localhost:3000',
       unsubscribeUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/unsubscribe`,
       emailSubjectPrefix: systemSettings?.emailSubjectPrefix || '[Ticket {{ticketNumber}}]'
@@ -762,10 +782,10 @@ export async function createDefaultEmailTemplates(): Promise<void> {
 }
 
 /**
- * Create default email type configurations with empty sections for admin customization
+ * Create default email type configurations with meaningful default sections
  */
 async function createDefaultEmailTypeConfigs(): Promise<void> {
-  const { EMAIL_TYPE_CONFIGS } = await import('./email-base-template')
+  const { EMAIL_TYPE_CONFIGS, generateEmailSections } = await import('./email-base-template')
   
   try {
     for (const [type, config] of Object.entries(EMAIL_TYPE_CONFIGS)) {
@@ -775,7 +795,29 @@ async function createDefaultEmailTypeConfigs(): Promise<void> {
       })
 
       if (!existingConfig) {
-        // Create with empty sections so admins can configure them
+        // Generate meaningful default sections for this email type
+        const defaultSections = generateEmailSections(type, {
+          ticketNumber: '{{ticketNumber}}',
+          ticketSubject: '{{ticketSubject}}',
+          ticketStatus: '{{ticketStatus}}',
+          ticketPriority: '{{ticketPriority}}',
+          commentAuthor: '{{commentAuthor}}',
+          commentContent: '{{commentContent}}',
+          commentCreatedAt: '{{commentCreatedAt}}',
+          previousStatus: '{{previousStatus}}',
+          newStatus: '{{newStatus}}',
+          actorName: '{{actorName}}',
+          currentDate: '{{currentDate}}',
+          currentTime: '{{currentTime}}',
+          statusChangeReason: '{{statusChangeReason}}',
+          assignedToName: '{{assignedToName}}',
+          ticketCreatedAt: '{{ticketCreatedAt}}',
+          ticketUpdatedAt: '{{ticketUpdatedAt}}',
+          participantName: '{{participantName}}',
+          participantType: '{{participantType}}'
+        })
+        
+        // Create with meaningful default sections
         await prisma.emailTypeConfig.create({
           data: {
             type,
@@ -785,11 +827,15 @@ async function createDefaultEmailTypeConfigs(): Promise<void> {
             greeting: config.greeting || 'Hello {{customerName}},',
             introText: config.introText || '',
             footerText: config.footerText || 'Best regards,<br>{{systemName}} Team',
-            sections: '[]', // Empty sections array - admin can configure
-            actionButton: null // No default action button
+            sections: JSON.stringify(defaultSections), // Include helpful default sections
+            actionButton: JSON.stringify({ // Add default view ticket button
+              text: 'View Ticket & Reply',
+              url: '{{ticketUrl}}',
+              color: '#2563eb'
+            })
           }
         })
-        console.log(`Created default email type config: ${type}`)
+        console.log(`Created default email type config: ${type} with ${defaultSections.length} default sections`)
       }
     }
   } catch (error) {
