@@ -15,6 +15,20 @@ enum UserRole {
   SUPPORTER
 }
 
+enum WikiStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum WikiPermissionType {
+  VIEW
+  EDIT
+  PUBLISH
+  ADMIN
+}
+
 // Removed enums - now using dynamic custom values
 
 model User {
@@ -35,6 +49,8 @@ model User {
   actorNotifications Notification[] @relation("ActorNotifications")
   userQueues      UserQueue[]
   watchedTickets  TicketWatcher[]
+  wikiArticles    WikiArticle[]
+  wikiPermissions WikiPermission[]
 
   @@map("users")
 }
@@ -393,4 +409,57 @@ model TicketWatcher {
 
   @@unique([ticketId, userId])
   @@map("ticket_watchers")
+}
+
+model WikiArticle {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  content     String     @db.Text // Raw content for editing
+  htmlContent String?    @db.Text // Rendered HTML for display
+  status      WikiStatus @default(DRAFT)
+  authorId    String
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  author      User             @relation(fields: [authorId], references: [id])
+  permissions WikiPermission[]
+  attachments WikiAttachment[]
+
+  @@index([status])
+  @@index([authorId])
+  @@index([slug])
+  @@index([createdAt])
+  @@map("wiki_articles")
+}
+
+model WikiPermission {
+  id         String             @id @default(cuid())
+  articleId  String
+  userId     String?            // null for role-based permissions
+  role       UserRole?          // null for user-based permissions
+  permission WikiPermissionType
+  createdAt  DateTime           @default(now())
+
+  article WikiArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user    User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, userId, permission])
+  @@unique([articleId, role, permission])
+  @@map("wiki_permissions")
+}
+
+model WikiAttachment {
+  id        String      @id @default(cuid())
+  filename  String      // Original filename
+  filepath  String      // Path to file in uploads directory
+  mimetype  String      // MIME type of the file
+  size      Int         // File size in bytes
+  articleId String
+  createdAt DateTime    @default(now())
+
+  article WikiArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("wiki_attachments")
 }

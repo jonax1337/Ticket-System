@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Switch } from '@/components/animate-ui/radix/switch'
-import { LogOut, User, Moon, Sun, UserCog } from 'lucide-react'
+import { LogOut, User, Moon, Sun, UserCog, BookOpen } from 'lucide-react'
 import { UsersRound } from '@/components/animate-ui/icons/users-round'
 import { LayoutDashboard } from '@/components/animate-ui/icons/layout-dashboard'
 import { Settings } from '@/components/animate-ui/icons/settings'
@@ -130,6 +130,21 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
               </Link>
               </AnimateIcon>
 
+              <AnimateIcon animateOnHover>
+              <Link
+                href="/dashboard/wiki"
+                className={cn(
+                  "flex items-center gap-1 lg:gap-2 px-2 lg:px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                  pathname.startsWith('/dashboard/wiki')
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                )}
+              >
+                <BookOpen className="h-4 w-4" />
+                <span className="hidden lg:inline">Wiki</span>
+              </Link>
+              </AnimateIcon>
+
               {user.role === 'ADMIN' && (
                 <>
                   <AnimateIcon animateOnHover>
@@ -230,6 +245,19 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                         <Layers className="h-4 w-4" animateOnHover={hoveredItem === 'tickets-mobile'} />
                       </div>
                       My Tickets
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link 
+                      href="/dashboard/wiki" 
+                      className="flex items-center gap-2"
+                      onMouseEnter={() => setHoveredItem('wiki-mobile')}
+                      onMouseLeave={() => setHoveredItem(null)}
+                    >
+                      <div onMouseEnter={() => setHoveredItem('wiki-mobile')}>
+                        <BookOpen className="h-4 w-4" animateOnHover={hoveredItem === 'wiki-mobile'} />
+                      </div>
+                      Wiki
                     </Link>
                   </DropdownMenuItem>
                   {user.role === 'ADMIN' && (
