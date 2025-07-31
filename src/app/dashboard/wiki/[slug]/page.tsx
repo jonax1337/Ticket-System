@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { WikiViewPage } from '@/components/wiki/wiki-view-page'
 
 interface PageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export default async function ViewWikiArticle({ params }: PageProps) {
@@ -15,9 +15,11 @@ export default async function ViewWikiArticle({ params }: PageProps) {
     redirect('/auth/signin')
   }
 
+  const { slug } = await params
+
   // Get the article by slug with permissions
   const article = await prisma.wikiArticle.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     include: {
       author: {
         select: {
@@ -74,7 +76,12 @@ export default async function ViewWikiArticle({ params }: PageProps) {
 
   return (
     <WikiViewPage 
-      article={article}
+      article={{
+        ...article,
+        publishedAt: article.publishedAt?.toISOString() || null,
+        createdAt: article.createdAt.toISOString(),
+        updatedAt: article.updatedAt.toISOString()
+      }}
       canEdit={canEdit}
       currentUser={session.user}
     />

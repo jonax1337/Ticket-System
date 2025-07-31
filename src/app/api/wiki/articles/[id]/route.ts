@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma"
 import { WikiStatus } from "@prisma/client"
 
 interface RouteParams {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 // GET /api/wiki/articles/[id] - Get single article
@@ -19,8 +19,10 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { id } = await params
+
     const article = await prisma.wikiArticle.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         author: {
           select: {
@@ -78,10 +80,11 @@ export async function PUT(
 
     const body = await request.json()
     const { title, content, status } = body
+    const { id } = await params
 
     // Get existing article
     const existingArticle = await prisma.wikiArticle.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { permissions: true }
     })
 
@@ -107,7 +110,7 @@ export async function PUT(
     }
 
     const updatedArticle = await prisma.wikiArticle.update({
-      where: { id: params.id },
+      where: { id },
       data: updateData,
       include: {
         author: {
@@ -153,9 +156,11 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { id } = await params
+
     // Get existing article
     const existingArticle = await prisma.wikiArticle.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { permissions: true }
     })
 
@@ -174,7 +179,7 @@ export async function DELETE(
 
     // Delete article (cascades to permissions and attachments)
     await prisma.wikiArticle.delete({
-      where: { id: params.id }
+      where: { id }
     })
 
     return NextResponse.json({ message: "Article deleted successfully" })

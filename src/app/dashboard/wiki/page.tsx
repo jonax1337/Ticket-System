@@ -51,30 +51,41 @@ export default async function WikiPage() {
     orderBy: { updatedAt: 'desc' }
   })
 
-  // Filter articles based on permissions
-  const accessibleArticles = articles.filter(article => {
-    // Author can always see their own articles
-    if (article.authorId === session.user.id) {
-      return true
-    }
+  // Filter articles based on permissions and convert dates to strings
+  const accessibleArticles = articles
+    .filter(article => {
+      // Author can always see their own articles
+      if (article.authorId === session.user.id) {
+        return true
+      }
 
-    // Check explicit permissions
-    const hasUserPermission = article.permissions.some(p => 
-      p.userId === session.user.id && p.permission === 'VIEW'
-    )
-    
-    const hasRolePermission = article.permissions.some(p => 
-      p.role === session.user.role && p.permission === 'VIEW'
-    )
+      // Check explicit permissions
+      const hasUserPermission = article.permissions.some(p => 
+        p.userId === session.user.id && p.permission === 'VIEW'
+      )
+      
+      const hasRolePermission = article.permissions.some(p => 
+        p.role === session.user.role && p.permission === 'VIEW'
+      )
 
-    // If article has permissions set, user must have explicit permission
-    if (article.permissions.length > 0) {
-      return hasUserPermission || hasRolePermission
-    }
+      // If article has permissions set, user must have explicit permission
+      if (article.permissions.length > 0) {
+        return hasUserPermission || hasRolePermission
+      }
 
-    // If no permissions set, published articles are public within the organization
-    return article.status === 'PUBLISHED'
-  })
+      // If no permissions set, published articles are public within the organization
+      return article.status === 'PUBLISHED'
+    })
+    .map(article => ({
+      ...article,
+      publishedAt: article.publishedAt?.toISOString() || null,
+      createdAt: article.createdAt.toISOString(),
+      updatedAt: article.updatedAt.toISOString(),
+      permissions: article.permissions.map(p => ({
+        ...p,
+        createdAt: p.createdAt.toISOString()
+      }))
+    }))
 
   return (
     <WikiDashboard 

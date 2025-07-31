@@ -6,8 +6,11 @@ import {
   $createParagraphNode, 
   $createTextNode,
   EditorState,
-  $createHeadingNode
+  FORMAT_TEXT_COMMAND,
+  $getSelection
 } from 'lexical'
+import { $createHeadingNode, HeadingNode } from '@lexical/rich-text'
+import { $createListNode, $createListItemNode, ListNode, ListItemNode } from '@lexical/list'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
@@ -15,7 +18,6 @@ import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { $createListNode, $createListItemNode, ListNode, ListItemNode } from '@lexical/list'
 import { ListPlugin } from '@lexical/react/LexicalListPlugin'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 
@@ -61,12 +63,12 @@ function EditorToolbar({ disabled }: { disabled: boolean }) {
   const [editor] = useLexicalComposerContext()
 
   const formatText = (format: 'bold' | 'italic' | 'underline') => {
-    editor.dispatchCommand('FORMAT_TEXT_COMMAND' as const, format)
+    editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)
   }
 
   const formatHeading = (tag: 'h1' | 'h2' | 'h3') => {
     editor.update(() => {
-      const selection = $getRoot().getSelection()
+      const selection = $getSelection()
       if (selection) {
         const heading = $createHeadingNode(tag)
         selection.insertNodes([heading])
@@ -76,7 +78,7 @@ function EditorToolbar({ disabled }: { disabled: boolean }) {
 
   const formatList = (type: 'bullet' | 'number') => {
     editor.update(() => {
-      const selection = $getRoot().getSelection()
+      const selection = $getSelection()
       if (selection) {
         const list = $createListNode(type)
         const listItem = $createListItemNode()
@@ -295,7 +297,7 @@ export const WikiEditor = forwardRef<WikiEditorRef, WikiEditorProps>(function Wi
   const initialConfig = useMemo(() => ({
     namespace: 'WikiEditor',
     theme,
-    nodes: [MentionNode, ListNode, ListItemNode],
+    nodes: [MentionNode, ListNode, ListItemNode, HeadingNode],
     onError: (error: Error) => {
       console.error('Lexical error:', error)
     },

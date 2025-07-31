@@ -274,7 +274,7 @@ export function WikiEditPage({ article, users, currentUser }: WikiEditPageProps)
             <CardContent className="space-y-4">
               <div>
                 <Label>Status</Label>
-                <Select value={status} onValueChange={setStatus} disabled={isSaving}>
+                <Select value={status} onValueChange={(value: string) => setStatus(value as 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED')} disabled={isSaving}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>

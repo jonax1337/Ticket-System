@@ -7,7 +7,7 @@ import { WikiPermissionType, UserRole } from "@prisma/client"
 // GET /api/wiki/permissions/[articleId] - Get article permissions
 export async function GET(
   request: NextRequest,
-  { params }: { params: { articleId: string } }
+  { params }: { params: Promise<{ articleId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -15,9 +15,11 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { articleId } = await params
+
     // Check if user has admin access to this article
     const article = await prisma.wikiArticle.findUnique({
-      where: { id: params.articleId },
+      where: { id: articleId },
       include: { permissions: true }
     })
 
@@ -38,7 +40,7 @@ export async function GET(
     }
 
     const permissions = await prisma.wikiPermission.findMany({
-      where: { articleId: params.articleId },
+      where: { articleId },
       include: {
         user: {
           select: {
@@ -65,7 +67,7 @@ export async function GET(
 // POST /api/wiki/permissions/[articleId] - Add permission
 export async function POST(
   request: NextRequest,
-  { params }: { params: { articleId: string } }
+  { params }: { params: Promise<{ articleId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -75,6 +77,7 @@ export async function POST(
 
     const body = await request.json()
     const { userId, role, permission } = body
+    const { articleId } = await params
 
     if (!permission || (!userId && !role)) {
       return NextResponse.json(
@@ -85,7 +88,7 @@ export async function POST(
 
     // Check if user has admin access to this article
     const article = await prisma.wikiArticle.findUnique({
-      where: { id: params.articleId },
+      where: { id: articleId },
       include: { permissions: true }
     })
 
@@ -107,7 +110,7 @@ export async function POST(
     // Create permission
     const newPermission = await prisma.wikiPermission.create({
       data: {
-        articleId: params.articleId,
+        articleId,
         userId: userId || null,
         role: role as UserRole || null,
         permission: permission as WikiPermissionType
@@ -146,7 +149,7 @@ export async function POST(
 // DELETE /api/wiki/permissions/[articleId]/[permissionId] - Remove permission  
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { articleId: string } }
+  { params }: { params: Promise<{ articleId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -156,6 +159,7 @@ export async function DELETE(
 
     const { searchParams } = new URL(request.url)
     const permissionId = searchParams.get("permissionId")
+    const { articleId } = await params
 
     if (!permissionId) {
       return NextResponse.json(
@@ -166,7 +170,7 @@ export async function DELETE(
 
     // Check if user has admin access to this article
     const article = await prisma.wikiArticle.findUnique({
-      where: { id: params.articleId },
+      where: { id: articleId },
       include: { permissions: true }
     })
 

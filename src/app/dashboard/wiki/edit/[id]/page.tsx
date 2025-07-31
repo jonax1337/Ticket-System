@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { WikiEditPage } from '@/components/wiki/wiki-edit-page'
 
 interface PageProps {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export default async function EditWikiArticle({ params }: PageProps) {
@@ -15,9 +15,11 @@ export default async function EditWikiArticle({ params }: PageProps) {
     redirect('/auth/signin')
   }
 
+  const { id } = await params
+
   // Get the article with permissions
   const article = await prisma.wikiArticle.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       author: {
         select: {
@@ -72,7 +74,12 @@ export default async function EditWikiArticle({ params }: PageProps) {
 
   return (
     <WikiEditPage 
-      article={article}
+      article={{
+        ...article,
+        publishedAt: article.publishedAt?.toISOString() || null,
+        createdAt: article.createdAt.toISOString(),
+        updatedAt: article.updatedAt.toISOString()
+      }}
       users={users}
       currentUser={session.user}
     />

@@ -125,7 +125,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
-                  <Layers className="h-4 w-4" animateOnHover={hoveredItem === 'tickets'} />
+                  <Layers className="h-4 w-4" />
                 <span className="hidden lg:inline">My Tickets</span>
               </Link>
               </AnimateIcon>
@@ -229,7 +229,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                       onMouseLeave={() => setHoveredItem(null)}
                     >
                       <div onMouseEnter={() => setHoveredItem('dashboard-mobile')}>
-                        <LayoutDashboard className="h-4 w-4" animateOnHover={hoveredItem === 'dashboard-mobile'} />
+                        <LayoutDashboard className="h-4 w-4" />
                       </div>
                       Dashboard
                     </Link>
@@ -242,7 +242,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                       onMouseLeave={() => setHoveredItem(null)}
                     >
                       <div onMouseEnter={() => setHoveredItem('tickets-mobile')}>
-                        <Layers className="h-4 w-4" animateOnHover={hoveredItem === 'tickets-mobile'} />
+                        <Layers className="h-4 w-4" />
                       </div>
                       My Tickets
                     </Link>
@@ -255,7 +255,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                       onMouseLeave={() => setHoveredItem(null)}
                     >
                       <div onMouseEnter={() => setHoveredItem('wiki-mobile')}>
-                        <BookOpen className="h-4 w-4" animateOnHover={hoveredItem === 'wiki-mobile'} />
+                        <BookOpen className="h-4 w-4" />
                       </div>
                       Wiki
                     </Link>
@@ -270,7 +270,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                           onMouseLeave={() => setHoveredItem(null)}
                         >
                           <div onMouseEnter={() => setHoveredItem('users-mobile')}>
-                            <UsersRound className="h-4 w-4" animateOnHover={hoveredItem === 'users-mobile'} />
+                            <UsersRound className="h-4 w-4" />
                           </div>
                           Users
                         </Link>
@@ -283,7 +283,7 @@ export default function DashboardHeader({ user, appName = 'Support Dashboard', s
                           onMouseLeave={() => setHoveredItem(null)}
                         >
                           <div onMouseEnter={() => setHoveredItem('admin-mobile')}>
-                            <Settings className="h-4 w-4" animateOnHover={hoveredItem === 'admin-mobile'} />
+                            <Settings className="h-4 w-4" />
                           </div>
                           Admin
                         </Link>
