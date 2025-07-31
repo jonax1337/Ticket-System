@@ -12,7 +12,7 @@
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://github.com/jonax1337/Ticket-System/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-22c55e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jonax1337/Ticket-System/pulls)
 
-A modern, full-featured support ticket management system built for professional IT teams. This self-hosted web application provides a complete solution for managing support tickets with advanced filtering, user management, and customizable workflows.
+A comprehensive, enterprise-grade support ticket management system built for professional IT teams and customer service operations. This self-hosted web application provides a complete solution for managing support tickets with advanced email integration, automated workflows, customizable themes, and powerful analytics.
 
 > 🔗 **Quick Links:** [Demo](https://github.com/jonax1337/Ticket-System#-screenshots) • [Installation](#-quick-start) • [Documentation](#-table-of-contents) • [Issues](https://github.com/jonax1337/Ticket-System/issues) • [Releases](https://github.com/jonax1337/Ticket-System/releases)
 
@@ -34,30 +34,37 @@ A modern, full-featured support ticket management system built for professional 
 
 ## 🚀 Features
 
-### Core Functionality
-- **📧 Email-to-Ticket Integration**: IMAP-based automatic ticket creation with multiple email accounts
-- **🎫 Advanced Ticket Management**: Custom status/priority systems, assignments, and searchable history
-- **👥 User & Role Management**: Admin/Supporter roles with granular permissions
-- **💬 Comments & Communication**: Internal notes and external email responses
-- **🔍 Smart Search & Filtering**: Multi-word search, custom filters, assignee filtering
-- **🔔 Notification System**: Real-time notifications for ticket updates and assignments
+### 🎯 Core Functionality
+- **📧 Advanced Email Integration**: Multi-account IMAP sync with smart reply detection and participant management
+- **🎫 Enterprise Ticket Management**: Custom workflows, queue-based routing, and comprehensive audit trails
+- **👥 Role-Based Access Control**: Admin/Supporter roles with granular permissions and user queue assignments
+- **💬 Unified Communication**: Internal/external comments with full email thread preservation
+- **🔍 Intelligent Search**: Multi-criteria filtering, advanced search, and saved filter presets
+- **🔔 Real-Time Notifications**: In-app notifications with email template integration and read status tracking
 
-### User Experience
-- **🎨 Modern UI**: Built with Next.js 15.4.1, React 19, TailwindCSS, and ShadCN/UI
-- **🌓 Theme System**: Dark/Light mode with custom color themes and logo support
-- **📱 Fully Responsive**: Works perfectly on desktop, tablet, and mobile devices
-- **⚡ Real-time Updates**: Instant UI updates with optimistic loading patterns
-- **🗂️ Sortable Lists**: Click-to-sort by any column with visual indicators
+### 🎨 User Experience & Interface
+- **🚀 Modern Architecture**: Next.js 15 App Router, React 19, TypeScript 5.8, and cutting-edge frameworks
+- **🌈 Advanced Theme System**: 10+ predefined themes, custom color picker, and dynamic brand customization
+- **📱 Mobile-First Design**: Fully responsive with touch-optimized interactions and PWA capabilities
+- **⚡ Performance Optimized**: Server components, lazy loading, and optimistic UI updates
+- **🎭 Smooth Animations**: Framer Motion integration with subtle micro-interactions
 
-### Advanced Features
-- **🏷️ Smart Ticket Numbers**: Configurable auto-generated ticket numbers (sequential/random)
-- **📂 File Attachments**: Drag & drop file upload support for tickets and comments
-- **👥 Participant Management**: Multiple participants per ticket with role tracking
-- **🎯 My Tickets View**: Personal dashboard for assigned tickets
-- **⚙️ Admin Configuration**: Customizable app name, logos, themes, and automation settings
-- **🔒 Secure Authentication**: NextAuth.js with bcrypt password hashing
-- **📧 Email Templates**: Customizable email templates for all notification types
-- **⏰ Automation**: Due date tracking and automatic ticket closing
+### 🔧 Enterprise Features
+- **🏷️ Flexible Ticket Numbering**: Sequential/random generation with customizable prefixes and formats
+- **📎 Comprehensive File Handling**: Multi-file uploads, drag-and-drop, MIME type validation, and UUID-based storage
+- **👥 Advanced Participant System**: CC/BCC tracking, external user management, and notification preferences
+- **📊 Queue Management**: Departmental routing, workload balancing, and assignment automation
+- **⚙️ Deep Customization**: Logo uploads, color theming, email templates, and automation rules
+- **🔐 Enterprise Security**: bcrypt password hashing, JWT sessions, input validation, and audit logging
+- **📧 Template Engine**: Variable substitution, conditional content, and multi-language support preparation
+- **⏰ Workflow Automation**: Due date tracking, SLA monitoring, escalation rules, and auto-close functionality
+
+### 🚀 Technical Excellence
+- **🏗️ Scalable Architecture**: Microservice-ready design with clean separation of concerns
+- **🗄️ Advanced Database**: MySQL 8.0+ with strategic indexing and optimized queries
+- **🔄 Background Processing**: Cron services, email sync, notification dispatch, and cleanup tasks
+- **📈 Performance Monitoring**: Built-in analytics, error tracking, and health monitoring
+- **🔧 Developer Experience**: TypeScript strict mode, comprehensive error handling, and extensive documentation
 
 ## 🛠️ Tech Stack
 
@@ -70,18 +77,35 @@ A modern, full-featured support ticket management system built for professional 
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-4.24.11-7c3aed?style=flat-square&logo=next.js&logoColor=white)](https://next-auth.js.org/)
 [![ShadCN/UI](https://img.shields.io/badge/ShadCN%2FUI-Latest-000000?style=flat-square&logo=shadcnui&logoColor=white)](https://ui.shadcn.com/)
 [![Radix UI](https://img.shields.io/badge/Radix_UI-Latest-8b5cf6?style=flat-square&logo=radixui&logoColor=white)](https://www.radix-ui.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23.12-0055ff?style=flat-square&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![ImapFlow](https://img.shields.io/badge/ImapFlow-1.0.191-ff4757?style=flat-square&logo=mail&logoColor=white)](https://www.npmjs.com/package/imapflow)
 
-- **Framework**: Next.js 15.4.1 (App Router) with TypeScript 5.8.3
-- **UI Library**: React 19.1.0 with modern React features
-- **Styling**: TailwindCSS 3.4.1 + ShadCN/UI Components
-- **Database**: MySQL 8.0+ with Prisma ORM 6.12.0
-- **Authentication**: NextAuth.js 4.24.11 with role-based access
-- **UI Components**: Radix UI + Lucide Icons + ShadCN/UI
-- **Email Processing**: ImapFlow for IMAP + MailParser for email parsing
-- **File Handling**: Multer for uploads with drag & drop support
-- **Date Handling**: date-fns for comprehensive date utilities
-- **State Management**: React Server Components + Client Components
-- **Development**: ESLint + TypeScript with strict mode
+### 🏗️ Core Architecture
+- **Framework**: Next.js 15.4.1 (App Router) with React Server Components
+- **Language**: TypeScript 5.8.3 with strict mode and comprehensive type safety
+- **UI Framework**: React 19.1.0 with modern concurrent features
+- **Database**: MySQL 8.0+ with Prisma ORM 6.12.0 and optimized indexing
+- **Authentication**: NextAuth.js 4.24.11 with JWT and role-based access control
+
+### 🎨 Frontend Stack
+- **Styling**: TailwindCSS 3.4.1 with custom CSS variables and theme system
+- **Components**: ShadCN/UI + Radix UI primitives for accessibility
+- **Icons**: Lucide React with 1000+ icons and custom icon system
+- **Animations**: Framer Motion 12.23.12 for smooth micro-interactions
+- **State Management**: React Server Components + optimistic client updates
+
+### 📧 Email & Communication
+- **IMAP Processing**: ImapFlow 1.0.191 for robust email server connections
+- **Email Parsing**: MailParser 3.7.4 for advanced email content extraction
+- **SMTP Sending**: Nodemailer with template engine and variable substitution
+- **Template System**: Custom HTML/text templates with conditional rendering
+
+### 🔧 Backend & Services
+- **File Handling**: Multer 2.0.2 with UUID-based storage and MIME validation
+- **Date Processing**: date-fns 4.1.0 for comprehensive date manipulation
+- **Search**: Fuse.js 7.1.0 for fuzzy search and advanced filtering
+- **Cron Jobs**: Custom cron manager with individual email account intervals
+- **Performance**: Built-in caching, lazy loading, and optimized queries
 
 ## ⚡ Quick Start
 
@@ -89,14 +113,16 @@ A modern, full-featured support ticket management system built for professional 
 
 **System Requirements:**
 - **Node.js**: 18.x or higher ([Download](https://nodejs.org/))
-- **npm**: Included with Node.js
+- **npm**: 9.x+ (included with Node.js) or yarn/pnpm
 - **MySQL**: 8.0+ ([Download](https://dev.mysql.com/downloads/))
-- **External email-to-ticket bridge**: For receiving tickets (optional)
+- **Email Server**: IMAP/SMTP access for email integration (optional but recommended)
 
-**Recommended:**
-- **RAM**: 2GB+ available
-- **Storage**: 1GB+ free space
-- **OS**: Linux, macOS, or Windows with WSL2
+**Recommended Specifications:**
+- **RAM**: 4GB+ available for optimal performance
+- **Storage**: 2GB+ free space (more for file attachments)
+- **OS**: Linux (Ubuntu 20.04+), macOS (10.15+), or Windows 10+ with WSL2
+- **Database**: Dedicated MySQL instance with proper indexing
+- **Network**: Stable internet connection for email sync and external integrations
 
 ### Installation
 
@@ -191,32 +217,38 @@ The application uses a comprehensive database schema with the following main ent
 - **Extensible Design**: Easy to add custom fields and relationships
 - **MySQL Optimized**: Designed for MySQL 8.0+ with proper indexing
 
-## 📧 Email Integration
+## 📧 Advanced Email Integration
 
-The application includes built-in IMAP-based email-to-ticket conversion with advanced features:
+The system features a sophisticated IMAP-based email-to-ticket conversion engine with enterprise-level capabilities:
 
-### Email Processing Features
-- **Multi-Account Support**: Configure multiple email accounts with individual sync intervals
-- **Automatic Sync**: Background email processing with configurable intervals (default: 5 minutes)
-- **Smart Filtering**: Subject and sender filters with regex support
-- **Email Actions**: Mark as read, delete, or move to folder after processing
-- **Participant Tracking**: Automatically tracks all email participants (sender, CC, etc.)
+### 🚀 Email Processing Engine
+- **Multi-Account Architecture**: Configure unlimited email accounts with independent sync intervals
+- **Smart Reply Detection**: Advanced regex patterns automatically detect ticket replies and route them correctly
+- **Intelligent Duplicate Prevention**: Content-based and timing-based algorithms prevent duplicate ticket creation
+- **Participant Management**: Automatic extraction and tracking of all email participants (FROM, TO, CC, BCC)
+- **Attachment Processing**: Seamless file upload integration with automatic attachment linking
 
-### Configuration
-Email accounts are configured through the admin panel with the following options:
-- **IMAP Settings**: Host, port, SSL/TLS, username, password
-- **Sync Options**: Interval, folder monitoring, unread-only processing
-- **Default Ticket Settings**: Priority, status, and assignee for new tickets
-- **Email Actions**: Post-processing actions for processed emails
+### ⚙️ Configuration & Setup
+Email accounts are managed through the admin panel with comprehensive options:
+- **IMAP/SMTP Settings**: Host, port, SSL/TLS, authentication credentials
+- **Sync Configuration**: Individual intervals (default: 300 seconds), folder monitoring, unread-only processing
+- **Advanced Filtering**: Subject/sender regex filters for selective email processing
+- **Post-Processing Actions**: Mark as read, delete, or move to specified folders
+- **Default Ticket Settings**: Configurable priority, status, queue, and assignee for new tickets
 
-### Email Templates
-Customize email notifications with variables:
-- **Ticket Created**: Sent to participants when tickets are created
-- **Status Changed**: Notifications for status updates
-- **Comment Added**: Alerts for new comments
-- **Participant Added**: Welcome emails for new participants
+### 📨 Email Template System
+Powerful template engine with variable substitution and conditional content:
+- **Ticket Lifecycle Templates**: Creation notifications, status changes, assignment updates
+- **Communication Templates**: Comment additions, participant notifications, escalation alerts
+- **Customizable Variables**: `{{ticketNumber}}`, `{{customerName}}`, `{{ticketSubject}}`, `{{commentContent}}`, and 20+ more
+- **Multi-Format Support**: HTML and text versions with automatic fallback
+- **Brand Integration**: Logo embedding, custom headers/footers, and theme-aware styling
 
-Template variables include: `{{ticket.subject}}`, `{{ticket.ticketNumber}}`, `{{user.name}}`, `{{comment.content}}`, and more.
+### 🔄 Background Processing
+- **Automated Sync**: Server-side cron manager with configuration change detection
+- **External Cron Support**: REST API endpoints for external scheduling systems
+- **Error Recovery**: Graceful error handling with automatic retry mechanisms
+- **Performance Monitoring**: Email sync status tracking and health monitoring
 
 ## 👥 User Roles & Permissions
 
@@ -338,28 +370,44 @@ This project is open source and available under the [MIT License](https://github
 ## 🗺️ Roadmap
 
 ### 🎯 Planned Features
-- [ ] **Webhook Integrations** - Connect with external services and tools
-- [ ] **API Documentation & REST Endpoints** - Full API access for integrations
-- [ ] **Advanced Analytics Dashboard** - Detailed reporting and insights
-- [ ] **Bulk Actions for Tickets** - Mass operations on multiple tickets
-- [ ] **Custom Fields Support** - Flexible ticket metadata
-- [ ] **Multi-language Support** - Internationalization (i18n)
-- [ ] **SLA Management** - Service Level Agreement tracking
-- [ ] **Knowledge Base Integration** - Built-in documentation system
+- [ ] **Webhook Integrations** - Connect with Slack, Teams, Discord, and custom endpoints
+- [ ] **RESTful API Documentation** - Complete OpenAPI 3.0 specification with Swagger UI
+- [ ] **Advanced Analytics Dashboard** - Time-to-resolution metrics, agent performance, and trend analysis
+- [ ] **Bulk Operations** - Mass ticket updates, batch assignments, and multi-select actions
+- [ ] **Custom Fields Engine** - Dynamic ticket metadata with validation rules and conditional logic
+- [ ] **Multi-language Support** - Full i18n with RTL support and locale-specific formatting
+- [ ] **SLA Management** - Service Level Agreement tracking with escalation rules and breach notifications
+- [ ] **Knowledge Base Integration** - Built-in documentation system with search and article suggestions
+- [ ] **Mobile Applications** - Native iOS and Android apps with offline capability
+- [ ] **Advanced Reporting** - Custom report builder with scheduled exports and dashboard widgets
 
-### 🚀 Recent Updates
-- ✅ **Custom Status & Priority Management** - User-defined ticket statuses and priorities
-- ✅ **Advanced Email Templates** - Customizable notification templates
-- ✅ **Email-to-Ticket Integration** - IMAP-based automatic ticket creation
-- ✅ **Notification System** - Real-time notifications with mark as read
-- ✅ **Ticket Automation** - Due date tracking and auto-close functionality
-- ✅ **Participant Management** - Multiple participants per ticket
-- ✅ **Modern UI/UX** - Next.js 15.4.1 with React 19 and TailwindCSS
-- ✅ **Theme Customization** - Dark/light modes with custom colors and logos
-- ✅ **File Attachments** - Drag & drop file support for tickets and comments
+### 🚀 Recent Major Updates
+- ✅ **Enterprise Email System** - Multi-account IMAP sync with smart reply detection and participant management
+- ✅ **Advanced Template Engine** - Variable substitution, conditional content, and brand integration
+- ✅ **Queue Management System** - Departmental routing, workload balancing, and user assignments
+- ✅ **Real-Time Notification Center** - In-app notifications with email integration and read status tracking
+- ✅ **Workflow Automation** - Due date tracking, auto-close functionality, and escalation rules
+- ✅ **Modern Architecture** - Next.js 15 App Router, React 19, TypeScript 5.8, and performance optimizations
+- ✅ **Advanced Theme System** - 10+ predefined themes, custom color picker, and dynamic brand customization
+- ✅ **Comprehensive File Handling** - Multi-file uploads, drag-and-drop, MIME validation, and UUID storage
+- ✅ **Background Service Management** - Cron services, health monitoring, and automatic configuration reload
+- ✅ **Security Enhancements** - Input validation, audit logging, session management, and role-based access control
 
 > 💡 Have a feature request? [Open an issue](https://github.com/jonax1337/Ticket-System/issues/new) to discuss it!
 
 ---
 
-**Built with ❤️ for IT Support Teams**
+**Built with ❤️ for IT Support Teams and Customer Service Excellence**
+
+---
+
+## 📊 System Highlights
+
+- 🎯 **Enterprise-Ready**: Production-tested architecture with comprehensive security
+- 🚀 **Modern Tech Stack**: Next.js 15, React 19, TypeScript 5.8, and cutting-edge frameworks
+- 📧 **Advanced Email Integration**: Multi-account IMAP sync with intelligent processing
+- 🎨 **Customizable Interface**: 10+ themes, brand customization, and responsive design
+- 🔧 **Flexible Workflow**: Queue-based routing, automation rules, and custom fields
+- 📈 **Performance Optimized**: Server components, caching, and optimized database queries
+- 🔒 **Security First**: Role-based access, input validation, and comprehensive audit trails
+- 🌐 **Integration Ready**: RESTful APIs, webhook support, and extensible architecture
