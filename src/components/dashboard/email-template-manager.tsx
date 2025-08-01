@@ -28,7 +28,13 @@ import {
   Plus,
   Trash2,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  MessageSquarePlus,
+  RefreshCw,
+  MessageCircle,
+  Users,
+  AlertTriangle,
+  CheckSquare
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -73,12 +79,12 @@ interface EmailTypeConfig {
 }
 
 const templateTypes = [
-  { value: 'ticket_created', label: 'Ticket Created', description: 'When a new ticket is created', icon: '📝' },
-  { value: 'status_changed', label: 'Status Changed', description: 'When ticket status is updated', icon: '🔄' },
-  { value: 'comment_added', label: 'Comment Added', description: 'When a new comment is added', icon: '💬' },
-  { value: 'participant_added', label: 'Participant Added', description: 'When someone is added as participant', icon: '👥' },
-  { value: 'automation_warning', label: 'Automation Warning', description: 'Before automatic ticket closure', icon: '⚠️' },
-  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'When ticket is automatically closed', icon: '✅' }
+  { value: 'ticket_created', label: 'Ticket Created', description: 'When a new ticket is created', icon: MessageSquarePlus, color: 'text-blue-600 dark:text-blue-400' },
+  { value: 'status_changed', label: 'Status Changed', description: 'When ticket status is updated', icon: RefreshCw, color: 'text-purple-600 dark:text-purple-400' },
+  { value: 'comment_added', label: 'Comment Added', description: 'When a new comment is added', icon: MessageCircle, color: 'text-green-600 dark:text-green-400' },
+  { value: 'participant_added', label: 'Participant Added', description: 'When someone is added as participant', icon: Users, color: 'text-cyan-600 dark:text-cyan-400' },
+  { value: 'automation_warning', label: 'Automation Warning', description: 'Before automatic ticket closure', icon: AlertTriangle, color: 'text-amber-600 dark:text-amber-400' },
+  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'When ticket is automatically closed', icon: CheckSquare, color: 'text-emerald-600 dark:text-emerald-400' }
 ]
 
 const availableVariables = {
@@ -707,60 +713,73 @@ export default function EmailTemplateManager() {
                   <p className="mt-2 text-sm text-muted-foreground">Loading email type configurations...</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {templateTypes.map((type) => {
                     const config = emailTypes.find(c => c.type === type.value)
+                    const IconComponent = type.icon
                     return (
-                      <div key={type.value} className="border rounded-lg p-4">
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{type.icon}</span>
-                            <div>
-                              <Badge variant="outline" className="text-xs">
-                                {type.label}
-                              </Badge>
-                              <p className="text-xs text-muted-foreground mt-1">{type.description}</p>
+                      <Card key={type.value} className="group hover:shadow-md transition-all duration-200">
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className={`p-2 rounded-lg bg-muted/50 ${type.color} group-hover:bg-muted transition-colors`}>
+                                <IconComponent className="h-5 w-5" />
+                              </div>
+                              <div>
+                                <CardTitle className="text-base font-semibold">{type.label}</CardTitle>
+                                <CardDescription className="text-sm">{type.description}</CardDescription>
+                              </div>
                             </div>
                           </div>
-                          <div className="flex gap-1">
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                          {config && (
+                            <div className="space-y-3 mb-4">
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Content Sections:</span>
+                                <Badge variant="secondary" className="text-xs">
+                                  {config.sections.length} sections
+                                </Badge>
+                              </div>
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Header Color:</span>
+                                <div className="flex items-center gap-2">
+                                  <div 
+                                    className="w-4 h-4 rounded border border-border" 
+                                    style={{ backgroundColor: config.headerColor }}
+                                  ></div>
+                                  <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">
+                                    {config.headerColor}
+                                  </code>
+                                </div>
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                Last updated: {new Date(config.updatedAt).toLocaleDateString()}
+                              </div>
+                            </div>
+                          )}
+                          <div className="flex gap-2">
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => openEditType(type.value)}
+                              className="flex-1"
                             >
-                              <Edit className="h-3 w-3 mr-1" />
-                              Edit
+                              <Edit className="h-4 w-4 mr-2" />
+                              Configure
                             </Button>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => handlePreview(type.value)}
+                              className="flex-1"
                             >
-                              <Eye className="h-3 w-3 mr-1" />
+                              <Eye className="h-4 w-4 mr-2" />
                               Preview
                             </Button>
                           </div>
-                        </div>
-                        
-                        {config && (
-                          <div className="mt-3 space-y-2">
-                            <div className="text-xs">
-                              <span className="font-medium">Sections:</span> {config.sections.length}
-                            </div>
-                            <div className="text-xs">
-                              <span className="font-medium">Header Color:</span>
-                              <span 
-                                className="inline-block w-3 h-3 rounded ml-1 border" 
-                                style={{ backgroundColor: config.headerColor }}
-                              ></span>
-                              {config.headerColor}
-                            </div>
-                            <div className="text-xs text-muted-foreground">
-                              Updated: {new Date(config.updatedAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                        </CardContent>
+                      </Card>
                     )
                   })}
                 </div>
