@@ -52,11 +52,15 @@ function ThemeSystemProvider({ children }: { children: React.ReactNode }) {
       const hsl = hexToHsl(settings.themeColor)
       root.style.setProperty('--primary', hsl)
       root.style.setProperty('--ring', hsl)
+      root.setAttribute('data-theme', 'custom')
+    } else if (settings.themeColor === 'default') {
+      // For default theme, remove any custom CSS variables to use the original ShadCN defaults
+      root.style.removeProperty('--primary')
+      root.style.removeProperty('--ring')
       root.setAttribute('data-theme', 'default')
     } else {
       // Predefined theme colors
       const themeColors = {
-        default: '222.2 84% 4.9%',
         blue: '221.2 83.2% 53.3%',
         green: '142.1 76.2% 36.3%',
         purple: '262.1 83.3% 57.8%',
@@ -68,10 +72,12 @@ function ThemeSystemProvider({ children }: { children: React.ReactNode }) {
         teal: '173.4 80.4% 40%'
       }
       
-      const colorValue = themeColors[settings.themeColor as keyof typeof themeColors] || themeColors.default
-      root.style.setProperty('--primary', colorValue)
-      root.style.setProperty('--ring', colorValue)
-      root.setAttribute('data-theme', settings.themeColor)
+      const colorValue = themeColors[settings.themeColor as keyof typeof themeColors]
+      if (colorValue) {
+        root.style.setProperty('--primary', colorValue)
+        root.style.setProperty('--ring', colorValue)
+        root.setAttribute('data-theme', settings.themeColor)
+      }
     }
   }, [settings])
 
