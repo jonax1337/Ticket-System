@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -45,12 +45,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -82,8 +82,8 @@ model Ticket {
   id          String   @id @default(cuid())
   ticketNumber String? @unique // Generated ticket number (e.g., T-001234)
   subject     String
-  description String   @db.Text
-  htmlContent String?  @db.Text // Store original HTML content from emails
+  description String
+  htmlContent String?  // Store original HTML content from emails
   status      String   @default("Open")
   priority    String   @default("Medium")
   fromEmail   String   // Keep for backward compatibility, but use participants for new logic
@@ -135,9 +135,9 @@ model TicketParticipant {
 
 model Comment {
   id       String   @id @default(cuid())
-  content  String   @db.Text
-  fullEmailContent String? @db.Text // Full email content including history for email replies
-  sentToEmails String? @db.Text // Comma-separated list of emails this external comment was sent to
+  content  String
+  fullEmailContent String? // Full email content including history for email replies
+  sentToEmails String? // Comma-separated list of emails this external comment was sent to
   type     String   @default("internal") // 'internal' oder 'external'
   ticketId String
   userId   String?  // Optional for external users who reply via email
@@ -216,7 +216,7 @@ model SystemSettings {
   
   // Email template settings
   emailSubjectPrefix String @default("[Ticket {{ticketNumber}}]") // Prefix for email subjects
-  emailBaseTemplate String? @db.Text // Base HTML template for emails
+  emailBaseTemplate String? // Base HTML template for emails
   emailBaseTemplateActive Boolean @default(true) // Enable/disable base template
   emailShowLogo Boolean @default(true) // Show logo in emails (if logoUrl is set)
   emailHideAppName Boolean @default(false) // Hide app name in emails
@@ -299,7 +299,7 @@ model Notification {
   id        String   @id @default(cuid())
   type      String   // "ticket_assigned", "ticket_unassigned", "comment_added"
   title     String   // Notification title
-  message   String   @db.Text // Notification message
+  message   String // Notification message
   ticketId  String?  // Related ticket ID
   commentId String?  // Related comment ID (if applicable)
   userId    String   // User who should receive the notification
@@ -327,9 +327,9 @@ model EmailTemplate {
   id          String   @id @default(cuid())
   type        String   // "ticket_created", "status_changed", "comment_added", "participant_added"
   name        String   // Display name for the template
-  subject     String   @db.Text // Email subject with variables
-  htmlContent String   @db.Text // HTML email content with variables
-  textContent String?  @db.Text // Plain text fallback (optional)
+  subject     String // Email subject with variables
+  htmlContent String // HTML email content with variables
+  textContent String?  // Plain text fallback (optional)
   isDefault   Boolean  @default(false) // Mark as default system template
   isActive    Boolean  @default(true) // Enable/disable template
   createdAt   DateTime @default(now())
@@ -346,10 +346,10 @@ model EmailTypeConfig {
   headerSubtitle String  @default("Notification")
   headerColor   String   @default("#2563eb")
   greeting      String   @default("Hello {{customerName}},")
-  introText     String   @db.Text
-  footerText    String   @db.Text
-  sections      String   @db.Text // JSON array of content sections
-  actionButton  String?  @db.Text // JSON object for action button config
+  introText     String
+  footerText    String
+  sections      String // JSON array of content sections
+  actionButton  String?  // JSON object for action button config
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -359,7 +359,7 @@ model EmailTypeConfig {
 model Queue {
   id          String   @id @default(cuid())
   name        String   @unique
-  description String?  @db.Text
+  description String?
   color       String   @default("#2563eb") // CSS color for queue identification
   icon        String   @default("Inbox")   // Lucide icon name
   isDefault   Boolean  @default(false)     // Mark as default queue

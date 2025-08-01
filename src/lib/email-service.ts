@@ -405,11 +405,20 @@ ${textBody}
     })
     
     if (filteredParticipants.length > 0) {
-      await prisma.ticketParticipant.createMany({
-        data: filteredParticipants,
-        skipDuplicates: true // In case same email appears multiple times
-      })
-      console.log(`Added ${filteredParticipants.length} participants to ticket: ${filteredParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
+      // Add participants one by one to handle duplicates properly
+      for (const participant of filteredParticipants) {
+        try {
+          await prisma.ticketParticipant.create({
+            data: participant
+          })
+        } catch (error) {
+          // Ignore duplicate key errors, log others
+          if ((error as { code?: string })?.code !== 'P2002') {
+            console.error('Error adding participant:', error)
+          }
+        }
+      }
+      console.log(`Processed ${filteredParticipants.length} participants for ticket: ${filteredParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
     } else {
       console.log('No participants to add after filtering out requester duplicates')
     }
@@ -1148,11 +1157,20 @@ export async function processIncomingEmailReply(email: ParsedMail): Promise<bool
         
         if (safeParticipants.length > 0) {
           console.log('[EMAIL REPLY DEBUG] Adding', safeParticipants.length, 'safe participants to database...')
-          await prisma.ticketParticipant.createMany({
-            data: safeParticipants,
-            skipDuplicates: true // Skip if participant already exists
-          })
-          console.log(`[EMAIL REPLY DEBUG] Added ${safeParticipants.length} new participants from email reply: ${safeParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
+          // Add participants one by one to handle duplicates properly
+          for (const participant of safeParticipants) {
+            try {
+              await prisma.ticketParticipant.create({
+                data: participant
+              })
+            } catch (error) {
+              // Ignore duplicate key errors, log others
+              if ((error as { code?: string })?.code !== 'P2002') {
+                console.error('Error adding participant from email reply:', error)
+              }
+            }
+          }
+          console.log(`[EMAIL REPLY DEBUG] Processed ${safeParticipants.length} participants from email reply: ${safeParticipants.map(p => `${p.email} (${p.type})`).join(', ')}`)
         } else {
           console.log('[EMAIL REPLY DEBUG] No participants to add from email reply after filtering out requester duplicates')
         }
