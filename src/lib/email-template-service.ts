@@ -219,14 +219,18 @@ export async function renderEmailTemplate(
 /**
  * Render email logo HTML if logo should be shown
  */
-function renderEmailLogo(logoUrl: string | null, showLogo: boolean): string {
+function renderEmailLogo(logoUrl: string | null, showLogo: boolean, monochromeLogo: boolean = false, headerColor: string = '#2563eb'): string {
   if (!showLogo || !logoUrl) {
     return ''
   }
   
+  const logoStyle = monochromeLogo 
+    ? `filter: brightness(0) saturate(100%) invert(1) sepia(1) saturate(2) hue-rotate(210deg) brightness(0.8);` 
+    : '';
+  
   return `
     <div class="email-logo">
-      <img src="${logoUrl}" alt="Logo" />
+      <img src="${logoUrl}" alt="Logo" style="${logoStyle}" />
     </div>
   `
 }
@@ -319,7 +323,9 @@ async function renderUnifiedTemplate(
   const systemSettings = await prisma.systemSettings.findFirst()
   const emailLogoHtml = renderEmailLogo(
     systemSettings?.logoUrl || null,
-    systemSettings?.emailShowLogo ?? true
+    systemSettings?.emailShowLogo ?? true,
+    systemSettings?.emailMonochromeLogo ?? false,
+    systemSettings?.emailHeaderColor ?? '#2563eb'
   )
   const emailAppNameHtml = renderEmailAppName(
     systemSettings?.appName || 'Support Dashboard',
@@ -330,17 +336,22 @@ async function renderUnifiedTemplate(
     systemSettings?.emailHideSlogan ?? false
   )
   
+  // Determine header color - use fixed color if enabled, otherwise use type-specific color
+  const effectiveHeaderColor = systemSettings?.emailFixedHeaderColor 
+    ? systemSettings.emailHeaderColor 
+    : (baseConfig.headerColor || '#2563eb')
+
   // Create unified email data
   const emailData: UnifiedEmailData = {
     headerTitle: baseConfig.headerTitle || '{{systemName}}',
     headerSubtitle: baseConfig.headerSubtitle || 'Notification',
-    headerColor: baseConfig.headerColor || '#2563eb',
+    headerColor: effectiveHeaderColor,
     greeting: baseConfig.greeting || 'Hello {{customerName}},',
     introText: baseConfig.introText || '',
     sections,
     actionButton: actionButton || undefined,
     footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Team',
-    disclaimerText: 'This email was sent from {{systemName}} support system.'
+    disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
   }
 
   // Start with base template
@@ -673,7 +684,9 @@ export async function createTestEmailTemplate(
   const systemSettings = await prisma.systemSettings.findFirst()
   const emailLogoHtml = renderEmailLogo(
     systemSettings?.logoUrl || null,
-    systemSettings?.emailShowLogo ?? true
+    systemSettings?.emailShowLogo ?? true,
+    systemSettings?.emailMonochromeLogo ?? false,
+    systemSettings?.emailHeaderColor ?? '#2563eb'
   )
   const emailAppNameHtml = renderEmailAppName(
     systemSettings?.appName || 'Support Dashboard',
@@ -684,16 +697,21 @@ export async function createTestEmailTemplate(
     systemSettings?.emailHideSlogan ?? false
   )
   
+  // Determine header color - use fixed color if enabled, otherwise use type-specific color
+  const effectiveHeaderColor = systemSettings?.emailFixedHeaderColor 
+    ? systemSettings.emailHeaderColor 
+    : (baseConfig.headerColor || '#2563eb')
+  
   const emailData: UnifiedEmailData = {
     headerTitle: baseConfig.headerTitle || '{{systemName}}',
     headerSubtitle: baseConfig.headerSubtitle || 'Notification',
-    headerColor: baseConfig.headerColor || '#2563eb',
+    headerColor: effectiveHeaderColor,
     greeting: baseConfig.greeting || 'Hello {{customerName}},',
     introText: baseConfig.introText || '',
     sections,
     actionButton: actionButton || undefined,
     footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Team',
-    disclaimerText: 'This email was sent from {{systemName}} support system.'
+    disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
   }
 
   let html = BASE_EMAIL_TEMPLATE
