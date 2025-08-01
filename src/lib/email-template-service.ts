@@ -225,7 +225,7 @@ function renderEmailLogo(logoUrl: string | null, showLogo: boolean): string {
   }
   
   return `
-    <div class="logo">
+    <div class="email-logo">
       <img src="${logoUrl}" alt="Logo" />
     </div>
   `

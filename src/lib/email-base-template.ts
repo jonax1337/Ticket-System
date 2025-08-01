@@ -28,317 +28,457 @@ export interface UnifiedEmailData {
 
 /**
  * Base HTML email template with placeholders
- * Modern, professional design with enhanced typography and styling
+ * Modern, app-consistent design with enhanced typography and theming
  */
 export const BASE_EMAIL_TEMPLATE = `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{headerTitle}}</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
   <style>
-    /* Modern email-safe reset and base styles */
+    /* Modern email-safe reset */
     * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
+    
+    /* Main body styling - consistent with app */
     body { 
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       line-height: 1.6; 
-      color: #1f2937; 
+      color: hsl(222.2, 84%, 4.9%); /* --foreground */
       margin: 0; 
-      padding: 0; 
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      min-height: 100vh;
+      padding: 20px 0; 
+      background: hsl(210, 40%, 96.1%); /* --muted */
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      width: 100% !important;
+      min-width: 100%;
     }
     
-    /* Main container with modern card styling */
-    .container { 
+    /* Main container - app-consistent card styling */
+    .email-container { 
       max-width: 600px; 
-      margin: 20px auto; 
-      background-color: #ffffff; 
-      border-radius: 16px;
+      margin: 0 auto; 
+      background-color: hsl(0, 0%, 100%); /* --background */
+      border-radius: 0.75rem; /* --radius xl */
+      border: 1px solid hsl(214.3, 31.8%, 91.4%); /* --border */
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
       overflow: hidden;
     }
     
-    /* Enhanced header with gradient and modern styling */
-    .header { 
-      background: linear-gradient(135deg, {{headerColor}} 0%, {{headerColor}}dd 100%);
+    /* Header section - consistent with app header design */
+    .email-header { 
+      background: linear-gradient(135deg, {{headerColor}} 0%, {{headerColor}}ee 100%);
       color: white; 
-      padding: 40px 30px 35px 30px; 
+      padding: 2rem 2rem 1.75rem 2rem; 
       text-align: center; 
       position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    .header::before {
+    /* Subtle pattern overlay */
+    .email-header::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-      opacity: 0.1;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10 10-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10 10 4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+      opacity: 0.5;
     }
     
-    .header .logo {
-      margin-bottom: 20px;
+    /* Logo styling */
+    .email-logo {
+      margin-bottom: 1rem;
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
-    .header .logo img {
-      max-height: 80px;
-      max-width: 300px;
+    .email-logo img {
+      max-height: 48px;
+      max-width: 200px;
       height: auto;
       width: auto;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
     }
     
-    .header h1 { 
-      margin: 0 0 8px 0; 
-      font-size: 28px; 
+    /* Header text - consistent with app typography */
+    .email-header h1 { 
+      margin: 0 0 0.5rem 0; 
+      font-size: 1.75rem; 
       font-weight: 700; 
       letter-spacing: -0.025em;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
     
-    .header p { 
+    .email-header .subtitle { 
       margin: 0; 
-      font-size: 16px; 
+      font-size: 1rem; 
       opacity: 0.9; 
-      font-weight: 400;
+      font-weight: 500;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
     
-    /* Enhanced content area */
-    .content { 
-      padding: 40px 35px; 
-      background-color: #ffffff;
+    /* Content area - consistent with app card content */
+    .email-content { 
+      padding: 2rem 2rem 1.5rem 2rem; 
+      background-color: hsl(0, 0%, 100%); /* --background */
     }
     
-    .greeting { 
-      font-size: 20px; 
+    /* Greeting - consistent with app headings */
+    .email-greeting { 
+      font-size: 1.25rem; 
       font-weight: 600; 
-      margin-bottom: 20px; 
-      color: #1f2937;
+      margin-bottom: 1.5rem; 
+      color: hsl(222.2, 84%, 4.9%); /* --foreground */
     }
     
-    .intro-text { 
-      margin-bottom: 30px; 
-      font-size: 16px; 
+    /* Intro text - consistent with app descriptions */
+    .email-intro { 
+      margin-bottom: 2rem; 
+      font-size: 1rem; 
       line-height: 1.7;
-      color: #4b5563;
+      color: hsl(215.4, 16.3%, 46.9%); /* --muted-foreground */
     }
     
-    /* Modern section cards */
-    .section { 
-      margin: 24px 0; 
-      padding: 24px; 
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
+    /* Section cards - consistent with app card components */
+    .email-section { 
+      margin: 1.5rem 0; 
+      padding: 1.5rem; 
+      border-radius: 0.5rem; /* --radius */
+      border: 1px solid hsl(214.3, 31.8%, 91.4%); /* --border */
       position: relative;
+      background-color: hsl(0, 0%, 100%); /* --background */
       overflow: hidden;
     }
     
-    .section::before {
+    /* Section accent borders */
+    .email-section::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       bottom: 0;
-      width: 4px;
-      background: linear-gradient(180deg, {{sectionColor}} 0%, {{sectionColor}}aa 100%);
+      width: 3px;
+      background: {{sectionColor}};
+      border-radius: 0 0.25rem 0.25rem 0;
     }
     
-    .section.info { 
-      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-      border-color: #bae6fd;
+    /* Section variants - consistent with app status colors */
+    .email-section.info { 
+      background: hsl(210, 40%, 98%); /* --secondary light */
+      border-color: hsl(210, 40%, 91%);
     }
-    .section.info::before { background: linear-gradient(180deg, #0891b2 0%, #0891b2aa 100%); }
+    .email-section.info::before { background: hsl(221, 83%, 53%); } /* info blue */
     
-    .section.success { 
-      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-      border-color: #bbf7d0;
+    .email-section.success { 
+      background: hsl(142, 76%, 96%);
+      border-color: hsl(142, 76%, 88%);
     }
-    .section.success::before { background: linear-gradient(180deg, #059669 0%, #059669aa 100%); }
+    .email-section.success::before { background: hsl(142, 76%, 36%); } /* success green */
     
-    .section.warning { 
-      background: linear-gradient(135deg, #fefbeb 0%, #fef3c7 100%);
-      border-color: #fed7aa;
+    .email-section.warning { 
+      background: hsl(25, 95%, 96%);
+      border-color: hsl(25, 95%, 88%);
     }
-    .section.warning::before { background: linear-gradient(180deg, #f59e0b 0%, #f59e0baa 100%); }
+    .email-section.warning::before { background: hsl(25, 95%, 53%); } /* warning orange */
     
-    .section.error { 
-      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-      border-color: #fecaca;
+    .email-section.error { 
+      background: hsl(0, 84%, 96%);
+      border-color: hsl(0, 84%, 88%);
     }
-    .section.error::before { background: linear-gradient(180deg, #dc2626 0%, #dc2626aa 100%); }
+    .email-section.error::before { background: hsl(0, 84.2%, 60.2%); } /* --destructive */
     
-    .section.default { 
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border-color: #cbd5e1;
+    .email-section.default { 
+      background: hsl(210, 40%, 98%); /* --secondary */
+      border-color: hsl(214.3, 31.8%, 91.4%); /* --border */
     }
-    .section.default::before { background: linear-gradient(180deg, #2563eb 0%, #2563ebaa 100%); }
+    .email-section.default::before { background: hsl(222.2, 47.4%, 11.2%); } /* --primary */
     
-    .section-title { 
-      font-size: 18px; 
+    /* Section titles - consistent with app card titles */
+    .email-section-title { 
+      font-size: 1.125rem; 
       font-weight: 600; 
-      margin: 0 0 12px 0; 
-      color: #1f2937;
-      position: relative;
+      margin: 0 0 0.75rem 0; 
+      color: hsl(222.2, 84%, 4.9%); /* --foreground */
+      line-height: 1.25;
     }
     
-    .section-content { 
-      font-size: 15px; 
+    /* Section content - consistent with app text */
+    .email-section-content { 
+      font-size: 0.9375rem; 
       margin: 0; 
-      color: #4b5563;
+      color: hsl(215.4, 16.3%, 46.9%); /* --muted-foreground */
       line-height: 1.6;
-      position: relative;
     }
     
-    .section-content p { 
-      margin: 12px 0; 
+    .email-section-content p { 
+      margin: 0.75rem 0; 
     }
     
-    .section-content ul { 
-      margin: 12px 0; 
-      padding-left: 24px; 
+    .email-section-content p:first-child {
+      margin-top: 0;
     }
     
-    .section-content li {
-      margin: 6px 0;
+    .email-section-content p:last-child {
+      margin-bottom: 0;
     }
     
-    /* Modern action button */
-    .action-button { 
+    .email-section-content ul { 
+      margin: 0.75rem 0; 
+      padding-left: 1.5rem; 
+    }
+    
+    .email-section-content li {
+      margin: 0.375rem 0;
+    }
+    
+    .email-section-content strong {
+      color: hsl(222.2, 84%, 4.9%); /* --foreground */
+      font-weight: 600;
+    }
+    
+    /* Action button - consistent with app primary button */
+    .email-action-button { 
       display: inline-block; 
       background: linear-gradient(135deg, {{buttonColor}} 0%, {{buttonColor}}dd 100%);
-      color: white; 
-      padding: 16px 32px; 
+      color: hsl(210, 40%, 98%); /* --primary-foreground */
+      padding: 0.875rem 2rem; 
       text-decoration: none; 
-      border-radius: 8px; 
-      margin: 30px 0; 
+      border-radius: 0.5rem; /* --radius */
+      margin: 2rem 0 1.5rem 0; 
       font-weight: 600;
-      font-size: 16px;
-      box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
-      transition: all 0.2s ease;
+      font-size: 0.9375rem;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      transition: all 0.15s ease;
       letter-spacing: 0.025em;
+      line-height: 1.25;
     }
     
-    .action-button:hover {
+    .email-action-button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
     }
     
-    /* Enhanced footer */
-    .footer { 
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      padding: 30px 35px; 
+    /* Divider - consistent with app separators */
+    .email-divider { 
+      height: 1px; 
+      background: hsl(214.3, 31.8%, 91.4%); /* --border */
+      margin: 2rem 0; 
+      border: none;
+    }
+    
+    /* Footer text styling */
+    .email-footer-text {
+      color: hsl(215.4, 16.3%, 46.9%); /* --muted-foreground */
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    
+    /* Footer - consistent with app muted sections */
+    .email-footer { 
+      background: hsl(210, 40%, 98%); /* --secondary */
+      padding: 2rem; 
       text-align: center; 
-      font-size: 13px; 
-      color: #6b7280;
-      border-top: 1px solid #e5e7eb;
+      font-size: 0.8125rem; 
+      color: hsl(215.4, 16.3%, 46.9%); /* --muted-foreground */
+      border-top: 1px solid hsl(214.3, 31.8%, 91.4%); /* --border */
     }
     
-    .footer p { 
-      margin: 8px 0; 
+    .email-footer p { 
+      margin: 0.5rem 0; 
       line-height: 1.5;
     }
     
-    /* Modern divider */
-    .divider { 
-      height: 1px; 
-      background: linear-gradient(90deg, transparent 0%, #e5e7eb 50%, transparent 100%);
-      margin: 32px 0; 
+    .email-footer a {
+      color: {{headerColor}};
+      text-decoration: none;
+      font-weight: 500;
     }
     
-    /* Enhanced responsive design */
-    @media only screen and (max-width: 600px) {
-      .container { 
-        width: 100% !important; 
-        margin: 10px auto !important;
-        border-radius: 12px !important;
+    .email-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive design - app-consistent breakpoints */
+    @media only screen and (max-width: 640px) {
+      body {
+        padding: 0.75rem 0 !important;
       }
-      .header {
-        padding: 30px 20px 25px 20px !important;
+      
+      .email-container { 
+        width: calc(100% - 1.5rem) !important; 
+        margin: 0 0.75rem !important;
+        border-radius: 0.5rem !important;
       }
-      .header h1 {
-        font-size: 24px !important;
+      
+      .email-header {
+        padding: 1.5rem 1.25rem 1.25rem 1.25rem !important;
       }
-      .content { 
-        padding: 30px 25px !important; 
+      
+      .email-header h1 {
+        font-size: 1.5rem !important;
       }
-      .section {
-        padding: 20px !important;
-        margin: 20px 0 !important;
+      
+      .email-content { 
+        padding: 1.5rem 1.25rem 1.25rem 1.25rem !important; 
       }
-      .section-title {
-        font-size: 16px !important;
+      
+      .email-section {
+        padding: 1.25rem !important;
+        margin: 1.25rem 0 !important;
       }
-      .footer {
-        padding: 25px 20px !important;
+      
+      .email-section-title {
+        font-size: 1rem !important;
       }
-      .action-button {
-        padding: 14px 28px !important;
-        font-size: 15px !important;
+      
+      .email-footer {
+        padding: 1.5rem 1.25rem !important;
+      }
+      
+      .email-action-button {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.875rem !important;
+        display: block !important;
+        text-align: center !important;
+        width: calc(100% - 3rem) !important;
+        margin: 1.5rem 0 !important;
       }
     }
     
-    /* Dark mode support for modern email clients */
+    /* Dark mode support - consistent with app dark theme */
     @media (prefers-color-scheme: dark) {
-      .container {
-        background-color: #1f2937 !important;
+      body {
+        background: hsl(0, 0%, 3.9%) !important; /* --background dark */
       }
-      .content {
-        background-color: #1f2937 !important;
+      
+      .email-container {
+        background-color: hsl(0, 0%, 3.9%) !important; /* --background dark */
+        border-color: hsl(0, 0%, 14.9%) !important; /* --border dark */
       }
-      .greeting {
-        color: #f9fafb !important;
+      
+      .email-content {
+        background-color: hsl(0, 0%, 3.9%) !important; /* --background dark */
       }
-      .intro-text {
-        color: #d1d5db !important;
+      
+      .email-greeting {
+        color: hsl(0, 0%, 98%) !important; /* --foreground dark */
       }
-      .section-content {
-        color: #d1d5db !important;
+      
+      .email-intro {
+        color: hsl(0, 0%, 63.9%) !important; /* --muted-foreground dark */
       }
-      .section-title {
-        color: #f9fafb !important;
+      
+      .email-footer-text {
+        color: hsl(0, 0%, 63.9%) !important; /* --muted-foreground dark */
+      }
+      
+      .email-section {
+        background-color: hsl(0, 0%, 3.9%) !important; /* --background dark */
+        border-color: hsl(0, 0%, 14.9%) !important; /* --border dark */
+      }
+      
+      .email-section.info,
+      .email-section.success,
+      .email-section.warning,
+      .email-section.error,
+      .email-section.default {
+        background-color: hsl(0, 0%, 3.9%) !important; /* --background dark */
+        border-color: hsl(0, 0%, 14.9%) !important; /* --border dark */
+      }
+      
+      .email-section-content {
+        color: hsl(0, 0%, 63.9%) !important; /* --muted-foreground dark */
+      }
+      
+      .email-section-content strong {
+        color: hsl(0, 0%, 98%) !important; /* --foreground dark */
+      }
+      
+      .email-section-title {
+        color: hsl(0, 0%, 98%) !important; /* --foreground dark */
+      }
+      
+      .email-footer {
+        background: hsl(0, 0%, 14.9%) !important; /* --secondary dark */
+        border-color: hsl(0, 0%, 14.9%) !important; /* --border dark */
+        color: hsl(0, 0%, 63.9%) !important; /* --muted-foreground dark */
+      }
+      
+      .email-divider {
+        background: hsl(0, 0%, 14.9%) !important; /* --border dark */
+      }
+    }
+    
+    /* Outlook-specific fixes */
+    .outlook-only {
+      mso-hide: all;
+    }
+    
+    /* High DPI display support */
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      .email-logo img {
+        max-height: 48px !important;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
+  <div class="email-container">
+    <!-- Header Section -->
+    <div class="email-header">
       {{emailLogo}}
       {{emailAppName}}
       {{emailSlogan}}
       {{emailHeaderTitle}}
-      <p>{{headerSubtitle}}</p>
+      <p class="subtitle">{{headerSubtitle}}</p>
     </div>
     
-    <div class="content">
-      <div class="greeting">{{greeting}}</div>
+    <!-- Main Content -->
+    <div class="email-content">
+      <div class="email-greeting">{{greeting}}</div>
       
-      <div class="intro-text">{{introText}}</div>
+      <div class="email-intro">{{introText}}</div>
       
+      <!-- Dynamic Sections -->
       {{sections}}
       
+      <!-- Action Button (if available) -->
       {{actionButton}}
       
-      <div class="divider"></div>
+      <!-- Divider -->
+      <hr class="email-divider">
       
-      <div style="color: #6b7280; font-size: 15px;">{{footerText}}</div>
+      <!-- Footer Text -->
+      <div class="email-footer-text">{{footerText}}</div>
     </div>
     
-    <div class="footer">
+    <!-- Footer -->
+    <div class="email-footer">
       <p><strong>{{disclaimerText}}</strong></p>
-      <p>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}" style="color: {{headerColor}}; text-decoration: none;">{{supportEmail}}</a></p>
+      <p>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a></p>
     </div>
   </div>
 </body>
@@ -636,7 +776,7 @@ export function renderSections(sections: EmailContentSection[], variables?: Reco
   }
   
   return sections.map(section => {
-    const sectionClass = section.style ? `section ${section.style}` : 'section default'
+    const sectionClass = section.style ? `email-section ${section.style}` : 'email-section default'
     let content = section.content
     let title = section.title
     
@@ -660,8 +800,8 @@ export function renderSections(sections: EmailContentSection[], variables?: Reco
     
     return `
       <div class="${sectionClass}">
-        <h3 class="section-title">${title}</h3>
-        <div class="section-content">${content}</div>
+        <h3 class="email-section-title">${title}</h3>
+        <div class="email-section-content">${content}</div>
       </div>
     `
   }).join('')
@@ -673,5 +813,5 @@ export function renderSections(sections: EmailContentSection[], variables?: Reco
 export function renderActionButton(button: { text: string; url: string; color: string } | null): string {
   if (!button) return ''
   
-  return `<a href="${button.url}" class="action-button" style="background-color: ${button.color};">${button.text}</a>`
+  return `<a href="${button.url}" class="email-action-button" style="background-color: ${button.color};">${button.text}</a>`
 }
