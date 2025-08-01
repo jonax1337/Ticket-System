@@ -221,6 +221,10 @@ model SystemSettings {
   emailShowLogo Boolean @default(true) // Show logo in emails (if logoUrl is set)
   emailHideAppName Boolean @default(false) // Hide app name in emails
   emailHideSlogan Boolean @default(false) // Hide slogan in emails
+  emailMonochromeLogo Boolean @default(false) // Make logo monochrome (using header color)
+  emailFixedHeaderColor Boolean @default(false) // Use same header color for all email types
+  emailHeaderColor String @default("#2563eb") // Fixed header color when emailFixedHeaderColor is true
+  emailDisclaimerText String @default("This email was sent from {{systemName}} support system.") // Footer disclaimer text
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
