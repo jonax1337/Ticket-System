@@ -172,7 +172,7 @@ export const BASE_EMAIL_TEMPLATE = `
       {{emailLogo}}
       {{emailAppName}}
       {{emailSlogan}}
-      <h1>{{headerTitle}}</h1>
+      {{emailHeaderTitle}}
       <p>{{headerSubtitle}}</p>
     </div>
     
@@ -192,7 +192,6 @@ export const BASE_EMAIL_TEMPLATE = `
     
     <div class="footer">
       <p>{{disclaimerText}}</p>
-      <p>This email was sent from {{systemName}} support system.</p>
       <p>If you believe you received this email in error, please contact us at {{supportEmail}}</p>
     </div>
   </div>
@@ -457,61 +456,66 @@ export async function getEmailSectionsFromConfig(type: string, variables: Record
 
 /**
  * Generate action button for specific email types
+ * DISABLED: No self-service portal available
  */
 export function generateActionButton(type: string, variables: Record<string, unknown>): { text: string; url: string; color: string } | null {
-  if (variables.ticketUrl && typeof variables.ticketUrl === 'string') {
-    switch (type) {
-      case 'ticket_created':
-        return {
-          text: 'View Ticket',
-          url: variables.ticketUrl,
-          color: '#2563eb'
-        }
-      case 'status_changed':
-        return {
-          text: 'View Ticket',
-          url: variables.ticketUrl,
-          color: '#059669'
-        }
-      case 'comment_added':
-        return {
-          text: 'View Ticket & Reply',
-          url: variables.ticketUrl,
-          color: '#7c3aed'
-        }
-      case 'participant_added':
-        return {
-          text: 'View Ticket',
-          url: variables.ticketUrl,
-          color: '#0891b2'
-        }
-      case 'automation_warning':
-        return {
-          text: 'View & Update Ticket',
-          url: variables.ticketUrl,
-          color: '#f59e0b'
-        }
-      case 'automation_closed':
-        return {
-          text: 'View Closed Ticket',
-          url: variables.ticketUrl,
-          color: '#2563eb'
-        }
-    }
-  }
+  // Action buttons disabled - no self-service portal
   return null
 }
 
 /**
- * Render sections into HTML
+ * Process conditional content blocks (e.g., {{#variable}}content{{/variable}})
  */
-export function renderSections(sections: EmailContentSection[]): string {
+function processConditionalContent(content: string, variables: Record<string, unknown>): string {
+  // Process conditional blocks
+  const conditionalRegex = /{{#(\w+)}}([\s\S]*?){{\/\1}}/g
+  content = content.replace(conditionalRegex, (match, varName, innerContent) => {
+    const value = variables[varName]
+    // Show content if variable exists and is truthy
+    if (value !== undefined && value !== null && value !== '' && value !== false) {
+      return innerContent
+    }
+    return ''
+  })
+  
+  return content
+}
+
+/**
+ * Render sections into HTML with variable replacement
+ */
+export function renderSections(sections: EmailContentSection[], variables?: Record<string, unknown>): string {
+  if (!sections || sections.length === 0) {
+    return ''
+  }
+  
   return sections.map(section => {
     const sectionClass = section.style ? `section ${section.style}` : 'section default'
+    let content = section.content
+    let title = section.title
+    
+    // Replace variables in section content and title if variables are provided
+    if (variables) {
+      // First process conditional content
+      content = processConditionalContent(content, variables)
+      
+      // Then replace variables
+      Object.entries(variables).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g')
+          content = content.replace(regex, String(value))
+          title = title.replace(regex, String(value))
+        }
+      })
+      // Clean up any remaining unreplaced variables
+      content = content.replace(/{{[^}]+}}/g, '')
+      title = title.replace(/{{[^}]+}}/g, '')
+    }
+    
     return `
       <div class="${sectionClass}">
-        <h3 class="section-title">${section.title}</h3>
-        <div class="section-content">${section.content}</div>
+        <h3 class="section-title">${title}</h3>
+        <div class="section-content">${content}</div>
       </div>
     `
   }).join('')

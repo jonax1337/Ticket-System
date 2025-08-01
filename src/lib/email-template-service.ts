@@ -121,7 +121,8 @@ export async function getEmailTemplate(type: EmailTemplateType): Promise<EmailTe
  */
 export function replaceTemplateVariables(
   content: string, 
-  variables: TemplateVariables
+  variables: TemplateVariables,
+  preservePlaceholders?: string[]
 ): string {
   let processedContent = content
 
@@ -129,12 +130,23 @@ export function replaceTemplateVariables(
   Object.entries(variables).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
       const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g')
-      processedContent = processedContent.replace(regex, String(value))
+      const matches = processedContent.match(regex)
+      if (matches && matches.length > 0) {
+        processedContent = processedContent.replace(regex, String(value))
+      }
     }
   })
 
-  // Clean up any remaining unreplaced variables
-  processedContent = processedContent.replace(/{{[^}]+}}/g, '')
+  // Clean up any remaining unreplaced variables, but preserve specified placeholders
+  if (preservePlaceholders && preservePlaceholders.length > 0) {
+    // Create a regex that matches any {{placeholder}} except the ones we want to preserve
+    const preservePattern = preservePlaceholders.map(p => `{{\\s*${p}\\s*}}`).join('|')
+    const replacePattern = new RegExp(`{{(?!\\s*(?:${preservePlaceholders.join('|')})\\s*}})[^}]+}}`, 'g')
+    processedContent = processedContent.replace(replacePattern, '')
+  } else {
+    // Clean up any remaining unreplaced variables
+    processedContent = processedContent.replace(/{{[^}]+}}/g, '')
+  }
 
   return processedContent
 }
@@ -242,6 +254,17 @@ function renderEmailSlogan(slogan: string | null, hideSlogan: boolean): string {
 }
 
 /**
+ * Render email header title HTML if not hidden
+ */
+function renderEmailHeaderTitle(headerTitle: string, hideHeaderTitle: boolean): string {
+  if (hideHeaderTitle) {
+    return ''
+  }
+  
+  return `<h1>${headerTitle}</h1>`
+}
+
+/**
  * Render email using unified template system
  */
 async function renderUnifiedTemplate(
@@ -271,24 +294,25 @@ async function renderUnifiedTemplate(
       }
       try {
         sections = JSON.parse(config.sections) as EmailContentSection[]
-        actionButton = config.actionButton ? JSON.parse(config.actionButton) : null
+        // Disable action buttons - no self-service portal available
+        actionButton = null
       } catch (parseError) {
         console.error('Error parsing email configuration JSON:', parseError)
         sections = generateEmailSections(type, variables as Record<string, unknown>)
-        actionButton = generateActionButton(type, variables as Record<string, unknown>)
+        actionButton = null // No action buttons
       }
     } else {
       // Fallback to hardcoded configuration
       baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
       sections = generateEmailSections(type, variables as Record<string, unknown>)
-      actionButton = generateActionButton(type, variables as Record<string, unknown>)
+      actionButton = null // No action buttons
     }
   } catch (error) {
     console.error('Error fetching email configuration from database:', error)
     // Fallback to hardcoded configuration
     baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
     sections = generateEmailSections(type, variables as Record<string, unknown>)
-    actionButton = generateActionButton(type, variables as Record<string, unknown>)
+    actionButton = null // No action buttons
   }
   
   // Get email logo configuration from system settings
@@ -299,7 +323,7 @@ async function renderUnifiedTemplate(
   )
   const emailAppNameHtml = renderEmailAppName(
     systemSettings?.appName || 'Support Dashboard',
-    systemSettings?.emailHideAppName ?? false
+    systemSettings?.emailHideAppName ?? true  // Default to hidden since no self-service portal
   )
   const emailSloganHtml = renderEmailSlogan(
     systemSettings?.slogan || null,
@@ -322,35 +346,50 @@ async function renderUnifiedTemplate(
   // Start with base template
   let html = BASE_EMAIL_TEMPLATE
 
-  // Create extended variables with additional template data
+  // Render header title with hide option
+  const emailHeaderTitleHtml = renderEmailHeaderTitle(
+    replaceTemplateVariables(emailData.headerTitle, variables),
+    systemSettings?.emailHideAppName ?? true  // Use same setting as app name
+  )
+
+  // First, replace variables in the email data strings themselves
+  const processedEmailData = {
+    headerTitle: replaceTemplateVariables(emailData.headerTitle, variables),
+    headerSubtitle: replaceTemplateVariables(emailData.headerSubtitle, variables),
+    headerColor: emailData.headerColor,
+    greeting: replaceTemplateVariables(emailData.greeting, variables),
+    introText: replaceTemplateVariables(emailData.introText, variables),
+    footerText: replaceTemplateVariables(emailData.footerText, variables),
+    disclaimerText: replaceTemplateVariables(emailData.disclaimerText, variables)
+  }
+
+  // Create extended variables with processed template data
   const extendedVariables: TemplateVariables = {
     ...variables,
-    headerTitle: emailData.headerTitle,
-    headerSubtitle: emailData.headerSubtitle,
-    headerColor: emailData.headerColor,
-    greeting: emailData.greeting,
-    introText: emailData.introText,
-    footerText: emailData.footerText,
-    disclaimerText: emailData.disclaimerText,
+    headerTitle: processedEmailData.headerTitle,
+    headerSubtitle: processedEmailData.headerSubtitle,
+    headerColor: processedEmailData.headerColor,
+    greeting: processedEmailData.greeting,
+    introText: processedEmailData.introText,
+    footerText: processedEmailData.footerText,
+    disclaimerText: processedEmailData.disclaimerText,
     buttonColor: actionButton?.color || '#2563eb',
     emailLogo: emailLogoHtml,
     emailAppName: emailAppNameHtml,
-    emailSlogan: emailSloganHtml
+    emailSlogan: emailSloganHtml,
+    emailHeaderTitle: emailHeaderTitleHtml
   }
 
-  // Replace main placeholders
-  html = replaceTemplateVariables(html, extendedVariables)
+  // Replace all placeholders in the template, but preserve sections and actionButton for manual replacement
+  html = replaceTemplateVariables(html, extendedVariables, ['sections', 'actionButton'])
 
-  // Replace sections placeholder
-  const sectionsHtml = renderSections(emailData.sections)
+  // Replace sections placeholder with variable-replaced content
+  const sectionsHtml = renderSections(emailData.sections, variables)
   html = html.replace('{{sections}}', sectionsHtml)
 
   // Replace action button placeholder
   const buttonHtml = renderActionButton(emailData.actionButton || null)
   html = html.replace('{{actionButton}}', buttonHtml)
-
-  // Final variable replacement
-  html = replaceTemplateVariables(html, variables)
 
   return html
 }
@@ -399,9 +438,20 @@ async function getSystemDefaults(): Promise<TemplateVariables> {
   try {
     const systemSettings = await prisma.systemSettings.findFirst()
     
+    // Get outbound email configuration for support email
+    const emailConfig = await prisma.emailConfiguration.findFirst({
+      where: {
+        isActive: true
+      },
+      orderBy: [
+        { isOutbound: 'desc' }, // Prioritize outbound accounts
+        { createdAt: 'asc' }    // Fallback to oldest if no outbound set
+      ]
+    })
+    
     return {
       systemName: systemSettings?.appName || 'Support System',
-      supportEmail: 'support@example.com', // This should come from email config
+      supportEmail: emailConfig?.username || 'support@example.com',
       supportUrl: process.env.NEXTAUTH_URL || 'https://localhost:3000',
       unsubscribeUrl: `${process.env.NEXTAUTH_URL || 'https://localhost:3000'}/unsubscribe`,
       emailSubjectPrefix: systemSettings?.emailSubjectPrefix || '[Ticket {{ticketNumber}}]'
@@ -608,9 +658,31 @@ export async function createTestEmailTemplate(
   type: EmailTemplateType,
   variables: TemplateVariables
 ): Promise<string> {
+  // Add system defaults if not provided
+  const systemDefaults = await getSystemDefaults()
+  const fullVariables: TemplateVariables = {
+    ...systemDefaults,
+    ...variables
+  }
+  
   const baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
-  const sections = generateEmailSections(type, variables as Record<string, unknown>)
-  const actionButton = generateActionButton(type, variables as Record<string, unknown>)
+  const sections = generateEmailSections(type, fullVariables as Record<string, unknown>)
+  const actionButton = generateActionButton(type, fullVariables as Record<string, unknown>)
+  
+  // Get system settings for email logo configuration
+  const systemSettings = await prisma.systemSettings.findFirst()
+  const emailLogoHtml = renderEmailLogo(
+    systemSettings?.logoUrl || null,
+    systemSettings?.emailShowLogo ?? true
+  )
+  const emailAppNameHtml = renderEmailAppName(
+    systemSettings?.appName || 'Support Dashboard',
+    systemSettings?.emailHideAppName ?? true  // Default to hidden since no self-service portal
+  )
+  const emailSloganHtml = renderEmailSlogan(
+    systemSettings?.slogan || null,
+    systemSettings?.emailHideSlogan ?? false
+  )
   
   const emailData: UnifiedEmailData = {
     headerTitle: baseConfig.headerTitle || '{{systemName}}',
@@ -626,32 +698,50 @@ export async function createTestEmailTemplate(
 
   let html = BASE_EMAIL_TEMPLATE
 
-  // Create extended variables with additional template data
-  const extendedVariables: TemplateVariables = {
-    ...variables,
-    headerTitle: emailData.headerTitle,
-    headerSubtitle: emailData.headerSubtitle,
+  // Render header title with hide option
+  const emailHeaderTitleHtml = renderEmailHeaderTitle(
+    replaceTemplateVariables(emailData.headerTitle, fullVariables),
+    systemSettings?.emailHideAppName ?? true  // Use same setting as app name
+  )
+
+  // First, replace variables in the email data strings themselves
+  const processedEmailData = {
+    headerTitle: replaceTemplateVariables(emailData.headerTitle, fullVariables),
+    headerSubtitle: replaceTemplateVariables(emailData.headerSubtitle, fullVariables),
     headerColor: emailData.headerColor,
-    greeting: emailData.greeting,
-    introText: emailData.introText,
-    footerText: emailData.footerText,
-    disclaimerText: emailData.disclaimerText,
-    buttonColor: actionButton?.color || '#2563eb'
+    greeting: replaceTemplateVariables(emailData.greeting, fullVariables),
+    introText: replaceTemplateVariables(emailData.introText, fullVariables),
+    footerText: replaceTemplateVariables(emailData.footerText, fullVariables),
+    disclaimerText: replaceTemplateVariables(emailData.disclaimerText, fullVariables)
   }
 
-  // Replace main placeholders
-  html = replaceTemplateVariables(html, extendedVariables)
+  // Create extended variables with processed template data
+  const extendedVariables: TemplateVariables = {
+    ...fullVariables,
+    headerTitle: processedEmailData.headerTitle,
+    headerSubtitle: processedEmailData.headerSubtitle,
+    headerColor: processedEmailData.headerColor,
+    greeting: processedEmailData.greeting,
+    introText: processedEmailData.introText,
+    footerText: processedEmailData.footerText,
+    disclaimerText: processedEmailData.disclaimerText,
+    buttonColor: actionButton?.color || '#2563eb',
+    emailLogo: emailLogoHtml,
+    emailAppName: emailAppNameHtml,
+    emailSlogan: emailSloganHtml,
+    emailHeaderTitle: emailHeaderTitleHtml
+  }
 
-  // Replace sections placeholder
-  const sectionsHtml = renderSections(emailData.sections)
+  // Replace all placeholders in the template, but preserve sections and actionButton for manual replacement
+  html = replaceTemplateVariables(html, extendedVariables, ['sections', 'actionButton'])
+
+  // Replace sections placeholder with variable-replaced content
+  const sectionsHtml = renderSections(emailData.sections, fullVariables)
   html = html.replace('{{sections}}', sectionsHtml)
 
   // Replace action button placeholder
   const buttonHtml = renderActionButton(emailData.actionButton || null)
   html = html.replace('{{actionButton}}', buttonHtml)
-
-  // Final variable replacement
-  html = replaceTemplateVariables(html, variables)
 
   return html
 }
