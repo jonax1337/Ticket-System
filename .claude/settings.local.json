@@ -27,7 +27,8 @@
       "Bash(echo:*)",
       "Bash(find:*)",
       "WebFetch(domain:shadcn-ui-animated-tabs.vercel.app)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "WebFetch(domain:www.shadcnui-blocks.com)"
     ],
     "deny": []
   }
