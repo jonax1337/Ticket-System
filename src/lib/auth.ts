@@ -11,7 +11,8 @@ export const authOptions: NextAuthOptions = {
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
+        rememberMe: { label: "Remember Me", type: "text" }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -45,18 +46,21 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           role: user.role,
           avatarUrl: user.avatarUrl,
+          rememberMe: credentials.rememberMe === 'true',
         }
       }
     })
   ],
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days max (will be overridden by cookie for non-remember sessions)
   },
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
         token.role = user.role
         token.avatarUrl = user.avatarUrl
+        token.rememberMe = (user as any).rememberMe || false
       }
       
       // Update token when session is updated

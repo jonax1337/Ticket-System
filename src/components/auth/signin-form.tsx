@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
 import { AppBranding } from "@/components/branding/app-branding"
 
 export function SignInForm({
@@ -17,6 +18,7 @@ export function SignInForm({
     email: '',
     password: ''
   })
+  const [rememberMe, setRememberMe] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
@@ -32,12 +34,22 @@ export function SignInForm({
       const result = await signIn('credentials', {
         email: formData.email,
         password: formData.password,
+        rememberMe: rememberMe.toString(),
         redirect: false,
       })
 
       if (result?.error) {
         setError('Invalid credentials')
       } else {
+        // Update session cookie based on remember me preference
+        await fetch('/api/auth/session-cookie', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ rememberMe }),
+        })
+        
         router.push('/dashboard')
       }
     } catch {
@@ -85,6 +97,20 @@ export function SignInForm({
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               />
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="remember"
+                checked={rememberMe}
+                onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+              />
+              <Label
+                htmlFor="remember"
+                className="text-sm font-normal cursor-pointer"
+              >
+                Remember me
+              </Label>
             </div>
             
             {error && (
