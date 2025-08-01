@@ -24,6 +24,105 @@ When schema changes are made:
 3. If database sync issues occur, check that all migrations are properly applied
 4. For schema synchronization issues, see `DATABASE_FIX.md` for troubleshooting steps
 
+## Email Template System - FULLY WORKING ✅
+
+### Recent Major Fixes (August 2025)
+The email template system was completely rebuilt and is now fully functional:
+
+#### 🔧 Variable Replacement System Fixed
+- **Problem**: Variables like `{{customerName}}`, `{{ticketNumber}}` weren't being replaced in customer emails
+- **Root Cause**: Race condition where `replaceTemplateVariables()` removed ALL `{{...}}` placeholders before sections and action buttons could be processed
+- **Solution**: Added `preservePlaceholders` parameter to `replaceTemplateVariables()` to protect `{{sections}}` and `{{actionButton}}`
+- **Result**: All variables now properly replaced in both preview and actual emails
+
+#### 🔧 Mock Data for Previews Enhanced  
+- **Problem**: Preview showed generic/empty data
+- **Solution**: Template-specific realistic mock data for each email type:
+  - `ticket_created`: Complete ticket information with realistic details
+  - `comment_added`: Full comment content with HTML formatting and author details
+  - `status_changed`: Previous/new status with actor information and timestamps
+  - `participant_added`: Participant details with type and context
+  - `automation_warning`: Warning context with inactivity timeframes
+  - `automation_closed`: Closure information with help options
+- **Result**: Previews now show exactly how emails will look to customers
+
+#### 🔧 Section Rendering Completely Fixed
+- **Problem**: Email sections were empty in both preview and actual emails  
+- **Solution**: 
+  - Fixed variable replacement order in `renderSections()`
+  - Added conditional content support (`{{#variable}}...{{/variable}}`)
+  - Ensured sections are processed AFTER template variables but BEFORE cleanup
+- **Result**: All ticket details, comments, and information properly displayed
+
+#### 🔧 Action Buttons Removed (No Self-Service Portal)
+- **Problem**: Emails showed broken `[{{ticketUrl}}]View Ticket` buttons
+- **Solution**: 
+  - `generateActionButton()` always returns `null`
+  - Database action buttons ignored (`actionButton = null` in all code paths)
+  - No self-service portal available, so no buttons needed
+- **Result**: Clean emails without broken buttons
+
+#### 🔧 Support Email Uses Real Outbound Address
+- **Problem**: Footer showed "support@example.com" 
+- **Solution**: `getSystemDefaults()` now queries email configuration and uses outbound account email
+- **Result**: Footer shows real support email address
+
+#### 🔧 Header Title Hiding Fixed
+- **Problem**: "Support Dashboard" still appeared in header even when hidden
+- **Solution**: 
+  - Added `renderEmailHeaderTitle()` function
+  - Changed base template from `<h1>{{headerTitle}}</h1>` to `{{emailHeaderTitle}}`
+  - Header title now respects `emailHideAppName` setting
+- **Result**: Header completely clean when hiding is enabled
+
+### Email Template Architecture
+
+#### Core Files
+- `src/lib/email-template-service.ts` - Main template processing and variable replacement
+- `src/lib/email-base-template.ts` - Base HTML template and section generation  
+- `src/app/api/admin/email-templates/base/preview/route.ts` - Preview API with mock data
+
+#### Template Processing Flow
+1. **Load Configuration**: Get email type config from database or fallback to hardcoded
+2. **Generate Content**: Create sections and process action buttons (disabled)
+3. **System Settings**: Load logo, app name visibility, and outbound email settings
+4. **Variable Processing**: 
+   - First pass: Replace variables in template strings themselves
+   - Second pass: Replace all template placeholders (preserving sections/actionButton)
+   - Third pass: Process sections with full variable replacement
+   - Fourth pass: Insert processed sections and buttons into template
+5. **Final Output**: Clean HTML with all variables properly replaced
+
+#### Variable Replacement System
+```typescript
+// NEW: Preserve specific placeholders during replacement
+replaceTemplateVariables(html, variables, ['sections', 'actionButton'])
+
+// Conditional content support
+{{#statusChangeReason}}<p><strong>Reason:</strong> {{statusChangeReason}}</p>{{/statusChangeReason}}
+```
+
+#### Email Types & Sections
+Each email type has specific sections with relevant information:
+- **ticket_created**: Ticket details (number, subject, status, priority, created date)
+- **comment_added**: Comment content + ticket details
+- **status_changed**: Status change info + ticket details  
+- **participant_added**: Participation details + ticket details
+- **automation_warning**: Warning message + action instructions + ticket details
+- **automation_closed**: Closure info + ticket summary + help options
+
+### Settings Integration
+- `emailHideAppName`: Hides both app name and header title in emails
+- `emailShowLogo`: Controls logo display in email header
+- `emailHideSlogan`: Controls slogan display  
+- Outbound email configuration: Automatically used for support contact in footer
+
+### Testing Email Templates
+- Preview API: `/api/admin/email-templates/base/preview`
+- All templates use unified system with realistic mock data
+- Variables properly replaced in both preview and actual email sending
+- No action buttons (self-service portal disabled)
+
 ## System Architecture Overview
 
 This is a comprehensive Next.js 15 ticket management system designed for customer support operations.
@@ -229,3 +328,9 @@ The UI system is built on a modern component architecture with animations and th
 - **Plugin Architecture**: Modular component system for custom features
 - **Theme Extensions**: Custom theme development support
 - **Automation Rules**: Configurable business logic and workflow automation
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.

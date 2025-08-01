@@ -28,6 +28,7 @@ export interface UnifiedEmailData {
 
 /**
  * Base HTML email template with placeholders
+ * Modern, professional design with enhanced typography and styling
  */
 export const BASE_EMAIL_TEMPLATE = `
 <!DOCTYPE html>
@@ -37,131 +38,276 @@ export const BASE_EMAIL_TEMPLATE = `
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{headerTitle}}</title>
   <style>
+    /* Modern email-safe reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+    }
     body { 
-      font-family: Arial, sans-serif; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       line-height: 1.6; 
-      color: #333; 
+      color: #1f2937; 
       margin: 0; 
       padding: 0; 
-      background-color: #f4f4f4; 
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
     }
+    
+    /* Main container with modern card styling */
     .container { 
       max-width: 600px; 
-      margin: 0 auto; 
+      margin: 20px auto; 
       background-color: #ffffff; 
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
     }
+    
+    /* Enhanced header with gradient and modern styling */
     .header { 
-      background-color: {{headerColor}}; 
+      background: linear-gradient(135deg, {{headerColor}} 0%, {{headerColor}}dd 100%);
       color: white; 
-      padding: 20px; 
+      padding: 40px 30px 35px 30px; 
       text-align: center; 
+      position: relative;
     }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+      opacity: 0.1;
+    }
+    
     .header .logo {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
     }
+    
     .header .logo img {
       max-height: 80px;
       max-width: 300px;
       height: auto;
       width: auto;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
     }
+    
     .header h1 { 
-      margin: 0 0 5px 0; 
-      font-size: 24px; 
-      font-weight: bold; 
+      margin: 0 0 8px 0; 
+      font-size: 28px; 
+      font-weight: 700; 
+      letter-spacing: -0.025em;
+      position: relative;
+      z-index: 1;
     }
+    
     .header p { 
       margin: 0; 
-      font-size: 14px; 
+      font-size: 16px; 
       opacity: 0.9; 
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
     }
+    
+    /* Enhanced content area */
     .content { 
-      padding: 30px; 
+      padding: 40px 35px; 
+      background-color: #ffffff;
     }
+    
     .greeting { 
+      font-size: 20px; 
+      font-weight: 600; 
+      margin-bottom: 20px; 
+      color: #1f2937;
+    }
+    
+    .intro-text { 
+      margin-bottom: 30px; 
+      font-size: 16px; 
+      line-height: 1.7;
+      color: #4b5563;
+    }
+    
+    /* Modern section cards */
+    .section { 
+      margin: 24px 0; 
+      padding: 24px; 
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, {{sectionColor}} 0%, {{sectionColor}}aa 100%);
+    }
+    
+    .section.info { 
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-color: #bae6fd;
+    }
+    .section.info::before { background: linear-gradient(180deg, #0891b2 0%, #0891b2aa 100%); }
+    
+    .section.success { 
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border-color: #bbf7d0;
+    }
+    .section.success::before { background: linear-gradient(180deg, #059669 0%, #059669aa 100%); }
+    
+    .section.warning { 
+      background: linear-gradient(135deg, #fefbeb 0%, #fef3c7 100%);
+      border-color: #fed7aa;
+    }
+    .section.warning::before { background: linear-gradient(180deg, #f59e0b 0%, #f59e0baa 100%); }
+    
+    .section.error { 
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      border-color: #fecaca;
+    }
+    .section.error::before { background: linear-gradient(180deg, #dc2626 0%, #dc2626aa 100%); }
+    
+    .section.default { 
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-color: #cbd5e1;
+    }
+    .section.default::before { background: linear-gradient(180deg, #2563eb 0%, #2563ebaa 100%); }
+    
+    .section-title { 
       font-size: 18px; 
       font-weight: 600; 
-      margin-bottom: 15px; 
+      margin: 0 0 12px 0; 
+      color: #1f2937;
+      position: relative;
     }
-    .intro-text { 
-      margin-bottom: 25px; 
-      font-size: 16px; 
-    }
-    .section { 
-      margin: 20px 0; 
-      padding: 15px; 
-      border-left: 4px solid #e5e7eb; 
-    }
-    .section.info { 
-      background-color: #f0f9ff; 
-      border-left-color: #0891b2; 
-    }
-    .section.success { 
-      background-color: #f0fdf4; 
-      border-left-color: #059669; 
-    }
-    .section.warning { 
-      background-color: #fef3c7; 
-      border-left-color: #f59e0b; 
-    }
-    .section.error { 
-      background-color: #fee2e2; 
-      border-left-color: #dc2626; 
-    }
-    .section.default { 
-      background-color: #f8fafc; 
-      border-left-color: #2563eb; 
-    }
-    .section-title { 
-      font-size: 16px; 
-      font-weight: 600; 
-      margin: 0 0 10px 0; 
-      display: flex; 
-      align-items: center; 
-      gap: 8px; 
-    }
+    
     .section-content { 
-      font-size: 14px; 
+      font-size: 15px; 
       margin: 0; 
+      color: #4b5563;
+      line-height: 1.6;
+      position: relative;
     }
+    
     .section-content p { 
-      margin: 8px 0; 
+      margin: 12px 0; 
     }
+    
     .section-content ul { 
-      margin: 8px 0; 
-      padding-left: 20px; 
+      margin: 12px 0; 
+      padding-left: 24px; 
     }
+    
+    .section-content li {
+      margin: 6px 0;
+    }
+    
+    /* Modern action button */
     .action-button { 
       display: inline-block; 
-      background-color: {{buttonColor}}; 
+      background: linear-gradient(135deg, {{buttonColor}} 0%, {{buttonColor}}dd 100%);
       color: white; 
-      padding: 12px 24px; 
+      padding: 16px 32px; 
       text-decoration: none; 
-      border-radius: 4px; 
-      margin: 20px 0; 
-      font-weight: 600; 
+      border-radius: 8px; 
+      margin: 30px 0; 
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      letter-spacing: 0.025em;
     }
+    
+    .action-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Enhanced footer */
     .footer { 
-      background-color: #f8fafc; 
-      padding: 20px; 
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      padding: 30px 35px; 
       text-align: center; 
-      font-size: 12px; 
-      color: #666; 
+      font-size: 13px; 
+      color: #6b7280;
+      border-top: 1px solid #e5e7eb;
     }
+    
     .footer p { 
-      margin: 5px 0; 
+      margin: 8px 0; 
+      line-height: 1.5;
     }
+    
+    /* Modern divider */
     .divider { 
       height: 1px; 
-      background-color: #e5e7eb; 
-      margin: 20px 0; 
+      background: linear-gradient(90deg, transparent 0%, #e5e7eb 50%, transparent 100%);
+      margin: 32px 0; 
     }
+    
+    /* Enhanced responsive design */
     @media only screen and (max-width: 600px) {
       .container { 
         width: 100% !important; 
+        margin: 10px auto !important;
+        border-radius: 12px !important;
+      }
+      .header {
+        padding: 30px 20px 25px 20px !important;
+      }
+      .header h1 {
+        font-size: 24px !important;
       }
       .content { 
-        padding: 20px !important; 
+        padding: 30px 25px !important; 
+      }
+      .section {
+        padding: 20px !important;
+        margin: 20px 0 !important;
+      }
+      .section-title {
+        font-size: 16px !important;
+      }
+      .footer {
+        padding: 25px 20px !important;
+      }
+      .action-button {
+        padding: 14px 28px !important;
+        font-size: 15px !important;
+      }
+    }
+    
+    /* Dark mode support for modern email clients */
+    @media (prefers-color-scheme: dark) {
+      .container {
+        background-color: #1f2937 !important;
+      }
+      .content {
+        background-color: #1f2937 !important;
+      }
+      .greeting {
+        color: #f9fafb !important;
+      }
+      .intro-text {
+        color: #d1d5db !important;
+      }
+      .section-content {
+        color: #d1d5db !important;
+      }
+      .section-title {
+        color: #f9fafb !important;
       }
     }
   </style>
@@ -187,12 +333,12 @@ export const BASE_EMAIL_TEMPLATE = `
       
       <div class="divider"></div>
       
-      <p>{{footerText}}</p>
+      <div style="color: #6b7280; font-size: 15px;">{{footerText}}</div>
     </div>
     
     <div class="footer">
-      <p>{{disclaimerText}}</p>
-      <p>If you believe you received this email in error, please contact us at {{supportEmail}}</p>
+      <p><strong>{{disclaimerText}}</strong></p>
+      <p>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}" style="color: {{headerColor}}; text-decoration: none;">{{supportEmail}}</a></p>
     </div>
   </div>
 </body>
