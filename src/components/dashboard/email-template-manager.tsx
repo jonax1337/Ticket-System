@@ -28,7 +28,14 @@ import {
   Plus,
   Trash2,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  MessageSquarePlus,
+  RefreshCw,
+  MessageCircle,
+  Users,
+  AlertTriangle,
+  CheckSquare,
+  Palette
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -40,6 +47,10 @@ interface BaseTemplateConfig {
   showLogo: boolean
   hideAppName: boolean
   hideSlogan: boolean
+  monochromeLogo: boolean
+  fixedHeaderColor: boolean
+  headerColor: string
+  disclaimerText: string
   systemName: string
   logoUrl: string | null
   slogan: string | null
@@ -73,12 +84,12 @@ interface EmailTypeConfig {
 }
 
 const templateTypes = [
-  { value: 'ticket_created', label: 'Ticket Created', description: 'When a new ticket is created', icon: '📝' },
-  { value: 'status_changed', label: 'Status Changed', description: 'When ticket status is updated', icon: '🔄' },
-  { value: 'comment_added', label: 'Comment Added', description: 'When a new comment is added', icon: '💬' },
-  { value: 'participant_added', label: 'Participant Added', description: 'When someone is added as participant', icon: '👥' },
-  { value: 'automation_warning', label: 'Automation Warning', description: 'Before automatic ticket closure', icon: '⚠️' },
-  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'When ticket is automatically closed', icon: '✅' }
+  { value: 'ticket_created', label: 'Ticket Created', description: 'When a new ticket is created', icon: MessageSquarePlus, color: 'text-blue-600 dark:text-blue-400' },
+  { value: 'status_changed', label: 'Status Changed', description: 'When ticket status is updated', icon: RefreshCw, color: 'text-purple-600 dark:text-purple-400' },
+  { value: 'comment_added', label: 'Comment Added', description: 'When a new comment is added', icon: MessageCircle, color: 'text-green-600 dark:text-green-400' },
+  { value: 'participant_added', label: 'Participant Added', description: 'When someone is added as participant', icon: Users, color: 'text-cyan-600 dark:text-cyan-400' },
+  { value: 'automation_warning', label: 'Automation Warning', description: 'Before automatic ticket closure', icon: AlertTriangle, color: 'text-amber-600 dark:text-amber-400' },
+  { value: 'automation_closed', label: 'Ticket Auto-Closed', description: 'When ticket is automatically closed', icon: CheckSquare, color: 'text-emerald-600 dark:text-emerald-400' }
 ]
 
 const availableVariables = {
@@ -156,7 +167,11 @@ export default function EmailTemplateManager() {
     isActive: true,
     showLogo: true,
     hideAppName: false,
-    hideSlogan: false
+    hideSlogan: false,
+    monochromeLogo: false,
+    fixedHeaderColor: false,
+    headerColor: '#2563eb',
+    disclaimerText: 'This email was sent from {{systemName}} support system.'
   })
 
   // Type configuration form data
@@ -180,7 +195,11 @@ export default function EmailTemplateManager() {
           isActive: baseData.isActive,
           showLogo: baseData.showLogo ?? true,
           hideAppName: baseData.hideAppName ?? false,
-          hideSlogan: baseData.hideSlogan ?? false
+          hideSlogan: baseData.hideSlogan ?? false,
+          monochromeLogo: baseData.monochromeLogo ?? false,
+          fixedHeaderColor: baseData.fixedHeaderColor ?? false,
+          headerColor: baseData.headerColor ?? '#2563eb',
+          disclaimerText: baseData.disclaimerText ?? 'This email was sent from {{systemName}} support system.'
         })
       }
 
@@ -447,14 +466,27 @@ export default function EmailTemplateManager() {
                           <h4 className="text-sm font-medium">Email Header Configuration</h4>
                           
                           {baseTemplate?.logoUrl && (
-                            <div className="flex items-center space-x-2">
-                              <Checkbox
-                                id="showLogo"
-                                checked={baseFormData.showLogo}
-                                onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, showLogo: !!checked })}
-                              />
-                              <Label htmlFor="showLogo">Show logo in emails</Label>
-                            </div>
+                            <>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox
+                                  id="showLogo"
+                                  checked={baseFormData.showLogo}
+                                  onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, showLogo: !!checked })}
+                                />
+                                <Label htmlFor="showLogo">Show logo in emails</Label>
+                              </div>
+                              
+                              {baseFormData.showLogo && (
+                                <div className="flex items-center space-x-2 ml-6">
+                                  <Checkbox
+                                    id="monochromeLogo"
+                                    checked={baseFormData.monochromeLogo}
+                                    onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, monochromeLogo: !!checked })}
+                                  />
+                                  <Label htmlFor="monochromeLogo">Make logo monochrome (uses header color)</Label>
+                                </div>
+                              )}
+                            </>
                           )}
                           
                           <div className="flex items-center space-x-2">
@@ -506,6 +538,46 @@ export default function EmailTemplateManager() {
 
                         <Separator />
 
+                        {/* Header Color Configuration */}
+                        <div className="space-y-4">
+                          <h4 className="text-sm font-medium">Header Color Configuration</h4>
+                          
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="fixedHeaderColor"
+                              checked={baseFormData.fixedHeaderColor}
+                              onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, fixedHeaderColor: !!checked })}
+                            />
+                            <Label htmlFor="fixedHeaderColor">Use same header color for all email types</Label>
+                          </div>
+                          
+                          {baseFormData.fixedHeaderColor && (
+                            <div className="space-y-2">
+                              <Label htmlFor="headerColor">Fixed Header Color</Label>
+                              <div className="flex items-center gap-2">
+                                <Input
+                                  id="headerColor"
+                                  type="color"
+                                  value={baseFormData.headerColor}
+                                  onChange={(e) => setBaseFormData({ ...baseFormData, headerColor: e.target.value })}
+                                  className="w-20 h-10"
+                                />
+                                <Input
+                                  value={baseFormData.headerColor}
+                                  onChange={(e) => setBaseFormData({ ...baseFormData, headerColor: e.target.value })}
+                                  placeholder="#2563eb"
+                                  className="flex-1"
+                                />
+                              </div>
+                              <p className="text-xs text-muted-foreground">
+                                This color will override all individual email type header colors when enabled.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+
+                        <Separator />
+
                         {/* Template Content */}
                         <div className="space-y-4">
                           <h4 className="text-sm font-medium">Base HTML Template</h4>
@@ -521,6 +593,27 @@ export default function EmailTemplateManager() {
                             />
                             <p className="text-xs text-muted-foreground">
                               This is the unified HTML template that will be used for all email types. Use placeholders like {`{{headerTitle}}`}, {`{{sections}}`}, {`{{actionButton}}`} for dynamic content.
+                            </p>
+                          </div>
+                        </div>
+
+                        <Separator />
+
+                        {/* Disclaimer Text */}
+                        <div className="space-y-4">
+                          <h4 className="text-sm font-medium">Footer Disclaimer Text</h4>
+                          
+                          <div className="space-y-2">
+                            <Label htmlFor="disclaimerText">Disclaimer Text</Label>
+                            <Textarea
+                              id="disclaimerText"
+                              value={baseFormData.disclaimerText}
+                              onChange={(e) => setBaseFormData({ ...baseFormData, disclaimerText: e.target.value })}
+                              placeholder="This email was sent from {{systemName}} support system."
+                              className="min-h-[80px]"
+                            />
+                            <p className="text-xs text-muted-foreground">
+                              This text appears at the bottom of all emails. You can use variables like {`{{systemName}}`}.
                             </p>
                           </div>
                         </div>
@@ -677,6 +770,25 @@ export default function EmailTemplateManager() {
                           <span>Slogan {baseTemplate.slogan && !baseTemplate.hideSlogan ? 'Shown' : 'Hidden'}</span>
                         </div>
                       </div>
+                      
+                      {baseTemplate.monochromeLogo && baseTemplate.showLogo && (
+                        <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-950/30 rounded text-sm">
+                          <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                          <span>Logo will be displayed in monochrome using header color</span>
+                        </div>
+                      )}
+                      
+                      {baseTemplate.fixedHeaderColor && (
+                        <div className="flex items-center gap-2 p-2 bg-purple-50 dark:bg-purple-950/30 rounded text-sm">
+                          <Palette className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                          <span>Fixed header color: </span>
+                          <span 
+                            className="inline-block w-4 h-4 rounded border" 
+                            style={{ backgroundColor: baseTemplate.headerColor }}
+                          ></span>
+                          <code className="text-xs font-mono">{baseTemplate.headerColor}</code>
+                        </div>
+                      )}
                     </div>
 
                     <div className="text-xs text-muted-foreground">
@@ -707,60 +819,73 @@ export default function EmailTemplateManager() {
                   <p className="mt-2 text-sm text-muted-foreground">Loading email type configurations...</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {templateTypes.map((type) => {
                     const config = emailTypes.find(c => c.type === type.value)
+                    const IconComponent = type.icon
                     return (
-                      <div key={type.value} className="border rounded-lg p-4">
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{type.icon}</span>
-                            <div>
-                              <Badge variant="outline" className="text-xs">
-                                {type.label}
-                              </Badge>
-                              <p className="text-xs text-muted-foreground mt-1">{type.description}</p>
+                      <Card key={type.value} className="group hover:shadow-md transition-all duration-200">
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className={`p-2 rounded-lg bg-muted/50 ${type.color} group-hover:bg-muted transition-colors`}>
+                                <IconComponent className="h-5 w-5" />
+                              </div>
+                              <div>
+                                <CardTitle className="text-base font-semibold">{type.label}</CardTitle>
+                                <CardDescription className="text-sm">{type.description}</CardDescription>
+                              </div>
                             </div>
                           </div>
-                          <div className="flex gap-1">
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                          {config && (
+                            <div className="space-y-3 mb-4">
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Content Sections:</span>
+                                <Badge variant="secondary" className="text-xs">
+                                  {config.sections.length} sections
+                                </Badge>
+                              </div>
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">Header Color:</span>
+                                <div className="flex items-center gap-2">
+                                  <div 
+                                    className="w-4 h-4 rounded border border-border" 
+                                    style={{ backgroundColor: config.headerColor }}
+                                  ></div>
+                                  <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">
+                                    {config.headerColor}
+                                  </code>
+                                </div>
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                Last updated: {new Date(config.updatedAt).toLocaleDateString()}
+                              </div>
+                            </div>
+                          )}
+                          <div className="flex gap-2">
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => openEditType(type.value)}
+                              className="flex-1"
                             >
-                              <Edit className="h-3 w-3 mr-1" />
-                              Edit
+                              <Edit className="h-4 w-4 mr-2" />
+                              Configure
                             </Button>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => handlePreview(type.value)}
+                              className="flex-1"
                             >
-                              <Eye className="h-3 w-3 mr-1" />
+                              <Eye className="h-4 w-4 mr-2" />
                               Preview
                             </Button>
                           </div>
-                        </div>
-                        
-                        {config && (
-                          <div className="mt-3 space-y-2">
-                            <div className="text-xs">
-                              <span className="font-medium">Sections:</span> {config.sections.length}
-                            </div>
-                            <div className="text-xs">
-                              <span className="font-medium">Header Color:</span>
-                              <span 
-                                className="inline-block w-3 h-3 rounded ml-1 border" 
-                                style={{ backgroundColor: config.headerColor }}
-                              ></span>
-                              {config.headerColor}
-                            </div>
-                            <div className="text-xs text-muted-foreground">
-                              Updated: {new Date(config.updatedAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                        </CardContent>
+                      </Card>
                     )
                   })}
                 </div>
@@ -814,12 +939,28 @@ export default function EmailTemplateManager() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="headerColor">Header Color</Label>
-                        <Input
-                          id="headerColor"
-                          type="color"
-                          value={typeFormData.headerColor || '#2563eb'}
-                          onChange={(e) => setTypeFormData({ ...typeFormData, headerColor: e.target.value })}
-                        />
+                        {baseTemplate?.fixedHeaderColor ? (
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2 p-2 bg-muted rounded">
+                              <span 
+                                className="inline-block w-6 h-6 rounded border" 
+                                style={{ backgroundColor: baseTemplate.headerColor }}
+                              ></span>
+                              <code className="text-sm font-mono">{baseTemplate.headerColor}</code>
+                              <span className="text-sm text-muted-foreground">(Fixed by base template)</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              Header color is controlled by the base template settings.
+                            </p>
+                          </div>
+                        ) : (
+                          <Input
+                            id="headerColor"
+                            type="color"
+                            value={typeFormData.headerColor || '#2563eb'}
+                            onChange={(e) => setTypeFormData({ ...typeFormData, headerColor: e.target.value })}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
