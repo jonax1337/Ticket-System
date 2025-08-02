@@ -214,7 +214,7 @@ export async function POST(
               toName: recipientName,
               ticketId: params.id,
               variables: {
-                commentContent: content.trim(),
+                commentContent: content.trim().replace(/\n/g, '<br>'),
                 commentAuthor: session.user.name,
                 commentCreatedAt: new Date().toLocaleString(),
                 actorName: session.user.name,

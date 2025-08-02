@@ -159,7 +159,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
     setEditorSerializedState(serializedState)
   }
 
-  // Extract mentions from serialized editor state
+  // Extract mentions from serialized editor state (plain text for UI)
   const extractMentionsFromState = (serializedState: unknown): string => {
     const state = serializedState as { root?: { children?: unknown[] } }
     if (!serializedState || !state.root || !state.root.children) {
@@ -195,6 +195,11 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
 
     state.root.children.forEach((child) => processNode(child as Record<string, unknown>))
     return result || newComment
+  }
+
+  // Convert plain text with mentions to HTML for email
+  const convertToEmailHTML = (text: string): string => {
+    return text.replace(/\n/g, '<br>')
   }
 
   const formatFileSize = (bytes: number) => {
