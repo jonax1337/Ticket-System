@@ -24,6 +24,11 @@ When schema changes are made:
 3. If database sync issues occur, check that all migrations are properly applied
 4. For schema synchronization issues, see `DATABASE_FIX.md` for troubleshooting steps
 
+**Recent Migration Notes (August 2025):**
+- Successfully migrated from MySQL to SQLite
+- Added missing email template fields (`emailMonochromeLogo`, `emailFixedHeaderColor`, etc.)
+- All email template configurations properly seeded on startup
+
 ## Email Template System - FULLY WORKING ✅
 
 ### Recent Major Fixes (August 2025)
@@ -75,6 +80,15 @@ The email template system was completely rebuilt and is now fully functional:
   - Header title now respects `emailHideAppName` setting
 - **Result**: Header completely clean when hiding is enabled
 
+#### 🔧 Section Dividers Added (August 2025)
+- **Problem**: Email sections weren't visually separated, making content hard to read
+- **Solution**: 
+  - Added automatic dividers between email sections using inline styles
+  - Modified `renderSections()` function to insert `<hr>` elements between sections
+  - Used inline CSS to ensure compatibility with custom email templates
+  - Dividers use consistent styling: `height: 1px; background: #e5e7eb; margin: 2rem 0;`
+- **Result**: Clean visual separation between all email sections (comment, ticket details, etc.)
+
 ### Email Template Architecture
 
 #### Core Files
@@ -122,6 +136,9 @@ Each email type has specific sections with relevant information:
 - All templates use unified system with realistic mock data
 - Variables properly replaced in both preview and actual email sending
 - No action buttons (self-service portal disabled)
+- Enhanced preview system: iframe height automatically adjusts to show complete email content
+- Reset button available in admin interface to restore templates to default
+- Preview shows custom database sections instead of hardcoded defaults (fixed August 2025)
 
 ## System Architecture Overview
 
@@ -300,6 +317,14 @@ The UI system is built on a modern component architecture with animations and th
 - **Relationship Loading**: Strategic use of Prisma includes and selects
 - **Soft Deletes**: Cascade deletes for related entities
 - **Audit Trail**: CreatedAt/UpdatedAt timestamps on all entities
+
+#### TypeScript Type System (August 2025)
+- **Centralized Types**: All interfaces moved to `src/types/ticket.ts` for consistency
+- **Unified Interfaces**: Single source of truth for `Ticket`, `Comment`, `User`, etc.
+- **Type Variants**: `TicketBasic`, `TicketWithComments`, `TicketWithFullDetails` for different use cases
+- **Prisma Compatibility**: All types align with database schema and Prisma queries
+- **Comment Types**: Proper `'internal' | 'external'` union types for comment classification
+- **Type Safety**: Eliminates conflicts between local interfaces across components
 
 ### Automation & Background Services
 
