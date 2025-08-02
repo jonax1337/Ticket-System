@@ -294,10 +294,8 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       const isStatusChanging = nextStatus && nextStatus !== ticket.status
       const previousStatus = ticket.status
       
-      // Wenn wir einen externen Kommentar schicken, fügen wir einen Präfix für die Anzeige hinzu
-      const commentContent = commentType === 'external' 
-        ? `[EMAIL] ${processedComment.trim()}`
-        : processedComment.trim()
+      // Externe Kommentare erhalten kein Prefix - das wird nur für die Email-Versendung verwendet
+      const commentContent = processedComment.trim()
 
       // Create optimistic comment
       const optimisticComment: Comment = {
