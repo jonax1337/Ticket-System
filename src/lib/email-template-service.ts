@@ -4,6 +4,7 @@ import {
   EMAIL_TYPE_CONFIGS, 
   generateEmailSections, 
   generateActionButton, 
+  getEmailSectionsFromConfig,
   renderSections, 
   renderActionButton,
   UnifiedEmailData,
@@ -679,7 +680,7 @@ export async function createTestEmailTemplate(
   }
   
   const baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
-  const sections = generateEmailSections(type, fullVariables as Record<string, unknown>)
+  const sections = await getEmailSectionsFromConfig(type, fullVariables as Record<string, unknown>)
   const actionButton = generateActionButton(type, fullVariables as Record<string, unknown>)
   
   // Get system settings for email logo configuration
