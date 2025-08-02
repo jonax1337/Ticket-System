@@ -34,82 +34,12 @@ import { DateTimePicker } from '@/components/ui/datetime-picker'
 import { normalizeDateToMidnight } from '@/lib/date-utils'
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from '@/components/ui/shadcn-io/dropzone'
 import { toast } from 'sonner'
-
-interface Ticket {
-  id: string
-  ticketNumber?: string | null
-  subject: string
-  description: string
-  htmlContent?: string | null
-  status: string
-  priority: string
-  fromEmail: string
-  fromName: string | null
-  dueDate?: Date | null
-  reminderDate?: Date | null
-  createdAt: Date
-  updatedAt: Date
-  assignedTo: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  } | null
-  queue?: {
-    id: string
-    name: string
-    color: string
-    icon: string
-  } | null
-  participants?: {
-    id: string
-    email: string
-    name?: string | null
-    type: string
-    createdAt: Date
-  }[]
-  attachments?: {
-    id: string
-    filename: string
-    filepath: string
-    mimetype: string
-    size: number
-  }[]
-  comments: {
-    id: string
-    content: string
-    fullEmailContent?: string | null
-    sentToEmails?: string | null
-    createdAt: Date
-    user: {
-      id: string
-      name: string
-      email: string
-      avatarUrl?: string | null
-    } | null
-    fromName?: string | null
-    fromEmail?: string | null
-    attachments?: {
-      id: string
-      filename: string
-      filepath: string
-      mimetype: string
-      size: number
-    }[]
-  }[]
-}
-
-interface User {
-  id: string
-  name: string
-  email: string
-  avatarUrl?: string | null
-}
+import { TicketWithFullDetails, UserBasic } from '@/types/ticket'
 
 interface TicketEditDialogProps {
-  ticket: Ticket
-  users: User[]
-  onTicketUpdate: (updatedTicket: Ticket) => void
+  ticket: TicketWithFullDetails
+  users: UserBasic[]
+  onTicketUpdate: (updatedTicket: TicketWithFullDetails) => void
   children: React.ReactNode
 }
 

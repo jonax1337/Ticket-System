@@ -85,7 +85,10 @@ export default async function TicketPage({ params }: TicketPageProps) {
   // Include all comments - both internal (with user) and external email replies (without user but with fromEmail/fromName)
   const ticketWithAllComments = {
     ...ticket,
-    comments: ticket.comments // Include all comments, don't filter any out
+    comments: ticket.comments.map(comment => ({
+      ...comment,
+      type: comment.type as 'internal' | 'external' // Type assertion to match interface
+    }))
   }
 
   const users = await prisma.user.findMany({

@@ -19,21 +19,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { MentionNode } from './mention-node'
 import { MentionPlugin } from './mention-plugin'
 import { LineBreakPlugin } from './line-break-plugin'
-
-interface User {
-  id: string
-  name: string
-  email: string
-}
-
-interface CommentEditorProps {
-  placeholder?: string
-  value?: string
-  onChange?: (content: string, serializedState?: unknown) => void
-  users?: User[]
-  disabled?: boolean
-  className?: string
-}
+import { CommentEditorProps, UserBasic } from '@/types/ticket'
 
 export interface CommentEditorRef {
   clear: () => void
@@ -50,7 +36,7 @@ function EditorContent({
   placeholder: string
   disabled: boolean
   onChange?: (content: string, serializedState?: unknown) => void
-  users: User[]
+  users: UserBasic[]
   onClearRef: (clearFn: () => void) => void
 }) {
   const [editor] = useLexicalComposerContext()

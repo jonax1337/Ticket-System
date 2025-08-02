@@ -41,102 +41,12 @@ import { useCache } from '@/lib/cache-context'
 import TicketEditDialog from '@/components/dashboard/ticket-edit-dialog'
 import TicketWatcher from '@/components/dashboard/ticket-watcher'
 import { toast } from 'sonner'
-
-interface User {
-  id: string
-  name: string
-  email: string
-}
-
-interface Ticket {
-  id: string
-  ticketNumber?: string | null
-  subject: string
-  description: string
-  htmlContent?: string | null
-  status: string
-  priority: string
-  fromEmail: string
-  fromName: string | null
-  dueDate?: Date | null
-  reminderDate?: Date | null
-  createdAt: Date
-  updatedAt: Date
-  assignedTo: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  } | null
-  queue?: {
-    id: string
-    name: string
-    color: string
-    icon: string
-  } | null
-  participants?: {
-    id: string
-    email: string
-    name?: string | null
-    type: string
-    createdAt: Date
-  }[]
-  attachments?: {
-    id: string
-    filename: string
-    filepath: string
-    mimetype: string
-    size: number
-  }[]
-  watchers?: {
-    id: string
-    userId: string
-    createdAt: Date
-    user: {
-      id: string
-      name: string
-      email: string
-      avatarUrl?: string | null
-    }
-  }[]
-  comments: {
-    id: string
-    content: string
-    fullEmailContent?: string | null // Full email content including history for email replies
-    sentToEmails?: string | null // Comma-separated emails this external comment was sent to
-    createdAt: Date
-    user: {
-      id: string
-      name: string
-      email: string
-      avatarUrl?: string | null
-    } | null // Can be null for external email replies
-    fromName?: string | null // Name of external user for email replies
-    fromEmail?: string | null // Email of external user for email replies
-    attachments?: {
-      id: string
-      filename: string
-      filepath: string
-      mimetype: string
-      size: number
-    }[]
-  }[]
-}
+import { TicketWithFullDetails, UserBasic } from '@/types/ticket'
 
 interface TicketDetailsProps {
-  ticket: Ticket
-  users: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  }[]
-  currentUser: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  }
+  ticket: TicketWithFullDetails
+  users: UserBasic[]
+  currentUser: UserBasic
   session: {
     user: {
       id: string
@@ -486,7 +396,7 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
     }
   }
 
-  const handleTicketUpdate = (updatedTicket: Ticket) => {
+  const handleTicketUpdate = (updatedTicket: TicketWithFullDetails) => {
     setTicket(updatedTicket)
   }
   return (
@@ -862,7 +772,7 @@ export default function TicketDetails({ ticket: initialTicket, users, currentUse
             ticketId={ticket.id}
             participants={ticket.participants}
             requester={{
-              name: ticket.fromName,
+              name: ticket.fromName || null,
               email: ticket.fromEmail
             }}
             onRequesterUpdate={handleRequesterUpdate}

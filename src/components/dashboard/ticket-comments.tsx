@@ -33,65 +33,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
-
-interface Comment {
-  id: string
-  content: string
-  type: string // 'internal' or 'external' from database
-  fullEmailContent?: string | null // Full email content including history for email replies
-  sentToEmails?: string | null // Comma-separated emails this external comment was sent to
-  createdAt: Date
-  user: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  } | null // Can be null for external email replies
-  fromName?: string | null // Name of external user for email replies
-  fromEmail?: string | null // Email of external user for email replies
-  attachments?: {
-    id: string
-    filename: string
-    filepath: string
-    mimetype: string
-    size: number
-  }[]
-}
-
-interface Ticket {
-  id: string
-  status: string
-  comments: Comment[]
-  participants?: {
-    id: string
-    email: string
-    name?: string | null
-    type: string
-    createdAt: Date
-  }[]
-  fromEmail: string
-  fromName: string | null
-}
-
-interface CustomStatus {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
+import { TicketWithComments, UserBasic, CustomStatus, Comment as TicketComment } from '@/types/ticket'
 
 interface TicketCommentsProps {
-  ticket: Ticket
-  currentUser: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  }
-  onTicketUpdate?: (updatedFields: Partial<Ticket>) => void
+  ticket: TicketWithComments
+  currentUser: UserBasic
+  onTicketUpdate?: (updatedFields: Partial<TicketWithComments>) => void
 }
 
 export default function TicketComments({ ticket, currentUser, onTicketUpdate }: TicketCommentsProps) {
@@ -307,14 +254,18 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       const commentContent = processedComment.trim()
 
       // Create optimistic comment
-      const optimisticComment: Comment = {
+      const optimisticComment: TicketComment = {
         id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique temporary ID
         content: commentContent + (isStatusChanging ? ` [STATUS_CHANGE] Status changed from "${previousStatus}" to "${nextStatus}"` : ''),
         fullEmailContent: null,
         sentToEmails: commentType === 'external' && selectedParticipants.length > 0 
           ? selectedParticipants.join(', ') 
           : null,
+        type: commentType,
+        ticketId: ticket.id,
+        userId: currentUser.id,
         createdAt: new Date(),
+        updatedAt: new Date(),
         user: {
           id: currentUser.id,
           name: currentUser.name,
@@ -328,7 +279,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
 
       // Optimistic updates
       const updatedComments = [...ticket.comments, optimisticComment]
-      const updatedFields: Partial<Ticket> = { comments: updatedComments }
+      const updatedFields: Partial<TicketWithComments> = { comments: updatedComments }
       
       if (isStatusChanging) {
         updatedFields.status = nextStatus
@@ -396,7 +347,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
         
         // Replace the optimistic comment with the real one
         const finalComments = [...originalComments, newCommentData]
-        const finalUpdatedFields: Partial<Ticket> = { comments: finalComments }
+        const finalUpdatedFields: Partial<TicketWithComments> = { comments: finalComments }
         
         // Update status only if the change was successful
         if (isStatusChanging && statusUpdateSuccess) {

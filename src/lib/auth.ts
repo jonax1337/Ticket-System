@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.role = user.role
         token.avatarUrl = user.avatarUrl
-        token.rememberMe = (user as any).rememberMe || false
+        token.rememberMe = ('rememberMe' in user && user.rememberMe) || false
       }
       
       // Update token when session is updated
