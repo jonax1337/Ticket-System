@@ -164,7 +164,7 @@ export const BASE_EMAIL_TEMPLATE = `
     
     /* Section cards - consistent with app card components */
     .email-section { 
-      margin: 1.5rem 0; 
+      margin: 0; 
       padding: 1.5rem; 
       border-radius: 0.5rem; /* --radius */
       border: 1px solid hsl(214.3, 31.8%, 91.4%); /* --border */
@@ -289,6 +289,14 @@ export const BASE_EMAIL_TEMPLATE = `
       border: none;
     }
     
+    /* Section divider - same styling as main divider */
+    .email-section-divider { 
+      height: 1px; 
+      background: hsl(214.3, 31.8%, 91.4%); /* --border */
+      margin: 2rem 0; 
+      border: none;
+    }
+    
     /* Footer text styling */
     .email-footer-text {
       color: hsl(215.4, 16.3%, 46.9%); /* --muted-foreground */
@@ -347,7 +355,15 @@ export const BASE_EMAIL_TEMPLATE = `
       
       .email-section {
         padding: 1.25rem !important;
-        margin: 1.25rem 0 !important;
+        margin: 0 !important;
+      }
+      
+      .email-divider {
+        margin: 1.5rem 0 !important;
+      }
+      
+      .email-section-divider {
+        margin: 1.5rem 0 !important;
       }
       
       .email-section-title {
@@ -428,6 +444,10 @@ export const BASE_EMAIL_TEMPLATE = `
       }
       
       .email-divider {
+        background: hsl(0, 0%, 14.9%) !important; /* --border dark */
+      }
+      
+      .email-section-divider {
         background: hsl(0, 0%, 14.9%) !important; /* --border dark */
       }
     }
@@ -775,7 +795,7 @@ export function renderSections(sections: EmailContentSection[], variables?: Reco
     return ''
   }
   
-  return sections.map(section => {
+  const renderedSections = sections.map(section => {
     const sectionClass = section.style ? `email-section ${section.style}` : 'email-section default'
     let content = section.content
     let title = section.title
@@ -804,7 +824,15 @@ export function renderSections(sections: EmailContentSection[], variables?: Reco
         <div class="email-section-content">${content}</div>
       </div>
     `
-  }).join('')
+  })
+  
+  // Join sections with dividers between them (but not after the last section)
+  // Use inline styles for dividers to work with custom templates
+  const divider = '<hr style="height: 1px; background: #e5e7eb; margin: 2rem 0; border: none;">'
+  
+  return `<div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+    ${renderedSections.join(divider)}
+  </div>`
 }
 
 /**
