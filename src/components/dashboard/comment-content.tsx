@@ -8,8 +8,11 @@ interface CommentContentProps {
 export default function CommentContent({ content }: CommentContentProps) {
   // Parse mentions and convert them to React elements
   const renderContentWithMentions = (text: string) => {
+    // Normalize line endings - handle both \n and \r\n
+    const normalizedText = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+    
     // Split text by lines first to preserve line breaks
-    const lines = text.split('\n')
+    const lines = normalizedText.split('\n')
     const allParts: (string | React.ReactElement)[] = []
     
     lines.forEach((line, lineIndex) => {

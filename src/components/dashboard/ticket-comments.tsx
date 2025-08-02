@@ -38,10 +38,10 @@ import {
 interface Comment {
   id: string
   content: string
+  type: string // 'internal' or 'external' from database
   fullEmailContent?: string | null // Full email content including history for email replies
   sentToEmails?: string | null // Comma-separated emails this external comment was sent to
   createdAt: Date
-  // type ist nicht in der Datenbank, wir leiten es aus dem Content ab
   user: {
     id: string
     name: string
@@ -163,7 +163,8 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
   const extractMentionsFromState = (serializedState: unknown): string => {
     const state = serializedState as { root?: { children?: unknown[] } }
     if (!serializedState || !state.root || !state.root.children) {
-      return newComment
+      // Normalize line endings in fallback
+      return newComment.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
     }
 
     let result = ''
@@ -194,7 +195,10 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
     }
 
     state.root.children.forEach((child) => processNode(child as Record<string, unknown>))
-    return result || newComment
+    
+    // Normalize line endings in result
+    const finalResult = result || newComment
+    return finalResult.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
   }
 
   // Convert plain text with mentions to HTML for email
@@ -690,22 +694,21 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                     {comment.user ? comment.user.name : (comment.fromName || 'External User')}
                   </span>
                   
-                  {/* Check for email types and display appropriate badges */}
+                  {/* Check for comment types and display appropriate badges */}
                   {(() => {
-                    const isEmailReply = comment.content.startsWith('[EMAIL REPLY]')
-                    const isEmail = comment.content.startsWith('[EMAIL]')
-                    const isEmailType = isEmailReply || isEmail
+                    // Use the type from database instead of content prefixes
+                    const isExternal = comment.type === 'external'
                     
                     return (
                       <div className="flex items-center gap-2">
                         <Badge 
                           variant="outline" 
-                          className={isEmailType
+                          className={isExternal
                             ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800' 
                             : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/30 dark:text-slate-400 dark:border-slate-800'}
                         >
                           <span className="flex items-center gap-1 text-xs">
-                            {isEmailType ? (
+                            {isExternal ? (
                               <>
                                 <Mail className="h-3 w-3" />
                                 <span>Extern</span>
@@ -719,7 +722,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                           </span>
                         </Badge>
                         
-                        {isEmailReply && (
+                        {comment.content.startsWith('[EMAIL REPLY]') && (
                           <Badge 
                             variant="secondary"
                             className="bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800"
