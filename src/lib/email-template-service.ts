@@ -354,8 +354,10 @@ async function renderUnifiedTemplate(
     disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
   }
 
-  // Start with base template
-  let html = BASE_EMAIL_TEMPLATE
+  // Load base template from database or use fallback
+  let html = systemSettings?.emailBaseTemplate && systemSettings.emailBaseTemplateActive 
+    ? systemSettings.emailBaseTemplate 
+    : BASE_EMAIL_TEMPLATE
 
   // Render header title with hide option
   const emailHeaderTitleHtml = renderEmailHeaderTitle(
@@ -714,7 +716,10 @@ export async function createTestEmailTemplate(
     disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
   }
 
-  let html = BASE_EMAIL_TEMPLATE
+  // Load base template from database or use fallback
+  let html = systemSettings?.emailBaseTemplate && systemSettings.emailBaseTemplateActive 
+    ? systemSettings.emailBaseTemplate 
+    : BASE_EMAIL_TEMPLATE
 
   // Render header title with hide option
   const emailHeaderTitleHtml = renderEmailHeaderTitle(
