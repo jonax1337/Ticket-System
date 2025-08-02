@@ -32,8 +32,21 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     // If config doesn't exist, create it with defaults
     if (!config) {
       const defaultConfig = EMAIL_TYPE_CONFIGS[type] || {}
-      const defaultSections = generateEmailSections(type, {})
-      const defaultActionButton = generateActionButton(type, { ticketUrl: '#' })
+      const defaultSections = generateEmailSections(type, {
+        // Sample variables for generation
+        ticketNumber: 'T-123456',
+        ticketSubject: 'Sample Subject',
+        ticketStatus: 'Open',
+        ticketPriority: 'High',
+        ticketCreatedAt: new Date().toLocaleString(),
+        customerName: 'Customer Name',
+        systemName: 'Support System',
+        currentDate: new Date().toLocaleDateString(),
+        currentTime: new Date().toLocaleTimeString()
+      })
+      
+      // No action buttons (no self-service portal available)
+      const defaultActionButton = null
 
       config = await prisma.emailTypeConfig.create({
         data: {
@@ -45,7 +58,30 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
           introText: defaultConfig.introText || '',
           footerText: defaultConfig.footerText || 'Best regards,<br>{{systemName}} Support Team',
           sections: JSON.stringify(defaultSections),
-          actionButton: JSON.stringify(defaultActionButton)
+          actionButton: defaultActionButton
+        }
+      })
+    }
+
+    // Check if existing config has empty sections and update if needed
+    if (config && (config.sections === '[]' || config.sections === '')) {
+      const defaultSections = generateEmailSections(type, {
+        // Sample variables for generation
+        ticketNumber: 'T-123456',
+        ticketSubject: 'Sample Subject',
+        ticketStatus: 'Open',
+        ticketPriority: 'High',
+        ticketCreatedAt: new Date().toLocaleString(),
+        customerName: 'Customer Name',
+        systemName: 'Support System',
+        currentDate: new Date().toLocaleDateString(),
+        currentTime: new Date().toLocaleTimeString()
+      })
+      
+      config = await prisma.emailTypeConfig.update({
+        where: { type },
+        data: {
+          sections: JSON.stringify(defaultSections)
         }
       })
     }

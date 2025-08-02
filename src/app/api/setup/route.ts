@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isSetupComplete, markSetupComplete } from '@/lib/setup'
 import bcrypt from 'bcryptjs'
+import { createDefaultEmailTemplates } from '@/lib/email-template-service'
+import { forceUpdateEmailTypeConfigs } from '@/lib/email-type-config-seeder'
 
 export async function POST(request: NextRequest) {
   try {
@@ -55,6 +57,12 @@ export async function POST(request: NextRequest) {
         role: 'ADMIN'
       }
     })
+
+    // Initialize default email templates
+    await createDefaultEmailTemplates()
+
+    // Initialize email type configurations with default sections
+    await forceUpdateEmailTypeConfigs()
 
     // Mark setup as complete
     await markSetupComplete()
