@@ -16,16 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
-
-interface CustomStatus {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
+import { CustomStatus } from '@/types/ticket'
 
 interface CommentToolbarProps {
   commentType: 'internal' | 'external'

@@ -4,6 +4,7 @@ import {
   EMAIL_TYPE_CONFIGS, 
   generateEmailSections, 
   generateActionButton, 
+  getEmailSectionsFromConfig,
   renderSections, 
   renderActionButton,
   UnifiedEmailData,
@@ -354,8 +355,10 @@ async function renderUnifiedTemplate(
     disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
   }
 
-  // Start with base template
-  let html = BASE_EMAIL_TEMPLATE
+  // Load base template from database or use fallback
+  let html = systemSettings?.emailBaseTemplate && systemSettings.emailBaseTemplateActive 
+    ? systemSettings.emailBaseTemplate 
+    : BASE_EMAIL_TEMPLATE
 
   // Render header title with hide option
   const emailHeaderTitleHtml = renderEmailHeaderTitle(
@@ -384,7 +387,7 @@ async function renderUnifiedTemplate(
     introText: processedEmailData.introText,
     footerText: processedEmailData.footerText,
     disclaimerText: processedEmailData.disclaimerText,
-    buttonColor: actionButton?.color || '#2563eb',
+    buttonColor: (actionButton as { color?: string } | null)?.color || '#2563eb',
     emailLogo: emailLogoHtml,
     emailAppName: emailAppNameHtml,
     emailSlogan: emailSloganHtml,
@@ -677,7 +680,7 @@ export async function createTestEmailTemplate(
   }
   
   const baseConfig = EMAIL_TYPE_CONFIGS[type] || {}
-  const sections = generateEmailSections(type, fullVariables as Record<string, unknown>)
+  const sections = await getEmailSectionsFromConfig(type, fullVariables as Record<string, unknown>)
   const actionButton = generateActionButton(type, fullVariables as Record<string, unknown>)
   
   // Get system settings for email logo configuration
@@ -714,7 +717,10 @@ export async function createTestEmailTemplate(
     disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
   }
 
-  let html = BASE_EMAIL_TEMPLATE
+  // Load base template from database or use fallback
+  let html = systemSettings?.emailBaseTemplate && systemSettings.emailBaseTemplateActive 
+    ? systemSettings.emailBaseTemplate 
+    : BASE_EMAIL_TEMPLATE
 
   // Render header title with hide option
   const emailHeaderTitleHtml = renderEmailHeaderTitle(
@@ -743,7 +749,7 @@ export async function createTestEmailTemplate(
     introText: processedEmailData.introText,
     footerText: processedEmailData.footerText,
     disclaimerText: processedEmailData.disclaimerText,
-    buttonColor: actionButton?.color || '#2563eb',
+    buttonColor: (actionButton as { color?: string } | null)?.color || '#2563eb',
     emailLogo: emailLogoHtml,
     emailAppName: emailAppNameHtml,
     emailSlogan: emailSloganHtml,

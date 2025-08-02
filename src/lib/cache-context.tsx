@@ -1,24 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-
-interface CustomStatus {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
-
-interface CustomPriority {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
+import { CustomStatus, CustomPriority } from '@/types/ticket'
 
 interface CacheContextType {
   statuses: CustomStatus[]

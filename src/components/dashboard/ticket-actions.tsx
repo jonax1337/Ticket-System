@@ -5,33 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCache } from '@/lib/cache-context'
 import { toast } from 'sonner'
+import { TicketBasic, UserBasic } from '@/types/ticket'
 // Removed enum imports - now using dynamic string values
 
-interface User {
-  id: string
-  name: string
-  email: string
-}
-
-interface Ticket {
-  id: string
-  status: string
-  priority: string
-  assignedTo: {
-    id: string
-    name: string
-    email: string
-  } | null
-}
-
 interface TicketActionsProps {
-  ticket: Ticket
-  users: User[]
+  ticket: TicketBasic
+  users: UserBasic[]
   currentUser: {
     id: string
     role: string
   }
-  onUpdate?: (updatedTicket: Partial<Ticket>) => void
+  onUpdate?: (updatedTicket: Partial<TicketBasic>) => void
 }
 
 export default function TicketActions({ ticket, users, onUpdate }: TicketActionsProps) {

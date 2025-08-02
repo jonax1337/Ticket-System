@@ -666,8 +666,8 @@ export async function sendExternalEmail(options: SendEmailOptions): Promise<bool
     // Build email subject with ticket number
     const emailSubject = `[Ticket ${options.ticketNumber}] ${options.subject}`
 
-    // Clean up content - remove [EMAIL] prefix if present
-    const cleanContent = options.content.replace(/^\[EMAIL\]\s*/, '')
+    // Use content as-is (no prefix cleanup needed)
+    const cleanContent = options.content
 
     console.log(`Sending email with ${options.attachments?.length || 0} attachments`)
     if (options.attachments && options.attachments.length > 0) {

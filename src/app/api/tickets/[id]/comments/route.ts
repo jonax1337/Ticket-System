@@ -71,7 +71,9 @@ export async function POST(
       )
     }
 
-    const sanitizedContent = content.trim().substring(0, 10000) // Limit content length
+    // Normalize line endings and limit content length
+    const normalizedContent = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+    const sanitizedContent = normalizedContent.trim().substring(0, 10000)
     const sanitizedType = ['internal', 'external'].includes(type) ? type : 'internal'
 
     // Validate participants for external comments
@@ -214,7 +216,7 @@ export async function POST(
               toName: recipientName,
               ticketId: params.id,
               variables: {
-                commentContent: content.trim(),
+                commentContent: content.trim().replace(/\n/g, '<br>'),
                 commentAuthor: session.user.name,
                 commentCreatedAt: new Date().toLocaleString(),
                 actorName: session.user.name,

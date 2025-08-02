@@ -14,22 +14,11 @@ import {
 } from '@/components/ui/popover'
 import { UserAvatar } from '@/components/ui/user-avatar'
 import { toast } from 'sonner'
-
-interface Watcher {
-  id: string
-  userId: string
-  createdAt: Date
-  user: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  }
-}
+import { TicketWatcher as TicketWatcherType } from '@/types/ticket'
 
 interface TicketWatcherProps {
   ticketId: string
-  initialWatchers: Watcher[]
+  initialWatchers: TicketWatcherType[]
   currentUserId: string
   currentUserRole: string
 }
@@ -40,7 +29,7 @@ export default function TicketWatcher({
   currentUserId, 
   currentUserRole 
 }: TicketWatcherProps) {
-  const [watchers, setWatchers] = useState<Watcher[]>(initialWatchers)
+  const [watchers, setWatchers] = useState<TicketWatcherType[]>(initialWatchers)
   const [isLoading, setIsLoading] = useState(false)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { BASE_EMAIL_TEMPLATE } from '@/lib/email-base-template'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -218,6 +219,17 @@ export default function EmailTemplateManager() {
       toast.error('Failed to fetch template configuration')
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const handleResetBase = () => {
+    if (confirm('Are you sure you want to reset the template to default? This will overwrite your current template.')) {
+      setBaseFormData({
+        ...baseFormData,
+        htmlTemplate: BASE_EMAIL_TEMPLATE,
+        disclaimerText: 'This email was sent from {{systemName}} support system.'
+      })
+      toast.success('Template reset to default')
     }
   }
 
@@ -666,13 +678,23 @@ export default function EmailTemplateManager() {
                     </div>
 
                     <div className="p-6 border-t flex-shrink-0">
-                      <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-                          Cancel
+                      <DialogFooter className="flex flex-row items-center justify-between w-full">
+                        <Button 
+                          variant="ghost" 
+                          onClick={handleResetBase}
+                          className="text-orange-600 hover:text-orange-700 hover:bg-orange-50 dark:hover:bg-orange-950"
+                        >
+                          <RefreshCw className="mr-2 h-4 w-4" />
+                          Reset to Default
                         </Button>
-                        <Button onClick={handleSaveBase} disabled={isLoading}>
-                          {isLoading ? 'Saving...' : 'Save Template'}
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                            Cancel
+                          </Button>
+                          <Button onClick={handleSaveBase} disabled={isLoading}>
+                            {isLoading ? 'Saving...' : 'Save Template'}
+                          </Button>
+                        </div>
                       </DialogFooter>
                     </div>
                   </DialogContent>
@@ -1168,6 +1190,20 @@ export default function EmailTemplateManager() {
                     <Label>Email Content:</Label>
                     <div className="border rounded bg-white dark:bg-slate-900 overflow-hidden">
                       <iframe
+                        ref={(iframe) => {
+                          if (iframe) {
+                            // Use timeout to ensure both tabs are rendered
+                            setTimeout(() => {
+                              const sourceContainer = document.getElementById('html-source-container');
+                              if (sourceContainer) {
+                                const sourceHeight = sourceContainer.scrollHeight;
+                                const dynamicHeight = Math.max(sourceHeight, 900);
+                                iframe.style.height = dynamicHeight + 'px';
+                                console.log('Setting iframe height to:', dynamicHeight, 'px based on source height:', sourceHeight, 'px');
+                              }
+                            }, 100);
+                          }
+                        }}
                         srcDoc={`
                           <!DOCTYPE html>
                           <html>
@@ -1192,7 +1228,8 @@ export default function EmailTemplateManager() {
                             </body>
                           </html>
                         `}
-                        className="w-full h-96 border-0"
+                        className="w-full border-0"
+                        style={{ height: '900px', minHeight: '900px' }}
                         title="Email Preview"
                         sandbox="allow-same-origin"
                       />
@@ -1203,7 +1240,11 @@ export default function EmailTemplateManager() {
                   <TabsContent value="source" className="space-y-4">
                   <div className="space-y-2">
                     <Label>HTML Source:</Label>
-                    <div className="border rounded p-4 bg-muted/30">
+                    <div 
+                      id="html-source-container"
+                      className="border rounded p-4 bg-muted/30"
+                      style={{ height: 'auto', minHeight: '900px' }}
+                    >
                       <pre className="whitespace-pre-wrap text-xs font-mono overflow-x-auto">
                         {previewData.htmlContent}
                       </pre>

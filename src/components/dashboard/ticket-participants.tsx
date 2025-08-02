@@ -21,14 +21,7 @@ import {
 import { Plus, Mail, UserPlus, Users, Trash2, Crown, UserX, User, Edit } from 'lucide-react'
 import { toast } from 'sonner'
 import { CustomerAvatar } from '@/components/ui/customer-avatar'
-
-interface TicketParticipant {
-  id: string
-  email: string
-  name?: string | null
-  type: string // "creator", "cc", "added_manually"
-  createdAt: Date
-}
+import { TicketParticipant } from '@/types/ticket'
 
 interface TicketParticipantsProps {
   ticketId: string
@@ -100,10 +93,12 @@ export default function TicketParticipants({ ticketId, participants, requester, 
     // Create optimistic participant
     const optimisticParticipant: TicketParticipant = {
       id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique temporary ID
+      ticketId,
       email: newParticipant.email.trim(),
       name: newParticipant.name.trim() || newParticipant.email.trim(),
       type: newParticipant.type,
-      createdAt: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
     
     // Optimistic update

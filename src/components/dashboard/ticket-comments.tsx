@@ -33,65 +33,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
-
-interface Comment {
-  id: string
-  content: string
-  fullEmailContent?: string | null // Full email content including history for email replies
-  sentToEmails?: string | null // Comma-separated emails this external comment was sent to
-  createdAt: Date
-  // type ist nicht in der Datenbank, wir leiten es aus dem Content ab
-  user: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  } | null // Can be null for external email replies
-  fromName?: string | null // Name of external user for email replies
-  fromEmail?: string | null // Email of external user for email replies
-  attachments?: {
-    id: string
-    filename: string
-    filepath: string
-    mimetype: string
-    size: number
-  }[]
-}
-
-interface Ticket {
-  id: string
-  status: string
-  comments: Comment[]
-  participants?: {
-    id: string
-    email: string
-    name?: string | null
-    type: string
-    createdAt: Date
-  }[]
-  fromEmail: string
-  fromName: string | null
-}
-
-interface CustomStatus {
-  id: string
-  name: string
-  icon: string
-  color: string
-  order: number
-  isDefault: boolean
-}
+import { TicketWithComments, UserBasic, CustomStatus, Comment as TicketComment } from '@/types/ticket'
 
 interface TicketCommentsProps {
-  ticket: Ticket
-  currentUser: {
-    id: string
-    name: string
-    email: string
-    avatarUrl?: string | null
-  }
-  onTicketUpdate?: (updatedFields: Partial<Ticket>) => void
+  ticket: TicketWithComments
+  currentUser: UserBasic
+  onTicketUpdate?: (updatedFields: Partial<TicketWithComments>) => void
 }
 
 export default function TicketComments({ ticket, currentUser, onTicketUpdate }: TicketCommentsProps) {
@@ -159,11 +106,12 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
     setEditorSerializedState(serializedState)
   }
 
-  // Extract mentions from serialized editor state
+  // Extract mentions from serialized editor state (plain text for UI)
   const extractMentionsFromState = (serializedState: unknown): string => {
     const state = serializedState as { root?: { children?: unknown[] } }
     if (!serializedState || !state.root || !state.root.children) {
-      return newComment
+      // Normalize line endings in fallback
+      return newComment.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
     }
 
     let result = ''
@@ -194,7 +142,15 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
     }
 
     state.root.children.forEach((child) => processNode(child as Record<string, unknown>))
-    return result || newComment
+    
+    // Normalize line endings in result
+    const finalResult = result || newComment
+    return finalResult.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+  }
+
+  // Convert plain text with mentions to HTML for email
+  const convertToEmailHTML = (text: string): string => {
+    return text.replace(/\n/g, '<br>')
   }
 
   const formatFileSize = (bytes: number) => {
@@ -294,20 +250,22 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
       const isStatusChanging = nextStatus && nextStatus !== ticket.status
       const previousStatus = ticket.status
       
-      // Wenn wir einen externen Kommentar schicken, fügen wir einen Präfix für die Anzeige hinzu
-      const commentContent = commentType === 'external' 
-        ? `[EMAIL] ${processedComment.trim()}`
-        : processedComment.trim()
+      // Externe Kommentare erhalten kein Prefix - das wird nur für die Email-Versendung verwendet
+      const commentContent = processedComment.trim()
 
       // Create optimistic comment
-      const optimisticComment: Comment = {
+      const optimisticComment: TicketComment = {
         id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // More unique temporary ID
         content: commentContent + (isStatusChanging ? ` [STATUS_CHANGE] Status changed from "${previousStatus}" to "${nextStatus}"` : ''),
         fullEmailContent: null,
         sentToEmails: commentType === 'external' && selectedParticipants.length > 0 
           ? selectedParticipants.join(', ') 
           : null,
+        type: commentType,
+        ticketId: ticket.id,
+        userId: currentUser.id,
         createdAt: new Date(),
+        updatedAt: new Date(),
         user: {
           id: currentUser.id,
           name: currentUser.name,
@@ -321,7 +279,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
 
       // Optimistic updates
       const updatedComments = [...ticket.comments, optimisticComment]
-      const updatedFields: Partial<Ticket> = { comments: updatedComments }
+      const updatedFields: Partial<TicketWithComments> = { comments: updatedComments }
       
       if (isStatusChanging) {
         updatedFields.status = nextStatus
@@ -389,7 +347,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
         
         // Replace the optimistic comment with the real one
         const finalComments = [...originalComments, newCommentData]
-        const finalUpdatedFields: Partial<Ticket> = { comments: finalComments }
+        const finalUpdatedFields: Partial<TicketWithComments> = { comments: finalComments }
         
         // Update status only if the change was successful
         if (isStatusChanging && statusUpdateSuccess) {
@@ -687,22 +645,21 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                     {comment.user ? comment.user.name : (comment.fromName || 'External User')}
                   </span>
                   
-                  {/* Check for email types and display appropriate badges */}
+                  {/* Check for comment types and display appropriate badges */}
                   {(() => {
-                    const isEmailReply = comment.content.startsWith('[EMAIL REPLY]')
-                    const isEmail = comment.content.startsWith('[EMAIL]')
-                    const isEmailType = isEmailReply || isEmail
+                    // Use the type from database instead of content prefixes
+                    const isExternal = comment.type === 'external'
                     
                     return (
                       <div className="flex items-center gap-2">
                         <Badge 
                           variant="outline" 
-                          className={isEmailType
+                          className={isExternal
                             ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800' 
                             : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/30 dark:text-slate-400 dark:border-slate-800'}
                         >
                           <span className="flex items-center gap-1 text-xs">
-                            {isEmailType ? (
+                            {isExternal ? (
                               <>
                                 <Mail className="h-3 w-3" />
                                 <span>Extern</span>
@@ -716,7 +673,7 @@ export default function TicketComments({ ticket, currentUser, onTicketUpdate }: 
                           </span>
                         </Badge>
                         
-                        {isEmailReply && (
+                        {comment.content.startsWith('[EMAIL REPLY]') && (
                           <Badge 
                             variant="secondary"
                             className="bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800"

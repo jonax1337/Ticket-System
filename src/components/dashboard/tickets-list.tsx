@@ -21,56 +21,17 @@ import {
 } from '@/components/ui/alert-dialog'
 import { toast } from 'sonner'
 import { useCache } from '@/lib/cache-context'
-
-interface Ticket {
-  id: string
-  ticketNumber?: string | null
-  subject: string
-  description: string
-  status: string
-  priority: string
-  fromEmail: string
-  fromName: string | null
-  dueDate?: Date | null
-  createdAt: Date
-  updatedAt: Date
-  assignedTo: {
-    id: string
-    name: string
-    email: string
-  } | null
-  queue?: {
-    id: string
-    name: string
-    color: string
-    icon: string
-  } | null
-  comments: {
-    id: string
-  }[]
-}
-
-interface PaginationInfo {
-  currentPage: number
-  totalPages: number
-  totalCount: number
-  hasNextPage: boolean
-  hasPrevPage: boolean
-  limit: number
-}
-
-interface TicketsListProps {
-  tickets: Ticket[]
-  isAdmin?: boolean
-  pagination?: PaginationInfo
-}
-
-type SortField = 'id' | 'subject' | 'status' | 'priority' | 'fromName' | 'assignedTo' | 'createdAt' | 'comments'
-type SortDirection = 'asc' | 'desc'
+import { 
+  TicketBasic, 
+  PaginationInfo, 
+  TicketListProps, 
+  SortField, 
+  SortDirection 
+} from '@/types/ticket'
 
 // Removed - using unified icon system
 
-export default function TicketsList({ tickets, isAdmin = false, pagination }: TicketsListProps) {
+export default function TicketsList({ tickets, isAdmin = false, pagination }: TicketListProps) {
   const router = useRouter()
   const [sortField, setSortField] = useState<SortField>('createdAt')
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
@@ -167,7 +128,7 @@ export default function TicketsList({ tickets, isAdmin = false, pagination }: Ti
       )}
     </button>
   )
-  const getDisplayTicketNumber = (ticket: Ticket) => {
+  const getDisplayTicketNumber = (ticket: TicketBasic) => {
     // Use the generated ticket number if available, otherwise fallback to ID-based number
     return ticket.ticketNumber || `#${ticket.id.slice(-6).toUpperCase()}`
   }
