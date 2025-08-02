@@ -1190,6 +1190,20 @@ export default function EmailTemplateManager() {
                     <Label>Email Content:</Label>
                     <div className="border rounded bg-white dark:bg-slate-900 overflow-hidden">
                       <iframe
+                        ref={(iframe) => {
+                          if (iframe) {
+                            // Use timeout to ensure both tabs are rendered
+                            setTimeout(() => {
+                              const sourceContainer = document.getElementById('html-source-container');
+                              if (sourceContainer) {
+                                const sourceHeight = sourceContainer.scrollHeight;
+                                const dynamicHeight = Math.max(sourceHeight, 900);
+                                iframe.style.height = dynamicHeight + 'px';
+                                console.log('Setting iframe height to:', dynamicHeight, 'px based on source height:', sourceHeight, 'px');
+                              }
+                            }, 100);
+                          }
+                        }}
                         srcDoc={`
                           <!DOCTYPE html>
                           <html>
@@ -1214,7 +1228,8 @@ export default function EmailTemplateManager() {
                             </body>
                           </html>
                         `}
-                        className="w-full h-96 border-0"
+                        className="w-full border-0"
+                        style={{ height: '900px', minHeight: '900px' }}
                         title="Email Preview"
                         sandbox="allow-same-origin"
                       />
@@ -1225,7 +1240,11 @@ export default function EmailTemplateManager() {
                   <TabsContent value="source" className="space-y-4">
                   <div className="space-y-2">
                     <Label>HTML Source:</Label>
-                    <div className="border rounded p-4 bg-muted/30">
+                    <div 
+                      id="html-source-container"
+                      className="border rounded p-4 bg-muted/30"
+                      style={{ height: 'auto', minHeight: '900px' }}
+                    >
                       <pre className="whitespace-pre-wrap text-xs font-mono overflow-x-auto">
                         {previewData.htmlContent}
                       </pre>
