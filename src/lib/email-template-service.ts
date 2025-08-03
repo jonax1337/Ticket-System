@@ -220,18 +220,14 @@ export async function renderEmailTemplate(
 /**
  * Render email logo HTML if logo should be shown
  */
-function renderEmailLogo(logoUrl: string | null, showLogo: boolean, monochromeLogo: boolean = false, headerColor: string = '#2563eb'): string {
+function renderEmailLogo(logoUrl: string | null, showLogo: boolean): string {
   if (!showLogo || !logoUrl) {
     return ''
   }
   
-  const logoStyle = monochromeLogo 
-    ? `filter: brightness(0) saturate(100%) invert(1) sepia(1) saturate(2) hue-rotate(210deg) brightness(0.8);` 
-    : '';
-  
   return `
     <div class="email-logo">
-      <img src="${logoUrl}" alt="Logo" style="${logoStyle}" />
+      <img src="${logoUrl}" alt="Logo" />
     </div>
   `
 }
@@ -324,9 +320,7 @@ async function renderUnifiedTemplate(
   const systemSettings = await prisma.systemSettings.findFirst()
   const emailLogoHtml = renderEmailLogo(
     systemSettings?.logoUrl || null,
-    systemSettings?.emailShowLogo ?? true,
-    systemSettings?.emailMonochromeLogo ?? false,
-    systemSettings?.emailHeaderColor ?? '#2563eb'
+    systemSettings?.emailShowLogo ?? true
   )
   const emailAppNameHtml = renderEmailAppName(
     systemSettings?.appName || 'Support Dashboard',
@@ -352,7 +346,7 @@ async function renderUnifiedTemplate(
     sections,
     actionButton: actionButton || undefined,
     footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Team',
-    disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
+    disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.<br><br>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>'
   }
 
   // Load base template from database or use fallback
@@ -687,9 +681,7 @@ export async function createTestEmailTemplate(
   const systemSettings = await prisma.systemSettings.findFirst()
   const emailLogoHtml = renderEmailLogo(
     systemSettings?.logoUrl || null,
-    systemSettings?.emailShowLogo ?? true,
-    systemSettings?.emailMonochromeLogo ?? false,
-    systemSettings?.emailHeaderColor ?? '#2563eb'
+    systemSettings?.emailShowLogo ?? true
   )
   const emailAppNameHtml = renderEmailAppName(
     systemSettings?.appName || 'Support Dashboard',
@@ -714,7 +706,7 @@ export async function createTestEmailTemplate(
     sections,
     actionButton: actionButton || undefined,
     footerText: baseConfig.footerText || 'Best regards,<br>{{systemName}} Team',
-    disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.'
+    disclaimerText: systemSettings?.emailDisclaimerText || 'This email was sent from {{systemName}} support system.<br><br>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>'
   }
 
   // Load base template from database or use fallback

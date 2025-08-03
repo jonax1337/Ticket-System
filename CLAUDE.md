@@ -26,7 +26,7 @@ When schema changes are made:
 
 **Recent Migration Notes (August 2025):**
 - Successfully migrated from MySQL to SQLite
-- Added missing email template fields (`emailMonochromeLogo`, `emailFixedHeaderColor`, etc.)
+- Added missing email template fields (`emailFixedHeaderColor`, etc.)
 - All email template configurations properly seeded on startup
 
 ## Email Template System - FULLY WORKING ✅

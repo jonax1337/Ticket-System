@@ -367,7 +367,6 @@ export interface SystemSettings {
   emailShowLogo: boolean
   emailHideAppName: boolean
   emailHideSlogan: boolean
-  emailMonochromeLogo: boolean
   emailFixedHeaderColor: boolean
   emailHeaderColor: string
   emailDisclaimerText: string

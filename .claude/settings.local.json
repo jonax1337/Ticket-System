@@ -28,7 +28,8 @@
       "Bash(find:*)",
       "WebFetch(domain:shadcn-ui-animated-tabs.vercel.app)",
       "Bash(git add:*)",
-      "WebFetch(domain:www.shadcnui-blocks.com)"
+      "WebFetch(domain:www.shadcnui-blocks.com)",
+      "Bash(npm run:*)"
     ],
     "deny": []
   }

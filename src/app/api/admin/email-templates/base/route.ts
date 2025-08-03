@@ -55,7 +55,6 @@ export async function GET() {
       showLogo: systemSettings.emailShowLogo ?? true,
       hideAppName: systemSettings.emailHideAppName ?? false,
       hideSlogan: systemSettings.emailHideSlogan ?? false,
-      monochromeLogo: systemSettings.emailMonochromeLogo ?? false,
       fixedHeaderColor: systemSettings.emailFixedHeaderColor ?? false,
       headerColor: systemSettings.emailHeaderColor ?? '#2563eb',
       disclaimerText: systemSettings.emailDisclaimerText ?? 'This email was sent from {{systemName}} support system.',
@@ -87,7 +86,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { subjectPrefix, htmlTemplate, isActive, showLogo, hideAppName, hideSlogan, monochromeLogo, fixedHeaderColor, headerColor, disclaimerText } = body
+    const { subjectPrefix, htmlTemplate, isActive, showLogo, hideAppName, hideSlogan, fixedHeaderColor, headerColor, disclaimerText } = body
 
     if (!subjectPrefix || !htmlTemplate) {
       return NextResponse.json(
@@ -106,7 +105,6 @@ export async function PUT(request: NextRequest) {
         emailShowLogo: showLogo !== undefined ? showLogo : true,
         emailHideAppName: hideAppName !== undefined ? hideAppName : false,
         emailHideSlogan: hideSlogan !== undefined ? hideSlogan : false,
-        emailMonochromeLogo: monochromeLogo !== undefined ? monochromeLogo : false,
         emailFixedHeaderColor: fixedHeaderColor !== undefined ? fixedHeaderColor : false,
         emailHeaderColor: headerColor || '#2563eb',
         emailDisclaimerText: disclaimerText || 'This email was sent from {{systemName}} support system.',
@@ -121,7 +119,6 @@ export async function PUT(request: NextRequest) {
         emailShowLogo: showLogo !== undefined ? showLogo : true,
         emailHideAppName: hideAppName !== undefined ? hideAppName : false,
         emailHideSlogan: hideSlogan !== undefined ? hideSlogan : false,
-        emailMonochromeLogo: monochromeLogo !== undefined ? monochromeLogo : false,
         emailFixedHeaderColor: fixedHeaderColor !== undefined ? fixedHeaderColor : false,
         emailHeaderColor: headerColor || '#2563eb',
         emailDisclaimerText: disclaimerText || 'This email was sent from {{systemName}} support system.'
@@ -136,7 +133,6 @@ export async function PUT(request: NextRequest) {
       showLogo: systemSettings.emailShowLogo,
       hideAppName: systemSettings.emailHideAppName,
       hideSlogan: systemSettings.emailHideSlogan,
-      monochromeLogo: systemSettings.emailMonochromeLogo,
       fixedHeaderColor: systemSettings.emailFixedHeaderColor,
       headerColor: systemSettings.emailHeaderColor,
       disclaimerText: systemSettings.emailDisclaimerText,

@@ -498,7 +498,6 @@ export const BASE_EMAIL_TEMPLATE = `
     <!-- Footer -->
     <div class="email-footer">
       <p><strong>{{disclaimerText}}</strong></p>
-      <p>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a></p>
     </div>
   </div>
 </body>

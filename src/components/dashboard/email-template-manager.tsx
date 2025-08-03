@@ -48,7 +48,6 @@ interface BaseTemplateConfig {
   showLogo: boolean
   hideAppName: boolean
   hideSlogan: boolean
-  monochromeLogo: boolean
   fixedHeaderColor: boolean
   headerColor: string
   disclaimerText: string
@@ -169,10 +168,9 @@ export default function EmailTemplateManager() {
     showLogo: true,
     hideAppName: false,
     hideSlogan: false,
-    monochromeLogo: false,
     fixedHeaderColor: false,
     headerColor: '#2563eb',
-    disclaimerText: 'This email was sent from {{systemName}} support system.'
+    disclaimerText: 'This email was sent from {{systemName}} support system.<br><br>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>'
   })
 
   // Type configuration form data
@@ -197,10 +195,9 @@ export default function EmailTemplateManager() {
           showLogo: baseData.showLogo ?? true,
           hideAppName: baseData.hideAppName ?? false,
           hideSlogan: baseData.hideSlogan ?? false,
-          monochromeLogo: baseData.monochromeLogo ?? false,
           fixedHeaderColor: baseData.fixedHeaderColor ?? false,
           headerColor: baseData.headerColor ?? '#2563eb',
-          disclaimerText: baseData.disclaimerText ?? 'This email was sent from {{systemName}} support system.'
+          disclaimerText: baseData.disclaimerText ?? 'This email was sent from {{systemName}} support system.<br><br>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>'
         })
       }
 
@@ -225,9 +222,15 @@ export default function EmailTemplateManager() {
   const handleResetBase = () => {
     if (confirm('Are you sure you want to reset the template to default? This will overwrite your current template.')) {
       setBaseFormData({
-        ...baseFormData,
+        subjectPrefix: '[Ticket {{ticketNumber}}]',
         htmlTemplate: BASE_EMAIL_TEMPLATE,
-        disclaimerText: 'This email was sent from {{systemName}} support system.'
+        isActive: true,
+        showLogo: true,
+        hideAppName: false,
+        hideSlogan: false,
+        fixedHeaderColor: false,
+        headerColor: '#2563eb',
+        disclaimerText: 'This email was sent from {{systemName}} support system.<br><br>If you believe you received this email in error, please contact us at <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>'
       })
       toast.success('Template reset to default')
     }
@@ -488,16 +491,6 @@ export default function EmailTemplateManager() {
                                 <Label htmlFor="showLogo">Show logo in emails</Label>
                               </div>
                               
-                              {baseFormData.showLogo && (
-                                <div className="flex items-center space-x-2 ml-6">
-                                  <Checkbox
-                                    id="monochromeLogo"
-                                    checked={baseFormData.monochromeLogo}
-                                    onCheckedChange={(checked) => setBaseFormData({ ...baseFormData, monochromeLogo: !!checked })}
-                                  />
-                                  <Label htmlFor="monochromeLogo">Make logo monochrome (uses header color)</Label>
-                                </div>
-                              )}
                             </>
                           )}
                           
@@ -792,13 +785,6 @@ export default function EmailTemplateManager() {
                           <span>Slogan {baseTemplate.slogan && !baseTemplate.hideSlogan ? 'Shown' : 'Hidden'}</span>
                         </div>
                       </div>
-                      
-                      {baseTemplate.monochromeLogo && baseTemplate.showLogo && (
-                        <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-950/30 rounded text-sm">
-                          <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                          <span>Logo will be displayed in monochrome using header color</span>
-                        </div>
-                      )}
                       
                       {baseTemplate.fixedHeaderColor && (
                         <div className="flex items-center gap-2 p-2 bg-purple-50 dark:bg-purple-950/30 rounded text-sm">
