@@ -39,6 +39,12 @@ import {
   Palette
 } from 'lucide-react'
 import { toast } from 'sonner'
+import EmailSectionBuilder from './email-section-builder'
+import { 
+  EmailContentSectionNew, 
+  convertNewSectionToOld, 
+  convertOldSectionToNew 
+} from '@/lib/email-section-templates'
 
 interface BaseTemplateConfig {
   id: string
@@ -74,6 +80,7 @@ interface EmailTypeConfig {
   introText: string
   footerText: string
   sections: EmailContentSection[]
+  newSections?: EmailContentSectionNew[] // New section system
   actionButton: {
     text: string
     url: string
@@ -138,13 +145,6 @@ const availableVariables = {
   'currentTime': 'Current time when email is sent'
 }
 
-const sectionStyles = [
-  { value: 'default', label: 'Default', color: '#2563eb' },
-  { value: 'info', label: 'Info', color: '#0891b2' },
-  { value: 'success', label: 'Success', color: '#059669' },
-  { value: 'warning', label: 'Warning', color: '#f59e0b' },
-  { value: 'error', label: 'Error', color: '#dc2626' }
-]
 
 export default function EmailTemplateManager() {
   const [activeTab, setActiveTab] = useState('base')
@@ -175,6 +175,7 @@ export default function EmailTemplateManager() {
 
   // Type configuration form data
   const [typeFormData, setTypeFormData] = useState<Partial<EmailTypeConfig>>({})
+  const [useNewSectionSystem, setUseNewSectionSystem] = useState(true)
 
   useEffect(() => {
     fetchData()
@@ -269,12 +270,26 @@ export default function EmailTemplateManager() {
 
     setIsLoading(true)
     try {
+      // Convert new sections back to old format for API compatibility
+      let sectionsToSave = typeFormData.sections || []
+      if (useNewSectionSystem && typeFormData.newSections) {
+        sectionsToSave = typeFormData.newSections.map(section => 
+          convertNewSectionToOld(section)
+        )
+      }
+
+      const dataToSave = {
+        ...typeFormData,
+        sections: sectionsToSave
+      }
+      delete dataToSave.newSections // Remove from API payload
+
       const response = await fetch(`/api/admin/email-templates/types/${selectedType}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(typeFormData),
+        body: JSON.stringify(dataToSave),
       })
 
       if (response.ok) {
@@ -314,7 +329,22 @@ export default function EmailTemplateManager() {
       const response = await fetch(`/api/admin/email-templates/types/${type}`)
       if (response.ok) {
         const config = await response.json()
-        setTypeFormData(config)
+        
+        // Convert old sections to new format if needed
+        let newSections: EmailContentSectionNew[] = []
+        if (config.sections && Array.isArray(config.sections)) {
+          newSections = config.sections.map((section: EmailContentSection, index: number) => 
+            convertOldSectionToNew(section)
+          )
+          newSections.forEach((section, index) => {
+            section.order = index
+          })
+        }
+        
+        setTypeFormData({
+          ...config,
+          newSections
+        })
         setSelectedType(type)
       } else {
         toast.error('Failed to load type configuration')
@@ -348,51 +378,59 @@ export default function EmailTemplateManager() {
     }
   }
 
-  const addSection = () => {
-    if (!typeFormData.sections) return
-    const newSection: EmailContentSection = {
-      title: 'New Section',
-      content: '<p>Section content goes here...</p>',
-      style: 'default'
+  const handleResetType = async (templateType: string) => {
+    const typeLabel = templateTypes.find(t => t.value === templateType)?.label || templateType
+    
+    if (!confirm(`Are you sure you want to reset "${typeLabel}" email configuration to default? This will overwrite all current settings and sections for this email type.`)) {
+      return
     }
-    setTypeFormData({
-      ...typeFormData,
-      sections: [...typeFormData.sections, newSection]
-    })
+
+    setIsLoading(true)
+    try {
+      const response = await fetch(`/api/admin/email-templates/types/${templateType}/reset`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+
+      if (response.ok) {
+        const updatedConfig = await response.json()
+        
+        // Update the email types state with the reset configuration
+        setEmailTypes(prev => prev.map(config => 
+          config.type === templateType 
+            ? { 
+                ...updatedConfig, 
+                sections: (() => {
+                  try { return JSON.parse(updatedConfig.sections) } 
+                  catch { return [] }
+                })(),
+                actionButton: (() => {
+                  try { return updatedConfig.actionButton ? JSON.parse(updatedConfig.actionButton) : null }
+                  catch { return null }
+                })()
+              }
+            : config
+        ))
+        
+        toast.success(`"${typeLabel}" email configuration reset to default successfully`)
+      } else {
+        const error = await response.json()
+        toast.error(error.error || 'Failed to reset email configuration')
+      }
+    } catch (err) {
+      console.error('Failed to reset email configuration:', err)
+      toast.error('Failed to reset email configuration')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const updateSection = (index: number, field: keyof EmailContentSection, value: string) => {
-    if (!typeFormData.sections) return
-    const updatedSections = [...typeFormData.sections]
-    updatedSections[index] = { ...updatedSections[index], [field]: value }
+  const handleNewSectionsChange = (newSections: EmailContentSectionNew[]) => {
     setTypeFormData({
       ...typeFormData,
-      sections: updatedSections
-    })
-  }
-
-  const removeSection = (index: number) => {
-    if (!typeFormData.sections) return
-    const updatedSections = typeFormData.sections.filter((_, i) => i !== index)
-    setTypeFormData({
-      ...typeFormData,
-      sections: updatedSections
-    })
-  }
-
-  const moveSection = (index: number, direction: 'up' | 'down') => {
-    if (!typeFormData.sections) return
-    const newIndex = direction === 'up' ? index - 1 : index + 1
-    if (newIndex < 0 || newIndex >= typeFormData.sections.length) return
-
-    const updatedSections = [...typeFormData.sections]
-    const temp = updatedSections[index]
-    updatedSections[index] = updatedSections[newIndex]
-    updatedSections[newIndex] = temp
-
-    setTypeFormData({
-      ...typeFormData,
-      sections: updatedSections
+      newSections
     })
   }
 
@@ -872,24 +910,32 @@ export default function EmailTemplateManager() {
                               </div>
                             </div>
                           )}
-                          <div className="flex gap-2">
+                          <div className="grid grid-cols-3 gap-2">
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => openEditType(type.value)}
-                              className="flex-1"
                             >
-                              <Edit className="h-4 w-4 mr-2" />
+                              <Edit className="h-4 w-4 mr-1" />
                               Configure
                             </Button>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => handlePreview(type.value)}
-                              className="flex-1"
                             >
-                              <Eye className="h-4 w-4 mr-2" />
+                              <Eye className="h-4 w-4 mr-1" />
                               Preview
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleResetType(type.value)}
+                              disabled={isLoading}
+                              className="text-orange-600 hover:text-orange-700 hover:bg-orange-50 dark:hover:bg-orange-950"
+                            >
+                              <RefreshCw className="h-4 w-4 mr-1" />
+                              Reset
                             </Button>
                           </div>
                         </CardContent>
@@ -981,11 +1027,12 @@ export default function EmailTemplateManager() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="greeting">Greeting</Label>
-                        <Input
+                        <Textarea
                           id="greeting"
                           value={typeFormData.greeting || ''}
                           onChange={(e) => setTypeFormData({ ...typeFormData, greeting: e.target.value })}
                           placeholder="Hello {{customerName}},"
+                          className="min-h-[60px]"
                         />
                       </div>
                       <div className="space-y-2">
@@ -1013,122 +1060,34 @@ export default function EmailTemplateManager() {
 
                   <Separator />
 
-                  {/* Content Sections */}
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-medium">Content Sections</h4>
-                      <Button onClick={addSection} size="sm">
-                        <Plus className="h-4 w-4 mr-1" />
-                        Add Section
-                      </Button>
-                    </div>
-                    
-                    {typeFormData.sections && typeFormData.sections.length > 0 ? (
-                      <div className="space-y-4">
-                        {typeFormData.sections.map((section, index) => (
-                          <div key={index} className="border rounded-lg p-4">
-                            <div className="flex items-center justify-between mb-3">
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium">Section {index + 1}</span>
-                                <Select
-                                  value={section.style}
-                                  onValueChange={(value) => updateSection(index, 'style', value)}
-                                >
-                                  <SelectTrigger className="w-auto min-w-[100px] h-8">
-                                    <SelectValue />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {sectionStyles.map(style => (
-                                      <SelectItem key={style.value} value={style.value}>
-                                        <div className="flex items-center gap-2">
-                                          <div 
-                                            className="w-3 h-3 rounded border" 
-                                            style={{ backgroundColor: style.color }}
-                                          ></div>
-                                          {style.label}
-                                        </div>
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => moveSection(index, 'up')}
-                                  disabled={index === 0}
-                                >
-                                  <ArrowUp className="h-3 w-3" />
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => moveSection(index, 'down')}
-                                  disabled={index === typeFormData.sections!.length - 1}
-                                >
-                                  <ArrowDown className="h-3 w-3" />
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => removeSection(index)}
-                                >
-                                  <Trash2 className="h-3 w-3" />
-                                </Button>
-                              </div>
-                            </div>
-                            
-                            <div className="space-y-3">
-                              <div>
-                                <Label htmlFor={`section-title-${index}`}>Section Title</Label>
-                                <Input
-                                  id={`section-title-${index}`}
-                                  value={section.title}
-                                  onChange={(e) => updateSection(index, 'title', e.target.value)}
-                                  placeholder="Section title"
-                                />
-                              </div>
-                              <div>
-                                <Label htmlFor={`section-content-${index}`}>Section Content</Label>
-                                <Textarea
-                                  id={`section-content-${index}`}
-                                  value={section.content}
-                                  onChange={(e) => updateSection(index, 'content', e.target.value)}
-                                  placeholder="Section content (HTML allowed)"
-                                  className="min-h-[100px] font-mono text-sm"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="text-center py-8 border-2 border-dashed border-muted rounded-lg">
-                        <FileText className="mx-auto h-8 w-8 text-muted-foreground" />
-                        <h3 className="mt-2 text-sm font-semibold text-muted-foreground">No sections configured</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          Add content sections to customize this email type.
-                        </p>
-                        <Button onClick={addSection} className="mt-4" size="sm">
-                          <Plus className="h-4 w-4 mr-1" />
-                          Add First Section
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+                  {/* Content Sections - New System */}
+                  <EmailSectionBuilder
+                    sections={typeFormData.newSections || []}
+                    onSectionsChange={handleNewSectionsChange}
+                  />
                 </>
               )}
             </div>
 
             <div className="p-6 border-t flex-shrink-0">
-              <DialogFooter>
-                <Button variant="outline" onClick={() => { setSelectedType(null); setTypeFormData({}) }}>
-                  Cancel
+              <DialogFooter className="flex flex-row items-center justify-between w-full">
+                <Button 
+                  variant="ghost" 
+                  onClick={() => selectedType && handleResetType(selectedType)}
+                  disabled={isLoading}
+                  className="text-orange-600 hover:text-orange-700 hover:bg-orange-50 dark:hover:bg-orange-950"
+                >
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Reset to Default
                 </Button>
-                <Button onClick={handleSaveType} disabled={isLoading}>
-                  {isLoading ? 'Saving...' : 'Save Configuration'}
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => { setSelectedType(null); setTypeFormData({}) }}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleSaveType} disabled={isLoading}>
+                    {isLoading ? 'Saving...' : 'Save Configuration'}
+                  </Button>
+                </div>
               </DialogFooter>
             </div>
           </DialogContent>
